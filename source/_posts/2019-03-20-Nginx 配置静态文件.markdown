@@ -1,0 +1,72 @@
+---
+layout:     post
+subtitle:   "不忘初心，方得始终"
+title:      "Nginx 配置访问静态文件"
+date:       2019-03-20
+author:     "mattmeng"
+header-img: "img/in-post/nginx.jpg"
+header-mask: 0.3
+
+catalog:    true
+tags:
+    - Nginx
+    - linux
+---
+
+# Nginx 配置访问静态文件
+# 1.配置
+
+    有两种方式可以设置访问静态文件配置
+
+>alias
+
+    通过alias关键字重新定义路径
+
+    server {
+        listen 8088;
+        server_name 127.0.0.1;
+        location /img/ {
+            alias /home/img
+        }
+    }
+
+    浏览器访问
+        http://127.0.0.1:8088/img/img01.jpg
+    对应服务器路径为
+        /home/img/img01.jpg
+
+>root
+
+    通过root关键字重新定义路径
+
+    server {
+        listem 8088;
+        server_name 127.0.0.1
+        location /imgtest/ {
+            root /home/img
+        }
+    }
+    浏览器访问
+        http://127.0.0.1:8088/img/img01.jpg
+    对应服务器路径
+        /home/img/imgtest/img01.jpg
+
+>备注
+
+    由于两种配置解析路径的方式不同，导致实际对应服务器路径也不相同。
+
+    root会把location配置的路径追加到root的指定路径上面
+    alias会直接把指定的路径当做访问路径进行访问
+
+    特别注意root的方式
+
+
+>如有侵权行为，请[点击这里](https://github.com/mattmengCooper/jekyll_blog/issues)联系我删除
+
+>[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/jekyll_blog/issues)
+
+# 备注
+
+>2019年3月20日添加
+
+    亲测可用

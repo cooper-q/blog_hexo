@@ -1,0 +1,288 @@
+---
+layout:     post
+title:      "Mac使用ab并发测试工具"
+subtitle:   "不忘初心，方得始终"
+date:       2018-05-17
+author:     "mattmeng"
+
+header-mask: 0.3
+
+catalog:    true
+tags:
+    - AB
+    - linux
+    - Mac
+---
+
+# 1.在Mac中配置Apache
+
+## 1.启动Apache，打开终端
+
+     sudo apachectl -v
+
+     显示如下：
+
+        Server version: Apache/2.4.28 (Unix)
+        Server built:   Oct 29 2017 19:28:54
+
+    sudo apachectl start
+
+    这样Apache就启动了。打开Safari浏览器地址栏输入 “http://localhost”，可以看到内容为“It works!”的页面
+
+## 2.设置虚拟端终机
+
+>打开Apache的配置文件
+
+    sudo vi /etc/apache2/httpd.conf
+
+>在httpd.conf中找到“#Include /private/etc/apache2/extra/httpd-vhosts.conf”，去掉前面的“＃”，保存并退出，去掉这一行的#意思是从/extra/httpd-vhosts.conf这个文件导入虚拟主机配置。
+
+    #Include /private/etc/apache2/extra/httpd-vhosts.conf
+
+> 重启Apache
+
+    sudo apachectl restart
+
+>运行如下命令：
+
+    sudo vi /etc/apache2/extra/httpd-vhosts.conf
+
+    就打开了配置虚拟主机文件httpd-vhost.conf，配置虚拟主机了。需要注意的是该文件默认开启了两个作为例子的虚拟主机：
+
+    <VirtualHost *:80>
+        ServerAdmin webmaster@dummy-host.example.com
+        DocumentRoot "/usr/docs/dummy-host.example.com"
+        ServerName dummy-host.example.com
+        ErrorLog "/private/var/log/apache2/dummy-host.example.com-error_log"
+        CustomLog "/private/var/log/apache2/dummy-host.example.com-access_log" common
+    </VirtualHost>
+
+    <VirtualHost *:80>
+        ServerAdmin webmaster@dummy-host2.example.com
+        DocumentRoot "/usr/docs/dummy-host2.example.com"
+        ServerName dummy-host2.example.com
+        ErrorLog "/private/var/log/apache2/dummy-host2.example.com-error_log"
+        CustomLog "/private/var/log/apache2/dummy-host2.example.com-access_log" common
+    </VirtualHost>
+
+>需要增加如下配置：
+
+    <VirtualHost *:80>
+        DocumentRoot "/Library/WebServer/Documents"
+        ServerName localhost
+        ErrorLog "/private/var/log/apache2/localhost-error_log"
+        CustomLog "/private/var/log/apache2/localhost-access_log" common
+    </VirtualHost>
+
+    <VirtualHost *:80>
+        DocumentRoot "/Users/snandy/work"
+        ServerName mysites
+        ErrorLog "/private/var/log/apache2/sites-error_log"
+        CustomLog "/private/var/log/apache2/sites-access_log" common
+    <Directory />
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride None
+                Order deny,allow
+                Allow from all
+      </Directory>
+    </VirtualHost>
+
+>保存并退出
+
+    :wq
+    sudo apachectl restart
+
+
+# 2.压测
+
+## 1.参数说明
+
+    -n 在测试会话中所执行的请求个数。默认时，仅执行一个请求。
+
+    -c 一次产生的请求个数。默认是一次一个。
+
+    -t 测试所进行的最大秒数。其内部隐含值是-n 50000，它可以使对服务器的测试限制在一个固定的总时间以内。默认时，没有时间限制。
+
+    -p 包含了需要POST的数据的文件。
+
+    -P 对一个中转代理提供BASIC认证信任。用户名和密码由一个:隔开，并以base64编码形式发送。无论服务器是否需要(即, 是否发送了401认证需求代码)，此字符串都会被发送。
+
+    -T POST数据所使用的Content-type头信息。
+
+    -v 设置显示信息的详细程度-4或更大值会显示头信息，3或更大值可以显示响应代码(404,200等),2或更大值可以显示警告和其他信息。
+
+    -V 显示版本号并退出。
+
+    -w 以HTML表的格式输出结果。默认时，它是白色背景的两列宽度的一张表。
+
+    -i 执行HEAD请求，而不是GET。
+
+    -x 设置<table>属性的字符串。
+
+    -X 对请求使用代理服务器。
+
+    -y 设置<tr>属性的字符串。
+
+    -z 设置<td>属性的字符串。
+
+    -C 对请求附加一个Cookie:行。其典型形式是name=value的一个参数对，此参数可以重复。
+
+    -H 对请求附加额外的头信息。此参数的典型形式是一个有效的头信息行，其中包含了以冒号分隔的字段和值的对(如,"Accept-Encoding:zip/zop;8bit")。
+
+    -A 对服务器提供BASIC认证信任。用户名和密码由一个:隔开，并以base64编码形式发送。无论服务器是否需要(即,是否发送了401认证需求代码)，此字符串都会被发送。
+
+    -h 显示使用方法。
+
+    -d 不显示"percentage served within XX [ms] table"的消息(为以前的版本提供支持)。
+
+    -e 产生一个以逗号分隔的(CSV)文件，其中包含了处理每个相应百分比的请求所需要(从1%到100%)的相应百分比的(以微妙为单位)时间。由于这种格式已经“二进制化”，所以比'gnuplot'格式更有用。
+
+    -g 把所有测试结果写入一个'gnuplot'或者TSV(以Tab分隔的)文件。此文件可以方便地导入到Gnuplot,IDL,Mathematica,Igor甚至Excel中。其中的第一行为标题。
+
+    -i 执行HEAD请求，而不是GET。
+
+    -k 启用HTTP KeepAlive功能，即在一个HTTP会话中执行多个请求。默认时，不启用KeepAlive功能。
+
+    -q 如果处理的请求数大于150，ab每处理大约10%或者100个请求时，会在stderr输出一个进度计数。此-q标记可以抑制这些信息。
+
+## 2.ab性能指标
+
+    1、吞吐率（Requests per second）
+
+        服务器并发处理能力的量化描述，单位是reqs/s，指的是在某个并发用户数下单位时间内处理的请求数。某个并发用户数下单位时间内能处理的最大请求数，称之为最大吞吐率。
+
+        记住：吞吐率是基于并发用户数的。这句话代表了两个含义：
+
+        a、吞吐率和并发用户数相关
+
+        b、不同的并发用户数下，吞吐率一般是不同的
+
+        计算公式：总请求数/处理完成这些请求数所花费的时间，即
+
+        Request per second=Complete requests/Time taken for tests
+
+        必须要说明的是，这个数值表示当前机器的整体性能，值越大越好。
+
+    2、并发连接数（The number of concurrent connections）
+
+        并发连接数指的是某个时刻服务器所接受的请求数目，简单的讲，就是一个会话。
+
+    3、并发用户数（Concurrency Level）
+
+        要注意区分这个概念和并发连接数之间的区别，一个用户可能同时会产生多个会话，也即连接数。在HTTP/1.1下，IE7支持两个并发连接，IE8支持6个并发连接，FireFox3支持4个并发连接，所以相应的，我们的并发用户数就得除以这个基数。
+
+    4、用户平均请求等待时间（Time per request）
+
+        计算公式：处理完成所有请求数所花费的时间/（总请求数/并发用户数），即：
+
+        Time per request=Time taken for tests/（Complete requests/Concurrency Level）
+
+    5、服务器平均请求等待时间（Time per request:across all concurrent requests）
+
+        计算公式：处理完成所有请求数所花费的时间/总请求数，即：
+
+        Time taken for/testsComplete requests
+
+        可以看到，它是吞吐率的倒数。
+
+        同时，它也等于用户平均请求等待时间/并发用户数，即
+
+        Time per request/Concurrency Level
+>其余返回值说明
+
+    Server Software
+        表示被测试的Web服务器软件名称。
+
+    Server Hostname
+        表示请求的URL主机名。
+
+    Server Port
+        表示被测试的Web服务器软件的监听端口。
+
+    Document Path
+        表示请求的URL中的根绝对路径，通过该文件的后缀名，我们一般可以了解该请求的类型。
+
+    Document Length
+        表示HTTP响应数据的正文长度。
+
+    Concurrency Level
+        表示并发用户数，这是我们设置的参数之一。
+
+    Time taken for tests
+        表示所有这些请求被处理完成所花费的总时间。
+
+    Complete requests
+        表示总请求数量，这是我们设置的参数之一。
+
+    Failed requests
+        表示失败的请求数量，这里的失败是指请求在连接服务器、发送数据等环节发生异常，以及无响应后超时的情况。如果接收到的HTTP响应数据的头信息中含有2XX以外的状态码，则会在测试结果中显示另一个名为“Non-2xx responses”的统计项，用于统计这部分请求数，这些请求并不算在失败的请求中。
+
+    Total transferred
+        表示所有请求的响应数据长度总和，包括每个HTTP响应数据的头信息和正文数据的长度。注意这里不包括HTTP请求数据的长度，仅仅为web服务器流向用户PC的应用层数据总长度。
+
+    HTML transferred
+        表示所有请求的响应数据中正文数据的总和，也就是减去了Total transferred中HTTP响应数据中的头信息的长度。
+
+    Requests per second吞吐率，计算公式：Complete requests/Time taken for tests
+
+    Time per request用户平均请求等待时间，计算公式：Time token for tests/（Complete requests/Concurrency Level）。
+
+    Time per requet(across all concurrent request)服务器平均请求等待时间，计算公式：Time taken for tests/Complete requests，正好是吞吐率的倒数。也可以这么统计：Time per request/Concurrency Level。
+
+    Transfer rate表示这些请求在单位时间内从服务器获取的数据长度，计算公式：Total trnasferred/ Time taken for tests，这个统计很好的说明服务器的处理能力达到极限时，其出口宽带的需求量。
+
+    Percentage of requests served within a certain time（ms）这部分数据用于描述每个请求处理时间的分布情况，比如以上测试，80%的请求处理时间都不超过6ms，这个处理时间是指前面的Time per request，即对于单个用户而言，平均每个请求的处理时间。
+## 3.ab实际使用
+
+    ab的命令参数比较多，我们经常使用的是-c和-n参数
+
+    ab -c 10 -n 100 http://xx.com
+
+    -c 10表示并发用户数为10
+
+    -n 100表示请求总数为100
+
+>关于登录的问题
+
+    有时候进行压力测试需要用户登录，怎么办？
+    请参考以下步骤：
+
+    先用账户和密码登录后，用开发者工具找到标识这个会话的Cookie值（Session ID）记下来
+
+    如果只用到一个Cookie，那么只需键入命令：
+    ab －n 100 －C key＝value http://test.com/
+
+    如果需要多个Cookie，就直接设Header：
+    ab -n 100 -H “Cookie: Key1=Value1; Key2=Value2” http://test.com/
+
+## 4.注意问题
+
+>如果出现apr_socket_recv: Connection reset by peer 类似的错误
+
+    apr_socket_recv这个是操作系统内核的一个参数，在高并发的情况下，内核会认为系统受到了SYN flood攻击，会发送cookies（possible SYN flooding on port 80. Sending cookies），这样会减慢影响请求的速度，所以在应用服务武器上设置下这个参数为0禁用系统保护就可以进行大并发测试了
+
+    # vim /etc/sysctl.conf
+    net.ipv4.tcp_syncookies = 0
+    # sysctl -p
+    然后就可以超过1000个并发测试了。
+
+>其余参数说明
+
+    net.ipv4.tcp_syncookies = 0
+    #此参数是为了防止洪水攻击的，但对于大并发系统，要禁用此设置
+
+    net.ipv4.tcp_max_syn_backlog
+    #参数决定了SYN_RECV状态队列的数量，一般默认值为512或者1024，即超过这个数量，系统将不再接受新的TCP连接请求，一定程度上可以防止系统资源耗尽。可根据情况增加该值以接受更多的连接请求。
+
+    net.ipv4.tcp_tw_recycle
+    #参数决定是否加速TIME_WAIT的sockets的回收，默认为0。
+
+    net.ipv4.tcp_tw_reuse
+    #参数决定是否可将TIME_WAIT状态的sockets用于新的TCP连接，默认为0。
+
+
+    net.ipv4.tcp_max_tw_buckets
+    #参数决定TIME_WAIT状态的sockets总数量，可根据连接数和系统资源需要进行设置。
+>如有侵权行为，请[点击这里](https://github.com/mattmengCooper/jekyll_blog/issues)联系我删除
+
+>[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/jekyll_blog/issues)

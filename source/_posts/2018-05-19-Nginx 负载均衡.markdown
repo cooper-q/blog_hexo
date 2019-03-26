@@ -1,0 +1,195 @@
+---
+layout:     post
+title:      "Nginx 负载均衡"
+subtitle:   "不忘初心，方得始终"
+date:       2018-05-19
+author:     "mattmeng"
+header-img: "img/in-post/nginx.jpg"
+header-mask: 0.3
+
+catalog:    true
+tags:
+    - Nginx
+    - linux
+---
+# 1.内置负载均衡策略
+
+## 1.负载均衡类型
+### 1.轮询（默认）
+
+    Nginx 根据请求的次数，将每个请求均匀分配到每台服务器。
+
+    优点：服务器请求数目相同
+
+    缺点：服务器压力不一样，不适合服务器配置不同的情况
+
+### 2.最少连接数
+
+    将请求分配给连接数最少的服务器。Nginx会统计哪些服务器的连接数最少。
+
+    优点：根据服务器当前的请求处理情况，动态分配；
+
+    缺点：算法实现相对复杂，需要监控服务器请求连接数。（nginx）
+
+### 3.IP Hash
+
+    绑定处理请求的服务器。第一次请求时，根据该客户端的IP算出一个HASH值，将请求分配到集群中的某一台服务器上。后面该客户端的所有请求，都将通过HASH算法，找到之前处理这台客户端请求的服务器，然后将请求交给它来处理。
+
+    优点：将来自同一IP地址的请求，同一会话期内，转发到相同的服务器；实现会话粘滞。
+
+    缺点：目标服务器宕机后，会话会丢失；
+
+
+### 4.权重比
+
+    在轮询，随机，最少链接，Hash’等算法的基础上，通过加权的方式，进行负载服务器分配。
+
+    优点：根据权重，调节转发服务器的请求数目；
+
+    缺点：使用相对复杂；
+
+## 2.负载均衡参数介绍
+
+    http {
+        # ... 省略其它配置
+        upsteam lb {
+            server 192.168.1.100:3000;
+            server 192.168.1.101:3000;
+            server 192.168.1.102:3000;
+        }
+
+        server {
+            listem 80;
+            server_name  xx.mengxc.info;
+            root /home/matt/project/backend_lb;
+            location / {
+                proxy_pass http://lb
+            }
+        }
+
+        # ... 省略其它配置
+    }
+
+>proxy_pass http://lb
+
+    表示将所有请求转发到tomcats服务器组中配置的某一台服务器上。
+
+>upsteam
+
+    配置反向代理服务器组，Nginx会根据配置，将请求分发给组里的某一台服务器。lb是服务器组的名称。
+
+>upstream server
+
+    配置处理请求的服务器IP或域名，端口可选，不配置默认使用80端口。通过上面的配置，Nginx默认将请求依次分配给100，101，102来处理，
+
+>通过修改参数来改变分配策略
+
+### 1.weight 权重比
+
+    upsteam lb {
+        server 192.168.1.100:3000 weight=2; # 2/6次
+        server 192.168.1.101:3000 weight=3; # 3/6次
+        server 192.168.1.102:3000 weight=1; # 1/6次
+    }
+
+    上例配置，表示6次请求中，100分配2次，101分配3次，102分配1次，使用这种方法必须要保证会话一致性。
+
+### 2.least_conn 最少连接数
+
+    upsteam lb {
+        least_conn:
+        server 192.168.1.100:3000;
+        server 192.168.1.101:3000;
+        server 192.168.1.102:3000;
+    }
+
+    会根据服务器的不同连接数，来分配服务器。使用这种方法必须要保证会话一致性。
+
+### 3.ip_hash
+
+    请注意，通过循环或最不连接的负载平衡，每个后续客户端的请求都可能被分发到不同的服务器。不能保证相同的客户端总是定向到相同的服务器。
+
+    如果需要将客户端绑定到特定的应用程序服务器 - 换句话说，就始终尝试选择特定服务器而言，要使客户端的会话“粘滞”或“持久” - ip-hash负载平衡机制可以是用过的。
+
+    使用ip-hash，客户端的IP地址将用作散列键，以确定应该为客户端请求选择服务器组中的哪台服务器。此方法可确保来自同一客户端的请求始终会定向到同一服务器，除非此服务器不可用
+
+    upsteam lb {
+        ip_hash:
+        server 192.168.1.100:3000;
+        server 192.168.1.101:3000;
+        server 192.168.1.102:3000;
+    }
+
+### 4.max_fails
+
+    默认为1。某台Server允许请求失败的次数，超过最大次数后，在fail_timeout时间内，新的请求将不会分配给这台机器。如果设置为0，Nginx会将这台Server置为永久无效状态，然后将请求发给定义了proxy_next_upstream, fastcgi_next_upstream, uwsgi_next_upstream, scgi_next_upstream, and memcached_next_upstream指令来处理这次错误的请求。
+
+### 5.fail_timeout
+
+    默认为10秒。某台Server达到max_fails次失败请求后，在fail_timeout期间内，nginx会认为这台Server暂时不可用，不会将请求分配给它
+
+    upstream tomcats {
+        server 192.168.0.100:3000 weight=2 max_fails=3 fail_timeout=15;
+        server 192.168.0.101:3000 weight=3;
+        server 192.168.0.102:3000 weight=1;
+    }
+
+    192.168.0.100这台机器，如果有3次请求失败，nginx在15秒内，不会将新的请求分配给它。
+
+### 6.backup
+
+    备份机
+    upstream tomcats {
+        server 192.168.0.100:3000 weight=2 max_fails=3 fail_timeout=15;
+        server 192.168.0.101:3000 weight=3;
+        server 192.168.0.102:3000 backup;
+    }
+    在100和101都挂了之前，102为不可用状态，不会将请求分配给它。只有当100和101都挂了，102才会被启用。
+
+### 7.down
+
+    标识某一台server不可用。
+    upstream tomcats {
+        server 192.168.0.100:3000 weight=2 max_fails=3 fail_timeout=15;
+        server 192.168.0.101:3000 down;
+        server 192.168.0.102:3000 backup;
+    }
+    表示101这台Server为无效状态，不会将请求分配给它。
+
+### 8.max_conns
+
+    限制分配给某台Server处理的最大连接数量，超过这个数量，将不会分配新的连接给它。默认为0，表示不限制。注意：1.5.9之后的版本才有这个配置
+
+    upstream tomcats {
+        server 192.168.0.100:3000 max_conns=1000;
+    }
+    表示最多给100这台Server分配1000个请求，如果这台Server正在处理1000个请求，nginx将不会分配新的请求给到它。假如有一个请求处理完了，还剩下999个请求在处理，这时nginx也会将新的请求分配给它。
+
+
+### 9.resolve
+
+    将server指令配置的域名，指定域名解析服务器。需要在http模块下配置resolver指令，指定域名解析服务
+
+    http {
+        resolver 10.0.0.1;
+
+        upstream u {
+            zone ...;
+            ...
+            server example.com resolve;
+        }
+    }
+
+    表示example.com域名，由10.0.0.1服务器来负责解析。
+
+### 10.route=string
+
+    设置服务器路由名称
+
+>其余参数设置可以查看一下网址
+
+>[nginx 参数详情链接](http://nginx.org/en/docs/http/ngx_http_upstream_module.html#server)
+
+>如有侵权行为，请[点击这里](https://github.com/mattmengCooper/jekyll_blog/issues)联系我删除
+
+>[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/jekyll_blog/issues)

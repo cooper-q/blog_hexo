@@ -1,0 +1,66 @@
+---
+layout:     post
+title:      "siege并发测试"
+subtitle:   "不忘初心，方得始终"
+date:       2017-9-13
+author:     "mattmeng"
+header-mask: 0.3
+
+catalog:    true
+tags:
+    - linux
+    - siege
+---
+
+1.模拟并发
+
+    Siege命令常用参数
+        -c 200 指定并发数200
+        -r 5指定测试的次数5
+        -f urls.txt指定url的文件
+        -i internet 系统 随机发送url
+        -b 请求无需等待 delay=0，请求无延迟
+        -t 5 持续测试五分钟
+        -d 请求之间的延迟
+        -H 指定请求头
+        -R 指定一个siegerc文件
+        -A 指定user-agent
+        -T 指定content-type="text"
+
+2.常用示例
+
+    #200个并发对http://www.baidu.com 发送请求100次
+
+        siege -c 200 -r 100 http://www.baidu.com
+
+    -f #在urls.txt中列出所有的网址
+
+        siege -c 200 -r 100 -f urls.txt
+
+    -b #delay=0,更准确的压力测试，而不是功能测试
+
+        siege -c 200 -r 100 -f urls.txt -i -b
+
+    -H #指定http请求头 文档类型
+
+        siege -H 'Content-Type:application/json' -c 200 -r 100 -f urls.txt -i -b
+    #post 请求
+
+        siege -c 100 -r 1 'http://mengxc.test.semioe.com/api/demo POST p1=2'
+
+    输出结果
+
+        Transactions 总共测试次数
+        Availability 成功次数百分比
+        Elapsed time 总共耗时多少妙
+        Data transferred 总共数据传输
+        Response time 等到响应耗时
+        Transaction rate 平均每秒处理的请求数
+        Throughput 吞吐量
+        Concurrency 最高并发
+        Successful transcations 成功的请求数
+        Failed transactions 失败的请求数
+
+>如有侵权行为，请[点击这里](https://github.com/mattmengCooper/jekyll_blog/issues)联系我删除
+
+[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/jekyll_blog/issues)

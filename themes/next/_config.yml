@@ -45,7 +45,7 @@ favicon:
 # Set rss to false to disable feed link.
 # Leave rss as blank to use site's feed link, and install hexo-generator-feed: `npm install hexo-generator-feed --save`.
 # Set rss to specific value if you have burned your feed already.
-rss:
+rss: false
 
 footer:
   # Specify the date when the site was setup. If not defined, current year will be used.
@@ -200,8 +200,8 @@ site_state: true
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
-  GitHub: https://github.com/mattmengCooper || github
-#E-Mail: mailto:yourname@gmail.com || envelope
+  GitHub: https://github.com/mattmengCooper/MattMeng_hexo || github
+  E-Mail: matt.meng@aliyun.com || envelope
 #Weibo: https://weibo.com/yourname || weibo
 #Google: https://plus.google.com/yourname || google
 #Twitter: https://twitter.com/yourname || twitter
@@ -224,7 +224,11 @@ links_layout: block
 #links_layout: inline
 links:
   #Title: http://example.com
-  Google: http://www.google.com/
+  #Google: http://www.google.com/
+  袜子是一只狗: https://blog.csdn.net/sinat_29843547
+  靳懿: http://blog.geeek.info/
+  追风少年王狗剩: http://blog.shayne.wang/
+  什么不要问先Google: https://www.google.com
 
 # Sidebar Avatar
 avatar:
