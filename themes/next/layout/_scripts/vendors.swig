@@ -68,5 +68,6 @@
 
 {% for name, internal in js_vendors %}
   {% set internal_script = url_for(theme.vendors._internal + '/' + internal) %}
+  <span>{{ internal_script }}</span>
   <script src="{{ theme.vendors[name] | default(internal_script) }}"></script>
 {% endfor %}

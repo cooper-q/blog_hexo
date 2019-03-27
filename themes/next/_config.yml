@@ -35,10 +35,10 @@ cache:
 # ---------------------------------------------------------------
 
 favicon:
-  small: /images/f2324a25a6b3d23af2b260c9dd852c12.jpg
-  medium: /images/f2324a25a6b3d23af2b260c9dd852c12.jpg
-  apple_touch_icon: /images/f2324a25a6b3d23af2b260c9dd852c12.jpg
-  safari_pinned_tab: /images/f2324a25a6b3d23af2b260c9dd852c12.jpg
+  small: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
+  medium: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
+  apple_touch_icon: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
+  safari_pinned_tab: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
@@ -551,7 +551,7 @@ pangu: false
 # Dependencies: https://github.com/theme-next/theme-next-quicklink
 # Visit https://github.com/GoogleChromeLabs/quicklink for details
 quicklink:
-  enable: true
+  enable: false
 
   # Quicklink (quicklink.umd.js script) is loaded on demand
   # Add `quicklink: true` in Front Matter of the page or post you need
@@ -1049,12 +1049,16 @@ canvas_ribbon:
 vendors:
   # Internal path prefix. Please do not edit it.
   _internal: lib
-
+  affix: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/affix.js
+  pisces: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pisces.js
+  next_boot: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/next-boot.js
+  utils: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/utils.js
+  motion: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/motion.js
   # Internal version: 2.1.3
   # Example:
   # jquery: //cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js
   # jquery: //cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js
-  jquery:
+  jquery: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/jquery/index.js
 
   # Internal version: 2.1.5 & 3.5.7
   # See: https://fancyapps.com/fancybox
@@ -1071,14 +1075,14 @@ vendors:
   # Example:
   # fastclick: //cdn.jsdelivr.net/npm/fastclick@1/lib/fastclick.min.js
   # fastclick: //cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js
-  fastclick:
+  fastclick: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/fastclick/fastclick.min.js
 
   # Internal version: 1.9.7
   # See: https://github.com/tuupola/jquery_lazyload
   # Example:
   # lazyload: //cdn.jsdelivr.net/npm/jquery-lazyload@1/jquery.lazyload.min.js
   # lazyload: //cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js
-  lazyload:
+  lazyload: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/jquery/jquery.lazyload.min.js
 
   # Internal version: 1.2.1
   # See: http://velocityjs.org
@@ -1087,8 +1091,8 @@ vendors:
   # velocity: //cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js
   # velocity_ui: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js
   # velocity_ui: //cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js
-  velocity:
-  velocity_ui:
+  velocity: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/velocity/velocity.min.js
+  velocity_ui: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/velocity/velocity.ui.min.js
 
   # Internal version: 4.6.2
   # See: https://fontawesome.com
@@ -1096,7 +1100,7 @@ vendors:
   # fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css
   # fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css
   fontawesome:
-
+  # https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/font_awesome/font-awesome.min.css
   # Internal version: 2.10.4
   # See: https://www.algolia.com
   # Example:
@@ -1110,7 +1114,7 @@ vendors:
   # Example:
   pace: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.min.js
   # pace: //cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js
-  # pace_css: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.css
+  pace_css: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace-theme-flash.min.css
   # pace_css: //cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css
   # pace: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.min.js
   # pace_css: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.css
@@ -1160,6 +1164,7 @@ vendors:
   # Example:
   # quicklink: //cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js
   quicklink:
+    enable: false
 
   # Internal version: 1.0.0
   # See: https://github.com/revir/need-more-share2
@@ -1221,7 +1226,7 @@ vendors:
   disqusjs_css:
 
 # Assets
-css: css
+css: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/css/main.css
 js: js
 images: images
 # authoricon: id-card
