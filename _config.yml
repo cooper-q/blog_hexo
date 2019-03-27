@@ -14,7 +14,10 @@ timezone:
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://blog.mengxc.info
-root: /
+# 线上配置
+root: /root/project/MattMeng_hexo
+# 本地配置
+# root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
