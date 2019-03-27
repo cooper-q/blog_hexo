@@ -1,9 +1,9 @@
 {%
   set boot_scripts = [
-    'src/next-boot.js'
+    'next_boot'
   ]
 %}
 
 {% for bs in boot_scripts %}
-  <script src="{{ url_for(theme.js) }}/{{ bs }}?v={{ version }}"></script>
+  <script src="{{ url_for(theme.vendors[bs])}}"></script>
 {% endfor %}
