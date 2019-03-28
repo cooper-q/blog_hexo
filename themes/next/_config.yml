@@ -376,7 +376,7 @@ reward_settings:
 
 reward:
   #wechatpay: /images/wechatpay.png
-  alipay: /images/alipay.png
+  alipay: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/image/alipay.png
 #bitcoin: /images/bitcoin.png
 
 # Related popular posts
