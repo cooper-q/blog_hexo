@@ -1100,7 +1100,7 @@ vendors:
   # fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css
   # fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css
   # fontawesome: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/font_awesome/font-awesome.min.css
-  fontawesome:
+  fontawesome: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/font-awesome/css/font-awesome.min.css
   # https:
   # Internal version: 2.10.4
   # See: https://www.algolia.com
