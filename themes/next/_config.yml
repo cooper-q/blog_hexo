@@ -120,7 +120,7 @@ disable_baidu_transformation: false
 canonical: true
 
 # Change headers hierarchy on site-subtitle (will be main site description) and on all post / page titles for better SEO-optimization.
-seo: false
+seo: true
 
 # If true, will add site-subtitle to index page, added in main hexo config.
 # subtitle: Subtitle
@@ -166,7 +166,7 @@ menu:
   #categories: /categories/ || th
   archives: /archives/ || archive
   #schedule: /schedule/ || calendar
-  #sitemap: /sitemap.xml || sitemap
+  sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
 
 # Enable / Disable menu icons / item badges.
@@ -375,7 +375,7 @@ reward_settings:
   #comment: Donate comment here
 
 reward:
-  #wechatpay: /images/wechatpay.png
+  wechatpay: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/image/wxpay.png
   alipay: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/image/alipay.png
 #bitcoin: /images/bitcoin.png
 

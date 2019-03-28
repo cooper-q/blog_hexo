@@ -211,6 +211,6 @@ tags:
 ### 重复信息的沉默度。
     #相同类别的信息只有前20条会输出到日志文件中。
     ;mute 20
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/jekyll_blog/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/jekyll_blog/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
