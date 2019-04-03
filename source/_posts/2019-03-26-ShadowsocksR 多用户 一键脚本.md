@@ -1,5 +1,5 @@
 ---
-layout: layout
+layout: post
 title: ShadowsocksR 多用户 一键脚本
 date: 2019-03-26
 tags: Shadowsocks、GFW
