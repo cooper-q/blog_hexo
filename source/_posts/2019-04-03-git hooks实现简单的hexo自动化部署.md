@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: git hooks实现简单的hexo自动化部署
-date: 2019-04-03 12:00:00
+date: 2019-04-03
 tags: GIT
 top: 100
 ---

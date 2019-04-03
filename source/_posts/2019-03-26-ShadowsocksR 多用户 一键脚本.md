@@ -1,7 +1,7 @@
 ---
 layout: layout
 title: ShadowsocksR 多用户 一键脚本
-date: 2019-03-26 18:00:00
+date: 2019-03-26
 tags: Shadowsocks、GFW
 top: 100
 password: ShadowsocksRPWD
