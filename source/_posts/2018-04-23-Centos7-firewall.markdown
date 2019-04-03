@@ -4,13 +4,13 @@ title:      "centos7-firewall"
 subtitle:   "不忘初心，方得始终"
 date:       2018-04-23
 author:     "mattmeng"
-header-img: "img/in-post/linux/firewall.png"
+header-img: "img/in-post/Linux/firewall.png"
 header-mask: 0.3
 
 catalog:    true
 tags:
     - firewall
-    - linux
+    - Linux
     - centos7
 ---
 

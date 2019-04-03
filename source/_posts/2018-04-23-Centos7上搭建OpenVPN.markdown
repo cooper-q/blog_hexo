@@ -4,13 +4,13 @@ title:      "Centos7上搭建OpenVPN.markdown"
 subtitle:   "不忘初心，方得始终"
 date:       2018-04-23
 author:     "mattmeng"
-header-img: "img/in-post/linux/openvpn.jpeg"
+header-img: "img/in-post/Linux/openvpn.jpeg"
 header-mask: 0.3
 
 catalog:    true
 tags:
     - OpenVPN
-    - linux
+    - Linux
     - centos7
 ---
 
@@ -194,7 +194,7 @@ tags:
 
     openvpn /etc/openvpn/server.conf &
 
-    Sat Apr  7 13:00:23 2018 OpenVPN 2.4.5 x86_64-redhat-linux-gnu [Fedora EPEL patched] [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] built on Mar  1 2018
+    Sat Apr  7 13:00:23 2018 OpenVPN 2.4.5 x86_64-redhat-Linux-gnu [Fedora EPEL patched] [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] built on Mar  1 2018
     Sat Apr  7 13:00:23 2018 library versions: OpenSSL 1.0.2k-fips  26 Jan 2017, LZO 2.06
     Sat Apr  7 13:00:23 2018 Diffie-Hellman initialized with 2048 bit key
     Sat Apr  7 13:00:23 2018 Outgoing Control Channel Authentication: Using 160 bit message hash 'SHA1' for HMAC authentication
@@ -225,7 +225,7 @@ tags:
     systemctl start openvpn@server.service
     #启动openvpn的命令
 
-### 8.使用（linux）
+### 8.使用（Linux）
 
     这里只介绍MacOs使用，如果想要科学上网建议使用ss，更快捷，更方便。
 

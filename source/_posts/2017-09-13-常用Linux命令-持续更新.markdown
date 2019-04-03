@@ -5,11 +5,11 @@ subtitle:   "不忘初心，方得始终"
 date:       2017-9-18
 author:     "mattmeng"
 header-mask: 0.3
-header-img: "img/in-post/linux/linux.jpg"
+header-img: "img/in-post/Linux/Linux.jpg"
 
 catalog:    true
 tags:
-    - linux
+    - Linux
 ---
 
 
@@ -180,7 +180,7 @@ tags:
     tar -jxvf benet.tar.gz bz2解压缩
     unzip 解压文件
 
-# <span style='color:red'>6.linux 打开关闭防火墙（待补充）</span>
+# <span style='color:red'>6.Linux 打开关闭防火墙（待补充）</span>
 
     service iptables statue
 
@@ -412,7 +412,7 @@ tags:
 >区别
 
     1、.sh文件
-        .sh为linux的脚本文件，可以通过.sh执行一些命令，可以理解为windows的bat的批处理文件。
+        .sh为Linux的脚本文件，可以通过.sh执行一些命令，可以理解为windows的bat的批处理文件。
 
     二、.命令
         .命令和source是同一命令。

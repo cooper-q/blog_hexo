@@ -10,7 +10,7 @@ header-mask: 0.3
 catalog:    true
 tags:
     - Nginx
-    - linux
+    - Linux
 ---
 # 1.内置负载均衡策略
 
