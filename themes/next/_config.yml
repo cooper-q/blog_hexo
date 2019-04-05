@@ -645,8 +645,8 @@ changyan:
 # More info available at https://valine.js.org
 valine:
   enable: false # When enable is set to be true, leancloud_visitors is recommended to be closed for the re-initialization problem within different leancloud adk version.
-  appid:  # your leancloud application appid
-  appkey:  # your leancloud application appkey
+  appid: aPpBc7LPFSyp0cyIJImKB70e# your leancloud application appid
+  appkey: mYzJtmCH8TR3GelttjWv6nDH# your leancloud application appkey
   notify: false # mail notifier, See: https://github.com/xCss/Valine/wiki
   verify: false # Verification code
   placeholder: Just go go # comment box placeholder
@@ -680,12 +680,12 @@ gitment:
 # Gitalk
 # Demo: https://gitalk.github.io
 gitalk:
-  enable: false
-  github_id:  # Github repo owner
-  repo:  # Repository name to store issues
-  client_id:  # Github Application Client ID
-  client_secret:  # Github Application Client Secret
-  admin_user:  # GitHub repo owner and collaborators, only these guys can initialize github issues
+  enable: true
+  github_id: mattmengCooper # Github repo owner
+  repo:  MattMeng_hexo # Repository name to store issues
+  client_id:  c3ceb652c3a08381e0c0# Github Application Client ID
+  client_secret:  124ed5190a92944ebfdd6e8240c2cc3ad9146e6f# Github Application Client Secret
+  admin_user:  mattmengCooper # GitHub repo owner and collaborators, only these guys can initialize github issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # Gitalk's display language depends on user's browser or system environment
   # If you want everyone visiting your site to see a uniform language, you can set a force language value
@@ -904,7 +904,7 @@ chatra:
 # See: https://www.tidiochat.com
 # Dashboard: https://www.tidiochat.com/panel/dashboard
 tidio:
-  enable: true
+  enable: false
   key: oidxe5pmleelmriowqh6dzabujuz7bay
   # Public Key, get it from Dashboard, See: https://www.tidiochat.com/panel/settings/developer
 
