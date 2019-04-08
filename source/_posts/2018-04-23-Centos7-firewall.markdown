@@ -6,7 +6,10 @@ date:       2018-04-23
 author:     "mattmeng"
 header-img: "img/in-post/Linux/firewall.png"
 header-mask: 0.3
-
+categories:
+    - Linux 
+    - centos7
+    - firewall
 catalog:    true
 tags:
     - firewall

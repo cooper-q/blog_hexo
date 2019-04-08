@@ -6,7 +6,9 @@ date:       2017-9-11
 author:     "mattmeng"
 header-img: "img/in-post/https_lets_encrypt/le-logo-wide.png"
 header-mask: 0.3
-
+categories:
+    - Nginx 
+    - HTTPS  
 catalog:    true
 tags:
     - HTTPS

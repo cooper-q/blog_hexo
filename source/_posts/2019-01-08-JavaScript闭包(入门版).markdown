@@ -6,7 +6,8 @@ date:       2019-01-08
 author:     "mattmeng"
 header-img: "img/in-post/JavaScript/JavaScript.png"
 header-mask: 0.3
-
+categories:
+    - JavaScript 
 catalog:    true
 tags:
     - JavaScript

@@ -6,7 +6,9 @@ date:       2019-03-20
 author:     "mattmeng"
 header-img: "img/in-post/nginx.jpg"
 header-mask: 0.3
-
+categories:
+    - Nginx 
+    - 静态文件
 catalog:    true
 tags:
     - Nginx

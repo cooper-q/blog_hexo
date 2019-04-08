@@ -6,7 +6,9 @@ date:       2019-03-04
 author:     "mattmeng"
 header-img: ""
 header-mask: 0.3
-
+categories:
+    - Mac 
+    - 软件
 catalog:    true
 tags:
     - Jetbrains、软件

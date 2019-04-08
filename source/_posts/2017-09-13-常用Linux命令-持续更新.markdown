@@ -6,7 +6,8 @@ date:       2017-9-18
 author:     "mattmeng"
 header-mask: 0.3
 header-img: "img/in-post/Linux/Linux.jpg"
-
+categories:
+    - Linux 
 catalog:    true
 tags:
     - Linux

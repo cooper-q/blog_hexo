@@ -7,6 +7,9 @@ top: 100
 password: ShadowsocksRPWD
 abstract: 此文章较为敏感，请点击右下角message图标向博主索要密码。
 message: 此文章较为敏感，请点击右下角message图标向博主索要密码。
+categories:
+    - Shadowsocks
+
 ---
 >系统要求
     

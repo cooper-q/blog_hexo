@@ -6,7 +6,9 @@ date:       2019-03-18
 author:     "mattmeng"
 header-img: "img/in-post/Mac/CleanMyMac X.png"
 header-mask: 0.3
-
+categories:
+    - Mac 
+    - 软件
 catalog:    true
 tags:
     - Mac、软件

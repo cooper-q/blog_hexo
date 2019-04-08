@@ -6,7 +6,9 @@ date:       2018-04-11
 author:     "mattmeng"
 header-img: "img/in-post/ssh/ssh.png"
 header-mask: 0.3
-
+categories:
+    - Linux 
+    - SSH
 catalog:    true
 tags:
     - ssh

@@ -6,7 +6,9 @@ date:       2018-05-17
 author:     "mattmeng"
 
 header-mask: 0.3
-
+categories:
+    - Mac 
+    - 并发测试
 catalog:    true
 tags:
     - AB

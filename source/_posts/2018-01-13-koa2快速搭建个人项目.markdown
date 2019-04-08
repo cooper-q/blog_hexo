@@ -6,7 +6,9 @@ date:       2018-1-13
 author:     "mattmeng"
 header-img: "img/in-post/koa2/koa2-logo.png"
 header-mask: 0.3
-
+categories:
+    - Node.js 
+    - koa2
 catalog:    true
 tags:
     - koa2

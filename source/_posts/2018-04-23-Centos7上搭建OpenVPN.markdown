@@ -6,7 +6,10 @@ date:       2018-04-23
 author:     "mattmeng"
 header-img: "img/in-post/Linux/openvpn.jpeg"
 header-mask: 0.3
-
+categories:
+    - Linux 
+    - centos7
+    - OpenVPN
 catalog:    true
 tags:
     - OpenVPN

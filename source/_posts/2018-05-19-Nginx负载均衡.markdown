@@ -6,7 +6,9 @@ date:       2018-05-19
 author:     "mattmeng"
 header-img: "img/in-post/nginx.jpg"
 header-mask: 0.3
-
+categories:
+    - Nginx 
+    - 负载均衡
 catalog:    true
 tags:
     - Nginx
