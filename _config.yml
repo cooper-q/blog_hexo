@@ -6,7 +6,7 @@
 title: Matt.Meng|Blog
 subtitle:
 description:
-keywords:
+keywords: Matt.Meng,Node.js,Git,Mac,Linux,Nginx
 author: Matt.Meng
 language: zh-CN
 timezone:
@@ -18,7 +18,8 @@ url: https://blog.mengxc.info
 #root: /root/project/MattMeng_hexo
 # 本地配置
 root: /
-permalink: :year/:month/:day/:title/
+# :year/:month/:day/:title/
+permalink: :title
 permalink_defaults:
 
 # Directory
@@ -107,3 +108,8 @@ symbols_count_time:
 
 encrypt:
   enable: true
+
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
