@@ -49,7 +49,7 @@ rss:
 
 footer:
   # Specify the date when the site was setup. If not defined, current year will be used.
-  #since: 2015
+  since: 2019
 
   # Icon between year and copyright info.
   icon:
@@ -383,8 +383,8 @@ reward:
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
 related_posts:
   enable: false
-  title: # custom header, leave empty to use the default one
-  display_in_home: false
+  title: 相关文章推荐 # custom header, leave empty to use the default one
+  display_in_home: true
   params:
     maxCount: 5
     #PPMixingRate: 0.0
@@ -547,11 +547,11 @@ han: false
 # For more information: https://github.com/vinta/pangu.js
 pangu: false
 
-# Quicklink Support
+# Quicklink Support 保存用户观看的位置
 # Dependencies: https://github.com/theme-next/theme-next-quicklink
 # Visit https://github.com/GoogleChromeLabs/quicklink for details
 quicklink:
-  enable: false
+  enable: true
 
   # Quicklink (quicklink.umd.js script) is loaded on demand
   # Add `quicklink: true` in Front Matter of the page or post you need
@@ -576,10 +576,10 @@ quicklink:
   #   - (uri, el) => el.hasAttribute('noopener')
   ignores:
 
-# Bookmark Support
+# Bookmark Support 保存用户观看的位置
 # Dependencies: https://github.com/theme-next/theme-next-bookmark
 bookmark:
-  enable: false
+  enable: true
   # If auto, save the reading position when closing the page or clicking the bookmark-icon.
   # If manual, only save it by clicking the bookmark-icon.
   save: auto
@@ -1164,9 +1164,9 @@ vendors:
   # Internal version: 1.0.0
   # See: https://github.com/GoogleChromeLabs/quicklink
   # Example:
-  # quicklink: //cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js
-  quicklink:
-    enable: false
+  quicklink: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/quicklink.umd.js
+  # quicklink:
+  # enable: false
 
   # Internal version: 1.0.0
   # See: https://github.com/revir/need-more-share2
@@ -1180,7 +1180,7 @@ vendors:
   # See: https://github.com/theme-next/theme-next-bookmark
   # Example:
   # bookmark: //cdn.jsdelivr.net/gh/theme-next/theme-next-bookmark@1/bookmark.min.js
-  bookmark:
+  bookmark: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/bookmark.min.js
 
   # Internal version: 1.1
   # See: https://github.com/theme-next/theme-next-reading-progress
@@ -1192,8 +1192,8 @@ vendors:
   # See: https://www.npmjs.com/package/leancloud-storage
   # Example:
   # leancloud: //cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js
-  leancloud:
-
+  # leancloud: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/av-min.js
+  #
   # valine
   # See: https://github.com/xCss/Valine
   # Example:
