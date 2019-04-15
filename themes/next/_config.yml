@@ -766,7 +766,7 @@ needmoreshare2:
 #growingio_analytics: #your projectId
 
 # Google Analytics
-#google_analytics:
+google_analytics: UA-138369346-1
 #  tracking_id:
 #  localhost_ignored: true
 
@@ -847,7 +847,7 @@ busuanzi_count:
   post_views_icon: eye
 
 # Tencent analytics ID
-tencent_analytics: 66390427
+# tencent_analytics: 66390427
 
 # Tencent MTA ID
 #tencent_mta:
