@@ -736,9 +736,9 @@ likely:
 # Weibo,Wechat,Douban,QQZone,Twitter,Facebook,Linkedin,Mailto,Reddit,Delicious,StumbleUpon,Pinterest,
 # GooglePlus,Tumblr,GoogleBookmarks,Newsvine,Evernote,Friendfeed,Vkontakte,Odnoklassniki,Mailru
 needmoreshare2:
-  enable: false
+  enable: true
   postbottom:
-    enable: false
+    enable: true
     options:
       iconStyle: box
       boxForm: horizontal
@@ -1171,10 +1171,10 @@ vendors:
   # Internal version: 1.0.0
   # See: https://github.com/revir/need-more-share2
   # Example:
-  # needmoreshare2_js: //cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js
-  # needmoreshare2_css: //cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css
-  needmoreshare2_js:
-  needmoreshare2_css:
+  #needmoreshare2_js: //cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js
+  #needmoreshare2_css: //cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css
+  needmoreshare2_js: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/needsharebutton.min.js
+  needmoreshare2_css: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/css/needsharebutton.min.css
 
   # Internal version: 1.0.0
   # See: https://github.com/theme-next/theme-next-bookmark
