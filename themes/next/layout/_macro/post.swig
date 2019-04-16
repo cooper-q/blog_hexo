@@ -14,7 +14,7 @@
     <div class="reading-progress-bar"></div>
   {% endif %}
 
-  <article class="{{ post_class }}" itemscope itemtype="http://schema.org/Article">
+  <article class="{{ post_class }}" itemscope itemtype="http://schema.org/Article" style="border-radius:16px;">
   {##################}
   {### POST BLOCK ###}
   {##################}

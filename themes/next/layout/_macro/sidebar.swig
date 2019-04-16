@@ -8,7 +8,7 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
+    <div class="sidebar-inner" style="border-radius:16px;">
 
       {% set display_toc = is_post and theme.toc.enable or is_page and theme.toc.enable %}
 
@@ -27,9 +27,11 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             {% if theme.avatar.url %}
+            <a href="/">
               <img class="site-author-image" itemprop="image"
                 src="{{ url_for( theme.avatar.url | default(theme.images + '/avatar.gif') ) }}"
                 alt="{{ author }}"/>
+            </a>
             {% endif %}
               <p class="site-author-name" itemprop="name">{{ author }}</p>
               <div class="site-description motion-element" itemprop="description">{{ description }}</div>

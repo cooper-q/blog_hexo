@@ -32,14 +32,14 @@
 
   <div class="{{ container_class }} {% block page_class %}{% endblock %}">
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner">{% include '_partials/header/index.swig' %}</div>
+      <div class="header-inner" style="border-radius:16px;">{% include '_partials/header/index.swig' %}</div>
     </header>
 
     {{ partial('_partials/github-banner.swig', {}, {cache: theme.cache.enable}) }}
 
     <main id="main" class="main">
       <div class="main-inner">
-        <div class="content-wrap">
+        <div class="content-wrap"  style="border-radius:16px;">
           {% if theme.scheme === 'Pisces' || theme.scheme === 'Gemini' %}
             {% include '_partials/header/sub-menu.swig' %}
           {% endif %}
