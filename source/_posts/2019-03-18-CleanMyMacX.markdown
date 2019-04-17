@@ -57,7 +57,7 @@ tags:
         终端运行 sudo spctl --master-disable
         更改为任何来源
 
->CleanMyMac X 因出现问题而无法打开
+>3.CleanMyMac X 因出现问题而无法打开
     
     解决方法一：
         运行此命令
