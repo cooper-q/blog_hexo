@@ -5,8 +5,8 @@ date: 2019-03-26
 tags: Shadowsocks、GFW
 top: 100
 password: ShadowsocksRPWD
-abstract: 此文章较为敏感，请点击右下角message图标向博主索要密码。
-message: 此文章较为敏感，请点击右下角message图标向博主索要密码。
+abstract: 此文章较为敏感，请点击左下角的Email发送邮件索要。
+message: 此文章较为敏感，请点击左下角的Email发送邮件索要。
 categories:
     - Shadowsocks
 
