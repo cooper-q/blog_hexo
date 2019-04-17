@@ -3,7 +3,6 @@ layout:     post
 title:      "JavaScript闭包（入门版）"
 subtitle:   "不忘初心，方得始终"
 date:       2019-01-08
-author:     "mattmeng"
 header-img: "img/in-post/JavaScript/JavaScript.png"
 header-mask: 0.3
 categories:

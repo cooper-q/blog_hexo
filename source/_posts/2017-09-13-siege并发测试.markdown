@@ -3,7 +3,6 @@ layout:     post
 title:      "siege并发测试"
 subtitle:   "不忘初心，方得始终"
 date:       2017-9-13
-author:     "mattmeng"
 header-mask: 0.3
 categories:
     - Mac 

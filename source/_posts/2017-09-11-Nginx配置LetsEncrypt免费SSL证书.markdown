@@ -3,7 +3,6 @@ layout:     post
 title:      "Nginx 配置Lets Encrypt 免费SSL证书"
 subtitle:   "不忘初心，方得始终"
 date:       2017-9-11
-author:     "mattmeng"
 header-img: "img/in-post/https_lets_encrypt/le-logo-wide.png"
 header-mask: 0.3
 categories:

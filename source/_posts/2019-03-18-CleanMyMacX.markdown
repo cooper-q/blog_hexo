@@ -3,7 +3,6 @@ layout:     post
 subtitle:   "不忘初心，方得始终"
 title:      "CleanMyMac X"
 date:       2019-03-18
-author:     "mattmeng"
 header-img: "img/in-post/Mac/CleanMyMac X.png"
 header-mask: 0.3
 categories:

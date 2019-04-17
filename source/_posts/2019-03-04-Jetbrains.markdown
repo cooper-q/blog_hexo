@@ -3,7 +3,6 @@ layout:     post
 subtitle:   "不忘初心，方得始终"
 title:      "Jetbrains"
 date:       2019-03-04
-author:     "mattmeng"
 header-img: ""
 header-mask: 0.3
 categories:

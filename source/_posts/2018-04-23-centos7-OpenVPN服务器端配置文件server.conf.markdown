@@ -3,7 +3,6 @@ layout:     post
 title:      "centos7-OpenVPN服务器端配置文件server.conf"
 subtitle:   "不忘初心，方得始终"
 date:       2018-04-23
-author:     "mattmeng"
 header-img: "img/in-post/Linux/openvpn.jpeg"
 header-mask: 0.3
 categories:

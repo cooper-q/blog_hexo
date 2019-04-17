@@ -3,7 +3,6 @@ layout:     post
 title:      "JavaScript立即执行函数"
 subtitle:   "不忘初心，方得始终"
 date:       2019-01-22
-author:     "mattmeng"
 header-img: "img/in-post/JavaScript/JavaScript.png"
 header-mask: 0.3
 categories:
