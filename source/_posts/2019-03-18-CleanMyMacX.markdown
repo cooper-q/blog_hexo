@@ -57,6 +57,12 @@ tags:
         终端运行 sudo spctl --master-disable
         更改为任何来源
 
+>CleanMyMac X 因出现问题而无法打开
+    
+    解决方法一：
+        运行此命令
+        
+        sudo codesign --force --deep --sign - /Applications/CleanMyMac\ X.app
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
