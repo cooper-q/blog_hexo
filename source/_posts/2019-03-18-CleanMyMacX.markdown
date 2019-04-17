@@ -73,4 +73,9 @@ tags:
 >2019年3月18日添加
 
     亲测 macOS Mojave 10.14.3 可用
+    
+
+>2019年4月17日
+    
     亲测 macOS Mojave 10.14.4 可用
+    增加"CleanMyMac X 因出现问题而无法打开"的解决方案    
