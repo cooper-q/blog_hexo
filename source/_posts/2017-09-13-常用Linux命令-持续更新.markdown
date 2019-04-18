@@ -12,13 +12,13 @@ tags:
     - Linux
 ---
 
-
-# <span style='color:red'>1.查看某个端口的占用情况</span>
+# 常用Linux命令，持续更新
+# 1.查看某个端口的占用情况
 
     lsof -i :80
     kill -9 进程号 杀死进程
 
-# <span style='color:red'>2.文件&文件夹
+# 2.文件&文件夹
 ## 1.查询指定位置的文件
     find controller/ -name '*.js' | xargs grep 'decorator'  查询指定目录下 指定
 
@@ -51,7 +51,10 @@ tags:
         echo '123' > filename
     5.查看文件或者文件夹大小
         du -h fileName&path
-
+        du -ah // 查看当前文件夹内容
+        du -ah fileName // 查看指定文件大小
+        du -ah path // 查看这个文件夹下的文件的大小
+        
     6.新建文件夹
         mkdir  文件夹名字
     7.新建文件
@@ -65,6 +68,7 @@ tags:
 
     10.copy文件夹、文件
         cp -R directory newDirectory
+        cp 文件名 路径+新文件名
 
 
     11.rmdir用来删除空目录
@@ -102,6 +106,49 @@ tags:
         查询当前路径下的指定前缀名的目录下的所有文件数量
         例如：统计所有以“20161124”开头的目录下的全部文件数量
         ls -lR 20161124*/|grep "^-"| wc -l
+        
+        -a 列出目录下的所有文件，包括以 . 开头的隐含文件。
+        -b 把文件名中不可输出的字符用反斜杠加字符编号(就象在C语言里一样)的形式列出。
+        -c 输出文件的 i 节点的修改时间，并以此排序。
+        -d 将目录象文件一样显示，而不是显示其下的文件。
+        -e 输出时间的全部信息，而不是输出简略信息。
+        -f -U 对输出的文件不排序。
+        -g 无用。
+        -i 输出文件的 i 节点的索引信息。
+        -k 以 k 字节的形式表示文件的大小。
+        -l 列出文件的详细信息。
+        -m 横向输出文件名，并以“，”作分格符。
+        -n 用数字的 UID,GID 代替名称。
+        -o 显示文件的除组信息外的详细信息。
+        -p -F 在每个文件名后附上一个字符以说明该文件的类型，“*”表示可执行的普通文件；“/”表示目录；“@”表示符号链接；“|”表示FIFOs；“=”表示套接字(sockets)。
+        -q 用?代替不可输出的字符。
+        -r 对目录反向排序。
+        -s 在每个文件名后输出该文件的大小。
+        -t 以时间排序。
+        -u 以文件上次被访问的时间排序。
+        -x 按列输出，横向排序。
+        -A 显示除 “.”和“..”外的所有文件。
+        -B 不输出以 “~”结尾的备份文件。
+        -C 按列输出，纵向排序。
+        -G 输出文件的组的信息。
+        -L 列出链接文件名而不是链接到的文件。
+        -N 不限制文件长度。
+        -Q 把输出的文件名用双引号括起来。
+        -R 列出所有子目录下的文件。
+        -S 以文件大小排序。
+        -X 以文件的扩展名(最后一个 . 后的字符)排序。
+        -1 一行只输出一个文件。
+        
+        ls实现列文件按时间排序
+        
+        1) ls -lt  时间最近的在前面
+        2) ls -ltr 时间从前到后
+        
+        3) 利用sort
+        
+          ls -l | sort +7 (日期为第8列)  时间从前到后
+        ls -l | sort -r +7 时间最近的在前面
+
 
     14.文件&文件夹权限
 
@@ -155,7 +202,7 @@ tags:
         >定向数据文件，如果文件不存在就创建文件，如果文件存在清空。
         >>将内容追加到目标文件。
 
-# <span style='color:red'>3.pscp&scp</span>
+# 3.pscp&scp
 
 ## 1.利用pscp上传文件
         pscp d:\project\udpServer.zip root@101.201.30.9:/home
@@ -167,24 +214,67 @@ tags:
         scp  -r /tmp/local_dir username@ip:remote_dir
 
 
-# <span style='color:red'>4.查看相关命令的帮助文档</span>
+# 4.查看相关命令的帮助文档
 
     tldr 查看某个命令的help
 
-# <span style='color:red'>5.打包/解压</span>
+# 5.打包/解压
 
+>tar命令
+
+    解包：tar zxvf FileName.tar
+    打包：tar czvf FileName.tar DirName
+
+>gz命令
+    
+    解压1：gunzip FileName.gz
+    解压2：gzip -d FileName.gz
+    压缩：gzip FileName
+    .tar.gz 和 .tgz
+    解压：tar zxvf FileName.tar.gz
+    压缩：tar zcvf FileName.tar.gz DirName
+
+    压缩多个文件：tar zcvf FileName.tar.gz DirName1 DirName2 DirName3 ...
+
+>bz2命令
+    
+    解压1：bzip2 -d FileName.bz2
+    解压2：bunzip2 FileName.bz2
+    压缩： bzip2 -z FileName
+    .tar.bz2
+    解压：tar jxvf FileName.tar.bz2
+    压缩：tar jcvf FileName.tar.bz2 DirName
+>bz命令
+    
+    解压1：bzip2 -d FileName.bz
+    解压2：bunzip2 FileName.bz
+    压缩：未知
+    .tar.bz
+    解压：tar jxvf FileName.tar.bz
+>Z命令
+   
+    解压：uncompress FileName.Z
+    压缩：compress FileName
+    .tar.Z
+    解压：tar Zxvf FileName.tar.Z
+    压缩：tar Zcvf FileName.tar.Z DirName
+>zip命令
+    
+    解压：unzip FileName.zip
+    压缩：zip -r FileName.zip DirName
+    压缩密码：zip -e 要压缩的压缩包生成的路径（./zip.zip） 文件名称 文件名称（多个文件用空格隔开）
     tar -c创建包 -X释放包 -v显示命令过程 -z代表压缩包
     tar -cvf benet.tar /home/benet 把/home/benet目录打包
     tar -zcvf benet.tar /mnt 把目录打包并压缩
     tar -zxvf benet.tar.gz 压缩包的文件解压恢复
     tar -jxvf benet.tar.gz bz2解压缩
-    unzip 解压文件
+    unzip 解压zip文件
 
-# <span style='color:red'>6.Linux 打开关闭防火墙（待补充）</span>
+# 6.linux 打开关闭防火墙（待补充）
 
     service iptables statue
 
-# <span style='color:red'>7.PATH</span>
+# 7.PATH
 
     查看PATH值
         export
@@ -199,7 +289,7 @@ tags:
     程序自带的shell命令是从env中的PATH找到的
     uri：/usr/bin/env
 
-# <span style='color:red'>8.查看内存CPU使用情况</span>
+# 8.查看内存CPU使用情况
 
 
     top
@@ -222,20 +312,20 @@ tags:
     Linux
         free 查看占用内存
 　　
-# <span style='color:red'>9.xargs</span>
+# 9.xargs
 
     之所以用这个命令，关键是有很多的命令不知道管道传递参数。xargs命令。
     例如：
         find /sbin -perm + 700 |ls-1 //这是不对的
         find /sbin -perm + 700|xargs ls -1//这是对的
 
-# <span style='color:red'>10.base64</span>
+# 10.base64
 
     echo '要转换的内容'|base64 (encoded，编码)
 
     echo 'aGVsbG8K'|base64 -D  (decoded,解码)
 
-# <span style='color:red'>11. nc</span>
+# 11. nc
 
 ## 1.端口扫描
         nc -z -v -n 172.31.100.7 21-25
@@ -286,12 +376,67 @@ tags:
         echo 'hello'|nc -n 127.0.0.1 5004
         回车继续发送tcp，请求
 
-# <span style='color:red'>12.echo</span>
+# 12.echo
 
-    功能说明：显示文字
+    功能说明：打印文字
+>参数说明
+
     -n 不换行
+    -e 打印带颜色
+>打印文字带颜色
+    
+    基本格式
+    echo -e "\033[字背景颜色;文字颜色m字符串\033[0m"
+    例如：
+    echo -e "\033[41;37m Tony Zhang \033[0m" // 其中41 代表底色、37代表字的颜色
+    注：
+    1、字背景颜色和文字颜色之间是英文的“""”
+    2、文字颜色后面有个m
+    3、字符串前后可以没有空格，如果有的话，输出也是同样有空格
+    
+    实例
+    echo -e "\033[30m 黑色字 \033[0m"
+    echo -e "\033[31m 红色字 \033[0m"
+    echo -e "\033[32m 绿色字 \033[0m"
+    echo -e "\033[33m 黄色字 \033[0m"
+    echo -e "\033[34m 蓝色字 \033[0m"
+    echo -e "\033[35m 紫色字 \033[0m"
+    echo -e "\033[36m 天蓝字 \033[0m"
+    echo -e "\033[37m 白色字 \033[0m"
+    echo -e "\033[40;37m 黑底白字 \033[0m"
+    echo -e "\033[41;37m 红底白字 \033[0m"
+    echo -e "\033[42;37m 绿底白字 \033[0m"
+    echo -e "\033[43;37m 黄底白字 \033[0m"
+    echo -e "\033[44;37m 蓝底白字 \033[0m"
+    echo -e "\033[45;37m 紫底白字 \033[0m"
+    echo -e "\033[46;37m 天蓝底白字 \033[0m"
+    echo -e "\033[47;30m 白底黑字 \033[0m"
+    
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/shell/echo%20font%20color.png' width='100px'/>
 
-# <span style='color:red'>13.alias</span>
+>控制选项说明
+
+    \33[0m 关闭所有属性
+    \33[1m 设置高亮度
+    \33[4m 下划线
+    \33[5m 闪烁
+    \33[7m 反显
+    \33[8m 消隐
+    \33[30m -- \33[37m 设置前景色
+    \33[40m -- \33[47m 设置背景色
+    \33[nA 光标上移n行
+    \33[nB 光标下移n行
+    \33[nC 光标右移n行
+    \33[nD 光标左移n行
+    \33[y;xH设置光标位置
+    \33[2J 清屏
+    \33[K 清除从光标到行尾的内容
+    \33[s 保存光标位置
+    \33[u 恢复光标位置
+    \33[?25l 隐藏光标
+    \33[?25h 显示光标
+
+# 13.alias
 
     alias 快捷名字='要执行的命令'
     alias 快捷名字='要执行的命令'|'其他命令'
@@ -308,35 +453,46 @@ tags:
         vim ~/.zshrc
     bash 增加别名
         vim /etc/bashrc
+    .bash_profile和.bashrc的区别
+    一个在etc下面一个根目录下面
+    etc下面的是全系统通用的权限比较大，~/下是当前用户的
+        
 
-# <span style='color:red'>14.curl</span>
+
+# 14.curl
 [参考资料](http://www.cnblogs.com/duhuo/p/5695256.html)
 
-    1.curl url 下载单个文件
-    2.通过-o/-O选项保存下载的文件到指定文件中
+>1.curl url 下载单个文件
+
+>2.通过-o/-O选项保存下载的文件到指定文件中
+        
         # 将文件下载到本地并命名为mygettext.html
         curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html
         # 将文件保存到本地并命名为gettext.html
         curl -O http://www.gnu.org/software/gettext/manual/gettext.html
         同时获取多个文件
         curl -o url -o url
-    3.断点续传
+>3.断点续传
+ 
         # 通过添加-C选项继续对该文件进行下载，已经下载过的文件不会被重新下载
         curl -C - -O http://www.gnu.org/software/gettext/manual/gettext.html
-    4.对curl进行网络限速、时间
-    5.curl授权
-        curl -u username:password URL
-        # 通常的做法是在命令行只输入用户名，之后会提示输入密码，这样可以保证在查看历史记录时不会将密码泄露
-        curl -u username url
+>4.对curl进行网络限速、时间
 
-    6.从FTP服务器下载文件
+>5.curl授权
+
+    curl -u username:password URL
+    # 通常的做法是在命令行只输入用户名，之后会提示输入密码，这样可以保证在查看历史记录时不会将密码泄露
+    curl -u username url
+
+>    6.从FTP服务器下载文件
+    
         # 列出public_html下的所有文件夹和文件
-        curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/
+    curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/
 
-        # 下载xss.php文件
-        curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/xss.php
+    # 下载xss.php文件
+    curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/xss.php
 
-    7.上传文件到FTP服务器
+>7.上传文件到FTP服务器
 
         通过 -T 选项可将指定的本地文件上传到FTP服务器上
         # 将myfile.txt文件上传到服务器
@@ -348,9 +504,10 @@ tags:
         # 从标准输入获取内容保存到服务器指定的文件中
         curl -u ftpuser:ftppass -T - ftp://ftp.testserver.com/myfile_1.txt
 
-    8.通过-v、-trace获取更多的链接信息
+>8.通过-v、-trace获取更多的链接信息
 
-    9.通过字典查询单词
+>9.通过字典查询单词
+ 
         # 查询bash单词的含义
         curl dict://dict.org/d:bash
 
@@ -359,17 +516,20 @@ tags:
 
         # 在foldoc词典中查询bash单词的含义
         curl dict://dict.org/d:bash:foldoc
-    10.curl设置代理
+>10.curl设置代理
+
         # 指定代理主机和端口
         curl -x proxysever.test.com:3128 http://google.co.in
 
-    11.保存与使用其他网站的cookie信息
+>11.保存与使用其他网站的cookie信息
+ 
         # 将网站的cookies信息保存到sugarcookies文件中
         curl -D sugarcookies http://localhost/sugarcrm/index.php
         # 使用上次保存的cookie信息
         curl -b sugarcookies http://localhost/sugarcrm/index.php
 
-    12.传递请求参数
+>12.传递请求参数
+ 
         默认curl使用GET方式请求数据，这种方式下直接通过URL传递数据
         可以通过 --data/-d 方式指定使用POST方式传递数据
         # GET
@@ -389,8 +549,11 @@ tags:
             curl -I -X DELETE https://api.github.com
             # 上传文件
             curl --form "fileupload=@filename.txt" http://hostname/resource
+ >忽略https
+    
+    curl https://127.0.0.1:9802/api/promote/template -k
 
-# <span style='color:red'>15.查看socket连接数</span>
+# 15.查看socket连接数
 
     ulimit -n
     修改socket连接数
@@ -398,7 +561,7 @@ tags:
         * soft nofile 65535
         * hard nofile 65535
 
-# <span style='color:red'>16.执行脚本的四种方法</span>
+# 16.执行脚本的四种方法
 
     1.  ./脚本.sh
     2.使用全路径执行 /Users/mengxiangcun/semioe/private/tool/hello.sh
@@ -412,7 +575,7 @@ tags:
 >区别
 
     1、.sh文件
-        .sh为Linux的脚本文件，可以通过.sh执行一些命令，可以理解为windows的bat的批处理文件。
+        .sh为linux的脚本文件，可以通过.sh执行一些命令，可以理解为windows的bat的批处理文件。
 
     二、.命令
         .命令和source是同一命令。
@@ -444,16 +607,16 @@ tags:
 
             第四种和第三种一致。
 
-# <span style='color:red'>17.后台运行</span>
+# 17.后台运行
 
     只要在要执行的命令后面加上&就可以。
 
-# <span style='color:red'>18.sudo</span>
+# 18.sudo
 
     切换用户名：
         su 用户名
 
-# <span style='color:red'>19.nl</span>
+# 19.nl
 
     nl用于计算文件中的行号。nl可以将输出的内容自动加上行号，其可以将行号做比较多的显示设计，包括位数和是否自动补0等等的功能。
 
@@ -476,56 +639,107 @@ tags:
 
     nl -b a -n rz 命令行号默认为六位，要调整位数可以加上参数 -w 3 调整为3位。
 
-# <span style='color:red'>20.查看某个进程</span>
+# 20.查看某个进程
 
     ps -mp <pid>
 
-# <span style='color:red'>21.soure</span>
+# 21.soure
 
     source ~/.zshrc 使文件立马生效
 
-# <span style='color:red'>22.读取用户键入的值</span>
+# 22.读取用户键入的值
 
     echo '请输入:'
     read input
-    echo '输入的值为$input'
+    echo "输入的值为$input"
 
-# <span style='color:red'>23.grep</span>
+# 23.grep
 
     grep 要搜索的内容 filePath
 
-# <span style='color:red'>24.awk sed Perlre</span>
+# 24.awk sed Perlre
 
-# <span style='color:red'>25.jq</span>
+# 25.jq
 
     echo '{"a":"1"}'|jq .
     cat xx.json|jq .
 
-# <span style='color:red'>26.rename</span>
+# 26.rename
 
     重命名、批量重命名 支持正则表达式
     rename 's/$/.jpg/' * 把所有的文件后面加上.jpg
 
-# <span style='color:red'>27.通过pid获取进程以及文件信息</span>
+# 27.通过pid获取进程以及文件信息
 
     ll /proc/PID
     cwd 进程
     exe 路径
 
-# <span style='color:red'>28.监听IO&监听 io 内存 cpu</span>
+# 28.监听IO&监听 io 内存 cpu
 
     pidstat -d  1
 
     pidstat -u -r -d -t 1
 
-# <span style='color:red'>29.更改文件的编码</span>
+# 29.更改文件的编码
 
     iconv -f 更改前encoding -t 更改后encoding inputfile
 
-# <span style='color:red'>30.date</span>
+# 30.date
 
     date +%s
     获取时间戳 秒为单位
+
+# 31.traceroute 追踪
+    
+    traceroute ip/域名
+    
+# 32.无挂起启动 nohup
+    nohup Command &
+
+# 33.zsh切换bash bash切换zsh
+    
+    切换bash
+
+    chsh -s /bin/bash
+    
+    切换zsh
+
+    chsh -s /bin/zsh
+    
+# 34.查询进程号
+    
+    ps -ef|grep nginx
+
+# 35.强制停止
+    
+    pkill -9 nginx
+
+# 36.查看CPU    
+    
+    lscpu
+
+# 37.清空history
+    
+    history -c 
+
+# 38.清楚日志
+    
+    日志文件都在/var/log
+    需要清除messages、以及secure
+
+# 39.周期性执行某个命令
+    
+    watch [选项][参数]
+>选项
+
+    -n：指定指令执行的间隔时间（秒）；
+    -d：高亮显示指令输出信息不同之处；
+    -t：不显示标题。
+>参数
+    
+    指令：需要周期性执行的指令。
+    
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
