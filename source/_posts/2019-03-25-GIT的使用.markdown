@@ -1,16 +1,13 @@
 ---
 layout:     post
-subtitle:   "不忘初心，方得始终"
-title:      "GIT的使用"
+title:      "git的使用"
 date:       2019-03-25
-header-img: "img/in-post/git.png"
-header-mask: 0.3
+top: 10
 categories:
     - git 
     - 常用命令
-catalog:    true
 tags:
-    - GIT
+    - git
     - Linux
 ---
 

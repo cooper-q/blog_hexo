@@ -3,7 +3,7 @@ layout: post
 title: JavaScript基础概念
 date: 2019-04-19
 keywords: JavaScript基础概念
-top: 100
+top: 10
 categories: 
     - JavaScript
 tags:

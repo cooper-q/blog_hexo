@@ -1,10 +1,8 @@
 ---
 layout:     post
 title:      "常用Linux命令，持续更新"
-subtitle:   "不忘初心，方得始终"
 date:       2017-9-18
-header-mask: 0.3
-header-img: "img/in-post/Linux/Linux.jpg"
+top: 10
 categories:
     - Linux 
 catalog:    true

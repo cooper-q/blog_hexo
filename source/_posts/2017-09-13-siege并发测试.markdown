@@ -1,9 +1,8 @@
 ---
 layout:     post
 title:      "siege并发测试"
-subtitle:   "不忘初心，方得始终"
 date:       2017-9-13
-header-mask: 0.3
+top: 10
 categories:
     - Mac 
     - 并发测试

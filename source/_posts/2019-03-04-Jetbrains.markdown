@@ -1,16 +1,14 @@
 ---
 layout:     post
-subtitle:   "不忘初心，方得始终"
 title:      "Jetbrains"
 date:       2019-03-04
-header-img: ""
-header-mask: 0.3
+top: 10
 categories:
     - Mac 
     - 软件
-catalog:    true
 tags:
-    - Jetbrains、软件
+    - Jetbrains
+    - 软件
 ---
 # 破解Jetbrains家族系列产品
 

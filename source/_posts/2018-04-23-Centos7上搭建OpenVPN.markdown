@@ -1,15 +1,12 @@
 ---
 layout:     post
 title:      "Centos7上搭建OpenVPN.markdown"
-subtitle:   "不忘初心，方得始终"
 date:       2018-04-23
-header-img: "img/in-post/Linux/openvpn.jpeg"
-header-mask: 0.3
+top: 10
 categories:
     - Linux 
     - centos7
     - OpenVPN
-catalog:    true
 tags:
     - OpenVPN
     - Linux

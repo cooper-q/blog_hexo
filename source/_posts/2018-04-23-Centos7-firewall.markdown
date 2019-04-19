@@ -1,15 +1,13 @@
 ---
 layout:     post
 title:      "centos7-firewall"
-subtitle:   "不忘初心，方得始终"
+
 date:       2018-04-23
-header-img: "img/in-post/Linux/firewall.png"
-header-mask: 0.3
+top: 10
 categories:
     - Linux 
     - centos7
     - firewall
-catalog:    true
 tags:
     - firewall
     - Linux

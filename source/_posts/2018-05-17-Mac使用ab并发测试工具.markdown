@@ -1,13 +1,11 @@
 ---
 layout:     post
 title:      "Mac使用ab并发测试工具"
-subtitle:   "不忘初心，方得始终"
 date:       2018-05-17
-header-mask: 0.3
+top: 10
 categories:
     - Mac 
     - 并发测试
-catalog:    true
 tags:
     - AB
     - Linux

@@ -1,16 +1,14 @@
 ---
 layout:     post
-subtitle:   "不忘初心，方得始终"
 title:      "CleanMyMac X"
 date:       2019-03-18
-header-img: "img/in-post/Mac/CleanMyMac X.png"
-header-mask: 0.3
+top: 10
 categories:
     - Mac 
     - 软件
-catalog:    true
 tags:
-    - Mac、软件
+    - Mac
+    - 软件
 ---
 
 # CleanMyMac X破解

@@ -1,16 +1,13 @@
 ---
 layout:     post
 title:      "SSH"
-subtitle:   "不忘初心，方得始终"
 date:       2018-04-11
-header-img: "img/in-post/ssh/ssh.png"
-header-mask: 0.3
+top: 10
 categories:
     - Linux 
     - SSH
-catalog:    true
 tags:
-    - ssh
+    - SSH
     - Linux
 ---
 

@@ -3,7 +3,7 @@ layout: post
 title: JavaScript真值表
 date: 2019-04-15
 keywords: JavaScript
-top: 100
+top: 10
 categories: 
     - JavaScript
 tags:

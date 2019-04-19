@@ -3,7 +3,7 @@ layout: post
 title: ShadowsocksR 多用户 一键脚本
 date: 2019-03-26
 tags: Shadowsocks、GFW
-top: 100
+top: 10
 password: ShadowsocksRPWD
 abstract: 此文章较为敏感，请点击左下角的Email发送邮件索要。
 message: 此文章较为敏感，请点击左下角的Email发送邮件索要。

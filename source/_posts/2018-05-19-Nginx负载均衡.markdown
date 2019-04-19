@@ -1,14 +1,11 @@
 ---
 layout:     post
 title:      "Nginx 负载均衡"
-subtitle:   "不忘初心，方得始终"
 date:       2018-05-19
-header-img: "img/in-post/nginx.jpg"
-header-mask: 0.3
+top: 10
 categories:
     - Nginx 
     - 负载均衡
-catalog:    true
 tags:
     - Nginx
     - Linux

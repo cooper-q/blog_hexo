@@ -2,9 +2,9 @@
 layout: post
 title: git hooks实现简单的hexo自动化部署
 date: 2019-04-03
-tags: GIT
+tags: git
 keywords: git,githook,hexo
-top: 100
+top: 10
 categories: 
     - git
 ---
