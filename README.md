@@ -121,3 +121,41 @@ hexo 3.8.0
 ``` 
 // todo
 ```
+### 25.保存用户观看位置
+``` 
+```
+
+2.修改bookmark下enable为true。
+```
+bookmark:
+  enable: true   
+```
+### 26.预加载加快访问速度
+
+1.修改主题下_config.yml文件中的vendors下的quicklink
+```
+quicklink: //cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js
+```
+
+2.修改quicklink下enable为true。
+``` 
+quicklink:
+  enable: true
+  ...
+```
+### 27.图片预览
+1.修改主题下 _config.yml文件中的fancybox为true
+```
+fancybox: true
+```
+
+2.修改主题下_config.yml文件中的vendors下的 fancybox_css&fancybox
+```
+fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css
+fancybox_css: //cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.css
+```
+
+3.根据官方文档进行安装
+```
+https://github.com/theme-next/theme-next-fancybox3
+```
