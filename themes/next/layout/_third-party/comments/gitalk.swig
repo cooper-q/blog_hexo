@@ -1,10 +1,10 @@
-{% set gitalk_js_url = '//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js' %}
+{% set gitalk_js_url = 'https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/gitalk.min.js' %}
 {% if theme.vendors.gitalk_js %}
   {% set gitalk_js_url = theme.vendors.gitalk_js %}
 {% endif %}
 <script src="{{ gitalk_js_url }}"></script>
 
-{% set gitalk_css_url = '//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css' %}
+{% set gitalk_css_url = 'https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/gitalk.css' %}
 {% if theme.vendors.gitalk_css %}
   {% set gitalk_css_url = theme.vendors.gitalk_css %}
 {% endif %}

@@ -35,10 +35,10 @@ cache:
 # ---------------------------------------------------------------
 
 favicon:
-  small: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
-  medium: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
-  apple_touch_icon: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
-  safari_pinned_tab: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
+  small: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
+  medium: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
+  apple_touch_icon: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
+  safari_pinned_tab: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
@@ -230,13 +230,13 @@ links:
   追风少年王狗剩: http://blog.shayne.wang/
   什么不要问先Google: https://www.google.com
   Richard Wei: https://blog.richardweitech.cn
-
+  李白不在: https://libaibuzai.github.io
 # Sidebar Avatar
 avatar:
   # In theme directory (source/images): /images/avatar.gif
   # In site directory (source/uploads): /uploads/avatar.gif
   # You can also use other linking images.
-  url: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
+  url: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/img/favicon.ico
   # If true, the avatar would be dispalyed in circle.
   rounded: false
   # The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.
@@ -589,7 +589,7 @@ bookmark:
 # Dependencies: https://github.com/theme-next/theme-next-reading-progress
 reading_progress:
   enable: false
-  color: "#37c6c0"
+  color: "#000000"
   height: 2px
 
 # Google Calendar
@@ -952,6 +952,7 @@ pdf:
     #cdn: //cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.min.js
 
 # Mermaid tag
+# 流程图
 mermaid:
   enable: false
   # Available themes: default | dark | forest | neutral
@@ -984,10 +985,11 @@ motion:
     sidebar: slideUpIn
 
 # Fancybox. There is support for old version 2 and new version 3.
+# 图片预览
 # Choose only one variant, do not need to install both.
 # To install 2.x: https://github.com/theme-next/theme-next-fancybox
 # To install 3.x: https://github.com/theme-next/theme-next-fancybox3
-fancybox: false
+fancybox: true
 
 # Polyfill to remove click delays on browsers with touch UIs.
 # Dependencies: https://github.com/theme-next/theme-next-fastclick
@@ -995,7 +997,7 @@ fastclick: false
 
 # Vanilla JavaScript plugin for lazyloading images.
 # Dependencies: https://github.com/theme-next/theme-next-jquery-lazyload
-lazyload: false
+lazyload: true
 
 # Progress bar in the top during page loading.
 # Dependencies: https://github.com/theme-next/theme-next-pace
@@ -1008,6 +1010,7 @@ pace_theme: pace-theme-flash
 
 # Canvas-nest
 # Dependencies: https://github.com/theme-next/theme-next-canvas-nest
+# 背景动画
 canvas_nest:
   enable: false
   onmobile: true # display on mobile or not
@@ -1025,7 +1028,7 @@ canvas_lines: false
 # canvas_sphere
 canvas_sphere: false
 
-# Canvas-ribbon
+# Canvas-ribbon 动画彩带背景
 # Dependencies: https://github.com/theme-next/theme-next-canvas-ribbon
 # size: The width of the ribbon.
 # alpha: The transparency of the ribbon.
@@ -1051,16 +1054,16 @@ canvas_ribbon:
 vendors:
   # Internal path prefix. Please do not edit it.
   _internal: lib
-  affix: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/affix.js
-  pisces: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pisces.js
-  next_boot: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/next-boot.js
-  utils: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/utils.js
-  motion: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/motion.js
+  affix: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/affix.js
+  pisces: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pisces.js
+  next_boot: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/next-boot.js
+  utils: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/utils.js
+  motion: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/motion.js
   # Internal version: 2.1.3
   # Example:
   # jquery: //cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js
   # jquery: //cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js
-  jquery: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/jquery/index.js
+  jquery: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/jquery/index.js
 
   # Internal version: 2.1.5 & 3.5.7
   # See: https://fancyapps.com/fancybox
@@ -1069,22 +1072,22 @@ vendors:
   # fancybox: //cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.js
   # fancybox_css: //cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css
   # fancybox_css: //cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.css
-  fancybox:
-  fancybox_css:
+  fancybox: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/jquery.fancybox.min.js
+  fancybox_css: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/jquery.fancybox.min.css
 
   # Internal version: 1.0.6
   # See: https://github.com/ftlabs/fastclick
   # Example:
   # fastclick: //cdn.jsdelivr.net/npm/fastclick@1/lib/fastclick.min.js
   # fastclick: //cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js
-  fastclick: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/fastclick/fastclick.min.js
+  fastclick: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/fastclick/fastclick.min.js
 
   # Internal version: 1.9.7
   # See: https://github.com/tuupola/jquery_lazyload
   # Example:
   # lazyload: //cdn.jsdelivr.net/npm/jquery-lazyload@1/jquery.lazyload.min.js
   # lazyload: //cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js
-  lazyload: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/jquery/jquery.lazyload.min.js
+  lazyload: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/jquery/jquery.lazyload.min.js
 
   # Internal version: 1.2.1
   # See: http://velocityjs.org
@@ -1093,20 +1096,21 @@ vendors:
   # velocity: //cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js
   # velocity_ui: //cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js
   # velocity_ui: //cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js
-  velocity: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/velocity/velocity.min.js
-  velocity_ui: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/velocity/velocity.ui.min.js
+  velocity: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/velocity/velocity.min.js
+  velocity_ui: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/velocity/velocity.ui.min.js
 
   # Internal version: 4.6.2
   # See: https://fontawesome.com
   # Example:
   # fontawesome: //cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css
   # fontawesome: //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css
-  # fontawesome: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/font_awesome/font-awesome.min.css
+  # fontawesome: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/font_awesome/font-awesome.min.css
   fontawesome: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/font-awesome/css/font-awesome.min.css
   # https:
   # Internal version: 2.10.4
   # See: https://www.algolia.com
   # Example:
+  # algolia 搜索
   # algolia_instant_js: //cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.js
   # algolia_instant_css: //cdn.jsdelivr.net/npm/instantsearch.js@2/dist/instantsearch.min.css
   algolia_instant_js:
@@ -1115,12 +1119,12 @@ vendors:
   # Internal version: 1.0.2
   # See: https://github.com/HubSpot/pace
   # Example:
-  pace: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.min.js
+  pace: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.min.js
   # pace: //cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js
-  pace_css: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace-theme-flash.min.css
+  pace_css: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace-theme-flash.min.css
   # pace_css: //cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css
-  # pace: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.min.js
-  # pace_css: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.css
+  # pace: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.min.js
+  # pace_css: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/pace.css
 
   # Internal version: 1.0.0
   # See: https://github.com/theme-next/theme-next-canvas-nest
@@ -1165,7 +1169,7 @@ vendors:
   # Internal version: 1.0.0
   # See: https://github.com/GoogleChromeLabs/quicklink
   # Example:
-  quicklink: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/quicklink.umd.js
+  quicklink: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/quicklink.umd.js
   # quicklink:
   # enable: false
 
@@ -1174,26 +1178,26 @@ vendors:
   # Example:
   #needmoreshare2_js: //cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js
   #needmoreshare2_css: //cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css
-  needmoreshare2_js: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/needsharebutton.min.js
-  needmoreshare2_css: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/css/needsharebutton.min.css
+  needmoreshare2_js: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/needsharebutton.min.js
+  needmoreshare2_css: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/css/needsharebutton.min.css
 
   # Internal version: 1.0.0
   # See: https://github.com/theme-next/theme-next-bookmark
   # Example:
   # bookmark: //cdn.jsdelivr.net/gh/theme-next/theme-next-bookmark@1/bookmark.min.js
-  bookmark: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/bookmark.min.js
+  bookmark: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/bookmark.min.js
 
   # Internal version: 1.1
   # See: https://github.com/theme-next/theme-next-reading-progress
   # Example:
   # reading_progress: //cdn.jsdelivr.net/gh/theme-next/theme-next-reading-progress@1/reading_progress.min.js
-  reading_progress:
+  reading_progress: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/reading_progress.min.js
 
   # leancloud-storage
   # See: https://www.npmjs.com/package/leancloud-storage
   # Example:
   # leancloud: //cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js
-  # leancloud: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/av-min.js
+  # leancloud: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/av-min.js
   #
   # valine
   # See: https://github.com/xCss/Valine
@@ -1229,7 +1233,7 @@ vendors:
   disqusjs_css:
 
 # Assets
-css: https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/css/main.css
+css: https://cdn-1256164122.cos.ap-beijing.myqcloud.com/CDN/blog/css/main.css
 js: js
 images: images
 # authoricon: id-card
