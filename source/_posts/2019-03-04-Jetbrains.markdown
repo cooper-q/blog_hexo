@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Jetbrains"
+title:      "Jetbrains 系列破解"
 date:       2019-03-04
 top: 10
 categories:

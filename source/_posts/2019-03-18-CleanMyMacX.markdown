@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "CleanMyMac X"
+title:      "CleanMyMac X 破解版"
 date:       2019-03-18
 top: 10
 categories:
