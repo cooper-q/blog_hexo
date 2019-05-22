@@ -260,8 +260,8 @@ tags:
 >例如
     
     git log --pretty=format:'%h %an %ad %s' // 展示短哈希、作者名称、修订日期、提交说明
-## 7.git log --grep '要搜索的log内容'
-## 8.git log --pretty=format:'%h %an %ad %s'|grep "要搜索的log"
+## 7.git log --grep 要搜索的log内容
+## 8.git log --pretty=format:'%h %an %ad %s'|grep 要搜索的log内容
 ## 9.git log fileName 查看单个文件的提交记录
 ## 10.参考表
     
