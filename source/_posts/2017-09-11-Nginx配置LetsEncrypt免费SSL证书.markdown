@@ -72,10 +72,12 @@ server {
 并且这个域名对应的 webroot 目录是 /root/project/deployment/local/remote
 ```
 >执行命令
+
 ```
 /sbin/certbot-auto certonly --webroot -w /root/project/deployment/local/remote -d blog.mengxc.info
 ```
 >注意
+
 - /root/project/deployment/local/remote 该路径需要替换成自己的网站目录
 - blog.mengxc.info 改域名需要改为自己的域名
 - ~~certbot 是支持多个域名的（官方还没有支持 Wildcard）命令为[待验证]~~
@@ -83,6 +85,7 @@ server {
 /sbin/certbot-auto certonly --webroot -w /root/project/deployment/local/remote -d blog.mengxc.info -d xxxxx.mengxc.info
 ```
 >生成完毕后会有四个文件
+
 ```
 privkey.pem 证书私钥
 cert.pem 证书公钥
@@ -146,6 +149,7 @@ server {
 nginx -s reload
 ```
 >备注
+
 ```
 注意：在修改ssl_certificate（即公钥）时最好使用fullchain.pem而不是cert.pem。cert.pem中不包含中间
 证书链的信息，某些客户端（比如Github使用的camo）在连接时可能会出现验证身份失败的情况。
@@ -190,7 +194,7 @@ nginx -s reload
 
 >2019年3月25日更新
 
--增加ssl_certificate（公钥）使用fullchain.pem的备注信息
+- 增加ssl_certificate（公钥）使用fullchain.pem的备注信息
 
 >2019年5月07日更新
 
