@@ -28,10 +28,21 @@ tags:
     chmod a+x /sbin/certbot-auto
 
 # 2.配置Nginx以满足WebRoot验证方式的需要
-```
-在使用 certbot 之前，我们先要对 Nginx 进行配置，因为使用 webroot 方式，certbot 会在域名对应的根目录创建一个叫做 well-known 的隐藏文件夹，并且创建用于验证域名所有权的文件。而这个文件夹在证书签发的过程中，是需要被访问的。
+>配置说明
 
-假设我们我们要签发用于 blog.mengxc.info 这个域名的 SSL 证书，而这个域名的配置文件在 /usr/local/nginx/conf/blog.conf ，于是我们打开这个文件，并且在 server block 内加入下面的内容：
+```
+在使用 certbot 之前，我们先要对 Nginx 进行配置，因为使用 webroot 方式，
+certbot 会在域名对应的根目录创建一个叫做 well-known 的隐藏文件夹，并且创建用于验证域名所有权的文件。
+而这个文件夹在证书签发的过程中，是需要被访问的。
+
+```
+>修改nginx config
+
+```
+假设我们我们要签发用于 blog.mengxc.info 这个域名的 SSL 证书，而这个域名的配置文件在
+/usr/local/nginx/conf/blog.conf ，于是我们打开这个文件，并且在 server block 内加入下面的内容：
+// 配置文件路径 根据自身寻找 一般都在
+// /usr/local/nginx/conf or /etc/nginx/conf.d
 
 server {
     listen 80;
@@ -47,46 +58,48 @@ server {
         allow all;
     }
 }
-
-保存退出、重启nginx。
-nginx -s reload
 ```
+>保存后，重启nginx nginx -s reload
     
 >如果是403，可配置nginx user
 
 # 3.使用Certbot签发证书
+>签发证书说明
+
 ```
-配置完 Nginx 后，我们就可以开始使用 certbot 签发证书了。现在依然假设我们要对 blog.mengxc.info 签发证书，并且这个域名对应的 webroot 目录是 /home/matt/project/ghost_blog，那么对应的命令则是：
-
-
-/sbin/certbot-auto certonly --webroot -w /home/matt/project/jekyll_blog -d blog.mengxc.info
-
-
-需要注意，你需要把上面这个命令中的 /home/matt/project/jekyll_blog 替换成你自己的网站目录，并且把 blog.mengxc.info 替换成你自己的域名。
-
-另外，certbot 是支持多个域名的（官方还没有支持 Wildcard），对应的命令是：
-
-
-/sbin/certbot-auto certonly --webroot -w /home/matt/project/jekyll_blog -d blog.mengxc.info -d xxxxx.guorenxi.com
-
-生成完毕后会有四个文件:
-
-    privkey.pem 证书私钥
-    cert.pem 证书公钥
-    chain.pem 中间证书链
-    fullchain.pem 证书公钥 + 中间证书链的合并
+配置完 Nginx 后，我们就可以开始使用 certbot 签发证书了。
+现在依然假设我们要对 blog.mengxc.info 签发证书。
+并且这个域名对应的 webroot 目录是 /root/project/deployment/local/remote
+```
+>执行命令
+```
+/sbin/certbot-auto certonly --webroot -w /root/project/deployment/local/remote -d blog.mengxc.info
+```
+>注意
+- /root/project/deployment/local/remote 该路径需要替换成自己的网站目录
+- blog.mengxc.info 改域名需要改为自己的域名
+- ~~certbot 是支持多个域名的（官方还没有支持 Wildcard）命令为[待验证]~~
+```
+/sbin/certbot-auto certonly --webroot -w /root/project/deployment/local/remote -d blog.mengxc.info -d xxxxx.mengxc.info
+```
+>生成完毕后会有四个文件
+```
+privkey.pem 证书私钥
+cert.pem 证书公钥
+chain.pem 中间证书链
+fullchain.pem 证书公钥 + 中间证书链的合并
 ```
 
 # 4.配置Nginx以使用签发的证书
+
+## 1.修改Nginx网站配置文件
+>修改之前的文件并配置ssl以及443端口
+
 ```
-在拿到证书后，我们要开始配置 Nginx 来使用这些证书。我们需要再一次打开网站的配置文件，并且让 Nginx 监听 443 端口、配置 SSL 地址以及配置 80 自动跳转。
-
-我们直接修改刚才那个配置文件，把 Listen 80; 改成 Listen 443 ssl; ，修改完之后的配置文件是这样的：
-
 server {
     listen 443;
     server_name blog.mengxc.info;
-    root /home/matt/project/ghost_blog;
+    root /root/project/deployment/local/remote;
 
     ssl_certificate /etc/letsencrypt/live/blog.mengxc.info/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/blog.mengxc.info/privkey.pem;
@@ -99,19 +112,20 @@ server {
         allow all;
     }
 }
+```
+>由于默认访问都是80，所以我们还需要增加对80端口跳转443端口的配置
 
-我们还要让访客在访问 80 端口的时候，跳转到 HTTPS ，于是还要在配置文件里面增加一个 Server Block ，修改完之后是这样的：
-
+```
 server {
     listen 80;
     server_name blog.mengxc.info;
-        return 301 https://$host$request_uri;
+    return 301 https://$host$request_uri;
 }
 
 server {
     listen 443;
     server_name blog.mengxc.info;
-    root /var/www/html/blog;
+    root /root/project/deployment/local/remote;
 
     ssl_certificate /etc/letsencrypt/live/blog.mengxc.info/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/blog.mengxc.info/privkey.pem;
@@ -121,21 +135,27 @@ server {
     }
 
     location ~ /.well-known {
-      allow all;
+        allow all;
     }
 }
+```
 
-重启nginx，nginx -s reload
+>重启nginx
 
+```
+nginx -s reload
+```
+>备注
+```
 注意：在修改ssl_certificate（即公钥）时最好使用fullchain.pem而不是cert.pem。cert.pem中不包含中间
 证书链的信息，某些客户端（比如Github使用的camo）在连接时可能会出现验证身份失败的情况。
 ```
 
-# 5.证书的自动续签
-```
-正如前文提到的，Let's Encrypt 证书的有效期只有 90 天，因此我们需要定期的对他进行续签，我们使用 cron 来设定计划任务。
+# ~~5.证书的自动续签[由于certbot-auto升级可能不适用新版本]~~
+>由于Let's Encrypt生成的证书只有90天，所以要定时进行续签
 
-所以可以设置为一个月一更新
+```
+// 设置为一个月一更新
 
 10 0 25 * *  /sbin/certbot-auto renew --quiet --no-self-upgrade
 15 0 25 * *  /usr/sbin/nginx -s reload
@@ -157,9 +177,6 @@ server {
     crontab /xx/Lets\ Encrypt.cron
 
 
-
-[原文链接，略有修改](https://blog.mengxc.info/43.html)
-
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
 
@@ -169,9 +186,16 @@ server {
 
 >2019年3月14日更新
 
-    完善内容，修改脚本
+-完善内容，修改脚本
 
 >2019年3月25日更新
 
-    增加ssl_certificate（公钥）使用fullchain.pem的备注信息
+-增加ssl_certificate（公钥）使用fullchain.pem的备注信息
 
+>2019年5月07日更新
+
+- 删减内容、修改排版
+
+>2019年5月23日更新
+
+- 重新排版、修改无法适用于新版本的内容
