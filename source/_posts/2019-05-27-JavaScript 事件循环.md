@@ -10,6 +10,9 @@ tags:
     - JavaScript
 ---
 # JavaScript 事件循环（转载）
+[toc]
+# 版本
+- Node.js:v12.3.1（不同v8版本结果有所有不同）
 # 1.任务队列
 >首先我们要明白一下几个事件
 
@@ -153,6 +156,53 @@ setTimeout
 # 7.扩展面试题
 ## 变式1
 
+>在上面的面试题进行简单的修改，只修改了async2方法return的是一个Promise.resolve,结果但是不同
+
+```
+//请写出输出内容
+async function async1() {
+    console.log('async1 start');
+    await async2();
+    console.log('async1 end');
+}
+async function async2() {
+	console.log('async2');
+	return Promise.resolve('1');
+}
+
+console.log('script start');
+
+setTimeout(function() {
+    console.log('setTimeout');
+}, 0)
+
+async1();
+
+new Promise(function(resolve) {
+    console.log('promise1');
+    resolve();
+}).then(function() {
+    console.log('promise2');
+});
+console.log('script end');
+
+
+// 结果
+script start
+async1 start
+async2
+promise1
+script end
+promise2
+async1 end
+setTimeout
+```
+>解析
+- 将async的返回值修改为异步后，执行的结果是promise2与async1 end调换，结论是：
+- + 当await的返回结果是一个异步时会加入微任务的异步队列，但是promise2的更早的加入异步队列，按照顺序执行则promise2先输出
+- + 当await的返回结果不是一个异步队列时，首次await时会跳出本次循环，当第二次进入时会当成同步代码执行
+## 变式2
+
 >在第一个变式中我将async2中的函数也变成了Promise函数
 
 ```
@@ -192,7 +242,7 @@ async1 start
 promise1
 promise3
 script end
-promise2
+promise2 
 async1 end
 promise4
 setTimeout
@@ -202,7 +252,7 @@ setTimeout
 
 - 在第一次macrotask执行完之后，也就是输出script end之后，会去清理所有microtask。所以会相继输出promise2， async1 end ，promise4
 
-## 变式2
+## 变式4
 >在第二个变式中，我将async1中await后面的代码和async2的代码都改为异步的
 
 ```
@@ -249,7 +299,7 @@ setTimeout1
 
 - 在输出为promise2之后，接下来会按照加入setTimeout队列的顺序来依次输出，通过代码我们可以看到加入顺序为3 2 1，所以会按3，2，1的顺序来输出。
 
-## 变式3
+## 变式5
 >变式三是我在一篇面经中看到的原题，整体来说大同小异，代码如下：
 
 ```
@@ -301,10 +351,13 @@ promise3
 setTimeout
 ```
 
->[原文链接，已获得博文许可](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/7)
+>[原文链接，已获得博主转载许可](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/7)
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
 >[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
 
 # 备注
+>2019年5月29日
+
+- 对面试题稍作修改添加变式1
 

@@ -11,6 +11,8 @@ tags:
     - Linux
 ---
 
+[toc]
+
 # [学习地址](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5)
 # 1.分支
 
@@ -260,8 +262,8 @@ tags:
 >例如
     
     git log --pretty=format:'%h %an %ad %s' // 展示短哈希、作者名称、修订日期、提交说明
-## 7.git log --grep 要搜索的log内容
-## 8.git log --pretty=format:'%h %an %ad %s'|grep 要搜索的log内容
+## 7.git log --grep '要搜索的log内容'
+## 8.git log --pretty=format:'%h %an %ad %s'|grep "要搜索的log"
 ## 9.git log fileName 查看单个文件的提交记录
 ## 10.参考表
     
@@ -452,6 +454,12 @@ tags:
     已暂存，未提交 : git diff --cached
     已提交，未推送 ：git diff master origin/master
 
+# 19.优雅的提交你的git log
+- [ ] [详情链接]()
+
+```
+npm install -g commitizen cz-conventional-changelog
+```
 
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
