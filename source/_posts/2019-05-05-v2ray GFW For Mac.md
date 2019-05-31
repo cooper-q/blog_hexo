@@ -13,11 +13,12 @@ tags:
     - v2ray
 ---
 # v2ray GFW For Mac
+# 本文章仅供学习使用，请于24小时之内删除
 # 环境
 - 服务器系统：Centos7
 - V2Ray Version：V2Ray 4.18.0 (Po) 20190228
 - 客户端系统：macOS Mojave 10.1
-- VPS：搬瓦工 [通过我的购买链接购买](https://bandwagonhost.com/aff.php?aff=46893)
+- ~~VPS：搬瓦工 [通过我的购买链接购买](https://bandwagonhost.com/aff.php?aff=46893)~~
 
 # 服务器安装
 >-bash: xxx: command not found
@@ -134,3 +135,7 @@ Configure->Manual
 
 # 备注
 
+>2019年5月31日
+```
+增加免责声明
+```

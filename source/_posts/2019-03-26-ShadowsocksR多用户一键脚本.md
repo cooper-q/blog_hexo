@@ -11,6 +11,8 @@ categories:
     - Shadowsocks
 
 ---
+# ShadowsocksR 多用户 一键脚本
+# 本文章仅供学习使用，请于24小时之内删除
 >系统要求
     
     Centos 6+/Debian 6+/Ubuntu 14+
@@ -247,3 +249,8 @@ categories:
 # 备注
 
 >我已经忘记在哪看的这个文章，暂时无法标记处出处，侵删
+
+>2019年5月31日
+```
+增加免责声明
+```
