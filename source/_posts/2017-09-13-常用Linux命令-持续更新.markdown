@@ -286,6 +286,12 @@ tags:
             source /etc/profile
     程序自带的shell命令是从env中的PATH找到的
     uri：/usr/bin/env
+>格式
+```
+PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:------:<PATH N>
+
+你可以自己加上指定的路径，中间用冒号隔开。环境变量更改后，在用户下次登陆时生效，如果想立刻生效，则可执行下面的语句：$ source .bash_profile
+```
 
 # 8.查看内存CPU使用情况
 
@@ -464,16 +470,18 @@ tags:
 
 >2.通过-o/-O选项保存下载的文件到指定文件中
         
-        # 将文件下载到本地并命名为mygettext.html
-        curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html
-        # 将文件保存到本地并命名为gettext.html
-        curl -O http://www.gnu.org/software/gettext/manual/gettext.html
-        同时获取多个文件
-        curl -o url -o url
+    # 将文件下载到本地并命名为mygettext.html
+    curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html
+    # 将文件保存到本地并命名为gettext.html
+    curl -O http://www.gnu.org/software/gettext/manual/gettext.html
+    同时获取多个文件
+    curl -o url -o url
+    
 >3.断点续传
  
-        # 通过添加-C选项继续对该文件进行下载，已经下载过的文件不会被重新下载
-        curl -C - -O http://www.gnu.org/software/gettext/manual/gettext.html
+    # 通过添加-C选项继续对该文件进行下载，已经下载过的文件不会被重新下载
+    curl -C - -O http://www.gnu.org/software/gettext/manual/gettext.html
+    
 >4.对curl进行网络限速、时间
 
 >5.curl授权
@@ -484,7 +492,7 @@ tags:
 
 >    6.从FTP服务器下载文件
     
-        # 列出public_html下的所有文件夹和文件
+    # 列出public_html下的所有文件夹和文件
     curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/
 
     # 下载xss.php文件
@@ -492,72 +500,83 @@ tags:
 
 >7.上传文件到FTP服务器
 
-        通过 -T 选项可将指定的本地文件上传到FTP服务器上
-        # 将myfile.txt文件上传到服务器
-        curl -u ftpuser:ftppass -T myfile.txt ftp://ftp.testserver.com
+    通过 -T 选项可将指定的本地文件上传到FTP服务器上
+    # 将myfile.txt文件上传到服务器
+    curl -u ftpuser:ftppass -T myfile.txt ftp://ftp.testserver.com
 
-        # 同时上传多个文件
-        curl -u ftpuser:ftppass -T "{file1,file2}" ftp://ftp.testserver.com
+    # 同时上传多个文件
+    curl -u ftpuser:ftppass -T "{file1,file2}" ftp://ftp.testserver.com
 
-        # 从标准输入获取内容保存到服务器指定的文件中
-        curl -u ftpuser:ftppass -T - ftp://ftp.testserver.com/myfile_1.txt
+    # 从标准输入获取内容保存到服务器指定的文件中
+    curl -u ftpuser:ftppass -T - ftp://ftp.testserver.com/myfile_1.txt
 
 >8.通过-v、-trace获取更多的链接信息
 
 >9.通过字典查询单词
  
-        # 查询bash单词的含义
-        curl dict://dict.org/d:bash
+    # 查询bash单词的含义
+    curl dict://dict.org/d:bash
 
-        # 列出所有可用词典
-        curl dict://dict.org/show:db
+    # 列出所有可用词典
+    curl dict://dict.org/show:db
 
-        # 在foldoc词典中查询bash单词的含义
-        curl dict://dict.org/d:bash:foldoc
+    # 在foldoc词典中查询bash单词的含义
+    curl dict://dict.org/d:bash:foldoc
+    
 >10.curl设置代理
 
-        # 指定代理主机和端口
-        curl -x proxysever.test.com:3128 http://google.co.in
+    # 指定代理主机和端口
+    curl -x proxysever.test.com:3128 http://google.co.in
 
 >11.保存与使用其他网站的cookie信息
  
-        # 将网站的cookies信息保存到sugarcookies文件中
-        curl -D sugarcookies http://localhost/sugarcrm/index.php
-        # 使用上次保存的cookie信息
-        curl -b sugarcookies http://localhost/sugarcrm/index.php
+    # 将网站的cookies信息保存到sugarcookies文件中
+    curl -D sugarcookies http://localhost/sugarcrm/index.php
+    # 使用上次保存的cookie信息
+    curl -b sugarcookies http://localhost/sugarcrm/index.php
 
->12.传递请求参数
+>12.传递请求参数POST GET
  
-        默认curl使用GET方式请求数据，这种方式下直接通过URL传递数据
-        可以通过 --data/-d 方式指定使用POST方式传递数据
-        # GET
-        curl -u username https://api.github.com/user?access_token=XXXXXXXXXX
+    默认curl使用GET方式请求数据，这种方式下直接通过URL传递数据
+    可以通过 --data/-d 方式指定使用POST方式传递数据
+    # GET
+    curl -u username https://api.github.com/user?access_token=XXXXXXXXXX
 
-        # POST
-        curl -u username --data "param1=value1&param2=value" https://api.github.com
+    # POST
+    curl -u username --data "param1=value1&param2=value" https://api.github.com
+    
+    curl -d 'ip=222.72.140.114' http://ip.taobao.com/service/getIpInfo2.php
+    
+    curl -H "Content-Type:application/x-www-form-urlencoded" -X POST -d 'ip=222.72.140.114' http://ip.taobao.com/service/getIpInfo2.php
+    
+    # 也可以指定一个文件，将该文件中的内容当作数据传递给服务器端
+    curl --data @filename https://github.api.com/authorizations
 
-        # 也可以指定一个文件，将该文件中的内容当作数据传递给服务器端
-        curl --data @filename https://github.api.com/authorizations
+    # 如果特殊字符需要转义
+    # 直接使用--data-urlencode会自动转义
+    curl --data-urlencode "value 1" http://hostname.com
 
-        # 如果特殊字符需要转义
-            # 直接使用--data-urlencode会自动转义
-            curl --data-urlencode "value 1" http://hostname.com
+    # 除了GET、POST，还可以通过-X指定请求方式。
+    curl -I -X DELETE https://api.github.com
+    # 上传文件
+    curl --form "fileupload=@filename.txt" http://hostname/resource
 
-        # 除了GET、POST，还可以通过-X指定请求方式。
-            curl -I -X DELETE https://api.github.com
-            # 上传文件
-            curl --form "fileupload=@filename.txt" http://hostname/resource
  >忽略https
     
     curl https://127.0.0.1:9802/api/promote/template -k
+>不显示统计信息 % Total %Received%
+
+```
+curl -s 
+```
 
 # 15.查看socket连接数
 
     ulimit -n
     修改socket连接数
-        sudo vim /etc/security/limits.conf
-        * soft nofile 65535
-        * hard nofile 65535
+    sudo vim /etc/security/limits.conf
+    * soft nofile 65535
+    * hard nofile 65535
 
 # 16.执行脚本的四种方法
 
@@ -654,13 +673,81 @@ tags:
 # 23.grep
 
     grep 要搜索的内容 filePath
+    grep -E '1|2' 查询符合 1或者2的条件的内容
 
 # 24.awk sed Perlre
+## 1.通过单个字符或者多个字符分隔字符串
+- 注意：所有分割后的值都可以直接作为数组进行循环
+>-F 参数
 
-# 25.jq
+- 用:或者空格进行分隔字符串（或的关系）
+```
+// 
+echo 'hello:world 123'|awk -F "[: ]" '{print $1" "$2" "$3}'
+// 输出 hello world 123
+```
+- 用:/分隔字符串（并的关系）
+```
+echo 'hello:/world'|awk -F"[:][/]" '{print $1" "$2}'
+// 输出 hello world
+```
+>split 参数
 
-    echo '{"a":"1"}'|jq .
-    cat xx.json|jq .
+- awk的内建函数split运行把一个字符串分隔为单词并存储在数组中
+- split(string,array,[field separator])
+- split(string,array) // 默认FS值为空格
+```
+echo 'hello.world'|awk '{split($0,a,".");print a[1],a[2]}'
+// 输出 hello world
+```
+>substr
+
+- substr(s,p) 返回字符串s中从p开始的后缀部分
+- substr(s,p,n) 返回字符串s中从p开始长度为n的后缀部分
+```
+echo '123456'|awk '{print substr($0,2)}'
+// 输出 23456
+
+echo '123456'|awk '{print substr($0,1,2)}'
+// 输出 12
+```
+>FS 截取
+
+```
+echo 'hello:world'|awk 'BEGIN{FS=":"};{print $1};'
+// 输出hello
+```
+>示例脚本
+
+```
+// 分隔字符串并循环打印所有的值
+echo '210.12.5.222 222.72.140.114'|awk '{len=split($0,ipList," ");for(i=1;i<=len;i++) print ipList[i];}'
+// 分隔字符串并打印第一个值
+echo 'hello:world'|awk 'BEGIN{FS=":"} {print $1}'
+```
+
+## 2.sed
+>去掉所有的双引号
+
+```
+echo '"hello world"'|sed 's/\"//g'
+```
+# 25.jq 解析字符串为json
+```
+echo '{"a":"1"}'|jq .
+cat xx.json|jq .
+
+location='{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知"}}'
+data=`echo $location|jq '.data'`
+ip=`echo $data|jq '.ip'`
+country=`echo $data|jq '.country'`
+region=`echo $data|jq '.region'`
+city=`echo $data|jq '.city'`
+isp=`echo $data|jq '.isp'`
+echo  "该ip:$ip 位于 $country $region $city $isp"
+
+// 输出 该ip:"110.12.112.12" 位于 "新西兰" "奥克兰" "奥克兰" "未知"
+```
 
 # 26.rename
 
@@ -705,7 +792,7 @@ tags:
 
     chsh -s /bin/zsh
     
-# 34.查询进程号
+# 34.查询进程号 ps
     
     ps -ef|grep nginx
 
@@ -737,7 +824,57 @@ tags:
 >参数
     
     指令：需要周期性执行的指令。
-    
+
+# 40.sips Mac压缩图片
+# 41.netstat
+```
+// 查询指定ip的链接内容
+netstat -anp |grep ESTABLISHED|grep -E '172.96.194.164:16718|172.96.194.164:19997'
+
+// 获取指定ip的相对应的ip
+netstat -anp |grep ESTABLISHED|grep -E '172.96.194.164:16718|172.96.194.164:19997'|awk '{print $5}'|awk 'BEGIN{FS=":"} {print $1}'|sort|uniq
+```
+# 42.查询进程并杀死相关进程
+```
+ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9
+```
+# 43.数组操作
+>获取元素个数
+
+```
+numList=(1 2 3 4)
+num=${#numList[@]} // 4
+```
+>获取数组的所有元素
+
+```
+numList=(1 2 3 4)
+${numList[*]}
+// 获取所有元素后就可以进行循环
+for value in ${numList[*]}
+do
+    echo $value
+done
+// 输出 1 2 3 4
+// 1 
+// 2
+// 3
+// 4
+```
+# 44.变量运算
+
+# 备注
+>2019年6月5号
+
+- 增加PATH地址详情地址格式
+- 完善、增加 curl post请求方式
+- 增加curl不显示统计信息
+- 增加awk 分隔字符串详解
+- 增加sed批量替换
+- 增加jq解析字符串详情
+- 增加netstat示例命令
+- 增加查询进程并杀死相关进程的示例
+- 增加数组操作
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
