@@ -203,15 +203,23 @@ tags:
 # 3.pscp&scp
 
 ## 1.利用pscp上传文件
-        pscp d:\project\udpServer.zip root@101.201.30.9:/home
-
+```
+pscp d:\project\udpServer.zip root@101.201.30.9:/home
+```
 ## 2.scp下载文件
-        scp walle@52.80.63.5:/home/apps/sensor-tcp/tmp/fileName.txt 本地地址
-        sudo echo ""  > hosts 清空hosts
+```
+scp walle@52.80.63.5:/home/apps/sensor-tcp/tmp/fileName.txt 本地地址
+sudo echo ""  > hosts 清空hosts
+scp -P port // 指定端口
+
+// scp指定端口 指定秘钥下载 
+scp -P xxxx -i /Users/xxx/.ssh/id_rsa root@xxx.xx.xx.xx:/etc/xx/config.json ./
+```
+
 ## 3.scp 上传文件
-        scp  -r /tmp/local_dir username@ip:remote_dir
-
-
+```
+scp  -r /tmp/local_dir username@ip:remote_dir
+```
 # 4.查看相关命令的帮助文档
 
     tldr 查看某个命令的help
@@ -875,6 +883,10 @@ done
 - 增加netstat示例命令
 - 增加查询进程并杀死相关进程的示例
 - 增加数组操作
+
+>2019年6月6号
+
+- 增加scp指定端口 指定秘钥下载
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
