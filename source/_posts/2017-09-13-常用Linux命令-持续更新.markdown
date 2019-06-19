@@ -917,6 +917,19 @@ RestartPreventExitStatus=23
 WantedBy=multi-user.target
 ```
 
+>服务维护
+
+- 新添加的unit配置文件或者配置文件改动需要执行 daemon-reload
+```
+// 重新加载 systemd 程序的配置文件
+sudo systemctl daemon-reload
+
+// 启动服务
+systemctl start v2ray.service
+// 停止服务
+systemctl stop v2ray.service
+```
+
 # 备注
 >2019年6月5号
 
