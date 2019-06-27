@@ -930,6 +930,8 @@ systemctl start v2ray.service
 systemctl stop v2ray.service
 ```
 # 46.lsmod 显示已载入系统的模块
+# 47.dig
+# 48.while 循环
 >示例
 ```
 lsmod | grep bbr
@@ -958,6 +960,10 @@ lsmod | grep bbr
 >2019年6月24日
 
 - 增加lsmod相关内容
+
+>2019年6月24日
+
+- 增加dig、while循环
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
