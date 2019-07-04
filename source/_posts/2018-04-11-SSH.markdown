@@ -37,7 +37,8 @@ tags:
     RSAAuthentication yes # 启用 RSA 认证
     PubkeyAuthentication yes # 启用公钥私钥配对认证方式
     AuthorizedKeysFile .ssh/authorized_keys # 公钥文件路径（和上面生成的文件同）
-
+    PermitRootLogin no # 禁用root登录
+    
 >修改文件后需要重启服务
 
     service sshd restart 或者 /bin/systemctl restart  sshd.service
