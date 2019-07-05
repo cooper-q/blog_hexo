@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "SSH"
+title:      SSH常用内容
 date:       2018-04-11
 top: 10
 categories:
@@ -11,61 +11,108 @@ tags:
     - Linux
 ---
 
-# 1.ssh key
+# 1.SSH key
 
 ## 1.生成key
-
-    ssh-keygen -t rsa -C "your_email@example.com"
-    生成公钥密钥
-    生成路径:~/.ssh
-    密钥：id_rsa
-    公钥：id_rsa.pub
-
+```    
+ssh-keygen -t rsa -C "your_email@example.com" 
+生成公钥密钥
+生成路径:~/.ssh
+密钥：id_rsa
+公钥：id_rsa.pub
+```
 ## 2.服务器配置ssh
-    需要在服务器~/.ssh目录下 authorized_keys文件下加入公钥内容即可（如果没有新建文件）
+>服务端配置公钥
 
-    给予权限：chmod 600 ~/.ssh/authorized_keys
+```
+~/.ssh/authorized_keys 文件下加入公钥内容即可（如果没有新建文件）
+```
+>权限    
+
+```
+chmod 600 ~/.ssh/authorized_keys # 给予权限
+```
 
 ## 3.服务器配置使用ssh，并禁用密码登录
 
 >注:修改配置前必须保证ssh配置正确，否则将无法登录服务器
 
-    /etc/ssh/sshd_config
+```    
+/etc/ssh/sshd_config
+```
 >注：sshd_config 是服务端的配置文件 ssh_config是针对客户端的配置文件
+```
+PasswordAuthentication no # 禁用密码验证
+RSAAuthentication yes # 启用 RSA 认证
+PubkeyAuthentication yes # 启用公钥私钥配对认证方式
+AuthorizedKeysFile .ssh/authorized_keys # 公钥文件路径（和上面生成的文件同）
+PermitRootLogin no # 禁用root登录
+```
 
-    PasswordAuthentication no # 禁用密码验证
-    RSAAuthentication yes # 启用 RSA 认证
-    PubkeyAuthentication yes # 启用公钥私钥配对认证方式
-    AuthorizedKeysFile .ssh/authorized_keys # 公钥文件路径（和上面生成的文件同）
-    PermitRootLogin no # 禁用root登录
-    
 >修改文件后需要重启服务
 
-    service sshd restart 或者 /bin/systemctl restart  sshd.service
-    ubuntu:service ssh restart
-
-
+```    
+service sshd restart 或者 /bin/systemctl restart  sshd.service
+ubuntu:service ssh restart
+```
+    
 ## 4.使用不同的key来访问不同的服务器或者网站
 
-    如果使用不同的SSHKey的话
-    ~/.ssh/config (这里是本地的文件)
-    下面的config来区分
-        Host gitlab.xxx.com ##可以随意命名，链接时使用这个名字
-        HostName gitlab.xxx.com
-        User git
-        Port 22
-        IdentityFile ~/.ssh/id_rsa_xxx
+>创建或更新config文件
 
-        Host github.com
-        HostName github.com
-        User git
-        Port 22
-        IdentityFile ~/.ssh/id_rsa
-    可以直接使用 ssh github.com
+```
+~/.ssh/config
+# 没有则新建 并给予权限 
+chmod 600 ~/.ssh/config
 
+# 示例
+Host gitlab.xxx.com             # 类似于别名（可以随便写） 
+HostName gitlab.xxx.com         # 要连接的服务器ip或者网址
+User git                        # 用户名
+Port 22                         # 端口号
+IdentityFile ~/.ssh/id_rsa_xxx  # 私钥位置
+
+# 连接
+ssh gitlab.xxx.com # 可直接使用上面创建的Host来连接
+```
+
+## ~~5.使用相同的key来连接不同的服务器或者网站~~
+>修改config文件
+
+```
+~/.ssh/config
+# 增加配置
+Host github.com git.coding.net
+HostName %h
+Port 22
+User git
+IdentityFile  ~/.ssh/id_rsa_xxx
+```
+>使用
+
+```
+ssh -T git@git.coding.net
+ssh -T git@github.com
+```
 ## 3.使用ssh
+>如没有配置config
 
-    ssh user@ip -p port（默认22）
+```
+ssh user@ip -p port（默认22）
+```
+
+>配置config
+
+```
+ssh Host中的名称即可
+```
+
+>指定私钥指定端口连接
+
+```
+ssh  -i ~/.ssh/id_rsa_xxx  -p port user@ip(或域名)
+```
+    
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
 >[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
