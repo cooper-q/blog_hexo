@@ -20,6 +20,7 @@ tags:
 - 使用 certbot 签发证书
 - 配置 Nginx 以使用签发的证书
 - 证书的自动续签
+- 使用acme.sh脚本生成（终极大法）
 
 # 1.下载 certbot
 
@@ -180,6 +181,100 @@ nginx -s reload
 
     crontab /xx/Lets\ Encrypt.cron
 
+# 6.使用acme.sh生成
+## 1.安装acme.sh
+```
+curl https://get.acme.sh | sh
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                               Dload  Upload   Total   Spent    Left  Speed
+100   671  100   671    0     0    680      0 --:--:-- --:--:-- --:--:--   679
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                               Dload  Upload   Total   Spent    Left  Speed
+100  112k  100  112k    0     0   690k      0 --:--:-- --:--:-- --:--:--  693k
+[Fri 30 Dec 01:03:32 GMT 2016] Installing from online archive.
+[Fri 30 Dec 01:03:32 GMT 2016] Downloading https://github.com/Neilpang/acme.sh/archive/master.tar.gz
+[Fri 30 Dec 01:03:33 GMT 2016] Extracting master.tar.gz
+[Fri 30 Dec 01:03:33 GMT 2016] Installing to /home/user/.acme.sh
+[Fri 30 Dec 01:03:33 GMT 2016] Installed to /home/user/.acme.sh/acme.sh
+[Fri 30 Dec 01:03:33 GMT 2016] Installing alias to '/home/user/.profile'
+[Fri 30 Dec 01:03:33 GMT 2016] OK, Close and reopen your terminal to start using acme.sh
+[Fri 30 Dec 01:03:33 GMT 2016] Installing cron job
+no crontab for user
+no crontab for user
+[Fri 30 Dec 01:03:33 GMT 2016] Good, bash is found, so change the shebang to use bash as preferred.
+[Fri 30 Dec 01:03:33 GMT 2016] OK
+[Fri 30 Dec 01:03:33 GMT 2016] Install success!
+```
+>注意看错误提示 一般都是缺少某个依赖 然后根据使用的系统来安装依赖就可以
+
+## 2.使用acme.sh 生成证书
+
+- 确保80端口没有被占用 
+- 替换下面命令中的mydomain.com字段
+- 确定nginx 域名dns 都正常使用
+- -k 表示密钥长度，后面的值可以是 ec-256 、ec-384、2048、3072、4096、8192，带有 ec 表示生成的是 ECC 证书，没有则是 RSA 证书。在安全性上 256 位的 ECC 证书等同于 3072 位的 RSA 证书。
+
+```
+$ sudo ~/.acme.sh/acme.sh --issue -d mydomain.com --standalone -k ec-256
+
+[Fri Dec 30 08:59:12 HKT 2016] Standalone mode.
+[Fri Dec 30 08:59:12 HKT 2016] Single domain='mydomain.com'
+[Fri Dec 30 08:59:12 HKT 2016] Getting domain auth token for each domain
+[Fri Dec 30 08:59:12 HKT 2016] Getting webroot for domain='mydomain.com'
+[Fri Dec 30 08:59:12 HKT 2016] _w='no'
+[Fri Dec 30 08:59:12 HKT 2016] Getting new-authz for domain='mydomain.com'
+[Fri Dec 30 08:59:14 HKT 2016] The new-authz request is ok.
+[Fri Dec 30 08:59:14 HKT 2016] mydomain.com is already verified, skip.
+[Fri Dec 30 08:59:14 HKT 2016] mydomain.com is already verified, skip http-01.
+[Fri Dec 30 08:59:14 HKT 2016] mydomain.com is already verified, skip http-01.
+[Fri Dec 30 08:59:14 HKT 2016] Verify finished, start to sign.
+[Fri Dec 30 08:59:16 HKT 2016] Cert success.
+-----BEGIN CERTIFICATE-----
+MIIEMTCCAxmgAwIBAgISA1+gJF5zwUDjNX/6Xzz5fo3lMA0GCSqGSIb3DQEBCwUA
+MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xNjEyMjkyMzU5MDBaFw0x
+NzAzMjkyMzU5MDBaMBcxFTATBgNVBAMTDHdlYWtzYW5kLmNvbTBZMBMGByqGSM49
+****************************************************************
+4p40tm0aMB837XQ9jeAXvXulhVH/7/wWZ8/vkUUvuHSCYHagENiq/3DYj4a85Iw9
++6u1r7atYHJ2VwqSamiyTGDQuhc5wdXIQxY/YQQqkAmn5tLsTZnnOavc4plANT40
+zweiG8vcIvMVnnkM0TSz8G1yzv1nOkruN3ozQkLMu6YS7lk/ENBN7DBtYVSmJeU2
+VAXE+zgRaP7JFOqK6DrOwhyE2LSgae83Wq/XgXxjfIo1Zmn2UmlE0sbdNKBasnf9
+gPUI45eltrjcv8FCSTOUcT7PWCa3
+-----END CERTIFICATE-----
+[Fri Dec 30 08:59:16 HKT 2016] Your cert is in  /root/.acme.sh/mydomain.com_ecc/mydomain.com.cer
+[Fri Dec 30 08:59:16 HKT 2016] Your cert key is in  /root/.acme.sh/mydomain.com_ecc/mydomain.com.key
+[Fri Dec 30 08:59:16 HKT 2016] The intermediate CA cert is in  /root/.acme.sh/mydomain.com_ecc/ca.cer
+[Fri Dec 30 08:59:16 HKT 2016] And the full chain certs is there:  /root/.acme.sh/mydomain.com_ecc/fullchain.cer
+```
+## 3.证书更新
+- Let's Encrypt 的证书有效期只有 3 个月 需要使用一下命令手动更新
+
+>ECC证书
+
+```
+sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force --ecc
+```
+
+>RSA证书
+
+```
+sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force
+```
+
+## 4.安装证书和密钥
+- 安装到/etc/nginx目录下（目录可更改）
+- 证书安装完毕后重复上面的第四步骤（配置Nginx以使用签发的证书）即可
+
+>ECC证书
+
+```
+~/.acme.sh/acme.sh --installcert -d mydomain.com --fullchainpath /etc/nginx/mydomain.com.crt --keypath /etc/nginx/mydomain.com.key --ecc
+```
+>RSA证书
+
+```
+sudo ~/.acme.sh/acme.sh --installcert -d mydomain.com --fullchainpath /etc/nginx/mydomain.com.crt --keypath /etc/nginx/mydomain.com.key
+```
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
@@ -203,3 +298,7 @@ nginx -s reload
 >2019年5月23日更新
 
 - 重新排版、修改无法适用于新版本的内容
+
+>2019年7月05日更新
+
+- 增加使用acme.sh脚本生成TLS（终极大法）
