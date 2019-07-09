@@ -1066,7 +1066,7 @@ echo '完成'
 
 >2019年7月09日
 
-- 增加sleep、wait用法
+- 增加shell异步编程 sleep、wait用法
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
