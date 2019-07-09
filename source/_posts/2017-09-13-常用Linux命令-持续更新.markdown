@@ -930,11 +930,110 @@ systemctl start v2ray.service
 systemctl stop v2ray.service
 ```
 # 46.lsmod 显示已载入系统的模块
-# 47.dig
-# 48.while 循环
 >示例
 ```
 lsmod | grep bbr
+```
+# 47.dig
+# 48.while 循环
+# 49.shell异步编程
+## 1.sleep
+>等待进程（10秒）继续往下执行
+
+```
+sleep 10 node console.js # 等待10秒，再继续下一操作  
+```
+>当前shell不等待，后台子shell等待
+
+```
+sleep 10 node console.js &
+```
+
+## 2.wait
+
+- 1.等待作业号或者进程号制定的进程退出，返回最后一个作业或进程的退出状态状态。如果没有制定参数，则等待所有子进程的退出，其退出状态为0.
+
+- 2.如果是shell中等待使用wait，则不会等待调用函数中子任务。在函数中使用wait，则只等待函数中启动的后台子任务。
+
+- 3.在shell中使用wait命令，相当于高级语言里的多线程同步。
+
+>用法
+
+```
+wait [作业指示或进程号]
+```
+>使用wait等待所有子任务结束
+
+```
+#!/bin/bash  
+sleep 10 &  
+sleep 5&  
+wait #等待10秒后，退出  
+
+#!/bin/bash  
+sleep 10 &  
+sleep 5&  
+wait $! #$!表示上个子进程的进程号，wait等待一个子进程，等待5秒后，退出  
+
+#!/bin/bash 
+sleep 1 & echo 123 &
+sleep 1 & echo 456 &
+sleep 1 & echo 789 &
+wait # 等待所有子进程结束后打印完成
+echo '完成'
+// 结果
+// 123
+// 456
+// 789
+// 完成
+```
+>不等待直接异步执行
+
+```
+sleep 1 echo 123 &
+sleep 1 echo 456 &
+sleep 1 echo 789 &
+```
+>示例（结合node异步）等待子进程全部结束后打印完成
+
+- console.js
+
+```JavaScript
+if(process.argv[2]==1){
+  setTimeout(function(){
+    console.log('1:',process.argv[2])
+  },10000)
+}else if(process.argv[2]==2){
+  setTimeout(function(){
+    console.log('2:',process.argv[2])
+  },7000)
+}else if(process.argv[2]==3){
+  setTimeout(function(){
+    console.log('3:',process.argv[2])
+  },5000)
+}else if(process.argv[2]==4){
+  setTimeout(function(){
+    console.log('4:',process.argv[2])
+  },3000)
+}
+```
+- sleep.*sh*
+```
+sleep 1  node console.js 1 &
+sleep 1  node console.js 2 &
+sleep 1  node console.js 3 &
+sleep 1  node console.js 4 &
+wait
+echo '完成'
+```
+>输出结果
+
+```
+4: 4
+3: 3
+2: 2
+1: 1
+完成
 ```
 # 备注
 >2019年6月5号
@@ -964,6 +1063,10 @@ lsmod | grep bbr
 >2019年6月24日
 
 - 增加dig、while循环
+
+>2019年7月09日
+
+- 增加sleep、wait用法
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
