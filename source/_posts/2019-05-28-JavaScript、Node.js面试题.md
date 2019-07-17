@@ -9,7 +9,7 @@ categories:
 tags:
     - JavaScript
 ---
-# JavaScript 面试题（持续更新）
+# JavaScript、Node.js面试题（持续更新）
 # 1.问答题
 ## 1.JavaScript中的强制转换（coercion）是指的什么？  
 ```
