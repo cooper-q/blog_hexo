@@ -231,13 +231,9 @@ git revert 版本id -m 1
 
 >reset revert区别
 
-```
-reset是删除向后退，revert是提交一个新的向前进。
-
-上面我们说的如果你已经push到线上代码库, reset 删除指定commit以后,你git push可能导致一大堆冲突.但是revert 并不会。
-
-如果在日后现有分支和历史分支需要合并的时候,reset 恢复部分的代码依然会出现在历史分支里.但是revert 方向提交的commit 并不会出现在历史分支里.
-```
+- reset是删除向后退，revert是提交一个新的向前进。
+- 如果你已经push到线上代码库, reset 删除指定commit以后,你git push可能导致一大堆冲突.但是revert 并不会。
+- revert 恢复部分的代码依然会出现在历史分支里。但是reset提交的commit 并不会出现在历史分支里。
 
 #  8.git log历史记录
 
