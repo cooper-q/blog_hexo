@@ -372,38 +372,47 @@ git tag -v [tag-name]
 ```
 git tag -a v1.2 9fceb02 -m 'content'
 ```
-## 7.分享标签
+## 7.推送标签到远程
 ```
 git push origin v1.5
 ```
-## 8.删除某个tag
+## 8.推送本地所有标签到远程
+```
+git push origin --tags
+```
+
+## 9.删除某个tag
 ```
 git tag -d tag_name
 ```
-## 9.删除远程的tag
+
+## 10.删除远程的tag
 ```
 git push origin --delete tag <tagname>
 ```
 
-## 10.列出所有的提交记录以及hash码
+## 11.列出所有的提交记录以及hash码
 
 ```
 git log --pretty=oneline
 ```
-## 11.查看这个分支或者tag的内容
+
+## 12.查看这个分支或者tag的内容
 ```
 git show hash/tag 
 ```
-## 12.提交某个commit merge
+
+## 13.提交某个commit merge
 ```
 git cherry-pick
 ```
 
-## 13.查看git详细信息        
+## 14.查看git详细信息        
 ```
 git show tag_name
 ```
-## 14.自定义私有包
+
+## 15.自定义私有包
 ```
 "mongoose-models":"git+ssh://git@gitlab.xxx.com:backend/mongoose-models.git#tag号",
 ```
