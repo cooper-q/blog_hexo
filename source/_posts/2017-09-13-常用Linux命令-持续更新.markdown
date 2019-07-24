@@ -679,9 +679,15 @@ curl -s
     echo "输入的值为$input"
 
 # 23.grep
+```
+grep 要搜索的内容 filePath
+grep -E '1|2' 查询符合 1或者2的条件的内容
+```
+- cat filename | grep 'Filed' 时报Binary file (standard input) matches
 
-    grep 要搜索的内容 filePath
-    grep -E '1|2' 查询符合 1或者2的条件的内容
+```
+cat filename | grep -a 'Filed' //可以加上-a进行特殊处理
+```
 
 # 24.awk sed Perlre
 ## 1.通过单个字符或者多个字符分隔字符串
@@ -870,7 +876,7 @@ done
 // 4
 ```
 # 44.变量运算
-# 45.Centos7 服务注册以及部署
+# 45.Centos 7服务注册以及部署
 
 >参数说明
 
@@ -931,7 +937,6 @@ systemctl stop v2ray.service
 ```
 # 46.lsmod 显示已载入系统的模块
 >示例
-
 ```
 lsmod | grep bbr
 ```
@@ -1054,6 +1059,25 @@ passwd kook
 New password:   
 Retype new password:  
 ```
+# 51.wc
+- Linux系统中的wc(Word Count)命令的功能为统计指定文件中的字节数、字数、行数，并将统计结果显示输出
+>命令参数
+
+```
+-c 统计字节数。
+
+-l 统计行数。
+
+-m 统计字符数。这个标志不能与 -c 标志一起使用。
+
+-w 统计字数。一个字被定义为由空白、跳格或换行字符分隔的字符串。
+
+-L 打印最长行的长度。
+
+-help 显示帮助信息
+
+--version 显示版本信息
+```
 
 # 备注
 >2019年6月5号
@@ -1091,6 +1115,11 @@ Retype new password:
 >2019年7月16日
 
 - 增加Linux修改密码
+
+>2019年7月24日
+
+- 增加wc统计使用方法
+- 增加grep报错处理方法
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
