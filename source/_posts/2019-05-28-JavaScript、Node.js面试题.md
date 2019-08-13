@@ -524,6 +524,25 @@ for (let i = 0; i < 1000000000; i++) {
     
 }
 ```
+## 题目11
+>考察then中的两种状态（onFulfilled，onRejected）
+
+```
+// onFulfilled，onRejected 是function的时候
+Promise.reject('1')
+    .then((v) => Promise.resolve(v), (e) => Promise.resolve(e))
+    .then(v => console.log('v:', v), e => console.log('e:', e))
+// v: 1
+
+
+// onFulfilled，onRejected 非function时 会自动转换晨()=>x 即原样返回promise最终结果的函数
+Promise.reject('1')
+    .then(() => 1, 2)
+    .then(v => console.log('v:', v))
+    .catch(e => console.log('e:', e));
+// e: 1
+```
+
 # 3.技术外的面试题
 
 ## 1.说一下你做过最有成长的一个项目，简单总结一下
