@@ -83,7 +83,7 @@ server {
 - blog.mengxc.info 改域名需要改为自己的域名
 - ~~certbot 是支持多个域名的（官方还没有支持 Wildcard）命令为[待验证]~~
 ```
-/sbin/certbot-auto certonly --webroot -w /root/project/deployment/local/remote -d blog.mengxc.info -d xxxxx.mengxc.info
+/sbin/certbot-auto certonly --webroot -w /root/project/deployment/local/remote -d blog.mengxc.info -d blog.mengxc.info
 ```
 >生成完毕后会有四个文件
 
