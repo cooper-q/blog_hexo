@@ -1079,6 +1079,11 @@ Retype new password:
 --version 显示版本信息
 ```
 
+# 52.复制到粘贴板
+- Mac
+```
+echo 'pbcopy'|pbcopy 
+```
 # 备注
 >2019年6月5号
 
@@ -1120,6 +1125,10 @@ Retype new password:
 
 - 增加wc统计使用方法
 - 增加grep报错处理方法
+
+>2019年8月15日
+
+- 增加复制到粘贴板
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
