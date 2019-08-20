@@ -186,9 +186,22 @@ log(1, 2); // 1 2
 ```
 
 # 2.bind
-- bind方法创建一个新的函数
+- <span style='color:red'>bind方法创建一个新绑定函数（bound function，BF）。绑定函数是一个exotic function object（怪异函数对象），包装了原函数对象。</span>
+- <span style='color:red'>调用绑定函数通常会导致执行包装函数。</span>
+- 绑定函数具有一下内部属性
+- - <span style='color:red'>BoundTargetFunction - 包装的函数对象。</span>
+- - <span style='color:red'>BoundThis - 在调用包装函数时始终作为this值传递的值</span>
+- - <span style='color:red'>BoundArguments - 参数列表，在对包装函数做任何调用都会优先用列表元素填充参数列表。</span>
+- - <span style='color:red'>Call - 执行与此对象关联的代码。通过函数调用表达式调用。内部方法的参数是一个this值和一个包含通过调用表达式传递给函数的参数的列表。</span>
+
+- <span style='color:red'>当调用绑定函数时，它调用 BoundTargetFunction上的内部方法 Call，就像这样Call(boundThis,args)。</span>
+- - <span style='color:red'>boundThis是BoundThis，args是BoundArguments加上通过函数调用传入的参数列表。</span>
 - 在被调用是，这个新函数的this被bind的第一个参数指定，其余的参数将作为新函数的参数供调用时调用
 - bind()方法与apply和call很相似，也是可以改变函数体内的this指向。
+- 多次对某对象进行执行bind是无效的，只会是第一次bind的值
+- bind也可以对bind的function进行new操作，但是这样this会不管用。
+- 箭头函数由于没有this，bind同样对其无效。
+- - 使用bind改变this后，再使用call或者apply会无效
 
 >语法
 
@@ -204,6 +217,159 @@ function.bind(thisArg[, arg1[, arg2[, ...]]])
 - - 当使用bind在setTimeout中创建一个函数（作为回调提供）时，作为thisArg传递的任何原始值都将被转换为object。
 - - 如果bind函数的参数列表为空，执行作用域的this将被视为新函数的thisArg
 
+- arg1,arg2,....
+- - 当目标函数被调用时，预先添加到绑定函数的参数列表中的参数
+
+>返回值
+
+- 返回一个原函数的拷贝，并拥有制定的this的值和初始参数
+
+>示例
+
+- 利用bind实现由于上下文改变找不到this值的情况
+```
+// 1
+let foo = {
+    bar: 1,
+    eventBind: function () {
+        console.log(this.bar);
+    },
+};
+let eventBindCopy1 = foo.eventBind;
+// 这里由于上下文变了所有访问不到foo里面的bar
+eventBindCopy1(); // undefined
+
+let eventBindCopy2 = foo.eventBind.bind(foo);
+eventBindCopy2(); // 1
+
+// 2.通过bind改变this指向,并调用eventBind方法
+let barFunc = function () {
+    this.eventBind();
+};
+let func = barFunc.bind(foo);   
+
+func(); // 1
+
+// 3.通过bind改变this指向，修改bar并调用eventBind方法
+let bfFunc = function (num) {
+    this.bar = num;
+    this.eventBind();
+};
+func = bfFunc.bind(foo, 2);
+func();
+
+// 4.可以使用保存this的方式来获取上下文的值
+const foo = {
+    bar: 1,
+    getBar: function () {
+        let that = this;
+        return function () {
+            console.log(that.bar);
+        };
+    },
+};
+foo.getBar()();// 1
+
+// 5.通过bind方法来改变this的指向
+const foo = {
+    bar: 1,
+    getBar: function () {
+        return function () {
+            console.log(this.bar);
+        }.bind(this);
+    },
+};
+foo.getBar()();
+
+// 6.
+const getBar = function (num1) {
+    return this.num2 + num1;
+};
+const b = {
+    num2: 1,
+};
+
+getBar.bind(b, 2)(); // 3
+
+```
+
+- bind用在构造函数，this不起作用
+```
+const func = function () {
+    console.log(this);
+};
+const paramObj = {
+    x: 1,
+};
+func.bind(paramObj);
+new func(); // func {}
+```
+
+- 使用bind改变this后，在使用call或者apply无效
+```
+const obj = {
+    x: 81,
+};
+
+const foo = {
+    getX: function () {
+        console.log(this);
+        return this.x;
+    },
+};
+const obj1 = { x: 82 };
+
+let x = foo.getX.bind(obj);
+x = x.call(obj1);
+console.log('x:', x);// 81
+```
+
+>如果对一个函数bind()多次
+
+- 只有第一次时把func2的this指向到了foo，所以x是2第二次时func3把this指向到了func6，并没有指向到foo。
+- 然后再结合MDN的那句话返回原函数的拷贝。所以并没有改变foo的this，也就是没有变。
+- 内部是一个Call方法，参考上面标红的内容
+```JavaScript
+// 以上是个人理解欢迎讨论
+// 可以参考上面返回值的说明，只对第一次进行处理
+let func1 = { x: 1 };
+let func2 = { x: 2 };
+let func3 = { x: 3 };
+let foo = function () {
+    console.log('x:', this.x);
+};
+let func6 = foo.bind(func2);
+func6(); // 2
+func6 = func6.bind(func3);
+func6(); // 2
+```
+
+# 3.apply、call、bind比较
+- call、apply是立即执行
+- bind是先返回函数然后再手动执行。
+
+>异同
+
+```JavaScript
+var obj = {
+    x: 81,
+};
+
+var foo = {
+    getX: function () {
+        return this.x;
+    },
+};
+
+console.log(foo.getX.bind(obj)()); //81
+console.log(foo.getX.call(obj)); //81
+console.log(foo.getX.apply(obj)); //81
+```
+# 4.总结
+- apply、call、bind 三者都是用来改变函数的this对象的指向的；
+- apply、call、bind 三者第一个参数都是this要指向的对象，也就是想指定的上下文；
+- apply、call、bind 三者都可以利用后续参数传参；
+- bind是返回对应函数，便于稍后调用；apply、call则是立即调用 。
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
@@ -214,3 +380,6 @@ function.bind(thisArg[, arg1[, arg2[, ...]]])
 
 - 重构此文章（第一部分）
 
+>2019年08月20日
+
+- 重构此文章（重构完毕）
