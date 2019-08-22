@@ -578,6 +578,17 @@ PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:------:<PATH N>
 curl -s 
 ```
 
+>curl不识别 ? （zsh: no matches found:）
+
+- 出现这个问题是由于zsh引起的
+```
+curl 127.0.0.1:4001/get_traffic/query?key=1
+// zsh: no matches found: 127.0.0.1:4001/get_traffic/query?key=1
+
+// 1.在 ~/.zshrc 中加入：setopt no_nomatch 
+// 2.执行 source ~/.zshrc
+```
+
 # 15.查看socket连接数
 
     ulimit -n
