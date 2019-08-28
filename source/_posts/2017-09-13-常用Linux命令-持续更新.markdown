@@ -1102,6 +1102,27 @@ echo 'pbcopy'|pbcopy
 - usr/local/bin目录是给用户放置自己的可执行程序的地方，推荐放在这里，不会被系统升级而覆盖同名文件。
 - 如果两个目录下有相同的可执行程序，谁优先执行受到PATH环境变量的影响
 
+# 54.You have new mail
+- 由于系统错误（cron的权限问题）引起
+- 系统会将检查的各种状态汇总，定期发送本机用户邮箱
+- 删除可解决
+
+## 1.查看
+```
+mail
+
+Mail version 8.1 6/6/93.  Type ? for help.
+"/var/mail/xxxx": 29 messages 29 new
+>N  1 xx@xx.local     Fri Feb 23 10:39  21/954   "Cron <xx@xx> curl "http://localhost/t/cron.php" >>"
+...
+```
+## 2.删除
+- xxx对应上面看到的xxx的实际名称
+```
+sudo rm /var/mail/xxx
+sudo touch /var/mail/xxx
+```
+
 # 备注
 >2019年6月5号
 
@@ -1148,9 +1169,17 @@ echo 'pbcopy'|pbcopy
 
 - 增加复制到粘贴板
 
->2019年8月15日
+>2019年8月16日
 
 - /usr/bin /usr/local/bin区别
+
+>2019年8月22日
+
+- 增加curl不识别？等特殊字符问题
+
+>2019年8月28日
+
+- 增加You have new mail解决方案
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
