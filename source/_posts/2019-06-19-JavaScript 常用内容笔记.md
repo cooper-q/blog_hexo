@@ -622,10 +622,120 @@ if (typeof videoFunction === 'function') {
     };
 ```
 
+# 65.sort
+## 1.参数
+
+- compareFunction
+- - firstE1 第一个用于比较的参数
+- - secondE1 第二个用于比较的参数
+
+## 2.返回值
+
+- 排序后的数组。更改原数组
+
+## 3.描述
+
+- 如果没有指定compareFunction，那么元素会按照转换为的字符串的Unicode位点进行排序
+- 如果是80 9,同时没有指定compareFunction，则会先转换成字符串，则"80" 要在 "9"前面
+- 如果 compareFunction(a, b) 小于 0 ，那么 a 会被排列到 b 之前
+- 如果 compareFunction(a, b) 等于 0 ， a 和 b 的相对位置不变。
+- 如果 compareFunction(a, b) 大于 0 ， b 会被排列到 a 之前。
+- compareFunction(a, b) 必须总是对相同的输入返回相同的比较结果，否则排序的结果将是不确定的。
+
+- 比较函数如下
+```
+function compare(a, b) {
+  if (a < b ) {           // 按某种排序标准进行比较, a 小于 b
+    return -1;
+  }
+  if (a > b ) {
+    return 1;
+  }
+  // a must be equal to b
+  return 0;
+}
+```
+
+## 4.示例
+
+- 比较数字
+```
+let a = [2, 1];
+a.sort((a, b) => a - b);
+console.log(a); // [1 , 2]
+```
+
+- 对象排序
+```
+// 数字
+let a = [{ name: 'd', score: 5 }, { name: 'b', score: 4 }, { name: 'c', score: 2 }, { name: 'a', score: 1 }];
+a.sort((a, b) => a.score - b.score);
+console.log(a);
+// 输出
+[
+  { name: 'a', score: 1 },
+  { name: 'c', score: 2 },
+  { name: 'b', score: 4 },
+  { name: 'd', score: 5 }
+]
+
+// 字符串
+let a = [{ name: 'd', score: 5 }, { name: 'b', score: 4 }, { name: 'c', score: 2 }, { name: 'a', score: 1 }];
+a.sort((a, b) => {
+    if (a.name < b.name) {
+        return -1;
+    }
+    if (a.name > b.name) {
+        return 1;
+    }
+    return 0;
+});
+console.log(a);
+// 输出
+[
+  { name: 'a', score: 1 },
+  { name: 'b', score: 4 },
+  { name: 'c', score: 2 },
+  { name: 'd', score: 5 }
+]
+```
+
+- 非 ASCII 字符排序（如包含类似 e, é, è, a, ä 等字符的字符串）
+```
+let items = ['réservé', 'premier', 'cliché', 'communiqué', 'café', 'adieu'];
+items.sort(function (a, b) {
+    return a.localeCompare(b);
+});
+console.log(items);
+// [ 'adieu', 'café', 'cliché', 'communiqué', 'premier', 'réservé' ]
+```
+
+- 多字段排序（先进性score排序然后在排序name）
+```
+let list = [
+    { score: 1, name: 'b' }, { score: 1, name: 'a' },
+    { score: 2, name: 'd' }, { score: 2, name: 'c' }, { score: 0, name: 'e' },
+];
+list.sort((a, b) => {
+    return (a.score - b.score) || -(a.name < b.name);
+});
+console.log(list);
+// 输出
+[
+  { score: 0, name: 'e' },
+  { score: 1, name: 'a' },
+  { score: 1, name: 'b' },
+  { score: 2, name: 'c' },
+  { score: 2, name: 'd' }
+]
+```
+
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
 >[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
 
 # 备注
+>2019年8月29日
 
+- 增加sort具体用法
