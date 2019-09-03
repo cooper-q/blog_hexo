@@ -730,6 +730,12 @@ console.log(list);
 ]
 ```
 
+# 66.为什么要用 Object.prototype.toString.call(callback) != "[object Function]"而不用typeof
+- typeof是基于toString实现的
+- 不同原型类型有不同的toString的实现
+- 所以不同类型之前的toString的表现是不一样的
+- 所以统一用Object的toString实现
+
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
