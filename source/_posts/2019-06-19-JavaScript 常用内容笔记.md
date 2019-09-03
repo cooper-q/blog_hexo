@@ -736,6 +736,29 @@ console.log(list);
 - 所以不同类型之前的toString的表现是不一样的
 - 所以统一用Object的toString实现
 
+# 67.实现Array.prototype.map方法
+- 简易版
+```
+'use strict';
+let a = [{ a: 1 }, { a: 2 }];
+Array.prototype.mapDemo = function (cb) {
+    let arr = [];
+    for (let i = 0; i < this.length; i++) {
+        arr.push(cb(this[i], i));
+    }
+    return arr;
+};
+let b = a.mapDemo((v, index, arr) => {
+    if (index === 0) {
+        v.a = 1.1;
+    } else if (index === 1) {
+        v.a = 2.1;
+    }
+    return v;
+});
+console.log('b:', b);
+```
+- 完整版 [点击这里查看](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map#Compatibility)
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
@@ -745,3 +768,8 @@ console.log(list);
 >2019年8月29日
 
 - 增加sort具体用法
+
+>2019年9月3日
+
+- 实现Array.prototype.map方法
+- 增加toString的统一用法
