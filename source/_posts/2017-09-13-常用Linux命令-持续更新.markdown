@@ -1122,6 +1122,12 @@ Mail version 8.1 6/6/93.  Type ? for help.
 sudo rm /var/mail/xxx
 sudo touch /var/mail/xxx
 ```
+# 54.linux修改DNS服务
+```
+1.编辑/etc/resolv.conf
+2.添加  nameserver 8.8.8.8
+3.执行 service network restart 重启网络服务
+```
 
 # 备注
 >2019年6月5号
@@ -1180,6 +1186,10 @@ sudo touch /var/mail/xxx
 >2019年8月28日
 
 - 增加You have new mail解决方案
+
+>2019年9月4日
+
+- 增加linux修改dns服务
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
