@@ -1,17 +1,17 @@
 ---
 layout: post
-title: mysql explain 详解
+title: MySQL explain 详解
 date: 2019-09-17
 keywords: 
 top: 10
 categories: 
-    - 
+    - MySQL
 tags:
-    - 
+    - MySQL
 ---
-# mysql explain 详解
+# MySQL explain 详解
 # 1.概述
-- mysql提供了一个explain命令，它可以对select语句进行分析，并输出select执行的详细信息，以供开发人员针对性的优化
+- MySQL提供了一个explain命令，它可以对select语句进行分析，并输出select执行的详细信息，以供开发人员针对性的优化
 ```
 // 示例
 EXPLAIN select * from test where age=12;
@@ -90,7 +90,7 @@ extra:额外的信息
 system > const > eq_ref > range ~ index_merge >index > All
 ```
 ### 4.possible_keys
-- possible_keys表示mysql在查询时，能够使用到的索引，但是即使索引出现在possible_keys中，但是也不代表一定会用，由key决定使用了哪些索引。
+- possible_keys表示MySQL在查询时，能够使用到的索引，但是即使索引出现在possible_keys中，但是也不代表一定会用，由key决定使用了哪些索引。
 
 ### 5.key
 - 真正用到的索引
