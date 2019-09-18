@@ -1,6 +1,6 @@
 ---
 layout: post
-title: MySQL explain 详解
+title: MySQL explain 详解（转载）
 date: 2019-09-17
 keywords: 
 top: 10
@@ -97,6 +97,7 @@ system > const > eq_ref > range ~ index_merge >index > All
 
 ### 6.key_len
 - 表示查询优化器使用了索引的字节数，这个字段可以评估组合索引是否完全被使用或只有最左部分字段被使用到
+
 #### 1.key_len的计算规则如下
 - 字符串
 - - char(n):n字节长度
@@ -127,6 +128,17 @@ show full columns from test;
 
 name	varchar(255)	utf8_general_ci	YES	MUL			select,insert,update,references	
 ```
+### 7.rows
+- 估算结果集扫描读取的数据行数，直观显示sql的效率好坏，原则上rows越少越好
+
+### 8.Extra
+- 很多额外信息就在Extra字段显示，以下介绍几种，[更多详细内容，请点击查看](https://dev.mysql.com/doc/refman/5.5/en/explain-output.html#explain-extra-information)
+- - Using filesort,表示MySQL需要额外的排序操作，不能通过索引顺序达到排序效果，一般都建议优化去掉，这样的查询CPU资源消耗比较大。
+- - Using index,覆盖索引扫描，表示查询在索引树中可查找所需数据，不用扫描表数据文件，往往说明细性能不错。
+- - Using temporary，查询使用临时表，一般出现在排序、分组和多表join的情况，查询效率不高，建议优化。
+- - Using where,使用索引即可查找到数据而不会读取实际的表数据，表示内容全部都是同一索引返回
+
+>[原文链接，略有增加和删减](https://segmentfault.com/a/1190000008131735)
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
