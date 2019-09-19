@@ -128,6 +128,44 @@ show full columns from test;
 
 name	varchar(255)	utf8_general_ci	YES	MUL			select,insert,update,references	
 ```
+
+#### 3.详解key_len的计算规则
+- 创建测试表
+```
+// 设置name字段为非空
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE `test_key_len` (
+  `name` varchar(255) not null,
+  `age` int(11) DEFAULT NULL,
+  `sex` varchar(255) DEFAULT NULL,
+  KEY `idx` (`name`,`age`,`sex`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS = 1;
+```
+- 对name字段进行测试
+```
+explain select * from test_key_len where name='name123123';
+```
+id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered|Extra
+-|-|-|-|-|-|-|-|-|-|-|-|
+1|SIMPLE|test_key_len|ref|idx|idx|767|const|1|100.00|Using index
+```
+// 查看编码
+show full columns from test_key_len;
+name	varchar(255)	utf8_general_ci	NO	MUL			select,insert,update,references	
+
+// 根据上面的计算方法为以及编码方式占用的字节进行计算
+// 3n+2：3*255+2=767 
+// 如果设置name为可以空，则key_len为768。
+// 说明如果是可以为空还得需要判断空，多占用一个字节，则需要加1
+```
+id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered|Extra
+-|-|-|-|-|-|-|-|-|-|-|-|
+1|SIMPLE|test_key_len|ref|idx|idx|768|const|1|100.00|Using index
+
 ### 7.rows
 - 估算结果集扫描读取的数据行数，直观显示sql的效率好坏，原则上rows越少越好
 
