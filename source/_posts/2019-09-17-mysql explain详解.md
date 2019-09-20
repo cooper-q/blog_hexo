@@ -261,4 +261,5 @@ id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered
 >2019年9月20日
 
 - 增加key_len的多字段计算方法
+- 增加查看字符集相关内容
 
