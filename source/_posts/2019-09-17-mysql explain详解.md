@@ -125,6 +125,7 @@ system > const > eq_ref > range ~ index_merge >index > All
 - utf8_general_ci速度比较快，默认一般使用utf8_general_ci准确性也够用。
 - utf8对应 utf8_general_ci
 - uft8mb4对应utf8mb4_general_ci
+
 #### 3.查看字符集
 - 查看MySQL数据库服务器和数据库MySQL字符集
 ```
