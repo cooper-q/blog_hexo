@@ -115,7 +115,18 @@ system > const > eq_ref > range ~ index_merge >index > All
 - 字段属性
 - - NULL占用一个字节，如果是not null则没有此属性。
 
-#### 2.示例
+#### 2.utf8和utf8mb4区别
+- MySQL 5.5.3后增加utf8mb4编码
+- mb4是 most bytes 4的意思，用来兼容四字节的unicode
+- utf8mb4是utf8的超集
+- 低版本的MySQL支持的uft8编码最大字符长度为3字节，如果插入4字节的就不会报错
+- 三字节的utf-8最大能编码的unicode字符是0xFFFF，也就是Unicode中的[基本多文平面（BMP）](https://zh.wikipedia.org/wiki/Unicode%E5%AD%97%E7%AC%A6%E5%B9%B3%E9%9D%A2%E6%98%A0%E5%B0%84)。
+- 这些不在BMP中的字符包括Emoji表情、不常见汉字以及任何新增的Unicode字符等。
+- utf8_general_ci速度比较快，默认一般使用utf8_general_ci准确性也够用。
+- utf8对应 utf8_general_ci
+- uft8mb4对应utf8mb4_general_ci
+
+#### 3.示例
 ```
 EXPLAIN select * from test where name ='name3';
 ```
@@ -129,7 +140,7 @@ show full columns from test;
 name	varchar(255)	utf8_general_ci	YES	MUL			select,insert,update,references	
 ```
 
-#### 3.详解key_len的计算规则
+#### 4.详解key_len的计算规则
 - 创建测试表
 ```
 // 设置name字段为非空
