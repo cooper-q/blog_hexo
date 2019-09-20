@@ -151,7 +151,7 @@ explain select * from test_key_len where name='name123123';
 ```
 id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered|Extra
 -|-|-|-|-|-|-|-|-|-|-|-|
-1|SIMPLE|test_key_len|ref|idx|idx|767|const|1|100.00|Using index
+1|SIMPLE|test_key_len|NULL|ref|idx|idx|767|const|1|100.00|Using index
 ```
 // 查看编码
 show full columns from test_key_len;
@@ -164,7 +164,21 @@ name	varchar(255)	utf8_general_ci	NO	MUL			select,insert,update,references
 ```
 id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered|Extra
 -|-|-|-|-|-|-|-|-|-|-|-|
-1|SIMPLE|test_key_len|ref|idx|idx|768|const|1|100.00|Using index
+1|SIMPLE|test_key_len|NULL|ref|idx|idx|768|const|1|100.00|Using index
+
+- 对两个索引字段进行测试（name,age）
+```
+explain select * from test_key_len where name='name123123' and age=12;
+```
+id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered|Extra
+-|-|-|-|-|-|-|-|-|-|-|-|
+1|SIMPLE|test_key_len|NULL|ref|idx|idx|773|const,const|1|100.00|Using index
+```
+// 根据上面的计算方法为以及编码方式占用的字节进行计算
+// name(varchar(255)):3n+2+1(可以为null)
+// age(int):4+1(可以为null)
+// 结果为：3*255+2+1+4+1=773
+```
 
 ### 7.rows
 - 估算结果集扫描读取的数据行数，直观显示sql的效率好坏，原则上rows越少越好
