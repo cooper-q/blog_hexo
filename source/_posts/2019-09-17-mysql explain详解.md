@@ -125,8 +125,41 @@ system > const > eq_ref > range ~ index_merge >index > All
 - utf8_general_ci速度比较快，默认一般使用utf8_general_ci准确性也够用。
 - utf8对应 utf8_general_ci
 - uft8mb4对应utf8mb4_general_ci
+#### 3.查看字符集
+- 查看MySQL数据库服务器和数据库MySQL字符集
+```
+show variables like '%char%';
+```
+Variable_name|Value
+-|-
+character_set_client|utf8mb4  客户端字符集
+character_set_connection|utf8mb4
+character_set_database|utf8   数据库字符集
+character_set_filesystem|binary
+character_set_results|utf8mb4
+character_set_server|utf8     服务器字符集
+character_set_system|utf8
+character_sets_dir|/usr/local/Cellar/mysql/5.7.18_1/share/mysql/charsets/
 
-#### 3.示例
+- 查看MySQL数据表（table）的MySQL字符集。
+```
+show table status from test like '%test%';
+```
+Name|Engine|...|Collation
+-|-|-|-|
+test_key_len|InnoDB|...|uft8_general_ci
+
+- 查看MySQL数据列（column）的MySQL字符集。
+```
+show full columns from test_key_len;  
+```
+Filed|Type|Collation|...
+-|-|-|-|
+name|varchar(255)|uft8_general_ci|...
+age|int(11)|NULL|...
+sex|varchar(255)|uft8_general_ci|...
+
+#### 4.示例
 ```
 EXPLAIN select * from test where name ='name3';
 ```
@@ -140,7 +173,7 @@ show full columns from test;
 name	varchar(255)	utf8_general_ci	YES	MUL			select,insert,update,references	
 ```
 
-#### 4.详解key_len的计算规则
+#### 5.详解key_len的计算规则
 - 创建测试表
 ```
 // 设置name字段为非空
