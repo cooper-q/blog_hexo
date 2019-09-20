@@ -62,7 +62,7 @@ filtered:表示此查询条件所过滤的数据的百分比。
 extra:额外的信息
 ```
 
-## 3.相应字段详解
+## 3.相应字段实例详解
 ### 1.select_type
 - simple,常规查询，表示此查询不包含union查询或者子查询
 - primary,查询中若包含任何复杂的子部分，最外层的select会被标记为primary
@@ -127,7 +127,8 @@ system > const > eq_ref > range ~ index_merge >index > All
 - uft8mb4对应utf8mb4_general_ci
 
 #### 3.查看字符集
-- 查看MySQL数据库服务器和数据库MySQL字符集
+##### 1.查看MySQL数据库服务器和数据库MySQL字符集
+
 ```
 show variables like '%char%';
 ```
@@ -142,7 +143,8 @@ character_set_server|utf8     服务器字符集
 character_set_system|utf8
 character_sets_dir|/usr/local/Cellar/mysql/5.7.18_1/share/mysql/charsets/
 
-- 查看MySQL数据表（table）的MySQL字符集。
+##### 2.查看MySQL数据表（table）的MySQL字符集。
+
 ```
 show table status from test like '%test%';
 ```
@@ -150,7 +152,8 @@ Name|Engine|...|Collation
 -|-|-|-|
 test_key_len|InnoDB|...|uft8_general_ci
 
-- 查看MySQL数据列（column）的MySQL字符集。
+##### 3.查看MySQL数据列（column）的MySQL字符集。
+
 ```
 show full columns from test_key_len;  
 ```
@@ -168,14 +171,19 @@ id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered
 -|-|-|-|-|-|-|-|-|-|-|-|
 1|SIMPLE|test|NULL|ref|idx|idx|768|const|1|100.00|Using where
 - 按照上面varchar占用的字节进行计算应该是4x255+2=1022，但是查看字符集,发现是utf8_general_ci所以占用三个字节 255x3+2=767，然后不非空所以还需要+1，结果是768
-```
-show full columns from test;
 
-name	varchar(255)	utf8_general_ci	YES	MUL			select,insert,update,references	
 ```
+show full columns from test;	
+```
+Filed|Type|Collation|...
+-|-|-|-|
+name|varchar(255)|uft8_general_ci|...
+age|int(11)|NULL|...
+sex|varchar(255)|uft8_general_ci|...
+
 
 #### 5.详解key_len的计算规则
-- 创建测试表
+##### 1.创建测试表
 ```
 // 设置name字段为非空
 SET NAMES utf8mb4;
@@ -190,7 +198,7 @@ CREATE TABLE `test_key_len` (
 
 SET FOREIGN_KEY_CHECKS = 1;
 ```
-- 对name字段进行测试
+##### 2.对name字段进行测试
 ```
 explain select * from test_key_len where name='name123123';
 ```
@@ -199,9 +207,15 @@ id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered
 1|SIMPLE|test_key_len|NULL|ref|idx|idx|767|const|1|100.00|Using index
 ```
 // 查看编码
-show full columns from test_key_len;
-name	varchar(255)	utf8_general_ci	NO	MUL			select,insert,update,references	
+show full columns from test_key_len;	
+```
+Filed|Type|Collation|...
+-|-|-|-|
+name|varchar(255)|uft8_general_ci|...
+age|int(11)|NULL|...
+sex|varchar(255)|uft8_general_ci|...
 
+```
 // 根据上面的计算方法为以及编码方式占用的字节进行计算
 // 3n+2：3*255+2=767 
 // 如果设置name为可以空，则key_len为768。
@@ -211,10 +225,12 @@ id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered
 -|-|-|-|-|-|-|-|-|-|-|-|
 1|SIMPLE|test_key_len|NULL|ref|idx|idx|768|const|1|100.00|Using index
 
-- 对两个索引字段进行测试（name,age）
+##### 3.对两个索引字段进行测试（name,age）
 ```
 explain select * from test_key_len where name='name123123' and age=12;
 ```
+
+
 id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered|Extra
 -|-|-|-|-|-|-|-|-|-|-|-|
 1|SIMPLE|test_key_len|NULL|ref|idx|idx|773|const,const|1|100.00|Using index
