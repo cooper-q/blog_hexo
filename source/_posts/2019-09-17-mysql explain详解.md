@@ -197,4 +197,7 @@ id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered
 >[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
 
 # 备注
+>2019年9月20日
+
+- 增加key_len的多字段计算方法
 
