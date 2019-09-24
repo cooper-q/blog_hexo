@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "git的常用命令"
+title:      "git常用命令"
 date:       2019-03-25
 top: 10
 categories:
@@ -11,7 +11,7 @@ tags:
     - Linux
 ---
 
-# GIT的常用命令
+# GIT常用命令
 # [学习地址](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5)
 # 1.分支
 
@@ -203,11 +203,31 @@ git merge -Xignore-all-space branch_name
 ```
 git merge -Xignore-space-change branch_name
 ```
-- get merge的三种方式
+- git merge的三种方式
 ```
 fast-forward
 no fast forward
 squash
+```
+- git merge单个文件、单个文件夹
+- - git 无法merge单个文件或者文件夹
+- - 可以使用git checkout实现
+```
+// 需求:分支有 master dev dev_test 需要把dev_test的source_/_posts/下某些内容合并至master
+
+// 1.新建master的临时分支master_temp，并切换到该分支
+git branch master_temp
+git checkout master_temp
+
+// 2.用dev_test指定内容替换master_temp下的相应内容 如果有冲突可以在此分支解决
+git checkout dev_test  source/_posts // 这里是字节一个文件夹
+
+// 3.合并并提交
+git commit -am 'test'
+
+// 4.将master_temp分支合并到master
+git checkout master
+git merge master_temp
 ```
 
 ## 4.比较
