@@ -1128,6 +1128,49 @@ sudo touch /var/mail/xxx
 2.添加  nameserver 8.8.8.8
 3.执行 service network restart 重启网络服务
 ```
+# 55.增加、删除虚拟内存
+## 1.增加虚拟内存
+- 1.获取文件块（具体划分多少swap交换分区，根据你的物理内存具体应用情况磁盘情况而定一般是物理内存的1~2倍）
+```
+dd if=/dev/zero of=swapfile bs=4096 count=1572864
+```
+
+- 2.创建swap文件
+```
+/sbin/mkswap -f swapfile
+```
+
+- 3.挂起swap文件
+```
+/sbin/swapon swapfile
+```
+
+- 4.检查swap是否正确
+```
+/sbin/swapon -s
+```
+
+- 5.加到fstab文件中让系统引导时自动启动
+```
+vi /etc/fstab
+// 末尾加入
+var/swapfile swap swap defaults 0 0
+```
+- 6.重启系统
+```
+reboot
+```
+- 7.挂载swapfile
+```
+swapon swapfile
+```
+- 8.查看swap交换分区情况
+```
+free -m
+```
+## 2.删除虚拟内存
+
+# 56.dd命令
 
 # 备注
 >2019年6月5号
@@ -1190,6 +1233,11 @@ sudo touch /var/mail/xxx
 >2019年9月4日
 
 - 增加linux修改dns服务
+
+>2019年9月26日
+
+- 增加linux增加虚拟内存
+
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
