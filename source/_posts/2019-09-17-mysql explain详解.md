@@ -87,7 +87,11 @@ extra:额外的信息
 
 #### 2.性能关系
 ```
+// 省略版
 system > const > eq_ref > range ~ index_merge >index > All
+
+// 详细版
+system > const > eq_ref > ref > fulltext > ref_or_null > index_merge > unique_subquery > index_subquery > range > index > ALL
 ```
 ### 4.possible_keys
 - possible_keys表示MySQL在查询时，能够使用到的索引，但是即使索引出现在possible_keys中，但是也不代表一定会用，由key决定使用了哪些索引。
