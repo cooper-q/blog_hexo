@@ -887,9 +887,8 @@ done
 // 4
 ```
 # 44.变量运算
-# 45.Centos 7服务注册以及部署
-
-- 参数说明
+# 45.Centos 7服务注册、部署、开机自启
+## 1.参数说明
 ```
 [Unit]部分主要是对这个服务的说明，内容包括Description和After，Description 用于描述服务，After用于描述服务类别
 
@@ -907,11 +906,32 @@ PrivateTmp=True表示给服务分配独立的临时空间
 [Install]部分是服务安装的相关设置，可设置为多用户的
 ```
 
-- 服务示例
-- - v2ray
+## 2.服务示例
+- nginx
 ```
 [Unit]
-Description=V2Ray KCP Service
+Description=nginx - high performance web server
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+PIDFile=/run/nginx.pid
+Environment=PATH=/root/.nvm/versions/node/v12.8.1/bin:/usr/bin/v2ray/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+ExecStartPre=/usr/sbin/nginx -t -c /etc/nginx/nginx.conf
+ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
+ExecReload=/usr/sbin/nginx -s reload
+ExecStop=/usr/sbin/nginx -s stop
+ExecQuit=/usr/sbin/nginx -s quit
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
+- v2ray
+```
+[Unit]
+Description=V2Ray WS TLS Service
 After=network.target
 Wants=network.target
 
@@ -922,8 +942,8 @@ Wants=network.target
 # User=v2ray
 # Group=v2ray
 Type=simple
-PIDFile=/run/v2rayKCP.pid
-ExecStart=/usr/bin/v2ray/v2ray -config /root/v2ray/config/config_kcp.json
+PIDFile=/run/v2rayWSTLS.pid
+ExecStart=/usr/bin/v2ray/v2ray -config /root/v2ray/configuration/config/tw/config_ws_tls.json
 Restart=on-failure
 # Don't restart in the case of configuration error
 RestartPreventExitStatus=23
@@ -932,7 +952,7 @@ RestartPreventExitStatus=23
 WantedBy=multi-user.target
 ```
 
-- - pm2
+- pm2
 ```
 [Unit]
 Description=PM2 process manager
@@ -958,20 +978,48 @@ ExecStop=/root/.nvm/versions/node/v12.8.1/lib/node_modules/pm2/bin/pm2 kill
 WantedBy=multi-user.target
 ```
 
->服务维护
+## 3.常用命令
 
-- 新添加的unit配置文件或者配置文件改动需要执行 daemon-reload
+- 重新加载 systemd 程序的配置文件
 ```
-// 重新加载 systemd 程序的配置文件
 sudo systemctl daemon-reload
-
-// 启动服务
-systemctl start v2ray.service
-// 停止服务
-systemctl stop v2ray.service
+```
+- 启动服务
+```
+sudo systemctl start nginxReboot.service
+```
+- 停止服务
+```
+sudo systemctl stop nginxReboot.service
+```
+- 查看服务状态
+```
+systemctl status nginxReboot.service
+```
+- 设置开机自启
+```
+sudo systemctl enable nginxReboot.service
+```
+- 禁用开机自启
+```
+sudo systemctl disable nginxReboot.service
+```
+- 查看服务是否开机启动：
+```
+systemctl is-enabled nginxReboot.service
+```
+- 查看已启动的服务列表：
+```
+systemctl list-unit-files|grep enabled
+```
+- 掩盖服务禁止开机自启
+```
+sudo systemctl mask nginxReboot.service
 ```
 # 46.lsmod 显示已载入系统的模块
+
 >示例
+
 ```
 lsmod | grep bbr
 ```
@@ -979,13 +1027,11 @@ lsmod | grep bbr
 # 48.while 循环
 # 49.shell异步编程
 ## 1.sleep
->等待进程（10秒）继续往下执行
-
+- 等待进程（10秒）继续往下执行
 ```
 sleep 10 node console.js # 等待10秒，再继续下一操作  
 ```
->当前shell不等待，后台子shell等待
-
+- 当前shell不等待，后台子shell等待
 ```
 sleep 10 node console.js &
 ```
@@ -993,18 +1039,15 @@ sleep 10 node console.js &
 ## 2.wait
 
 - 1.等待作业号或者进程号制定的进程退出，返回最后一个作业或进程的退出状态状态。如果没有制定参数，则等待所有子进程的退出，其退出状态为0.
-
 - 2.如果是shell中等待使用wait，则不会等待调用函数中子任务。在函数中使用wait，则只等待函数中启动的后台子任务。
-
 - 3.在shell中使用wait命令，相当于高级语言里的多线程同步。
 
->用法
+### 1.用法
 
 ```
 wait [作业指示或进程号]
 ```
->使用wait等待所有子任务结束
-
+- 使用wait等待所有子任务结束
 ```
 #!/bin/bash  
 sleep 10 &  
@@ -1028,17 +1071,15 @@ echo '完成'
 // 789
 // 完成
 ```
->不等待直接异步执行
-
+- 不等待直接异步执行
 ```
 sleep 1 echo 123 &
 sleep 1 echo 456 &
 sleep 1 echo 789 &
 ```
->示例（结合node异步）等待子进程全部结束后打印完成
+#### 1.示例（结合node异步）等待子进程全部结束后打印完成
 
 - console.js
-
 ```JavaScript
 if(process.argv[2]==1){
   setTimeout(function(){
@@ -1067,8 +1108,7 @@ sleep 1  node console.js 4 &
 wait
 echo '完成'
 ```
->输出结果
-
+- 输出结果
 ```
 4: 4
 3: 3
@@ -1077,18 +1117,18 @@ echo '完成'
 完成
 ```
 # 50.修改linux密码 
-- 修改root密码
->执行 passwd
-
+- 修改root密码 
 ```
+// 执行 passwd
+
 New password: 
 Retype new password: 
 按提示输入
 ```
 
 - 修改其余用户密码
->执行 passwd :用户名
 ```
+// 执行 passwd :用户名
 passwd kook
 
 New password:   
@@ -1195,9 +1235,6 @@ free -m
 ## 2.删除虚拟内存
 
 # 56.dd命令
-
-# 57.开机自启动
-- 1.
 
 # 备注
 >2019年6月5号
