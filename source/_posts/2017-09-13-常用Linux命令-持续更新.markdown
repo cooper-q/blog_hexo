@@ -926,30 +926,7 @@ PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
-```
 
-- v2ray
-```
-[Unit]
-Description=V2Ray WS TLS Service
-After=network.target
-Wants=network.target
-
-[Service]
-# This service runs as root. You may consider to run it as another user for security concerns.
-# By uncommenting the following two lines, this service will run as user v2ray/v2ray.
-# More discussion at https://github.com/v2ray/v2ray-core/issues/1011
-# User=v2ray
-# Group=v2ray
-Type=simple
-PIDFile=/run/v2rayWSTLS.pid
-ExecStart=/usr/bin/v2ray/v2ray -config /root/v2ray/configuration/config/tw/config_ws_tls.json
-Restart=on-failure
-# Don't restart in the case of configuration error
-RestartPreventExitStatus=23
-
-[Install]
-WantedBy=multi-user.target
 ```
 
 - pm2
@@ -1016,6 +993,20 @@ systemctl list-unit-files|grep enabled
 ```
 sudo systemctl mask nginxReboot.service
 ```
+## 4.注意的点
+- centos 7用systemctl启动nginx后
+- - 1.可能会出现 (13: Permission denied) while connecting to upstream:[nginx]
+```
+// 解决方法 执行下面的命令
+setsebool -P httpd_can_network_connect 1
+```
+- - 2.可能会nginx: [emerg] BIO_new_file("/root/xxx/c...b
+```
+// 解决办法
+// 需要把证书文件移动到nginx配置文件的地方 
+比如我的证书在/root/xxx/xx.crt,需要移动到/etc/nginx/
+```
+
 # 46.lsmod 显示已载入系统的模块
 
 >示例
@@ -1301,6 +1292,14 @@ free -m
 >2019年9月26日
 
 - 增加linux增加虚拟内存
+
+>2019年10月09日
+
+- 完善systemctl相关内容
+
+>2019年10月10日
+
+- systemctl增加注意的内容
 
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
