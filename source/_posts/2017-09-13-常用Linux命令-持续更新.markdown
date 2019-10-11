@@ -993,6 +993,10 @@ systemctl list-unit-files|grep enabled
 ```
 sudo systemctl mask nginxReboot.service
 ```
+- 查看启动失败的服务
+```
+systemctl --failed
+```
 ## 4.注意的点
 - centos 7用systemctl启动nginx后
 - - 1.可能会出现 (13: Permission denied) while connecting to upstream:[nginx]
