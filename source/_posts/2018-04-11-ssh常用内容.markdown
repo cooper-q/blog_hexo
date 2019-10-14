@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      SSH常用内容
+title:      ssh常用内容
 date:       2018-04-11
 top: 10
 categories:
@@ -10,7 +10,7 @@ tags:
     - SSH
     - Linux
 ---
-
+# ssh常用内容
 # 1.SSH key
 
 ## 1.生成key
@@ -22,25 +22,24 @@ ssh-keygen -t rsa -C "your_email@example.com"
 公钥：id_rsa.pub
 ```
 ## 2.服务器配置ssh
->服务端配置公钥
-
+- 服务端配置公钥
 ```
 ~/.ssh/authorized_keys 文件下加入公钥内容即可（如果没有新建文件）
 ```
->权限    
 
+- 配置权限    
 ```
 chmod 600 ~/.ssh/authorized_keys # 给予权限
 ```
 
 ## 3.服务器配置使用ssh，并禁用密码登录
 
->注:修改配置前必须保证ssh配置正确，否则将无法登录服务器
-
+- 修改配置前必须保证ssh配置正确，否则将无法登录服务器
 ```    
 /etc/ssh/sshd_config
 ```
->注：sshd_config 是服务端的配置文件 ssh_config是针对客户端的配置文件
+
+- sshd_config 是服务端的配置文件 ssh_config是针对客户端的配置文件
 ```
 PasswordAuthentication no # 禁用密码验证
 RSAAuthentication yes # 启用 RSA 认证
@@ -49,20 +48,27 @@ AuthorizedKeysFile .ssh/authorized_keys # 公钥文件路径（和上面生成�
 PermitRootLogin no # 禁用root登录
 ```
 
->修改文件后需要重启服务
-
+- 修改文件后重启服务
 ```    
 service sshd restart 或者 /bin/systemctl restart  sshd.service
 ubuntu:service ssh restart
 ```
-    
+
+## 3.使用示例
+- 连接
+```
+ssh user@ip -p port（默认22）
+```
+
+- 指定私钥指定端口连接
+```
+ssh  -i ~/.ssh/id_rsa_xxx  -p port user@ip(或域名)
+```
 ## 4.使用不同的key来访问不同的服务器或者网站
 
->创建或更新config文件
-
+- 创建或更新config文件
 ```
-~/.ssh/config
-# 没有则新建 并给予权限 
+cd ~/.ssh/config                # 没有则新建 并给予权限
 chmod 600 ~/.ssh/config
 
 # 示例
@@ -70,49 +76,43 @@ Host gitlab.xxx.com             # 类似于别名（可以随便写）
 HostName gitlab.xxx.com         # 要连接的服务器ip或者网址
 User git                        # 用户名
 Port 22                         # 端口号
-IdentityFile ~/.ssh/id_rsa_xxx  # 私钥位置
-
-# 连接
-ssh gitlab.xxx.com # 可直接使用上面创建的Host来连接
+IdentityFile ~/.ssh/id_rsa_xxx  # 私钥路径
 ```
 
-## ~~5.使用相同的key来连接不同的服务器或者网站~~
->修改config文件
+- 使用
+```
+ssh gitlab.xxx.com              # 可直接使用上面创建的Host来连接
+```
 
+## 5.使用相同的key来连接不同的服务器或者网站
+- 修改config文件
 ```
 ~/.ssh/config
-# 增加配置
-Host github.com git.coding.net
-HostName %h
+#### 配置1
+Host host1
+HostName example.com
+User root
 Port 22
-User git
-IdentityFile  ~/.ssh/id_rsa_xxx
-```
->使用
+IdentityFile ~/.ssh/id_rsa
 
-```
-ssh -T git@git.coding.net
-ssh -T git@github.com
-```
-## 3.使用ssh
->如没有配置config
-
-```
-ssh user@ip -p port（默认22）
+#### 配置2
+Host host2
+HostName 102.31.17.31
+User root
+Port 22
+IdentityFile ~/.ssh/id_rsa
 ```
 
->配置config
-
+- 使用
 ```
-ssh Host中的名称即可
+ssh host1
+ssh host2
 ```
-
->指定私钥指定端口连接
-
-```
-ssh  -i ~/.ssh/id_rsa_xxx  -p port user@ip(或域名)
-```
-    
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
 >[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+
+# 备注
+>2019年10月14日
+- 重新排版和整理
+
