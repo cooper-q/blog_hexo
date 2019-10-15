@@ -304,8 +304,13 @@ git config --global user.name   // 只查看name
 
 - 增加
 ```
+# 增加全局变量配置（user.name、user.email）
 git config --global --add user.name usernmae
 git config --global --add user.email email
+
+# 增加局部变量配置
+git config user.name ''
+git config user.email ''
 ```
 
 - 删除
@@ -687,3 +692,6 @@ shell输入cz使用
 
 - 重新排版并删除无用的内容
 
+>2019年10月15日
+
+- 增加配置局部变量配置
