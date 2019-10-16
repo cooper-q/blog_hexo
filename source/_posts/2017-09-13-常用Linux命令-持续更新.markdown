@@ -1191,7 +1191,9 @@ sudo touch /var/mail/xxx
 ## 1.增加虚拟内存
 - 1.获取文件块（具体划分多少swap交换分区，根据你的物理内存具体应用情况磁盘情况而定一般是物理内存的1~2倍）
 ```
-dd if=/dev/zero of=swapfile bs=4096 count=1572864
+dd if=/dev/zero of=swapfile bs=1M count=2048
+
+# block_size、number_of_block 大小可以自定义，比如 bs=1M count=1024 代表设置 1G 大小 SWAP 分区。
 ```
 
 - 2.创建swap文件
