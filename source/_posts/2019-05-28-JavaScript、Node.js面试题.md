@@ -542,6 +542,21 @@ Promise.reject('1')
     .catch(e => console.log('e:', e));
 // e: 1
 ```
+## 题目12
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%9501.jpg' width=400 height=500/>
+
+```
+function f (n) {
+    if (n <= 2) {
+        return 1;
+    }
+    return f(n - 1) + f(n - 2);
+}
+```
+
+## 题目13
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%9502.png' width=400/>
+
 
 # 3.技术外的面试题
 
