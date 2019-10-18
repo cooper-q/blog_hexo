@@ -1233,6 +1233,33 @@ free -m
 
 # 56.dd命令
 
+# 57.Centos7时区设置
+- 查看系统时间方面的状态
+```
+timedatectl status
+
+Local time: 四 2014-12-25 10:52:10 CST
+Universal time: 四 2014-12-25 02:52:10 UTC
+RTC time: 四 2014-12-25 02:52:10
+Timezone: Asia/Shanghai (CST, +0800)
+NTP enabled: yes
+NTP synchronized: yes
+RTC in local TZ: no
+DST active: n/a
+```
+- 列出所有时区
+```
+timedatectl list-timezones
+```
+- 将硬件时钟调整为与本地时钟一致, 0 为设置为 UTC 时间
+```
+timedatectl set-local-rtc 1
+```
+- 设置系统时区为上海
+```
+timedatectl set-timezone Asia/Shanghai
+```
+
 # 备注
 >2019年6月5号
 
@@ -1307,6 +1334,9 @@ free -m
 
 - systemctl增加注意的内容
 
+>2019年10月18日
+
+- 增加时区修改
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
