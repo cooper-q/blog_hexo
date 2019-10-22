@@ -1012,12 +1012,11 @@ setsebool -P httpd_can_network_connect 1
 ```
 
 # 46.lsmod 显示已载入系统的模块
-
->示例
-
+- 示例
 ```
 lsmod | grep bbr
 ```
+
 # 47.dig
 # 48.while 循环
 # 49.shell异步编程
@@ -1191,46 +1190,61 @@ sudo touch /var/mail/xxx
 ## 1.增加虚拟内存
 - 1.获取文件块（具体划分多少swap交换分区，根据你的物理内存具体应用情况磁盘情况而定一般是物理内存的1~2倍）
 ```
-dd if=/dev/zero of=swapfile bs=1M count=2048
+dd if=/dev/zero of=/var/swapfile bs=1M count=2048
 
 # block_size、number_of_block 大小可以自定义，比如 bs=1M count=1024 代表设置 1G 大小 SWAP 分区。
 ```
 
 - 2.创建swap文件
 ```
-/sbin/mkswap -f swapfile
+/sbin/mkswap -f /var/swapfile
+```
+- 3.给予swapfile 600权限
+```
+chmod 600 /var/swapfile
+```
+- 5.挂起swap文件
+```
+/sbin/swapon /var/swapfile
 ```
 
-- 3.挂起swap文件
-```
-/sbin/swapon swapfile
-```
-
-- 4.检查swap是否正确
+- 6.检查swap是否正确
 ```
 /sbin/swapon -s
 ```
 
-- 5.加到fstab文件中让系统引导时自动启动
+- 7.加到fstab文件中让系统引导时自动启动（防止重启后swap分区变成0）
 ```
 vi /etc/fstab
 // 末尾加入
-var/swapfile swap swap defaults 0 0
+/var/swapfile swap swap defaults 0 0
 ```
 - 6.重启系统
 ```
 reboot
 ```
-- 7.挂载swapfile
-```
-swapon swapfile
-```
-- 8.查看swap交换分区情况
+- 7.查看swap交换分区情况
 ```
 free -m
 ```
-## 2.删除虚拟内存
 
+## 2.删除虚拟内存
+- 1.停止swap分区
+```
+/sbin/swapoff /var/swapfile
+```
+
+- 2.删除swap分区文件
+```
+rm -rf /var/swapfile
+```
+
+- 3.删除自动挂载配置命令
+```
+vi /etc/fstab
+// 删除下面内容
+/var/swapfile swap swap defaults 0 0
+```
 # 56.dd命令
 
 # 57.Centos7时区设置
@@ -1259,7 +1273,107 @@ timedatectl set-local-rtc 1
 ```
 timedatectl set-timezone Asia/Shanghai
 ```
+# 58.开启Centos bbr拥塞控制算法[我的测试机是centos 8]
+## 1.检查是否安装bbr
+- 有一些vps会自带bbr模块 比如搬瓦工的某些机器，执行下面命令
+```
+lsmod | grep bbr
+```
+- 如果输出类似内容则已经开启bbr 到这里就可以结束了
+```
+tcp_bbr                20480  28
+```
+## 2.yum更新
+```
+yum update
+```
+## 3.查看系统版本
+- 执行下面命令
+```
+cat /etc/redhat-release
+```
 
+- 如果release后面的数字大于7.3即可
+```
+CentOS Linux release 7.7.1908 (Core)
+```
+## 4.安装elrepo并升级内核
+- 分别依次执行下面命令
+```
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+yum --enablerepo=elrepo-kernel install kernel-ml -y
+```
+- 正常情况下会输出下面内容
+```
+Transaction Summary
+================================================================================
+Install  1 Package
+Total download size: 39 M
+Installed size: 169 M
+Downloading packages:
+kernel-ml-4.9.0-1.el7.elrepo.x86_64.rpm                    |  39 MB   00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+Warning: RPMDB altered outside of yum.
+  Installing : kernel-ml-4.9.0-1.el7.elrepo.x86_64                          1/1
+  Verifying  : kernel-ml-4.9.0-1.el7.elrepo.x86_64                          1/1
+Installed:
+  kernel-ml.x86_64 0:4.9.0-1.el7.elrepo
+Complete!
+```
+## 5.更新grud文件并重启
+- 依次执行下面的命令，重启后需要等待数秒重新使用ssh连接
+```
+egrep ^menuentry /etc/grub2.cfg | cut -f 2 -d \'
+grub2-set-default 0
+reboot
+```
+## 6.开机后检查内容是否为4.9及以上版本
+- 执行下面的命令
+```
+uname -r
+```
+- 输出结果
+```
+5.3.7-1.el7.elrepo.x86_64
+```
+## 7.开启bbr
+- 执行下面的命令
+```
+vim /etc/sysctl.conf
+```
+- 添加如下内容
+```
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+```
+- 加载系统参数
+```
+sysctl -p
+```
+## 8.验证bbr是否开启成功
+### 测试方法1
+- 执行下面的命令
+```
+sysctl net.ipv4.tcp_available_congestion_control
+```
+- 输出下面内容即为成功
+```
+net.ipv4.tcp_available_congestion_control = bbr cubic reno
+```
+
+### 测试方法2
+- 执行下面的命令
+```
+lsmod | grep bbr
+```
+- 输出下面内容即为成功
+```
+tcp_bbr                20480  28
+```
 # 备注
 >2019年6月5号
 
@@ -1337,6 +1451,11 @@ timedatectl set-timezone Asia/Shanghai
 >2019年10月18日
 
 - 增加时区修改
+
+>2019年10月22日
+
+- 增加删除虚拟内存方法
+- 增加Centos8开启BBR方法
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
