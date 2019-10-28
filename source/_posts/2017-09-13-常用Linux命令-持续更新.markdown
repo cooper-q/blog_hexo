@@ -1010,6 +1010,11 @@ setsebool -P httpd_can_network_connect 1
 // 需要把证书文件移动到nginx配置文件的地方 
 比如我的证书在/root/xxx/xx.crt,需要移动到/etc/nginx/
 ```
+- centos7 运行systemctl后无响应（即shell阻塞）,但是程序启动成功
+- - 1.sytemctl status nginxReboot.service 后状态为activating (start)而不是activating (running)态
+```
+// 需要将Type=forking 修改为 Type=simple 或者删掉这行
+```
 
 # 46.lsmod 显示已载入系统的模块
 - 示例
