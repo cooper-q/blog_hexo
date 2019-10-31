@@ -5,6 +5,7 @@ After=network.target remote-fs.target nss-lookup.target
 [Service]
 Type=simple
 PIDFile=/run/hexo.pid
+Environment=PATH=/root/.nvm/versions/node/v10.15.3/bin:/usr/bin/
 ExecStart=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh start
 ExecStop=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh stop
 PrivateTmp=true

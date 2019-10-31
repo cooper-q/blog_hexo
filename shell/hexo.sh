@@ -1,10 +1,9 @@
-#!/bin/sh
-
+#!/usr/bin/env bash
 start(){
   echo 'start'
   cd /root/project/deployment/local/remote
   /root/.nvm/versions/node/v10.15.3/bin/hexo clean
-  /usr/bin/nohup /root/.nvm/versions/node/v10.15.3/bin/hexo s &
+  /usr/bin/nohup /root/.nvm/versions/node/v10.15.3/bin/hexo s
 }
 
 stop(){
@@ -20,9 +19,10 @@ stop(){
 }
 case $1 in
     start)
-        start && exit 0
+        start
     ;;
     stop)
-        stop && exit 0
+        stop
     ;;
 esac
+exit 0
