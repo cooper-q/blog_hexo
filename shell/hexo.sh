@@ -8,7 +8,7 @@ start(){
 }
 
 stop(){
-    processID=`ps -ef |grep -v grep| grep hexo|awk '{print $2}'`
+    processID=`ps -ef |grep -v grep|grep -v /usr/bin/sh|grep hexo|awk '{print $2}'`
     bool=`echo $processID|awk '{print($0~/^[-]?([0-9])+[.]?([0-9])+$/)?"true":"false"}'`
 
     if [ $bool == "true" ]
