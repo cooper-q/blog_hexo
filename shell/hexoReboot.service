@@ -5,8 +5,8 @@ After=network.target remote-fs.target nss-lookup.target
 [Service]
 Type=simple
 PIDFile=/run/hexo.pid
-ExecStart=/usr/bin/sh /root/project/deployment/local/remote/shell/start.sh
-ExecReload=/usr/bin/sh /root/project/deployment/local/remote/shell/start.sh
+ExecStart=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh start
+ExecStop=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh stop
 PrivateTmp=true
 
 [Install]
