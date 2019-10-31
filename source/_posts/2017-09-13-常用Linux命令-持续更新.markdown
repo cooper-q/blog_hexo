@@ -955,6 +955,54 @@ ExecStop=/root/.nvm/versions/node/v12.8.1/lib/node_modules/pm2/bin/pm2 kill
 WantedBy=multi-user.target
 ```
 
+- hexo
+```
+[Unit]
+Description=hexo server
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=simple
+PIDFile=/run/hexo.pid
+Environment=PATH=/root/.nvm/versions/node/v10.15.3/bin:/usr/bin/
+ExecStart=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh start
+ExecStop=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh stop
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target
+```
+- hexo 脚本示例
+```
+#!/usr/bin/env bash
+start(){
+  echo 'start'
+  cd /root/project/deployment/local/remote
+  /root/.nvm/versions/node/v10.15.3/bin/hexo clean
+  /usr/bin/nohup /root/.nvm/versions/node/v10.15.3/bin/hexo s
+}
+
+stop(){
+    processID=`ps -ef |grep -v grep|grep -v sh|grep hexo|awk '{print $2}'`
+    bool=`echo $processID|awk '{print($0~/^[-]?([0-9])+[.]?([0-9])+$/)?"true":"false"}'`
+
+    if [ $bool == "true" ]
+    then
+        kill -9 $processID
+    else
+        echo '服务未启动'
+    fi
+}
+case $1 in
+    start)
+        start
+    ;;
+    stop)
+        stop
+    ;;
+esac
+exit 0
+
+```
 ## 3.常用命令
 
 - 重新加载 systemd 程序的配置文件
@@ -1015,6 +1063,9 @@ setsebool -P httpd_can_network_connect 1
 ```
 // 需要将Type=forking 修改为 Type=simple 或者删掉这行
 ```
+- centos7启动后立马就会去执行stop
+- - 原因是启动时脚本失败，才会立马执行stop
+- - 检查脚本命令以及特别要注意环境变量的问题，仅仅使用绝对路径也是不行的，需要加上Environment（参考上面的hexo示例）
 
 # 46.lsmod 显示已载入系统的模块
 - 示例
@@ -1503,6 +1554,11 @@ tcp_bbr                20480  28
 >2019年10月24日
 
 - 完善dd命令
+
+>2019年10月31日
+
+- 完善注册服务
+
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
