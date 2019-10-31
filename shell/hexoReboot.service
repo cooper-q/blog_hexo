@@ -1,5 +1,5 @@
 [Unit]
-Description=hexo start server
+Description=hexo server
 After=network.target remote-fs.target nss-lookup.target
 
 [Service]
@@ -8,6 +8,5 @@ PIDFile=/run/hexo.pid
 ExecStart=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh start
 ExecStop=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh stop
 PrivateTmp=true
-
 [Install]
 WantedBy=multi-user.target

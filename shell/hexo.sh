@@ -20,9 +20,9 @@ stop(){
 }
 case $1 in
     start)
-        start
+        start && exit 0
     ;;
     stop)
-        stop
+        stop && exit 0
     ;;
 esac
