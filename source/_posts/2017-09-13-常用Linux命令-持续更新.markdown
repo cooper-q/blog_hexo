@@ -12,10 +12,10 @@ tags:
 
 # 常用Linux命令，持续更新
 # 1.查看某个端口的占用情况
-
-    lsof -i :80
-    kill -9 进程号 杀死进程
-
+```
+lsof -i :80
+kill -9 进程号 // 杀死进程
+```
 # 2.文件&文件夹
 ## 1.查询指定位置的文件
     find controller/ -name '*.js' | xargs grep 'decorator'  查询指定目录下 指定
@@ -276,112 +276,9 @@ scp  -r /tmp/local_dir username@ip:remote_dir
     tar -jxvf benet.tar.gz bz2解压缩
     unzip 解压zip文件
 
-# 6.Centos7 打开关闭防火墙
-## 1.基本操作
-- 1.查看状态
-```
-systemctl status firewalld
-```
-- 2.启动
-```
-systemctl start firewalld
-```
-- 3.关闭防火墙
-```
-systemctl stop firewalld
-```
-- 4.开机启动
-```
-systemctl enable firewalld
-```
-- 5.禁止防火墙开机启动
-```
-systemctl disable firewalld
-```
-## 2.firwalld-cmd
-- 1查看版本
-```
-firewall-cmd --version
-```
-- 2查看帮助
-```
-firewall-cmd --help
-```
+# 6.linux 打开关闭防火墙（待补充）
 
-- 3显示状态
-```
-firewall-cmd --state
-```
-
-- 4.查看所有打开的端口
-```
-firewall-cmd--zone=public --list-ports
-```
-
-- 5.更新防火墙规则
-```
-firewall-cmd --reload
-```
-
-- 6.查看区域信息
-```
-firewall-cmd--get-active-zones
-```
-
-- 7.查看指定接口所属区域
-```
-firewall-cmd--get-zone-of-interface=eth0
-```
-- 8.拒绝所有包
-```
-firewall-cmd --panic-on
-```
-
-- 9.取消拒绝状态
-```
-firewall-cmd --panic-off
-```
-- 10.查看是否拒绝
-```
-firewall-cmd --query-panic
-```
-- 11.查看已经开放的端口
-```
-// 第一种
-firewall-cmd --list-ports
-
-// 第二种
-firewall-cmd --zone=public --query-port=80/tcp
-```
-
-- 12.开启端口
-```
-firewall-cmd --zone=public --add-port=80/tcp --permanent
-
--zone # 作用域
--add-port=80/tcp # 添加端口，格式为：端口/通讯协议
--permanent # 永久生效，没有此参数重启后失效
-```
-- 13.关闭端口
-```
-firewall-cmd --permanent --remove-port=8080/tcp
-```
-- 14.打开某个服务
-```
-firewall-cmd --permanent --add-service=https
-```
-- 15.关闭某个服务
-```
-firewall-cmd --permanent --remove-service=https
-```
-- 16.重启防火墙生效
-```
-firewall-cmd --reload
-```
-- 17.查看所有支持的服务
-```
-firewall-cmd --get-service
-```
+    service iptables statue
 
 # 7.PATH
 
@@ -804,7 +701,8 @@ cat filename | grep -a 'Filed' //可以加上-a进行特殊处理
 ```
 
 # 24.awk sed Perlre
-## 1.通过单个字符或者多个字符分隔字符串
+## 1.awk
+### 1.通过单个字符或者多个字符分隔字符串
 - 注意：所有分割后的值都可以直接作为数组进行循环
 >-F 参数
 
@@ -855,10 +753,14 @@ echo 'hello:world'|awk 'BEGIN{FS=":"} {print $1}'
 ```
 
 ## 2.sed
->去掉所有的双引号
-
+- 去掉所有的双引号
 ```
 echo '"hello world"'|sed 's/\"//g'
+```
+
+- 替换某文件字符串
+```
+sed -i "s/oldString/newString/g"  `grep oldString -rl /path`
 ```
 # 25.jq 解析字符串为json
 ```
@@ -1575,7 +1477,7 @@ tcp_bbr                20480  28
 # 55.wget
 ## 1.下载文件并指定目录
 ```
-
+wget -P 目录 网址
 ```
 # 备注
 >2019年6月5号
@@ -1676,6 +1578,9 @@ tcp_bbr                20480  28
 
 - 增加wget相关命令
 
+>2019年11月7日
+
+- 增加sed替换字符串
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
