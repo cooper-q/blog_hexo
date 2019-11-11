@@ -4,7 +4,7 @@ title:      "Centos7上搭建OpenVPN.markdown"
 date:       2018-04-23
 top: 10
 categories:
-    - Linux 
+    - Linux
     - centos7
     - OpenVPN
 tags:
@@ -28,7 +28,7 @@ tags:
     set_var EASYRSA_REQ_PROVINCE    "Beijing"
     set_var EASYRSA_REQ_CITY    "Beijing"
     set_var EASYRSA_REQ_ORG "OpenVPN CA"
-    set_var EASYRSA_REQ_EMAIL   "mxc441230435@gmail.com"
+    set_var EASYRSA_REQ_EMAIL   "matt.meng@aliyun.com"
     set_var EASYRSA_REQ_OU      "My VPN"
 
 ### 3.创建服务器端证书和key
