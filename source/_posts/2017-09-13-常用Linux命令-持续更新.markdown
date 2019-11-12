@@ -276,9 +276,112 @@ scp  -r /tmp/local_dir username@ip:remote_dir
     tar -jxvf benet.tar.gz bz2解压缩
     unzip 解压zip文件
 
-# 6.linux 打开关闭防火墙（待补充）
+# 6.Centos7 打开关闭防火墙
+## 1.基本操作
+- 1.查看状态
+```
+systemctl status firewalld
+```
+- 2.启动
+```
+systemctl start firewalld
+```
+- 3.关闭防火墙
+```
+systemctl stop firewalld
+```
+- 4.开机启动
+```
+systemctl enable firewalld
+```
+- 5.禁止防火墙开机启动
+```
+systemctl disable firewalld
+```
+## 2.firwalld-cmd
+- 1查看版本
+```
+firewall-cmd --version
+```
+- 2查看帮助
+```
+firewall-cmd --help
+```
 
-    service iptables statue
+- 3显示状态
+```
+firewall-cmd --state
+```
+
+- 4.查看所有打开的端口
+```
+firewall-cmd--zone=public --list-ports
+```
+
+- 5.更新防火墙规则
+```
+firewall-cmd --reload
+```
+
+- 6.查看区域信息
+```
+firewall-cmd--get-active-zones
+```
+
+- 7.查看指定接口所属区域
+```
+firewall-cmd--get-zone-of-interface=eth0
+```
+- 8.拒绝所有包
+```
+firewall-cmd --panic-on
+```
+
+- 9.取消拒绝状态
+```
+firewall-cmd --panic-off
+```
+- 10.查看是否拒绝
+```
+firewall-cmd --query-panic
+```
+- 11.查看已经开放的端口
+```
+// 第一种
+firewall-cmd --list-ports
+
+// 第二种
+firewall-cmd --zone=public --query-port=80/tcp
+```
+
+- 12.开启端口
+```
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+-zone # 作用域
+-add-port=80/tcp # 添加端口，格式为：端口/通讯协议
+-permanent # 永久生效，没有此参数重启后失效
+```
+- 13.关闭端口
+```
+firewall-cmd --permanent --remove-port=8080/tcp
+```
+- 14.打开某个服务
+```
+firewall-cmd --permanent --add-service=https
+```
+- 15.关闭某个服务
+```
+firewall-cmd --permanent --remove-service=https
+```
+- 16.重启防火墙生效
+```
+firewall-cmd --reload
+```
+- 17.查看所有支持的服务
+```
+firewall-cmd --get-service
+```
 
 # 7.PATH
 
