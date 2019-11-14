@@ -4,7 +4,7 @@ title:      "git常用命令"
 date:       2019-03-25
 top: 10
 categories:
-    - git 
+    - git
     - 常用命令
 tags:
     - git
@@ -17,7 +17,7 @@ tags:
 
 - 查看当前在那个分支上
 ```
-git show-branch 
+git show-branch
 ```
 - 切换分支
 ```
@@ -25,7 +25,7 @@ git checkout branch_name
 ```
 - 查看远程所有分支 *代表所处的
 ```
-git branch -a  
+git branch -a
 ```
 - 查看本地分支
 ```
@@ -33,7 +33,7 @@ git branch
 ```
 - 删除本地分支
 ```
-git branch -d name 
+git branch -d name
 ```
 - 删除远程分支
 ```
@@ -47,7 +47,7 @@ git branch branch_name
 ```
 - 创建并切换到指定分支
 ```
-git checkout -b branch_name 
+git checkout -b branch_name
 ```
 - 把远程分支拉取到本地并合并
 ```
@@ -59,7 +59,7 @@ git push orgin :branch_name
 ```
 - 更改文件名称 移动文件
 ```
-git mv 原名称 新名称 
+git mv 原名称 新名称
 git mv 文件名 文件路径
 ```
 - 删除远程分支
@@ -72,15 +72,15 @@ git push -u origin master
 ```
 - 本地分支修改名称
 ```
-git branch -m <old_branch_name> <new_branch_name> 
+git branch -m <old_branch_name> <new_branch_name>
 ```
 - 显示包含提交50089的分支
 ```
-git branch --contains 50089 
+git branch --contains 50089
 ```
 - 从当前分支创建新分支master_copy并检出
 ```
-git checkout -b master_copy 
+git checkout -b master_copy
 git checkout -b master master_copy 上面的完整版
 ```
 
@@ -88,11 +88,11 @@ git checkout -b master master_copy 上面的完整版
 
 - 在git中删除
 ```
-git rm file_name|dir -f 
+git rm file_name|dir -f
 ```
 - 清除未跟踪的文件以及目录
 ```
-git clean -f 
+git clean -f
 ```
 - 从git上删除该文件 本地保留 .ignore 加上了该文件(想要添加上该文件 需要从.ignore删除)
 ```
@@ -105,39 +105,39 @@ git rm --cached readme1.txt
 
 - 当前目录下都添加暂存区
 ```
-git add . 
+git add .
 ```
 - 把指定目录下面的所有txt文件添加到暂存区
 ```
-git add document/*.txt 
+git add document/*.txt
 ```
 - 把所有当前目录的git-*.sh 添加到暂存区
 ```
-git add git-*.sh 
+git add git-*.sh
 ```
 - 添加文件或者目录到暂存区
 ```
-git add <path> 
+git add <path>
 ```
 - 将所有以Controller结尾的文件添加到暂存区
 ```
-git add *Controller 
+git add *Controller
 ```
 将所有的Hello开头的文件添加至暂存区
 ```
-git add Hello* 
+git add Hello*
 ```
 - 将以Hello开头后面只有一位的文件提交至暂存区
 ```
-git add Hello? 
+git add Hello?
 ```
 - 省略path 即为.，只标记有改动的（修改、删除）
 ```
-git add -u [<path>] 
+git add -u [<path>]
 ```
 - 添加所有
 ```
-git add -A [<path>] 
+git add -A [<path>]
 ```
 - 查看<path>中被所有修改过或已删除文件但没有提交的文件，执行后是一个小的系统
 ```
@@ -147,7 +147,7 @@ git add -i [<path>] ，但是没有提交的文件
 // 撤销 合并多个commit
 - 回退多个未push的记录
 ```
-git reset --soft HEAD^ 
+git reset --soft HEAD^
 ```
 
 - 将指定的内容移除暂存区
@@ -161,7 +161,7 @@ git checkout -- file 丢弃工作区的修改
 ## 3.提交、合并
 - 提交到本地分支
 ```
-git commit -m 'log'  
+git commit -m 'log'
 ```
 - 推送当前分支所对应的远程分支
 ```
@@ -197,7 +197,7 @@ git merge --abort
 ```
 - 忽略的已有空白的修改
 ```
-git merge -Xignore-all-space branch_name 
+git merge -Xignore-all-space branch_name
 ```
 - 忽略所有空白修改
 ```
@@ -243,11 +243,11 @@ git diff
 ```
 - 查看已缓存的与未缓存的所有改动
 ```
-git diff HEAD 
+git diff HEAD
 ```
 - 显示摘要
 ```
-git diff –-stat 
+git diff –-stat
 ```
 - 比较branchA与branchB的不同
 ```
@@ -258,7 +258,7 @@ git diff branchA branchB
 - 执行 git diff 来查看执行 git status 的结果的详细信息 —— 一行一行地显示这些文件是如何被修改或写入缓存的。
 - 查看暂存区和工作目录的变动
 ```
-git diff <filename> 
+git diff <filename>
 ```
 - 查看和某个分支的不同之处
 ```
@@ -270,11 +270,11 @@ git diff --cached <filename>
 ```
 - 查看与某个commitID的不同之处
 ```
-git diff <commit> <filename> 
+git diff <commit> <filename>
 ```
 - 比较两个不同commit之间的不同
 ```
-git diff <commmitID> <commitID> 
+git diff <commmitID> <commitID>
 ```
 - 比较最近一次commit
 ```
@@ -304,13 +304,8 @@ git config --global user.name   // 只查看name
 
 - 增加
 ```
-# 增加全局变量配置（user.name、user.email）
 git config --global --add user.name usernmae
 git config --global --add user.email email
-
-# 增加局部变量配置
-git config user.name ''
-git config user.email ''
 ```
 
 - 删除
@@ -406,7 +401,7 @@ git reset commitID fileName
 - revert使用，需要先找到你想要回滚的唯一的commit表示代码，可以用git log查看提交记录。
 - git revert c011eb3c20ba6fb38cc94fe5a8dda366a3990c61是用一次新的commit来回滚之前的commit，git reset是直接删除。
 - git revert 版本id -m 1
-这个1 指的是master，2指的是develop。现在是在master分支上回滚 develop合并到master上的部分代码。 
+这个1 指的是master，2指的是develop。现在是在master分支上回滚 develop合并到master上的部分代码。
 这种方式，是用一种反向的push来重新提交一次。git中可以看到操作记录。
 
 >reset revert区别
@@ -424,7 +419,7 @@ git reset commitID fileName
 
 <img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/git/git%20log.png' />
 
-## 2.git log -p [file] 
+## 2.git log -p [file]
 
 - 展示提交的内容差异、或者查看单独某个文件
 显示每次提交的内容差异
@@ -527,7 +522,7 @@ git show 某个tag的时候GPG的签名也在其中。
 ```
 ## 4.轻量级标签
 ```
-git tag v1.1.4 
+git tag v1.1.4
 ```
 ## 5.验证标签
 ```
@@ -564,7 +559,7 @@ git log --pretty=oneline
 
 ## 12.查看这个分支或者tag的内容
 ```
-git show hash/tag 
+git show hash/tag
 ```
 
 ## 13.提交某个commit merge
@@ -572,7 +567,7 @@ git show hash/tag
 git cherry-pick
 ```
 
-## 14.查看git详细信息        
+## 14.查看git详细信息
 ```
 git show tag_name
 ```
@@ -608,7 +603,7 @@ git add --refresh
 # 13.git 创建仓库
 ```
 mkdir directory
-git init 
+git init
 mkdir README.md
 git commit -am 'README'
 git remote add orgin url
@@ -672,6 +667,23 @@ npm install -g commitizen cz-conventional-changelog
 
 shell输入cz使用
 ```
+
+# 18.github贡献度
+## 1.Commits展示条件
+- 1.一年以内提交commits
+- 2.commits使用的email地址与你的Github账号相关联
+- 3.这些commits是一个独立的仓库而不是fork仓库
+- 4.这个commits在默认分之或在gh-pages分支
+- 5.至少满足下面条件中的一个
+- - 1.你是这个仓库的协作者活着版本库的拥有组织中的一员
+- - 2.你fork个这个仓库
+- - 3.你对仓库发起了pull request或issue
+- - 4.你对仓库标记了star
+
+## 2.Contributions未被Github计入的几个常见原因
+- 1.进行Commits的用户没有被关联到你的Github账号中
+- 2.不是在这个版本库的默认分支进行Commit
+- 3.这个仓库是一个Fork仓库，而不是独立仓库
 
 >如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
