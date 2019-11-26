@@ -4,7 +4,7 @@ title:      ssh常用内容
 date:       2018-04-11
 top: 10
 categories:
-    - Linux 
+    - Linux
     - SSH
 tags:
     - SSH
@@ -14,8 +14,8 @@ tags:
 # 1.SSH key
 
 ## 1.生成key
-```    
-ssh-keygen -t rsa -C "your_email@example.com" 
+```
+ssh-keygen -t rsa -C "your_email@example.com"
 生成公钥密钥
 生成路径:~/.ssh
 密钥：id_rsa
@@ -27,7 +27,7 @@ ssh-keygen -t rsa -C "your_email@example.com"
 ~/.ssh/authorized_keys 文件下加入公钥内容即可（如果没有新建文件）
 ```
 
-- 配置权限    
+- 配置权限
 ```
 chmod 600 ~/.ssh/authorized_keys # 给予权限
 ```
@@ -35,7 +35,7 @@ chmod 600 ~/.ssh/authorized_keys # 给予权限
 ## 3.服务器配置使用ssh，并禁用密码登录
 
 - 修改配置前必须保证ssh配置正确，否则将无法登录服务器
-```    
+```
 /etc/ssh/sshd_config
 ```
 
@@ -49,7 +49,7 @@ PermitRootLogin no # 禁用root登录
 ```
 
 - 修改文件后重启服务
-```    
+```
 service sshd restart 或者 /bin/systemctl restart  sshd.service
 ubuntu:service ssh restart
 ```
@@ -72,7 +72,7 @@ cd ~/.ssh/config                # 没有则新建 并给予权限
 chmod 600 ~/.ssh/config
 
 # 示例
-Host gitlab.xxx.com             # 类似于别名（可以随便写） 
+Host gitlab.xxx.com             # 类似于别名（可以随便写）
 HostName gitlab.xxx.com         # 要连接的服务器ip或者网址
 User git                        # 用户名
 Port 22                         # 端口号
@@ -108,9 +108,9 @@ IdentityFile ~/.ssh/id_rsa
 ssh host1
 ssh host2
 ```
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 >2019年10月14日

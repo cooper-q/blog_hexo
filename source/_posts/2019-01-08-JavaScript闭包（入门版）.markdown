@@ -4,7 +4,7 @@ title:      "JavaScript闭包（入门版）"
 date:       2019-01-08
 top: 10
 categories:
-    - JavaScript 
+    - JavaScript
 tags:
     - JavaScript
 ---
@@ -106,6 +106,6 @@ tags:
         })(i)
     }
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)

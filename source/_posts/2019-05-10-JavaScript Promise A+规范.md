@@ -4,7 +4,7 @@ title: JavaScript Promise A+规范
 date: 2019-05-10
 keywords: JavaScript
 top: 10
-categories: 
+categories:
     - JavaScript
 tags:
     - JavaScript
@@ -141,10 +141,10 @@ Promise Resolution Procedure是一个抽象的操作，以一个promise和一个
 - 6.本规范的实现不应该任意限定thenable链的深度，并认识只要超过了该限定递归就是无限的。只有真正的循环递归才应导致一个TypeError；如果一个无限长链上的thenable对象各不相同，那么无限递归下去则是正确的行为
 
 >[原文英文链接](https://promisesaplus.com/)
-  
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
+
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 >2019年5月10日

@@ -4,7 +4,7 @@ title: JavaScript apply、call、bind 详解
 date: 2019-05-07
 keywords: JavaScript
 top: 10
-categories: 
+categories:
     - JavaScript
 tags:
     - JavaScript
@@ -116,7 +116,7 @@ add.call(a, 1, 1); // 3
 - 动态改变this，使用call或者apply使用实例的say方法
 ```JavaScript
 function Fruit(){
-    
+
 }
 Fruit.prototype={
     color:'red',
@@ -147,7 +147,7 @@ redApple.say.apply(banana);// My Color is  yellow
 - 基本示例
 ```JavaScript
 let func = function(arg1,arg2){
-    
+
 }
 
 func.call(this,arg1,arg2)
@@ -211,7 +211,7 @@ function.bind(thisArg[, arg1[, arg2[, ...]]])
 
 >参数
 
-- thisArg 
+- thisArg
 - - 调用绑定函数时作为this参数传递给目标函数的值。
 - - 如果使用new运算符构造绑定函数，则忽略该值。
 - - 当使用bind在setTimeout中创建一个函数（作为回调提供）时，作为thisArg传递的任何原始值都将被转换为object。
@@ -246,7 +246,7 @@ eventBindCopy2(); // 1
 let barFunc = function () {
     this.eventBind();
 };
-let func = barFunc.bind(foo);   
+let func = barFunc.bind(foo);
 
 func(); // 1
 
@@ -371,9 +371,9 @@ console.log(foo.getX.apply(obj)); //81
 - apply、call、bind 三者都可以利用后续参数传参；
 - bind是返回对应函数，便于稍后调用；apply、call则是立即调用 。
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 >2019年08月19日

@@ -4,7 +4,7 @@ title: JavaScript Promise 实现原理（转载）
 date: 2019-05-22
 keywords: JavaScript
 top: 10
-categories: 
+categories:
     - JavaScript
 tags:
     - JavaScript
@@ -137,7 +137,7 @@ promise.then(onFullfilled,onRejected)
 - then方法可以被同一个<span style='color:#C82B52;background-color:#F9F2F4'>promise</span>对象调用多次
 - + 当<span style='color:#C82B52;background-color:#F9F2F4'>promise</span>成功状态时，所有<span style='color:#C82B52;background-color:#F9F2F4'>onFulfilled</span>需按照其顺序依次回调。
 - + 当<span style='color:#C82B52;background-color:#F9F2F4'>promise</span>失败状态时，所有<span style='color:#C82B52;background-color:#F9F2F4'>onRejected</span>需按照其注册顺序一次回调。
- 
+
 ## 3.返回
 >then方法必须返回一个新的<span style='color:#C82B52;background-color:#F9F2F4'>promise</span>对象
 
@@ -181,7 +181,7 @@ let promise1 = new Promise((resolve,reject)=>{
 promise2 = promise1.then(res=>{
     return new Promise((resolve,reject)=>{
         setTimeout(()=>{
-          resolve('这里返回一个Promise')  
+          resolve('这里返回一个Promise')
         },2000)
     }
 })
@@ -282,7 +282,7 @@ then (onFulfilled,onRejected){
     }
     // 返回一个新的Promise对象
     return new MyPromise((onFullfilledNext,onRejectedNext)=>{
-        
+
     })
 }
 ```
@@ -377,7 +377,7 @@ _resolve (val) {
   setTimeout(() => run(), 0)
 }
 // 添加reject时执行的函数
-_reject (err) { 
+_reject (err) {
   if (this._status !== PENDING) return
   // 依次执行失败队列中的函数，并清空队列
   const run = () => {
@@ -570,7 +570,7 @@ finally (cb) {
       this._rejectedQueues = []
       // 执行handle
       try {
-        handle(this._resolve.bind(this), this._reject.bind(this)) 
+        handle(this._resolve.bind(this), this._reject.bind(this))
       } catch (err) {
         this._reject(err)
       }
@@ -616,7 +616,7 @@ finally (cb) {
       setTimeout(run, 0)
     }
     // 添加reject时执行的函数
-    _reject (err) { 
+    _reject (err) {
       if (this._status !== PENDING) return
       // 依次执行失败队列中的函数，并清空队列
       const run = () => {
@@ -751,9 +751,9 @@ finally (cb) {
 
 >[原文链接，略有删减](https://segmentfault.com/a/1190000012664201?share_user=1030000018203896)
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 

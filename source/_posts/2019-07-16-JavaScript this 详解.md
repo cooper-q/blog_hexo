@@ -2,9 +2,9 @@
 layout: post
 title: JavaScript this详解
 date: 2019-07-16
-keywords: 
+keywords:
 top: 10
-categories: 
+categories:
     - JavaScript
 tags:
     - JavaScript
@@ -12,18 +12,18 @@ tags:
 # JavaScript this详解
 
 # 1.this的绑定的时机
-    
+
 - this在运行期绑定（有特殊）JavaScript 函数中的 this 指向并不是在函数定义的时候确定的，而是在调用的时候确定的。
 - <span style='color:red'>函数的调用方式决定了 this 指向。</span>
 
 # 2.this的指向和调用方式相关
-    
+
 - 直接调用、函数调用和 new 调用。
 - 还有特殊调用，通过bind() 将函数绑定到对象之后再进行调用、通过 call()、apply() 进行调用等。
 - es6 引入了箭头函数之后，箭头函数调用时，其 this 指向又有所不同。
 
 # 3.调用方式
-    
+
 ## 1.直接调用
 - 直接调用并不是指在全局下调用，在任何作用域下，直接通过函数名来对函数调用的方式，都称为直接调用。
 - 直接调用不在严格模式下都是指向的global或者window
@@ -205,10 +205,10 @@ const testObj=test.bind({});
 testObj.apply(obj)// false
 ```
 
-      
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
+
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 

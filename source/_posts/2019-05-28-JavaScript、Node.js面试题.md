@@ -4,14 +4,14 @@ title: JavaScript、Node.js面试题（持续更新）
 date: 2019-05-28
 keywords: JavaScript
 top: 10
-categories: 
+categories:
     - JavaScript
 tags:
     - JavaScript
 ---
 # JavaScript、Node.js面试题（持续更新）
 # 1.问答题
-## 1.JavaScript中的强制转换（coercion）是指的什么？  
+## 1.JavaScript中的强制转换（coercion）是指的什么？
 ```
 在JavaScript中，两个不同的内置类型间的转换称为强制类型。强制类型在JavaScript中有两种形式：显示和隐式。
 ```
@@ -31,7 +31,7 @@ var b=a*1;
 
 ## 2.JavaScript中的作用域（scope）是指什么？
 
-```    
+```
 在JavaScript中，每个函数都有自己的作用域。作用域基本上是变量以及如何通过名称访问这些变量的规则的集合。只有函数中的代码才能访问函数作用域内的变量。
 同一作用域中的变量名是必须是唯一的。一个作用域可以嵌套另一个作用域内。如果一个作用域嵌套再另一个作用域内，最内部作用域的代码可以访问另一个作用域的变量。
 ```
@@ -64,7 +64,7 @@ var b=a*1;
 
 ```JavaScript
 回调函数是可以作为参数传递给另一个函数的函数，并在某些操作完成后执行，下面是一个简单的回调函数示例，这个函数再某些操作完成后打印消息到控制台。
-    
+
     function modifyArray(arr,callback){
         //对arr做一些操作
         arr.push(100);
@@ -106,7 +106,7 @@ this 没有指向的时候不再指向 window，而是 undefined
 
 ```
 JavaScript中有两种底层类型：null和undefined。
-    
+
 undefined:  尚未初始化的东西
 null:       目前不可用的东西
 ```
@@ -148,8 +148,8 @@ symbol
 ```
 
 ## 10.什么是IIFE（立即调用函数表达式）？
-    
-```JavaScript    
+
+```JavaScript
     (function(){
         console.log('hello world');
     }());
@@ -205,7 +205,7 @@ this是指正在执行的函数的所有者或者更确切的说，指将当前�
 - [ ] [Node.js异步IO详解]()
 
 ## 18.说一下应用服务的部署模式
-- [ ] [详解]() 
+- [ ] [详解]()
 
 ## 19.用redis做缓存中间件是为了解决什么问题？说一下你们关于redis的设计架构
 - [ ] [详解]()
@@ -284,7 +284,7 @@ this是指正在执行的函数的所有者或者更确切的说，指将当前�
 ## 44.javascript的垃圾回收机制讲一下
 - [ ] [详解]()
 
-## 45.了解express的内部原理么？简单实现一下 
+## 45.了解express的内部原理么？简单实现一下
 - [ ] [详解]()
 
 ## 46.写一下希尔排序算法，注意空间和时间复杂度
@@ -521,7 +521,7 @@ setTimeout(function () {
     console.timeEnd('time');
 }, 500);
 for (let i = 0; i < 1000000000; i++) {
-    
+
 }
 ```
 ## 题目11
@@ -564,9 +564,9 @@ function f (n) {
 ## 2.在之前工作中做的项目中有收获的，系统描述一下收获了什么？
 ## 3.介绍了一些他们使用的技术栈和正在做的事情
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 >2019年7月17日

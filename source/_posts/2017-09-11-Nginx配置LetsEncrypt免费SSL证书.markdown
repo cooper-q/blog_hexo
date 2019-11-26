@@ -4,8 +4,8 @@ title:      "Nginx 配置Lets Encrypt 免费SSL证书"
 date:       2017-9-11
 top: 10
 categories:
-    - Nginx 
-    - HTTPS  
+    - Nginx
+    - HTTPS
 catalog:    true
 tags:
     - HTTPS
@@ -61,7 +61,7 @@ server {
 }
 ```
 >保存后，重启nginx nginx -s reload
-    
+
 >如果是403，可配置nginx user
 
 # 3.使用Certbot签发证书
@@ -209,7 +209,7 @@ no crontab for user
 
 ## 2.使用acme.sh 生成证书
 
-- 确保80端口没有被占用 
+- 确保80端口没有被占用
 - 替换下面命令中的mydomain.com字段
 - 确定nginx 域名dns 都正常使用
 - -k 表示密钥长度，后面的值可以是 ec-256 、ec-384、2048、3072、4096、8192，带有 ec 表示生成的是 ECC 证书，没有则是 RSA 证书。在安全性上 256 位的 ECC 证书等同于 3072 位的 RSA 证书。
@@ -276,10 +276,10 @@ sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force
 sudo ~/.acme.sh/acme.sh --installcert -d mydomain.com --fullchainpath /etc/nginx/mydomain.com.crt --keypath /etc/nginx/mydomain.com.key
 ```
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 

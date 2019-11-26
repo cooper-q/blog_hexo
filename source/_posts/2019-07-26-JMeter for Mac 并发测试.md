@@ -2,10 +2,10 @@
 layout: post
 title: JMeter for Mac 并发测试
 date: 2019-07-26
-keywords: 
+keywords:
 top: 10
 categories:
-    - Mac 
+    - Mac
     - 并发测试
 catalog:    true
 tags:
@@ -145,9 +145,9 @@ if(response == ""){
 
 <img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/software/picture/JMeter%20%E6%95%B4%E4%BD%93%E6%A0%91.png' width='300'/>
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 

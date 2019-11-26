@@ -4,7 +4,7 @@ title:      "JavaScript立即执行函数"
 date:       2019-01-22
 top: 10
 categories:
-    - JavaScript 
+    - JavaScript
 tags:
     - JavaScript
 ---
@@ -122,13 +122,13 @@ tags:
            }
        };
     }());
-    
+
 >最后更新日期 2019年01月18日
 
->节选自一下两篇文章略有删减，如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>节选自一下两篇文章略有删减，如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 [英文原文](http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife)
 
 [中文译文](https://segmentfault.com/a/1190000003985390)
 
-[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)

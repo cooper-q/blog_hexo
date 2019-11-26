@@ -2,9 +2,9 @@
 layout: post
 title: QPS、TPS、PV、UV、GMV、IP、RPS详解
 date: 2019-09-04
-keywords: 
+keywords:
 top: 10
-categories: 
+categories:
     - 网络相关
 tags:
     - 网络相关
@@ -40,7 +40,7 @@ tags:
 # 6.IP
 - Internet Protocol 独立IP个数，对访问的IP记录并去重则得到这个数值。
 
-# 7.GMV 
+# 7.GMV
 - Gross Merchandise Volume 只要是订单，不管消费者是否付款、卖家是否发货、是否退货，都放到GMV里面。
 
 # 8.RPS
@@ -48,10 +48,10 @@ tags:
 - 吞吐率是服务器并发处理能力的量化描述，单位是reqs/s，指的是某个并发用户数下单时间内处理的请求数。
 - 某个并发用户数下单为时间内能处理的最大的请求为最大吞吐率
 - 类似于QPS，叫法不同
-  
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
+
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 

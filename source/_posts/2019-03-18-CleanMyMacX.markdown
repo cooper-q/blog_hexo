@@ -4,7 +4,7 @@ title:      "CleanMyMac X 破解版"
 date:       2019-03-18
 top: 10
 categories:
-    - Mac 
+    - Mac
     - 软件
 tags:
     - Mac
@@ -55,24 +55,24 @@ tags:
         更改为任何来源
 
 >3.CleanMyMac X 因出现问题而无法打开
-    
+
     解决方法一：
         运行此命令
-        
+
         sudo codesign --force --deep --sign - /Applications/CleanMyMac\ X.app
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 
 >2019年3月18日添加
 
     亲测 macOS Mojave 10.14.3 可用
-    
+
 
 >2019年4月17日
-    
+
     亲测 macOS Mojave 10.14.4 可用
-    增加"CleanMyMac X 因出现问题而无法打开"的解决方案    
+    增加"CleanMyMac X 因出现问题而无法打开"的解决方案

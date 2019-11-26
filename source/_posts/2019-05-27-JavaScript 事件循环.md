@@ -4,7 +4,7 @@ title: JavaScript 事件循环（转载）
 date: 2019-05-27
 keywords: JavaScript、Event Loop
 top: 10
-categories: 
+categories:
     - JavaScript
 tags:
     - JavaScript
@@ -237,7 +237,7 @@ async1 start
 promise1
 promise3
 script end
-promise2 
+promise2
 async1 end
 promise4
 setTimeout
@@ -346,9 +346,9 @@ setTimeout
 
 >[原文链接，已获得博主转载许可](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/7)
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 >2019年5月29日

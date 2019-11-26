@@ -4,19 +4,19 @@ title: JavaScript基础概念
 date: 2019-04-19
 keywords: JavaScript基础概念
 top: 10
-categories: 
+categories:
     - JavaScript
 tags:
     - JavaScript
 ---
 # JavaScript基础概念（持续更新）
 # 1.函数（function）
-```    
+```
 function foo(){
-    
+
 }
 let foo=function(){
-    
+
 }
 前者为函数声明，后者为函数表达式。typeof foo的结果都是function。
 ```
@@ -33,21 +33,21 @@ let newFun= new Function(funArgs,funBody);
 在面向对象的范畴里面，函数对象类似于类的概念。
 
 let foo=new Function(){
-    
+
 }
 
 typeof foo // object
 
 或者
 function Foo(){
-    
+
 }
 let foo = new Foo();
 typeof foo // object
 ```
 
 # 3.本地对象（native object）
-```    
+```
 ECMA-262 把本地对象（native object）定义为 "独立于宿主环境的ECMAScript实现提供的对象"。简单来说，本地对象就是ECMA-262定义的类（引用类型）。
 
 Object,Function,Array,String,Boolean,Number
@@ -65,10 +65,10 @@ typeof(Math)
 也就是其实这些对象都是本地对象（类）通过function建立起来的
 
 function Object(){
-    
+
 }
 function Array(){
-    
+
 }
 可以看出Object原本就是一个函数，通过new Object()之后实例化后，创建对象。类似于java的类。
 ```
@@ -81,15 +81,15 @@ ECMA-262只定义了两个内置对象，即Global和Math（它们也是本地�
 ```
 
 # 5.宿主对象（host object）
-```    
+```
 所有非本地对象都是宿主对象，即由ECMAScript实现的宿主环境提供的对象。
 所有的BOM和DOM对象都是宿主对象。
 ```
-# 6.todo    
-  
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+# 6.todo
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
+
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 

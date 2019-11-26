@@ -4,7 +4,7 @@ title: JavaScript原型&原型链深入理解
 date: 2019-04-30
 keywords: JavaScript
 top: 10
-categories: 
+categories:
     - JavaScript
 tags:
     - JavaScript
@@ -16,7 +16,7 @@ tags:
 ```
 
 function Foo(){
-    
+
 }
 
 let foo = new Foo();
@@ -55,10 +55,10 @@ console.log(child1.classes); // c1
 如果一个函数（构造函数）a的prototype是另一个函数（构造函数）b构建出的实例，a的实例就可以通过__proto__与b的原型链链接起来。而b的原型其实就是Object的实例，所以a的实例对象，就可以通过原型链和object的prototype链接起来。
 ```
 function a(){
-    
+
 }
 function b(){
-    
+
 }
 a.prototype=b1;
 let a1=new a();
@@ -70,7 +70,7 @@ console.log(a1.__proto__.__proto__.__proto__===Object.prototype);// true
 >概念
 
 - js中所有的东西都是对象，函数也是对象，而且是一种特殊的对象。
-- js中所有的东西都是有Object衍生而来，即所有的东西的原型链的重点都指向Object.prototype 
+- js中所有的东西都是有Object衍生而来，即所有的东西的原型链的重点都指向Object.prototype
 - js对象都有一个隐藏的__proto__属性，他指向创建它的构造函数的原型，但是有一个例外，Object.prototype.__proto__指向的是null；
 - js中构造函数和实例（对象）之前微妙的关系
 
@@ -78,7 +78,7 @@ console.log(a1.__proto__.__proto__.__proto__===Object.prototype);// true
 
 ```
 function Foo(){
-    
+
 }
 let foo = new Foo();
 foo其实是通过Foo.prototype来生成实例的。
@@ -86,7 +86,7 @@ foo其实是通过Foo.prototype来生成实例的。
 >构造函数本事又是方法（Function）的实例，因此也可以查到它的__proto__（原型链）
 ```
 function Foo(){
-    
+
 }
 等价于
 let Foo=new Function();
@@ -135,7 +135,7 @@ let obj = new Object();
 >如果通过函数对象来创建
 ```
 function Foo(){
-    
+
 }
 let foo = new Foo();
 那么它的原型和原型链的关系图如下
@@ -145,10 +145,10 @@ let foo = new Foo();
 >JavaScript整体的原型和原型链关系示意图
 
 <img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/JavaScript/JavaScript%E6%95%B4%E4%BD%93%E7%9A%84%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%A4%BA%E6%84%8F%E5%9B%BE.png'/>
-  
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
+
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 

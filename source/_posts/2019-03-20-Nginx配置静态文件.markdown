@@ -5,7 +5,7 @@ title:      "Nginx 配置访问静态文件"
 date:       2019-03-20
 top: 10
 categories:
-    - Nginx 
+    - Nginx
     - 静态文件
 tags:
     - Nginx
@@ -60,9 +60,9 @@ tags:
     特别注意root的方式
 
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 

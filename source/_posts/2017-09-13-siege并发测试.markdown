@@ -4,7 +4,7 @@ title:      "siege并发测试"
 date:       2017-9-13
 top: 10
 categories:
-    - Mac 
+    - Mac
     - 并发测试
 catalog:    true
 tags:
@@ -22,7 +22,7 @@ brew install siege
 
 >Siege命令常用参数
 
-```    
+```
 -c 200 指定并发数200
 -r 5指定测试的次数5
 -f urls.txt指定url的文件
@@ -37,7 +37,7 @@ brew install siege
 ```
 
 # 3.常用示例
-    
+
 >200个并发对http://www.baidu.com 发送请求100次
 
 ```
@@ -58,7 +58,7 @@ siege -c 200 -r 100 -f urls.txt -i -b
 
 >-H 指定http请求头 文档类型
 
-```        
+```
 siege -H 'Content-Type:application/json' -c 200 -r 100 -f urls.txt -i -b
 ```
 
@@ -83,6 +83,6 @@ Successful transcations 成功的请求数
 Failed transactions 失败的请求数
 ```
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
-[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)

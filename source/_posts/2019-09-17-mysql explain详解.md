@@ -2,9 +2,9 @@
 layout: post
 title: MySQL explain 详解（转载）
 date: 2019-09-17
-keywords: 
+keywords:
 top: 10
-categories: 
+categories:
     - MySQL
 tags:
     - MySQL
@@ -159,7 +159,7 @@ test_key_len|InnoDB|...|uft8_general_ci
 ##### 3.查看MySQL数据列（column）的MySQL字符集。
 
 ```
-show full columns from test_key_len;  
+show full columns from test_key_len;
 ```
 Filed|Type|Collation|...
 -|-|-|-|
@@ -177,7 +177,7 @@ id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered
 - 按照上面varchar占用的字节进行计算应该是4x255+2=1022，但是查看字符集,发现是utf8_general_ci所以占用三个字节 255x3+2=767，然后不非空所以还需要+1，结果是768
 
 ```
-show full columns from test;	
+show full columns from test;
 ```
 Filed|Type|Collation|...
 -|-|-|-|
@@ -211,7 +211,7 @@ id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered
 1|SIMPLE|test_key_len|NULL|ref|idx|idx|767|const|1|100.00|Using index
 ```
 // 查看编码
-show full columns from test_key_len;	
+show full columns from test_key_len;
 ```
 Filed|Type|Collation|...
 -|-|-|-|
@@ -221,7 +221,7 @@ sex|varchar(255)|uft8_general_ci|...
 
 ```
 // 根据上面的计算方法为以及编码方式占用的字节进行计算
-// 3n+2：3*255+2=767 
+// 3n+2：3*255+2=767
 // 如果设置name为可以空，则key_len为768。
 // 说明如果是可以为空还得需要判断空，多占用一个字节，则需要加1
 ```
@@ -257,9 +257,9 @@ id|select_type|table|partitions|type|possible_keys|key|key_len|ref|rows|filtered
 
 >[原文链接，略有增加和删减](https://segmentfault.com/a/1190000008131735)
 
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
 
 # 备注
 >2019年9月20日

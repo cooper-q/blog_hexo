@@ -4,7 +4,7 @@ title:      "Mac使用ab并发测试工具"
 date:       2018-05-17
 top: 10
 categories:
-    - Mac 
+    - Mac
     - 并发测试
 tags:
     - AB
@@ -281,6 +281,6 @@ tags:
 
     net.ipv4.tcp_max_tw_buckets
     #参数决定TIME_WAIT状态的sockets总数量，可根据连接数和系统资源需要进行设置。
->如有侵权行为，请[点击这里](https://github.com/mattmengCooper/MattMeng_hexo/issues)联系我删除
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
->[如发现疑问或者错误点击反馈](https://github.com/mattmengCooper/MattMeng_hexo/issues)
+>[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
