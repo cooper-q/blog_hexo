@@ -1586,6 +1586,53 @@ wget -P 目录 网址
 ```
 command -v <the_command>
 ```
+# 58.mtr 命令详解(路由跟踪)
+## 1.语法
+```
+Usage:
+ mtr [options] hostname
+
+ -F, --filename FILE        在文件中读取主机名
+ -4                         仅使用IPv4
+ -6                         仅使用IPv6
+ -u, --udp                  使用UDP替代 ICMP echo
+ -T, --tcp                  使用TCP替代 ICMP echo
+ -I, --interface NAME       使用指定名称的网络接口
+ -a, --address ADDRESS      指定socket地址
+ -f, --first-ttl NUMBER     开始时设置TTL
+ -m, --max-ttl NUMBER       最大跳数
+ -U, --max-unknown NUMBER   允许出现的最大未知主机数量
+ -P, --port PORT            指定TCP、SCTP、UDP端口
+ -L, --localport LOCALPORT  UDP来源端口号
+ -s, --psize PACKETSIZE     设置用于嗅探的数据包大小
+ -B, --bitpattern NUMBER    设置数据载体中使用bit模式
+ -i, --interval SECONDS     设置ICMP echo 请求的间隔
+ -G, --gracetime SECONDS    设置响应的等待时间（秒）
+ -Q, --tos NUMBER           IP报头中的服务字段类型
+ -e, --mpls                 显示来自ICMP的扩展信息
+ -Z, --timeout SECONDS      设置sockets超时时间
+ -r, --report               输出信息使用报告模式
+ -w, --report-wide          输出更多的信息
+ -c, --report-cycles COUNT  设置发送ping包的数量
+ -j, --json                 输出json模式
+ -x, --xml                  输出xml模式
+ -C, --csv                  输出内容用逗号分割
+ -l, --raw                  输出原始格式
+ -p, --split                分割输出
+ -t, --curses               使用curses终端接口
+     --displaymode MODE     默认显示模式
+ -n, --no-dns               不解析主机名
+ -b, --show-ips             显示ip地址和主机名
+ -o, --order FIELDS         选择输出字段
+ -y, --ipinfo NUMBER        输出内容中显示ip信息
+ -z, --aslookup             显示AS号
+ -h, --help                 显示帮助信息并退出
+ -v, --version              显示版本信息并退出
+```
+## 2.示例
+```
+mtr -rn ip
+```
 
 # 备注
 >2019年6月5号
@@ -1689,6 +1736,10 @@ command -v <the_command>
 >2019年11月7日
 
 - 增加sed替换字符串
+
+>2019年11月28日
+
+- 增加mtr ip追踪
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
