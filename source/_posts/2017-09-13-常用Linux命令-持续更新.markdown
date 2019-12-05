@@ -840,6 +840,10 @@ echo '123456'|awk '{print substr($0,2)}'
 echo '123456'|awk '{print substr($0,1,2)}'
 // 输出 12
 ```
+>强转为数字
+```
+awk 'BEGIN{a="100";b="10test10";print (a+b+0)}'
+```
 >FS 截取
 
 ```
