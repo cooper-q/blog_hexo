@@ -811,22 +811,21 @@ cat filename | grep -a 'Filed' //可以加上-a进行特殊处理
 
 # 24.awk sed Perlre
 ## 1.awk
-### 1.通过单个字符或者多个字符分隔字符串
 - 注意：所有分割后的值都可以直接作为数组进行循环
->-F 参数
+### 1.-F 参数
 
-- 用:或者空格进行分隔字符串（或的关系）
 ```
-//
+# 用:或者空格进行分隔字符串（或的关系）
 echo 'hello:world 123'|awk -F "[: ]" '{print $1" "$2" "$3}'
-// 输出 hello world 123
+# 输出 hello world 123
 ```
+
 - 用:/分隔字符串（并的关系）
 ```
 echo 'hello:/world'|awk -F"[:][/]" '{print $1" "$2}'
-// 输出 hello world
+# 输出 hello world
 ```
->split 参数
+### 2.split
 
 - awk的内建函数split运行把一个字符串分隔为单词并存储在数组中
 - split(string,array,[field separator])
@@ -835,17 +834,35 @@ echo 'hello:/world'|awk -F"[:][/]" '{print $1" "$2}'
 echo 'hello.world'|awk '{split($0,a,".");print a[1],a[2]}'
 // 输出 hello world
 ```
->substr
+### 3.substr
 
 - substr(s,p) 返回字符串s中从p开始的后缀部分
 - substr(s,p,n) 返回字符串s中从p开始长度为n的后缀部分
 ```
 echo '123456'|awk '{print substr($0,2)}'
-// 输出 23456
+# 输出 23456
 
 echo '123456'|awk '{print substr($0,1,2)}'
-// 输出 12
+# 输出 12
 ```
+
+### 6.FS 截取
+```
+echo 'hello:world'|awk 'BEGIN{FS=":"};{print $1};'
+# 输出hello
+```
+
+### 7.示例脚本
+- 分隔字符串并循环打印所有的值
+```
+echo '210.12.5.222 222.72.140.114'|awk '{len=split($0,ipList," ");for(i=1;i<=len;i++) print ipList[i];}'
+```
+
+- 分隔字符串并打印第一个值
+```
+echo 'hello:world'|awk 'BEGIN{FS=":"} {print $1}'
+```
+
 - 强转为数字
 ```
 awk 'BEGIN{a="100";b="10test10";print (a+b+0)}'
@@ -854,20 +871,6 @@ awk 'BEGIN{a="100";b="10test10";print (a+b+0)}'
 - 输出开头结尾
 ```
 awk 'BEGIN {print "Name\tDesignation\tDepartment\tSalary"} {print $2,"\t",$3,"\t",$4,"\t",$NF;} END{print "Report Generated\n--------------"}' employee.txt;
-```
-
->FS 截取
-```
-echo 'hello:world'|awk 'BEGIN{FS=":"};{print $1};'
-// 输出hello
-```
->示例脚本
-
-```
-// 分隔字符串并循环打印所有的值
-echo '210.12.5.222 222.72.140.114'|awk '{len=split($0,ipList," ");for(i=1;i<=len;i++) print ipList[i];}'
-// 分隔字符串并打印第一个值
-echo 'hello:world'|awk 'BEGIN{FS=":"} {print $1}'
 ```
 
 ## 2.sed
@@ -880,6 +883,16 @@ echo '"hello world"'|sed 's/\"//g'
 ```
 sed -i "s/oldString/newString/g"  `grep oldString -rl /path`
 ```
+- 替换空格
+```
+sed 's/ //g' fileName
+```
+
+- 替换换行
+```
+sed ':label;N;s/\n/ /;b label'
+```
+
 # 25.jq 解析字符串为json
 ```
 echo '{"a":"1"}'|jq .
