@@ -812,6 +812,7 @@ cat filename | grep -a 'Filed' //可以加上-a进行特殊处理
 # 24.awk sed Perlre
 ## 1.awk
 - 注意：所有分割后的值都可以直接作为数组进行循环
+
 ### 1.-F 参数
 
 ```
