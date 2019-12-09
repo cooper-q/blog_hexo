@@ -1755,7 +1755,10 @@ baidu.com	mail exchanger = 10 mx.maillb.baidu.com.
 
 Authoritative answers can be found from:
 ```
-
+# 60.去重
+```
+cat xx.xx|uniq
+```
 # 备注
 >2019年6月5号
 
