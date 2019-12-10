@@ -873,6 +873,23 @@ awk 'BEGIN{a="100";b="10test10";print (a+b+0)}'
 ```
 awk 'BEGIN {print "Name\tDesignation\tDepartment\tSalary"} {print $2,"\t",$3,"\t",$4,"\t",$NF;} END{print "Report Generated\n--------------"}' employee.txt;
 ```
+- 赋值外部变量【数组】
+```
+eval $(echo "1 2 3 4"|awk '{split($0,serverNameList," ");for(i in serverNameList) print "lenArr["i"]="serverNameList[i]}')
+echo ${#lenArr[*]} # 4
+```
+
+- 赋值外部变量【普通变量】
+```
+eval $(echo '1 2' | awk '{printf("var1=%s; var2=%s;",$1,$2)}')
+echo $var1,$var2 # 1,2
+```
+- 赋值awk内部变量
+```
+var=123
+awk -v awk_var="$var" 'BEGIN {print awk_var}'
+# 123
+```
 
 ## 2.sed
 - 去掉所有的双引号
