@@ -884,6 +884,7 @@ echo ${#lenArr[*]} # 4
 eval $(echo '1 2' | awk '{printf("var1=%s; var2=%s;",$1,$2)}')
 echo $var1,$var2 # 1,2
 ```
+
 - 赋值awk内部变量
 ```
 var=123
@@ -1888,10 +1889,14 @@ cat xx.xx|uniq
 - 增加awk开头结尾
 - 增加awk强制转换
 
->2019年12月05日
+>2019年12月09日
 
 - 增加nslookup
 - 完善awk sed
+
+>2019年12月10日
+
+- 完善awk
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
