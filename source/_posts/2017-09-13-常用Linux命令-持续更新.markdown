@@ -912,6 +912,16 @@ sed 's/ //g' fileName
 sed ':label;N;s/\n/ /;b label'
 ```
 
+- 替换行首的空格
+```
+sed 's/^[ \t]*//g'
+```
+
+- 替换行末空格
+```
+sed 's/[ \t]*$//g'
+```
+
 # 25.jq 解析字符串为json
 ```
 echo '{"a":"1"}'|jq .
@@ -1019,17 +1029,19 @@ netstat -anp |grep ESTABLISHED|grep -E '172.96.194.164:16718|172.96.194.164:1999
 ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9
 ```
 # 43.数组操作
->获取元素个数
 
+- 获取元素个数
 ```
 numList=(1 2 3 4)
-num=${#numList[@]} // 4
+num=${#numList[@]} # 4
+# 或者
+num=${#numList[*]} # 4
 ```
->获取数组的所有元素
 
+- 获取数组的所有元素
 ```
 numList=(1 2 3 4)
-${numList[*]}
+echo ${numList[*]}
 // 获取所有元素后就可以进行循环
 for value in ${numList[*]}
 do
@@ -1040,6 +1052,11 @@ done
 // 2
 // 3
 // 4
+```
+- 删除数组元素
+```
+arr=(1 2 3 4)
+unset arr[1] # 2 3 4
 ```
 # 44.变量运算
 # 45.Centos 7服务注册、部署、开机自启
