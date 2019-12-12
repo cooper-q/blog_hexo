@@ -927,7 +927,8 @@ sed 's/[ \t]*$//g'
 echo '{"a":"1"}'|jq .
 cat xx.json|jq .
 
-location='{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知"}}'
+location='{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'
+# 普通取值
 data=`echo $location|jq '.data'`
 ip=`echo $data|jq '.ip'`
 country=`echo $data|jq '.country'`
@@ -935,8 +936,30 @@ region=`echo $data|jq '.region'`
 city=`echo $data|jq '.city'`
 isp=`echo $data|jq '.isp'`
 echo  "该ip:$ip 位于 $country $region $city $isp"
+# 输出 该ip:"110.12.112.12" 位于 "新西兰" "奥克兰" "奥克兰" "未知"
 
-// 输出 该ip:"110.12.112.12" 位于 "新西兰" "奥克兰" "奥克兰" "未知"
+# 取json中的数组
+echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'|jq .data.arr[0].a
+# 1
+
+# 格式化json数据
+echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'|jq 'to_entries[]'
+
+{
+  "key": "data",
+  "value": {
+    "ip": "110.12.112.12",
+    "country": "新西兰",
+    "region": "奥克兰",
+    "city": "奥克兰",
+    "isp": "未 >知",
+    "arr": [
+      {
+        "a": 1
+      }
+    ]
+  }
+}
 ```
 
 # 26.rename
