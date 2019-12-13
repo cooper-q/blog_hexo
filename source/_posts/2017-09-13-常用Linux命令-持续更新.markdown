@@ -698,6 +698,15 @@ curl 127.0.0.1:4001/get_traffic/query?key=1
 // 2.执行 source ~/.zshrc
 ```
 
+- 13.curl方式执行shell脚本传递参数
+```
+# -s
+curl -s http://XXX.com/xx/xx.sh | bash -s arg1 arg2
+
+# base <
+bash <(curl -s http://XXX.com/xx/xx.sh) arg1 arg2
+```
+
 # 15.查看socket连接数
 
     ulimit -n
@@ -1817,6 +1826,7 @@ Authoritative answers can be found from:
 ```
 cat xx.xx|uniq
 ```
+
 # 备注
 >2019年6月5号
 
