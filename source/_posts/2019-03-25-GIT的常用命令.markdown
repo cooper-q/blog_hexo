@@ -629,6 +629,67 @@ git push -u origin master
 ```
 
 # 15.git rebase
+## 1.合并多个未push的commit
+- 适用于多个commit重复修改一个文件的情况
+
+- 1.执行命令
+```
+# 合并最近三个提交
+git rebase -i HEAD~3
+
+# 显示 需要注意下方的commands
+pick 3864555 feat(test): test1
+pick d4dfcd1 feat(test): test2
+pick 8ad0363 feat(test): test3
+
+# Rebase 5f2452b2..8f33126c onto 5f2452b2 (4 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+
+# 修改为下面内容（把后添加的合并到3864555上面）
+p 3864555 feat(test): test1
+s d4dfcd1 feat(test): test2
+s 8ad0363 feat(test): test3
+
+# 修改后会让修改commit log（修改即可）
+
+commit 8e946c090489656c47549463fbb9462a2e41883a (HEAD -> master)
+Author: MattMeng <>
+Date:   Mon Dec 16 14:28:12 2019 +0800
+
+    feat(test):合并后的commit log (test)
+
+```
+
+- 2.异常错误
+```
+# 如果遇到以下错误
+error: cannot 'squash' without a previous commit
+
+# 执行一下命令重新打开编辑模式
+git rebase --edit-todo
+
+# 编辑完成后
+git rebase --continue
+```
+
+- 合并3个最近的提交
+
 # 16.git 状态详解
 
 >状态图
