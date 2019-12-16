@@ -384,24 +384,70 @@ firewall-cmd --get-service
 ```
 
 # 7.PATH
+## 1.概述
+- $PATH：指定目录寻找命令或程序
 
-    查看PATH值
-        export
-    问题：
-        长时间没弄path会失效 所以会出现找不到的情况
-    添加path
-        vi /etc/profile
-        在文档的最后，添加：
-            export PATH="/usr/local/nginx:$PATH"
-        保存，退出
-            source /etc/profile
-    程序自带的shell命令是从env中的PATH找到的
-    uri：/usr/bin/env
->格式
+## 2.格式
+- 中间用冒号隔开
+- 建议使用绝对路径
+
 ```
 PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:------:<PATH N>
+```
+## 3.查看PATH值
+- export
+```
+[root@in-8 ~]# export
 
-你可以自己加上指定的路径，中间用冒号隔开。环境变量更改后，在用户下次登陆时生效，如果想立刻生效，则可执行下面的语句：$ source .bash_profile
+declare -x HISTCONTROL="ignoredups"
+declare -x HISTSIZE="1000"
+declare -x HOME="/root"
+declare -x HOSTNAME="instance-8"
+declare -x LANG="en_US.UTF-8"
+declare -x LC_ALL="en_US.UTF-8"
+declare -x LESSOPEN="||/usr/bin/lesspipe.sh %s"
+declare -x LE_WORKING_DIR="/root/.acme.sh"
+declare -x LOGNAME="root"
+```
+- echo $PATH
+```
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
+```
+
+## 4.添加PATH
+- :(冒号)分割
+### 1.临时添加&修改
+- 重启机器&&重启shell失效
+- PATH重新赋值则修改
+```
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
+```
+### 2.永久添加&修改
+- 1.全局添加
+```
+vi /etc/profile
+
+## 如果多个:（冒号）后面添加即可
+
+export PATH="/usr/local/nginx:$PATH"
+
+## 初始化文件并立即生效
+source /etc/profile
+```
+
+- 2.当前用户添加
+```
+# bash
+vim ~/.bashrc
+
+# zsh
+vim ~/.zshrc
+
+## 如果多个:（冒号）后面添加即可
+export PATH="/usr/local/nginx:$PATH"
+
+## 初始化文件并立即生效
+source /etc/profile
 ```
 
 # 8.查看内存CPU使用情况
