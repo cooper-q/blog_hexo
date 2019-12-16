@@ -298,8 +298,13 @@ git diff --base
 # 4.配置
 - 查看
 ```
+# 全局
 git config --global --list      // 查看
 git config --global user.name   // 只查看name
+
+# 当前用户
+git config --list      // 查看
+git config user.name   // 只查看name
 ```
 
 - 增加
@@ -317,7 +322,12 @@ git config --unset --global user.email '指定的emamil'  // 删除指定名称�
 
 - 修改
 ```
+# 全局
 git config --global user.name '名称' // 修改名称
+
+# 当前项目
+git config user.email matt.meng@aliyun
+
 // 修改log时间格式
 git config log.date iso-local           2018-11-03 03:30:04 +0000
 git config log.date iso-strict-local    2018-11-03T03:30:04+00:00
