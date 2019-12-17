@@ -123,7 +123,7 @@ git add <path>
 ```
 git add *Controller
 ```
-将所有的Hello开头的文件添加至暂存区
+- 将所有的Hello开头的文件添加至暂存区
 ```
 git add Hello*
 ```
@@ -144,8 +144,8 @@ git add -A [<path>]
 git add -i [<path>] ，但是没有提交的文件
 ```
 ## 2.撤销、回退
-// 撤销 合并多个commit
-- 回退多个未push的记录
+
+- 回退多个未push的记录（合并多个commit）
 ```
 git reset --soft HEAD^
 ```
@@ -154,6 +154,7 @@ git reset --soft HEAD^
 ```
 git reset HEAD [.|fileName]
 ```
+
 - 丢掉指定文件的修改
 ```
 git checkout -- file 丢弃工作区的修改
@@ -335,10 +336,8 @@ git config log.date iso-strict-local    2018-11-03T03:30:04+00:00
 
 # 5.远程 remote 操作
 
->修改本地仓库地址
-
+## 1.修改本地仓库地址
 - 1.命令直接修改
-
 ```
 git remote set-url origin http://xxxx
 git push --set-upstream origin xxxx
@@ -361,8 +360,7 @@ git remote -v // 查看远程仓库地址
 git fetch origin master // 从远程获取最新版本到本地
 ```
 
->本地merge 远程分支(步骤)
-
+## 2.本地merge 远程分支(步骤)
 ```
 1.git pull          // 远程分支 保证最新代码
 2.git checkout      // 本地要merge的分支
@@ -384,11 +382,8 @@ process is running and remove the file manually to continue.
 #  7.还原、恢复
 
 ## 1.git reset
-
-```
---soft 保留源码，只退回到commit信息到某个版本，不涉及index的回滚，如果还需要提交，直接commit即可。
---hard commit和index都回退到某个版本。注意这种方式是改变本地仓库源码。也可以用到线上，但是有问题。再提交时就会有冲突。
-```
+- --soft 保留源码，只退回到commit信息到某个版本，不涉及index的回滚，如果还需要提交，直接commit即可。
+- --hard commit和index都回退到某个版本。注意这种方式是改变本地仓库源码。也可以用到线上，但是有问题。再提交时就会有冲突。
 
 - 永久回退到某个版本
 ```
@@ -418,7 +413,7 @@ git check commitID fileName
 这个1 指的是master，2指的是develop。现在是在master分支上回滚 develop合并到master上的部分代码。
 这种方式，是用一种反向的push来重新提交一次。git中可以看到操作记录。
 
->reset revert区别
+### reset revert区别
 
 - reset是删除向后退，revert是提交一个新的向前进。
 - 如果你已经push到线上代码库, reset 删除指定commit以后,你git push可能导致一大堆冲突.但是revert 并不会。
@@ -592,12 +587,11 @@ git show tag_name
 ```
 
 # 10.pull、fetch
->区别
-
+## 1.区别
 - pull:从远端仓库提取数据并尝试合并到当前分支。
 - fetch:git fetch 从远端仓库下载新分支与数据。
 
->建议使用
+## 2.建议使用
 ```
 git fetch
 git merge branch
@@ -627,7 +621,6 @@ git push -u origin master
 
 # 14.git 进行私有包管理
 - package.json中加入
-
 ```
 "mongoose-models":"git+ssh://git@gitlab.semioe.com:backend/mongoose-models.git#tag号",
 ```
@@ -696,12 +689,10 @@ git rebase --continue
 
 # 16.git 状态详解
 
->状态图
-
+## 1.状态图
 <img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/git/git%20%E7%8A%B6%E6%80%81%E5%9B%BE.jpg'/>
 
->基本状态标识
-
+## 2.基本状态标识
 ```
 A- = untracked 未跟踪
 A  = tracked 已跟踪未修改
@@ -710,8 +701,7 @@ B  = staged - 已暂存未提交
 C  = committed -已提交未push
 ```
 
->各状态之间的变化
-
+## 3.各状态之间的变化
 ```
 A--->B:     git add <file> // 加入到暂存区
 B--->A:     git rm --cached <file>
@@ -726,8 +716,7 @@ C--->B:     git reset --soft HEAD^
 git commit --amend 修改最后一次提交
 ```
 
->git diff 对比修改
-
+## 4.git diff 对比修改
 ```
 已修改，未提交 ：git diff
 已暂存，未提交 : git diff --cached
@@ -767,10 +756,10 @@ shell输入cz使用
 # 备注
 
 >2019年5月5日
-```
-1.增加额外的搜索日志命令
-2.增加修改显示日期的配置命令
-```
+
+- 1.增加额外的搜索日志命令
+- 2.增加修改显示日期的配置命令
+
 >2019年7月15日
 
 - 重新排版
