@@ -1131,11 +1131,33 @@ done
 // 3
 // 4
 ```
+
 - 删除数组元素
 ```
 arr=(1 2 3 4)
 unset arr[1] # 2 3 4
 ```
+
+- 数组转为字符串
+```
+str=''
+for i in ${arr[@]};do
+  str=$str$i;
+done
+```
+
+- 直接下标添加
+```
+array_name[index]=value
+```
+
+添加方式|语法|可添加多个元素|下标必须连续|添加后下标改变|可能覆盖原有元素
+-|-|-|-|-|-
+直接下标添加|array_name[index]=value|否|否|否|是
+数组长度添加|array_name[${#array_name[@]}]=value或array_name[${#array_name[*]}]=value|否|是|否|是
+重新创建数组|array_name=("${array_name[@]}" value1 ... valueN)|是|否|是|否
+赋值运算符+=|array_name+=(value1 ... valueN)|是|是	|是|否
+
 # 44.变量运算
 # 45.Centos 7服务注册、部署、开机自启
 ## 1.参数说明
