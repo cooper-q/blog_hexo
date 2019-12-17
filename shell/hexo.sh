@@ -7,15 +7,7 @@ start(){
 }
 
 stop(){
-    processID=`ps -ef |grep -v grep|grep -v sh|grep hexo|awk '{print $2}'`
-    bool=`echo $processID|awk '{print($0~/^[-]?([0-9])+[.]?([0-9])+$/)?"true":"false"}'`
-
-    if [ $bool == "true" ]
-    then
-        kill -9 $processID
-    else
-        echo '服务未启动'
-    fi
+    ps -ef |grep -v grep|grep -v sh|grep hexo|awk '{print $2}'|xargs kill -9
 }
 case $1 in
     start)
