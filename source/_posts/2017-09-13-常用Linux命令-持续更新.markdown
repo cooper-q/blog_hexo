@@ -416,6 +416,7 @@ declare -x LOGNAME="root"
 
 ## 4.添加PATH
 - :(冒号)分割
+
 ### 1.临时添加&修改
 - 重启机器&&重启shell失效
 - PATH重新赋值则修改
