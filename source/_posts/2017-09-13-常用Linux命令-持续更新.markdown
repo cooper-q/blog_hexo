@@ -1156,6 +1156,24 @@ done
 array_name[index]=value
 ```
 
+- shell脚本数组报错Syntax error: "(" unexpected
+```
+# 执行下方代码会报错
+# 与使用的shell版本相关
+#!/bin/sh
+a=(1 2 3)
+for number in ${a[@]}
+do
+echo $number
+done
+
+# 执行下方代码，这里sh被重定向到dash，因此执行上方代码时会使用dash
+# 可以直接使用bash执行上方脚本，规避错误
+ls -l /bin/*sh
+
+lrwxrwxrwx  1 root root      4 Dec 18  2018 /bin/sh -> dash
+-rwxr-xr-x  1 root root 778736 Apr 11  2018 /bin/ssh
+```
 - 总结
 
 添加方式|语法|可添加多个元素|下标必须连续|添加后下标改变|可能覆盖原有元素
