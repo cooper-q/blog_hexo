@@ -949,6 +949,7 @@ awk -v awk_var="$var" 'BEGIN {print awk_var}'
 ```
 
 ## 2.sed
+
 - 去掉所有的双引号
 ```
 echo '"hello world"'|sed 's/\"//g'
@@ -958,6 +959,7 @@ echo '"hello world"'|sed 's/\"//g'
 ```
 sed -i "s/oldString/newString/g"  `grep oldString -rl /path`
 ```
+
 - 替换空格
 ```
 sed 's/ //g' fileName
@@ -976,6 +978,11 @@ sed 's/^[ \t]*//g'
 - 替换行末空格
 ```
 sed 's/[ \t]*$//g'
+```
+
+- 替换斜杠
+```
+sed -i 's/. "\/root\/.acme.sh\/acme.sh.env"//g' `grep '. "/root/.acme.sh/acme.sh.env"' -rl /root/.bashrc`
 ```
 
 # 25.jq 解析字符串为json
