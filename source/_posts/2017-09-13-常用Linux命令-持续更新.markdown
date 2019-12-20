@@ -1919,6 +1919,10 @@ Authoritative answers can be found from:
 cat xx.xx|uniq
 ```
 
+# 61.qrencode 生成二维码
+```
+echo 1234 | qrencode -s 10 -m 1 -t UTF8
+```
 # 备注
 >2019年6月5号
 
