@@ -2146,6 +2146,17 @@ service dnsmasq start
 dig @xxx.xxx.xxx.xxx xxx.xxx.com
 ```
 
+# 63.查询外网IP
+```
+curl icanhazip.com
+curl ifconfig.me
+curl curlmyip.com
+curl ip.appspot.com
+curl ipinfo.io/ip
+curl ipecho.net/plain
+curl www.trackip.net/i
+```
+
 # 备注
 >2019年6月5号
 
