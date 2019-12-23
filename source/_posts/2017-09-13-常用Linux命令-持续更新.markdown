@@ -1930,6 +1930,222 @@ cat xx.xx|uniq
 ```
 echo 1234 | qrencode -s 10 -m 1 -t UTF8
 ```
+
+# 62.dnsmasq【自定义dns服务器】
+## 1.安装
+```
+# Ubuntu/Debian
+apt-get install dnsmasq
+
+# Centos/RHEL
+yum -y install dnsmasq
+```
+## 2.配置文件
+```
+# 服务监听的网络接口地址【注释后可以让外网连接使用】
+# listen-address=127.0.0.1
+
+# dhcp动态分配的地址范围,自动分配50-150ip段，有效期48小时
+# dhcp-range=192.168.1.50,192.168.1.150,48h
+
+# dhcp服务的静态绑定
+# dhcp-host的配置方式有很多种，这里使用的是：[client端MAC地址] + [分配的IP]+ [主机名]
+# dhcp-host=00:0C:29:5E:F2:6F,192.168.1.201
+# dhcp-host=00:0C:29:5E:F2:6F,192.168.1.201,infinite	无限租期
+# dhcp-host=00:0C:29:5E:F2:6F,192.168.1.201,os02
+# dhcp-host=00:0C:29:15:63:CF,192.168.1.202,os03
+
+# dhcp服务的其它几种绑定方式
+# 绑定网卡地址对应ip地址，用的是host的方式，类似在hosts文件写一个host name 对应一个ip，所以这个不是arp绑定，要区分。
+# dhcp-host=11:22:33:44:55:66,192.168.1.60
+
+# Always set the name of the host with hardware address
+# 11:22:33:44:55:66 to be "fred"
+# 绑定mac地址对应一个host name ，我个人觉得绑定mac对应ip就足够了，绑定对应名字比较少见
+# dhcp-host=11:22:33:44:55:66,fred
+
+# Always give the host with ethernet address 11:22:33:44:55:66
+# the name fred and IP address 192.168.0.60 and lease time 45 minutes
+# 这个是组合版，绑定某个mac对应fred名字，然后加上一个ip分配，并设置租约，这个只能说是灵活配置的参考，没啥实际意义
+# dhcp-host=11:22:33:44:55:66,fred,192.168.0.60,45m
+
+# Give a host with ethernet address 11:22:33:44:55:66 or
+# 12:34:56:78:90:12 the IP address 192.168.0.60. Dnsmasq will assume
+# that these two ethernet interfaces will never be in use at the same
+# time, and give the IP address to the second, even if it is already
+# in use by the first. Useful for laptops with wired and wireless
+# addresses.
+# 绑定一个ip对应多mac地址，用途场景存在于实验室和无线网络，我想只是为了让2块网卡用同一个ip这样单纯而纯洁的需求而已[不常用]
+# dhcp-host=11:22:33:44:55:66,12:34:56:78:90:12,192.168.0.60
+
+# Give the machine which says its name is "bert" IP address
+# 192.168.0.70 and an infinite lease
+# 绑定名字对应ip，并且给了一个新参数，无限租约
+# dhcp-host=bert,192.168.0.70,infinite
+
+# Always give the host with client identifier 01:02:02:04
+# the IP address 192.168.0.60
+# 给予一个特殊标识符对应ip，用途不明
+# dhcp-host=id:01:02:02:04,192.168.0.60
+
+# Always give the host with client identifier "marjorie"
+# the IP address 192.168.0.60
+# 跟上一条类似，只是标识符还支持普通字符字串
+# dhcp-host=id:marjorie,192.168.0.60
+
+# 通过/etc/hosts来分配对应的hostname
+# Enable the address given for "judge" in /etc/hosts
+# to be given to a machine presenting the name "judge" when
+# it asks for a DHCP lease.
+# dhcp-host=judge
+
+# 忽略下面MAC地址的DHCP请求,不分配ip
+# Never offer DHCP service to a machine whose ethernet
+# address is 11:22:33:44:55:66
+#dhcp-host=11:22:33:44:55:66,ignore
+
+# If this line is uncommented, dnsmasq will read /etc/ethers and act
+# on the ethernet-address/IP pairs found there just as if they had
+# been given as --dhcp-host options. Useful if you keep
+# MAC-address/host mappings there for other purposes.
+# 使用额外的文件代替主配置文件来处理dhcp-host的匹配，这个主要为了方便管理，将所有需要用到的dhcp-host配置都放进/etc/ethers
+
+# 设置默认租期
+# Set the limit on DHCP leases, the default is 150
+#dhcp-lease-max=150
+
+# 租期保存在下面文件
+# The DHCP server needs somewhere on disk to keep its lease database.
+# This defaults to a sane location, but if you want to change it, use
+# the line below.
+#dhcp-leasefile=/var/lib/dnsmasq/dnsmasq.leases
+
+# Set this (and domain: see below) if you want to have a domain
+# automatically added to simple names in a hosts-file.
+# 自动给hosts的域名增加一个简单的名字，搭配下面的domain用的[不常用]
+expand-hosts
+
+# dhcp所在的域
+# Set the domain for dnsmasq. this is optional, but if it is set, it
+# does the following things.
+# 1) Allows DHCP hosts to have fully qualified domain names, as long
+#     as the domain part matches this setting.
+# 2) Sets the "domain" DHCP option thereby potentially setting the
+#    domain of all systems configured by DHCP
+# 3) Provides the domain part for "expand-hosts"
+domain=hi-linux.com
+
+# 设置默认路由出口
+# dhcp-option遵循RFC 2132（Options and BOOTP Vendor Extensions),可以通过dnsmasq --help dhcp来查看具体的配置
+# 很多高级的配置，如iSCSI连接配置等同样可以由RFC 2132定义的dhcp-option中给出。
+# option 3为default route
+# Override the default route supplied by dnsmasq, which assumes the
+# router is the same machine as the one running dnsmasq.
+dhcp-option=3,192.168.1.1
+
+# 设置NTP Server.这是使用option name而非选项名来进行设置
+# Set the NTP time server addresses to 192.168.0.4 and 10.10.0.5
+#dhcp-option=option:ntp-server,192.168.0.4,10.10.0.5
+
+# resolv-file配置Dnsmasq额外的向流的DNS服务器，如果不开启就使用linux主机默认的/etc/resolv.conf里的nameserver，通过下面的选项指定其他文件。
+# resolv-file=/etc/dnsmasq.d/upstream_dns.conf
+
+# 默认情况下Dnsmasq会发送查询到它的任何上游DNS服务器上，如果取消注释，则Dnsmasq则会严格按照/etc/resolv.conf中的DNS Server顺序进行查询。
+# strict-order
+
+# 以下两个参数控制是否通过/etc/resolv.conf确定上游服务器，是否检测/etc/resolv.conf的变化，则取消注释。
+
+# 如果你不想Dnsmasq读取/etc/resolv.conf文件或者其他文件，获得它的servers
+# If you don't want dnsmasq to read /etc/resolv.conf or any other
+# file, getting its servers from this file instead (see below), then
+# uncomment this.
+#no-resolv
+
+如果你不允许Dnsmasq通过轮询/etc/resolv.conf或者其他文件来获取配置的改变，则取消注释。
+#no-poll
+
+# 增加一个本地域名，会在/etc/hosts中进行查询
+#local=/localnet/
+
+# 增加查询yahoo google和它们的子域名到vpn、search查找
+# Add the IPs of all queries to yahoo.com, google.com, and their
+# subdomains to the vpn and search ipsets:
+# ipset=/yahoo.com/google.com/vpn,search
+
+# 你还可以控制Dnsmasq和Server之间的查询从哪个网卡出去
+# server=10.1.2.3@eth1
+
+# 指定源地址携带10.1.2.3地址和192.168.1.1的55端口进行通讯
+# and this sets the source (ie local) address used to talk to
+# 10.1.2.3 to 192.168.1.1 port 55 (there must be a interface with that
+# IP on the machine, obviously).
+# server=10.1.2.3@192.168.1.1#55
+
+# 改变Dnsmasq默认的uid和gid
+# user=
+# group=
+
+# 如果你想Dnsmasq监听某个端口为dhcp、dns提供服务
+#interface=
+
+# 你还可以指定哪个端口你不想监听
+# except-interface=
+
+# 设置想监听的地址，如果你本机要使用写上127.0.0.1。
+# listen-address=
+
+# 自动的给hosts中的name增加一个域名
+# expand-hosts
+
+# 给dhcp服务赋予一个域名
+# domain=thekelleys.org.uk
+
+# 给dhcp的一个子域赋予一个不同的域名
+# domain=wireless.thekelleys.org.uk,192.168.2.0/24
+
+# 如果你想在某个端口只提供dns服务，则可以进行配置禁止dhcp服务
+# no-dhcp-interface=
+
+# 自定义hosts 【格式与/etc/hosts相同】
+# addn-hosts=/etc/dnsmasq.hosts
+
+# 自动加载conf-dir目录下的配置文件
+# conf-dir=/etc/dnsmasq.d
+
+# 设置dns缓存大小,默认为150条
+# cache-size=150
+
+# 同时查询下方，选择最快的一条
+all-servers
+server=8.8.4.4
+server=8.8.8.8
+
+# 国内的域名都通过114解析
+server=/cn/114.114.114.114
+
+# 给*.apple.com和taobao.com使用专用的DNS
+server=/taobao.com/223.5.5.5
+server=/.apple.com/223.5.5.5
+
+# 给指定域名指定ip【类似于修改hosts】
+address=/ad.iqiyi.com/127.0.0.1
+同上，还支持ipv6
+#address=/ad.iqiyi.com/fe80::20d:60ff:fe36:f83
+
+# 不使用/etc/hosts
+no-hosts
+```
+
+## 3.启动
+- 1.启动Dnsmasq
+```
+service dnsmasq start
+```
+## 4.测试
+```
+dig @xxx.xxx.xxx.xxx xxx.xxx.com
+```
+
 # 备注
 >2019年6月5号
 
