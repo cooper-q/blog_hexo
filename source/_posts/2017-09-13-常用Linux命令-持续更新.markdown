@@ -235,9 +235,11 @@ scp  -r /tmp/local_dir username@ip:remote_dir
 
     解压1：gunzip FileName.gz
     解压2：gzip -d FileName.gz
+    gzip -c test.txt > /root/test.gz # 指定压缩的路径并保留源文件
     压缩：gzip FileName
     .tar.gz 和 .tgz
     解压：tar zxvf FileName.tar.gz
+
     压缩：tar zcvf FileName.tar.gz DirName
 
     压缩多个文件：tar zcvf FileName.tar.gz DirName1 DirName2 DirName3 ...
@@ -264,6 +266,7 @@ scp  -r /tmp/local_dir username@ip:remote_dir
     .tar.Z
     解压：tar Zxvf FileName.tar.Z
     压缩：tar Zcvf FileName.tar.Z DirName
+
 >zip命令
 
     解压：unzip FileName.zip
@@ -275,6 +278,7 @@ scp  -r /tmp/local_dir username@ip:remote_dir
     tar -zxvf benet.tar.gz 压缩包的文件解压恢复
     tar -jxvf benet.tar.gz bz2解压缩
     unzip 解压zip文件
+    unzip -d path 解压的文件 # 指定解压的路径
 
 # 6.Centos7 打开关闭防火墙
 ## 1.基本操作
