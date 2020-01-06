@@ -2161,6 +2161,10 @@ curl ipecho.net/plain
 curl www.trackip.net/i
 ```
 
+# 64.查看sh的指向
+```
+ls -al /bin/sh
+```
 # 备注
 >2019年6月5号
 
