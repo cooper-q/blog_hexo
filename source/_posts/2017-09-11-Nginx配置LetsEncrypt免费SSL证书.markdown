@@ -249,16 +249,22 @@ gPUI45eltrjcv8FCSTOUcT7PWCa3
 ## 3.证书更新
 - Let's Encrypt 的证书有效期只有 3 个月 需要使用一下命令手动更新
 
->ECC证书
-
+- ECC证书
 ```
 sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force --ecc
 ```
 
->RSA证书
-
+- RSA证书
 ```
 sudo ~/.acme.sh/acme.sh --renew -d mydomain.com --force
+```
+
+- 通配符证书
+```
+# 首先要根据下面配置全局key或者其余内容
+https://github.com/Neilpang/acme.sh/wiki/dnsapi
+
+acme.sh --issue --dns dns_cf -d *.example.com -d example.com
 ```
 
 ## 4.安装证书和密钥
