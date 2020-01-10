@@ -961,7 +961,7 @@ echo '"hello world"'|sed 's/\"//g'
 
 - 替换某文件字符串
 ```
-sed -i "s/oldString/newString/g"  `grep oldString -rl /path`
+sed -i "s/oldString/newString/g"  `grep "oldString" -rl /path`
 ```
 
 - 替换空格
