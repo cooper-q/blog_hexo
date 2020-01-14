@@ -878,12 +878,14 @@ cat filename | grep -a 'Filed' //可以加上-a进行特殊处理
 ```
 # 用:或者空格进行分隔字符串（或的关系）
 echo 'hello:world 123'|awk -F "[: ]" '{print $1" "$2" "$3}'
+
 # 输出 hello world 123
 ```
 
 - 用:/分隔字符串（并的关系）
 ```
 echo 'hello:/world'|awk -F"[:][/]" '{print $1" "$2}'
+
 # 输出 hello world
 ```
 ### 2.split
@@ -901,15 +903,18 @@ echo 'hello.world'|awk '{split($0,a,".");print a[1],a[2]}'
 - substr(s,p,n) 返回字符串s中从p开始长度为n的后缀部分
 ```
 echo '123456'|awk '{print substr($0,2)}'
+
 # 输出 23456
 
 echo '123456'|awk '{print substr($0,1,2)}'
+
 # 输出 12
 ```
 
 ### 6.FS 截取
 ```
 echo 'hello:world'|awk 'BEGIN{FS=":"};{print $1};'
+
 # 输出hello
 ```
 
