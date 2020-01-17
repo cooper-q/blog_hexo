@@ -1671,14 +1671,17 @@ DST active: n/a
 ```
 timedatectl list-timezones
 ```
+
 - 将硬件时钟调整为与本地时钟一致, 0 为设置为 UTC 时间
 ```
 timedatectl set-local-rtc 1
 ```
+
 - 设置系统时区为上海
 ```
 timedatectl set-timezone Asia/Shanghai
 ```
+
 # 58.开启Centos bbr拥塞控制算法[我的测试机是centos 8]
 ## 1.检查是否安装bbr
 - 有一些vps会自带bbr模块 比如搬瓦工的某些机器，执行下面命令
