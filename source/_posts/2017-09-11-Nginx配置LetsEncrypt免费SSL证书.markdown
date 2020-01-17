@@ -271,15 +271,20 @@ acme.sh --issue --dns dns_cf -d *.example.com -d example.com
 - 安装到/etc/nginx目录下（目录可更改）
 - 证书安装完毕后重复上面的第四步骤（配置Nginx以使用签发的证书）即可
 
->ECC证书
-
+-ECC证书
 ```
 ~/.acme.sh/acme.sh --installcert -d mydomain.com --fullchainpath /etc/nginx/mydomain.com.crt --keypath /etc/nginx/mydomain.com.key --ecc
 ```
->RSA证书
 
+-RSA证书
 ```
 sudo ~/.acme.sh/acme.sh --installcert -d mydomain.com --fullchainpath /etc/nginx/mydomain.com.crt --keypath /etc/nginx/mydomain.com.key
+```
+## 5.错误处理
+- zsh: no matches found: *.example.com
+```
+# .zshrc下增加
+setopt no_nomatch
 ```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
