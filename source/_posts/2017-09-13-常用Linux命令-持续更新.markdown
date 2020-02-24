@@ -2173,6 +2173,24 @@ curl www.trackip.net/i
 ```
 ls -al /bin/sh
 ```
+
+# 65.终端代理
+## 1.需要根据不同的本地代理软件来找到相对应的端口
+## 2.根据不同的终端修改配置文件
+```
+# bash
+~/.bash_profile
+
+# zsh
+~/.zshrc
+
+# 增加下方代码
+export http_proxy=http://127.0.0.1:1087
+export https_proxy=$http_proxy
+
+# source相应的配置文件即可
+```
+
 # 备注
 >2019年6月5号
 
