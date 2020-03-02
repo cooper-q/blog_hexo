@@ -1,20 +1,20 @@
 ---
 layout:     post
-title:      "centos7-firewall"
+title:      "CentOS-firewall"
 
 date:       2018-04-23
 top: 10
 categories:
     - Linux
-    - centos7
+    - CentOS7
     - firewall
 tags:
     - firewall
     - Linux
-    - centos7
+    - CentOS
 ---
 
->centos 配置及使用firewall
+>CentOS 配置及使用firewall
 
 ### 1.systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体。
 
