@@ -1,16 +1,16 @@
 ---
 layout:     post
-title:      "centos7-OpenVPN服务器端配置文件server.conf"
+title:      "CentOS7-OpenVPN服务器端配置文件server.conf"
 date:       2018-04-23
 top: 10
 categories:
     - Linux
-    - centos7
+    - CentOS7
     - OpenVPN
 tags:
     - OpenVPN
     - Linux
-    - centos7
+    - CentOS7
 ---
 
 >配置文件介绍

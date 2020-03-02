@@ -280,7 +280,7 @@ scp  -r /tmp/local_dir username@ip:remote_dir
     unzip 解压zip文件
     unzip -d path 解压的文件 # 指定解压的路径
 
-# 6.Centos7 打开关闭防火墙
+# 6.CentOS7 打开关闭防火墙
 ## 1.基本操作
 - 1.查看状态
 ```
@@ -1199,7 +1199,7 @@ lrwxrwxrwx  1 root root      4 Dec 18  2018 /bin/sh -> dash
 赋值运算符+=|array_name+=(value1 ... valueN)|是|是	|是|否
 
 # 44.变量运算
-# 45.Centos 7服务注册、部署、开机自启
+# 45.CentOS 7服务注册、部署、开机自启
 ## 1.参数说明
 ```
 [Unit]部分主要是对这个服务的说明，内容包括Description和After，Description 用于描述服务，After用于描述服务类别
@@ -1358,7 +1358,7 @@ sudo systemctl mask nginxReboot.service
 systemctl --failed
 ```
 ## 4.注意的点
-- centos 7用systemctl启动nginx后
+- CentOS 7用systemctl启动nginx后
 - - 1.可能会出现 (13: Permission denied) while connecting to upstream:[nginx]
 ```
 // 解决方法 执行下面的命令
@@ -1370,12 +1370,12 @@ setsebool -P httpd_can_network_connect 1
 // 需要把证书文件移动到nginx配置文件的地方
 比如我的证书在/root/xxx/xx.crt,需要移动到/etc/nginx/
 ```
-- centos7 运行systemctl后无响应（即shell阻塞）,但是程序启动成功
+- CentOS7 运行systemctl后无响应（即shell阻塞）,但是程序启动成功
 - - 1.sytemctl status nginxReboot.service 后状态为activating (start)而不是activating (running)态
 ```
 // 需要将Type=forking 修改为 Type=simple 或者删掉这行
 ```
-- centos7启动后立马就会去执行stop
+- CentOS7启动后立马就会去执行stop
 - - 原因是启动时脚本失败，才会立马执行stop
 - - 检查脚本命令以及特别要注意环境变量的问题，仅仅使用绝对路径也是不行的，需要加上Environment（参考上面的hexo示例）
 
@@ -1653,7 +1653,7 @@ count 代表被复制的块数。
 兆字节（1024KB）|M
 吉字节（1024MB）|G
 
-# 57.Centos7时区设置
+# 57.CentOS7时区设置
 - 查看系统时间方面的状态
 ```
 timedatectl status
@@ -1682,7 +1682,7 @@ timedatectl set-local-rtc 1
 timedatectl set-timezone Asia/Shanghai
 ```
 
-# 58.开启Centos bbr拥塞控制算法[我的测试机是centos 8]
+# 58.开启CentOS bbr拥塞控制算法[我的测试机是CentOS 8]
 ## 1.检查是否安装bbr
 - 有一些vps会自带bbr模块 比如搬瓦工的某些机器，执行下面命令
 ```
@@ -1949,7 +1949,7 @@ echo 1234 | qrencode -s 10 -m 1 -t UTF8
 # Ubuntu/Debian
 apt-get install dnsmasq
 
-# Centos/RHEL
+# CentOS/RHEL
 yum -y install dnsmasq
 ```
 ## 2.配置文件
@@ -2210,7 +2210,7 @@ export https_proxy=$http_proxy
 
 >2019年6月12号
 
-- 增加Centos7 服务注册
+- 增加CentOS7 服务注册
 
 >2019年6月24日
 
@@ -2272,7 +2272,7 @@ export https_proxy=$http_proxy
 >2019年10月22日
 
 - 增加删除虚拟内存方法
-- 增加Centos8开启BBR方法
+- 增加CentOS8开启BBR方法
 
 >2019年10月24日
 

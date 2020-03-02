@@ -1,16 +1,16 @@
 ---
 layout:     post
-title:      "Centos7上搭建OpenVPN.markdown"
+title:      "CentOS7上搭建OpenVPN.markdown"
 date:       2018-04-23
 top: 10
 categories:
     - Linux
-    - centos7
+    - CentOS7
     - OpenVPN
 tags:
     - OpenVPN
     - Linux
-    - centos7
+    - CentOS7
 ---
 
 ### 1.安装软件（如果没安装）
