@@ -2191,7 +2191,10 @@ export https_proxy=$http_proxy
 # source相应的配置文件即可
 ```
 # 65.代理ssh
+- 利用nc进行代理，也可使用Ncat
 ```
+# 127.0.0.1:1080 这里修改为自己的代理软件的ip和地址
+# root@server 则为 服务器的用户名以及ip或者git config的Host
 ssh -o ProxyCommand="nc -X 5 -x 127.0.0.1:1080 %h %p" root@server
 ```
 
@@ -2320,6 +2323,31 @@ ssh -o ProxyCommand="nc -X 5 -x 127.0.0.1:1080 %h %p" root@server
 
 - 优化
 - 增加数组shell报错
+
+> 2019年12月23日
+
+- 增加dnsmasq
+- 增加查询外部ip的方法
+
+> 2019年12月30日
+
+- 增加解压 压缩路径
+
+> 2020年1月6日
+
+- 增加查看sh的指向
+
+> 2020年1月10日
+
+- 完善sed
+
+> 2020年1月14日
+
+- 优化目录
+
+> 2020年3月4日
+
+- 代理ssh
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
