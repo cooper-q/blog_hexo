@@ -2,7 +2,7 @@
 layout:     post
 title:      "CentOS7上搭建OpenVPN.markdown"
 date:       2018-04-23
-top: 10
+top: 11
 categories:
     - Linux
     - CentOS7
