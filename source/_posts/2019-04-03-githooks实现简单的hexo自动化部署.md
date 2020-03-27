@@ -33,7 +33,7 @@ git clone /root/project/remote
 ```
 
 ## 3.服务器远程仓库设置hook
-- 1.创建git hook post-receive
+- 1.创建git hook post-receive 或者 post-update
 ```
 cd /root/project/remote/hooks
 touch post-receive // 创建文件 加入以下代码
