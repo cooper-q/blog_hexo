@@ -16,7 +16,7 @@ categories:
 
 ## 1.服务端初始化一个远程仓库
 
-    cd /root/project/deployment
+    cd /root/project
     mkdir remote
     cd remote
     git init --bare // 初始化一个裸仓库，无工作区
@@ -24,14 +24,14 @@ categories:
 
 ## 2.服务器初始化一个本地仓库
 
-    cd /root/project/deployment
+    cd /root/project
     mkdir local
     cd local
     git clone /root/project/deployment/remote
 
 ## 3.服务器远程仓库设置hook
 
-    cd /root/project/deployment/remote/hooks
+    cd /root/project/remote/hooks
     touch post-receive // 创建文件 加入以下代码
 
     ###
