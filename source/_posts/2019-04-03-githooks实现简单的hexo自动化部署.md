@@ -44,7 +44,7 @@ touch post-receive // 创建文件 加入以下代码
 unset GIT_DIR
 cd /root/project/local/remote
 git pull origin master
-# source ~/.zshrc
+source ~/.bashrc
 ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9
 nohup hexo s
 exit 0
