@@ -27,7 +27,7 @@ categories:
     cd /root/project
     mkdir local
     cd local
-    git clone /root/project/deployment/remote
+    git clone /root/project/remote
 
 ## 3.服务器远程仓库设置hook
 
@@ -37,9 +37,9 @@ categories:
     ###
     #!/bin/sh
     unset GIT_DIR
-    cd /root/project/deployment/local/remote
+    cd /root/project/local/remote
     git pull origin master
-    source ~/.zshrc
+    # source ~/.zshrc
     ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9
     nohup hexo s
     exit 0
