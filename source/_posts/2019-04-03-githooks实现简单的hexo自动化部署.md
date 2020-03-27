@@ -15,51 +15,58 @@ categories:
 # 1.部署
 
 ## 1.服务端初始化一个远程仓库
+```
+cd /root/project
+mkdir remote
+cd remote
 
-    cd /root/project
-    mkdir remote
-    cd remote
-    git init --bare // 初始化一个裸仓库，无工作区
-
+// 初始化一个裸仓库，无工作区
+git init --bare
+```
 
 ## 2.服务器初始化一个本地仓库
-
-    cd /root/project
-    mkdir local
-    cd local
-    git clone /root/project/remote
+```
+cd /root/project
+mkdir local
+cd local
+git clone /root/project/remote
+```
 
 ## 3.服务器远程仓库设置hook
+- 1.创建git hook post-receive
+```
+cd /root/project/remote/hooks
+touch post-receive // 创建文件 加入以下代码
+```
+- 2.post-receive 文件内容
+```
+#!/bin/sh
+unset GIT_DIR
+cd /root/project/local/remote
+git pull origin master
+# source ~/.zshrc
+ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9
+nohup hexo s
+exit 0
+```
 
-    cd /root/project/remote/hooks
-    touch post-receive // 创建文件 加入以下代码
-
-    ###
-    #!/bin/sh
-    unset GIT_DIR
-    cd /root/project/local/remote
-    git pull origin master
-    # source ~/.zshrc
-    ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9
-    nohup hexo s
-    exit 0
-    ###
-
-    chmod +x post-receive // 增加可执行权限
+- 3.增加可执行权限
+```
+chmod +x post-receive
+```
 
 # 2.测试是否自动部署
-## 1.增加remote源
-
-
-    找到本地想要自动部署的项目
-
-    git remote add deploy user@ip:/root/project/deployment/remote
-    git push deploy master
-
-## 2.查看是否部署成功
-
-    查看/root/project/deployment/local/remote 路径下是否有想要部署的仓库文件
-    如果有说明git hooks配置成功
+- 1.增加remote源
+```
+# 找到本地想要自动部署的项目
+git remote add deploy user@ip:/root/project/deployment/remote
+git push deploy master
+```
+- 2.查看是否部署成功
+```
+# 1.查看/root/project/deployment/local/remote 路径下是否有想要部署的仓库文件
+# 2.如果有说明git hooks配置成功
+```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
