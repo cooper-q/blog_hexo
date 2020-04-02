@@ -360,6 +360,12 @@ git remote -v // 查看远程仓库地址
 git fetch origin master // 从远程获取最新版本到本地
 ```
 
+- 4.异常处理
+```
+# fatal: refusing to merge unrelated histories
+git pull origin master --allow-unrelated-histories
+```
+
 ## 2.本地merge 远程分支(步骤)
 ```
 1.git pull          // 远程分支 保证最新代码
