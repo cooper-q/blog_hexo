@@ -1,3 +1,6 @@
 User-agent: *
 Allow:/
-Sitemap: http://blog.mengxc.info/sitemap.xml
+Sitemap: https://blog.cooper-q.com/sitemap.xml
+Sitemap: https://www.cooper-q.com/sitemap.xml
+Sitemap: https://cooper-q.com/sitemap.xml
+Sitemap: https://blog.mengxc.info/sitemap.xml
