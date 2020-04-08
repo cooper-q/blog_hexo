@@ -11,6 +11,7 @@ tags:
 ---
 
 # 常用Linux命令，持续更新
+[toc]
 # 1.查看某个端口的占用情况
 ```
 lsof -i :80
@@ -279,6 +280,16 @@ scp  -r /tmp/local_dir username@ip:remote_dir
     tar -jxvf benet.tar.gz bz2解压缩
     unzip 解压zip文件
     unzip -d path 解压的文件 # 指定解压的路径
+>解压tar.xz
+```
+# 1.两层压缩，外面是xz压缩，里层是tar压缩，所以分两步实现解压。
+xz -d *.tar.xz
+
+tar -xvf *.tar.xz
+
+# 2.直接解压
+ tar -xvJf *.tar.xz
+```
 
 # 6.CentOS7 打开关闭防火墙
 ## 1.基本操作
@@ -2191,10 +2202,7 @@ export https_proxy=$http_proxy
 # source相应的配置文件即可
 ```
 # 65.代理ssh
-- 利用nc进行代理，也可使用Ncat
 ```
-# 127.0.0.1:1080 这里修改为自己的代理软件的ip和地址
-# root@server 则为 服务器的用户名以及ip或者git config的Host
 ssh -o ProxyCommand="nc -X 5 -x 127.0.0.1:1080 %h %p" root@server
 ```
 
