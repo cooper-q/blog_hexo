@@ -11,7 +11,6 @@ tags:
 ---
 
 # 常用Linux命令，持续更新
-[toc]
 # 1.查看某个端口的占用情况
 ```
 lsof -i :80
@@ -280,6 +279,7 @@ scp  -r /tmp/local_dir username@ip:remote_dir
     tar -jxvf benet.tar.gz bz2解压缩
     unzip 解压zip文件
     unzip -d path 解压的文件 # 指定解压的路径
+
 >解压tar.xz
 ```
 # 1.两层压缩，外面是xz压缩，里层是tar压缩，所以分两步实现解压。
