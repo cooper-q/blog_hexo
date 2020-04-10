@@ -70,7 +70,7 @@ git push deploy master
 ```
 
 # 3.自动化脚本
-- 内容
+## 1.服务器初始化服务自动化脚本
 ```
 #!/usr/bin/env bash
 # 1.初始化远程仓库
@@ -89,13 +89,20 @@ echo 'unset GIT_DIR' >> post-update
 echo 'cd /root/project/local/remote' >> post-update
 echo 'git pull origin master' >> post-update
 # echo 'source ~/.bashrc' >> post-update
-echo "ps -ef | grep 'hexo' |grep -v grep|awk '{print $2}'|xargs kill -9" >> post-update
+echo "ps -ef | grep 'hexo' |grep -v grep|awk '{print \$2}'|xargs kill -9" >> post-update
 echo 'nohup hexo s' >> post-update
 echo 'exit 0' >> post-update
 chmod +x post-update
 echo 'done'
 ```
 
+## 2.本地提交时脚本
+- 1.进入.git/hooks下创建 pre-push文件
+- 2.加入下方内容
+```
+#!/bin/sh
+git push deploy master
+```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
