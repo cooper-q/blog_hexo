@@ -88,8 +88,8 @@ echo '#!/bin/sh' >> post-update
 echo 'unset GIT_DIR' >> post-update
 echo 'cd /root/project/local/remote' >> post-update
 echo 'git pull origin master' >> post-update
-echo 'source ~/.bashrc' >> post-update
-echo 'ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9' >> post-update
+# echo 'source ~/.bashrc' >> post-update
+echo "ps -ef | grep 'hexo' |grep -v grep|awk '{print $2}'|xargs kill -9" >> post-update
 echo 'nohup hexo s' >> post-update
 echo 'exit 0' >> post-update
 chmod +x post-update
