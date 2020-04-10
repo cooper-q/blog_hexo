@@ -52,20 +52,48 @@ exit 0
 
 - 3.增加可执行权限
 ```
-chmod +x post-receive
+chmod +x [post-receive or post-update]
 ```
 
 # 2.测试是否自动部署
-- 1.增加remote源
+## 1.增加remote源
 ```
 # 找到本地想要自动部署的项目
 git remote add deploy user@ip:/root/project/deployment/remote
 git push deploy master
 ```
-- 2.查看是否部署成功
+
+## 2.查看是否部署成功
 ```
 # 1.查看/root/project/deployment/local/remote 路径下是否有想要部署的仓库文件
 # 2.如果有说明git hooks配置成功
+```
+
+# 3.自动化脚本
+- 内容
+```
+#!/usr/bin/env bash
+# 1.初始化远程仓库
+mkdir -p /root/project/remote && cd /root/project/remote
+git init --bare
+
+# 2.初始化远程本地仓库
+mkdir -p /root/project/local && cd /root/project/local
+git clone /root/project/remote
+
+# 3.服务器远程仓库设置hook
+cd /root/project/remote/hooks && touch post-update
+
+echo '#!/bin/sh' >> post-update
+echo 'unset GIT_DIR' >> post-update
+echo 'cd /root/project/local/remote' >> post-update
+echo 'git pull origin master' >> post-update
+echo 'source ~/.bashrc' >> post-update
+echo 'ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9' >> post-update
+echo 'nohup hexo s' >> post-update
+echo 'exit 0' >> post-update
+chmod +x post-update
+echo 'done'
 ```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
