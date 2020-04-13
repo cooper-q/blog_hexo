@@ -88,7 +88,7 @@ git checkout -b master master_copy 上面的完整版
 
 - 在git中删除
 ```
-git rm file_name|dir -f
+git rm file_name|dir -r
 ```
 - 清除未跟踪的文件以及目录
 ```
