@@ -96,7 +96,7 @@ chmod +x post-update
 echo 'done'
 ```
 
-## 2.本地提交时脚本
+## ~~2.本地提交时脚本【暂未测试通过】~~
 - 1.进入.git/hooks下创建 pre-push文件
 - 2.加入下方内容
 ```
