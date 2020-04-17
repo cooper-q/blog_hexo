@@ -544,7 +544,6 @@ Promise.reject('1')
 ```
 ## 题目12
 <img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%9501.jpg' width=400 height=500/>
-
 ```
 function f (n) {
     if (n <= 2) {
@@ -557,7 +556,63 @@ function f (n) {
 ## 题目13
 <img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%9502.png' width=400/>
 
+## 题目14
+>考察微任务、宏任务以及异步返回值
+- 题目
+```
+const a = new Promise((resolve, reject) => {
+    console.log('promise1')
+    resolve()
+}).then(() => {
+    console.log('promise2')
+})
 
+const b = new Promise(async (resolve, reject) => {
+    await a
+    console.log('after1')
+    // 我在等我resolve才能resolve
+    await b
+    console.log('after2')
+    resolve()
+})
+
+console.log('end');
+```
+- 答案
+```
+promise1
+end
+promise2
+after1
+```
+
+## 题目15
+```
+Promise.then(a,b) 和 Promise.then().catch()的区别
+```
+- 答案
+```
+第二个捕获错误会跑在新的microTask
+```
+
+## 题目16
+- 题目
+```
+const promise = new Promise((resolve, reject) => {
+  console.log(1)
+  resolve()
+  console.log(2)
+})
+setTimeout(() => console.log(3), 0)
+throw new Error('123');
+promise.then(() => {
+  console.log(4)
+})
+```
+- 答案
+```
+1， 2  throw 123, 3
+```
 # 3.技术外的面试题
 
 ## 1.说一下你做过最有成长的一个项目，简单总结一下
