@@ -182,7 +182,7 @@ nginx -s reload
     crontab /xx/Lets\ Encrypt.cron
 
 # 6.使用acme.sh生成
-## 1.安装acme.sh
+## 1.安装acme.**sh**
 ```
 curl https://get.acme.sh | sh
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -207,7 +207,7 @@ no crontab for user
 ```
 >注意看错误提示 一般都是缺少某个依赖 然后根据使用的系统来安装依赖就可以
 
-## 2.使用acme.sh 生成证书
+## 2.使用acme.**sh** 生成证书
 
 - 确保80端口没有被占用
 - 替换下面命令中的mydomain.com字段
