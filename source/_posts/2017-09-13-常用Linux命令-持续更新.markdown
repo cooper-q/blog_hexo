@@ -2201,9 +2201,32 @@ export https_proxy=$http_proxy
 
 # source相应的配置文件即可
 ```
+
 # 65.代理ssh
+- 利用nc进行代理，也可使用Ncat
 ```
+# 127.0.0.1:1080 这里修改为自己的代理软件的ip和地址
+# root@server 则为 服务器的用户名以及ip或者git config的Host
+
 ssh -o ProxyCommand="nc -X 5 -x 127.0.0.1:1080 %h %p" root@server
+```
+
+# 66.Mac清除dns缓存
+- Mac OS X 12 (Sierra) and later
+```
+sudo killall -HUP mDNSResponder
+sudo killall mDNSResponderHelper
+sudo dscacheutil -flushcache
+```
+- Mac OS X 11 (El Capitan) and OS X 12 (Sierra)
+```
+sudo killall -HUP mDNSResponder
+```
+
+- Mac OS X 10.10 (Yosemite), Versions 10.10.4+
+```
+sudo dscacheutil -flushcache
+sudo killall -HUP mDNSResponder
 ```
 
 # 备注
