@@ -2229,6 +2229,35 @@ sudo dscacheutil -flushcache
 sudo killall -HUP mDNSResponder
 ```
 
+# 67.查看系统相关信息
+## 1.查看Linux内核版本信息
+- 方法1:cat /proc/version
+```
+Linux version 4.19.8-1.el7.elrepo.x86_64 (mockbuild@Build64R7) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-36) (GCC)) #1 SMP Sat Dec 8 10:07:47 EST 2018
+```
+- 方法2:uname -a
+```
+Linux jerry 4.19.8-1.el7.elrepo.x86_64 #1 SMP Sat Dec 8 10:07:47 EST 2018 x86_64 x86_64 x86_64 GNU/Linux
+```
+
+- 方法3:uname -r
+```
+4.19.8-1.el7.elrepo.x86_64
+```
+
+## 2.查看Linux系统版本信息
+- 方法1:cat /etc/issue
+```
+Kernel \r on an \m
+```
+- 方法2:cat /etc/lsb-release
+```
+DISTRIB_ID=Ubuntu
+```
+- 方法3:lsb_release -a
+```
+Distributor ID:Ubuntu
+```
 # 备注
 >2019年6月5号
 
