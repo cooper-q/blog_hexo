@@ -2409,6 +2409,18 @@ Distributor ID:Ubuntu
 
 - 代理ssh
 
+> 2020年4月8日
+
+- 增加解压tar.xz的文件
+
+> 2020年4月24日
+
+- 增加Mac清除dns缓存
+
+> 2020年4月28日
+
+- 增加查看系统信息
+
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 [如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
