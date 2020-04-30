@@ -1692,6 +1692,76 @@ timedatectl set-local-rtc 1
 ```
 timedatectl set-timezone Asia/Shanghai
 ```
+## 使用ntpdate同步时间
+- 1.安装ntpdate
+```
+yum -y install ntpdate
+```
+- 2.同步时间
+```
+ntpdate -u pool.ntp.org
+```
+
+- 3.查看是否正确
+```
+date
+```
+
+- 4.常用ntp server
+```
+#中国
+cn.ntp.org.cn
+#中国香港
+hk.ntp.org.cn
+#美国
+us.ntp.org.cn
+```
+## 定时同步时间
+```
+# 安装crontab
+yum -y install crontab
+# 创建crontab任务
+crontab -e
+# 添加定时任务【二十分钟同步一次】
+*/20 * * * * /usr/sbin/ntpdate pool.ntp.org > /dev/null 2>&1
+# 重启crontab
+service crond reload
+```
+
+## 使用rdate同步时间
+- ntpdate需要使用udp/123端口，有时候被禁用后用不了，可以改用rdate来同步时间
+```
+#安装rdate
+yum -y install rdate
+#同步时间
+rdate -s time-b.nist.gov
+#查看时间是否正确
+date
+```
+- 定时任务
+```
+#安装crontab
+yum -y install crontab
+#创建crontab任务
+crontab -e
+#添加定时任务
+*/20 * * * * /usr/bin/rdate -s time-b.nist.gov > /dev/null 2>&1
+#重启crontab
+service crond reload
+```
+- rdate时间服务器
+```
+s1d.time.edu.cn #东南大学
+s1e.time.edu.cn #清华大学
+s2a.time.edu.cn #清华大学
+s2b.time.edu.cn #清华大学
+s2c.time.edu.cn #北京邮电大学
+ntp.sjtu.edu.cn 202.120.2.101 #(上海交通大学网络中心NTP服务器地址）
+s1a.time.edu.cn #北京邮电大学
+s1b.time.edu.cn #清华大学
+s1c.time.edu.cn #北京大学
+clock.cuhk.edu.hk #香港中文大学授时中心
+```
 
 # 58.开启CentOS bbr拥塞控制算法[我的测试机是CentOS 8]
 ## 1.检查是否安装bbr
@@ -2420,6 +2490,10 @@ Distributor ID:Ubuntu
 > 2020年4月28日
 
 - 增加查看系统信息
+
+>2020年4月30日
+
+- 增加 ntpdate、rdate同步时间
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
