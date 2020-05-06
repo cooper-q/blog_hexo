@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# 删除
+rm -rf /root/project/remote
+rm -rf /root/project/local
 # 1.初始化远程仓库
 mkdir -p /root/project/remote && cd /root/project/remote
 git init --bare
@@ -14,8 +17,9 @@ echo '#!/bin/sh' >> post-update
 echo 'unset GIT_DIR' >> post-update
 echo 'cd /root/project/local/remote' >> post-update
 echo 'git pull origin master' >> post-update
-echo "ps -ef | grep 'hexo' |grep -v grep|awk '{print \$2}'|xargs kill -9" >> post-update
-echo 'nohup hexo s' >> post-update
-echo '部署完成' >> post-update
-echo 'exit' >> post-update
+echo '/bin/sh /root/project/local/remote/shell/reload.sh' >> post-update
+#echo "ps -ef | grep 'hexo' |grep -v grep|awk '{print \$2}'|xargs kill -9" >> post-update
+#echo 'nohup hexo s' >> post-update
+#echo '部署完成' >> post-update
+#echo 'exit' >> post-update
 chmod +x post-update
