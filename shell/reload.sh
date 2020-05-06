@@ -8,6 +8,6 @@ git reset --hard
 git pull origin master
 # source ~/.zshrc
 hexo clean
-ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9
+ps -ef | grep hexo |grep -v grep|awk '{print $2}'|xargs kill -9
 nohup hexo s &
 echo '部署完成'
