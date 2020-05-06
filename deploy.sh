@@ -11,6 +11,8 @@ elif [ $1 = cc ]
 then
     echo '开始部署境外vps'
     git push cc master
+else
+    echo '参数错误'
 fi
 echo '部署结束'
 
