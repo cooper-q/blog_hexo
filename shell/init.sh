@@ -14,6 +14,7 @@ cd /root/project/hexo/remote/hooks && touch post-update
 
 
 echo '#!/bin/sh' >> post-update
+echo "export PATH='/root/.nvm/versions/node/v10.15.3/bin:/usr/bin:/root/.nvm/versions/node/v12.16.2/bin'" >> post-update
 echo 'unset GIT_DIR' >> post-update
 echo 'cd /root/project/hexo/local/remote' >> post-update
 echo 'git reset --hard' >> post-update
