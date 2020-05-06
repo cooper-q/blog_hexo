@@ -16,4 +16,4 @@ echo '#!/bin/sh' >> post-update
 echo 'unset GIT_DIR' >> post-update
 echo 'cd /root/project/hexo/deployment/local/remote' >> post-update
 echo 'git pull' >> post-update
-echo '/bin/sh /root/project/hexo/deployment/local/remote/shell/reload.sh' >> post-update
+echo '/bin/sh /root/project/hexo/local/remote/shell/reload.sh' >> post-update
