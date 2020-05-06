@@ -22,4 +22,7 @@ echo 'git pull' >> post-update
 echo 'hexo clean' >> post-update
 echo "ps -ef | grep hexo |grep -v grep|awk '{print \$2}'|xargs kill -9" >> post-update
 echo 'nohup hexo s &' >> post-update
+chmod +x post-update
 echo 'echo 部署完成' >> post-update
+echo 'exit' >> post-update
+
