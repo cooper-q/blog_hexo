@@ -12,8 +12,13 @@ git clone /root/project/hexo/remote
 # 3.服务器远程仓库设置hook
 cd /root/project/hexo/remote/hooks && touch post-update
 
+
 echo '#!/bin/sh' >> post-update
 echo 'unset GIT_DIR' >> post-update
 echo 'cd /root/project/hexo/local/remote' >> post-update
+echo 'git reset --hard' >> post-update
 echo 'git pull' >> post-update
-echo '/bin/sh /root/project/hexo/local/remote/shell/reload.sh' >> post-update
+echo 'hexo clean' >> post-update
+echo "ps -ef | grep hexo |grep -v grep|awk '{print \$2}'|xargs kill -9" >> post-update
+echo 'nohup hexo s &' >> post-update
+echo 'echo 部署完成' >> post-update
