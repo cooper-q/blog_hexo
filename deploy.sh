@@ -2,9 +2,15 @@
 # 添加一个githook 并提交至githook服务器进行部署
 echo ''>>git_hook
 git commit -am '部署'
-#echo '开始部署腾讯云服务器'
-#git push tx master
-#echo '开始部署境外vps'
-git push cc master
-#echo '部署结束'
+
+if [ $1 = tx ]
+then
+    echo '开始部署腾讯云服务器'
+    git push tx master
+elif [ $1 = cc ]
+then
+    echo '开始部署境外vps'
+    git push cc master
+fi
+echo '部署结束'
 
