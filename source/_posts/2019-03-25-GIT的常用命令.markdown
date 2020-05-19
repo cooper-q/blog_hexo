@@ -791,3 +791,7 @@ url = git@xxx.com/Name/project.git
 >2019年11月14日
 
 - 增加GitHub贡献度说明
+
+>2020年5月19日
+
+- 完善优雅提交git log
