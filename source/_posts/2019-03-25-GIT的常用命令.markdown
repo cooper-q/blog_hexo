@@ -733,8 +733,9 @@ git commit --amend 修改最后一次提交
 - [x] [详情链接](https://github.com/commitizen/cz-cli)
 
 ```
-npm install -g commitizen cz-conventional-changelog
-
+npm i -g commitizen
+npm i -g cz-conventional-changelog
+echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
 shell输入cz使用
 ```
 
