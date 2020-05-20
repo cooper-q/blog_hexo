@@ -880,6 +880,11 @@ grep -E '1|2' 查询符合 1或者2的条件的内容
 cat filename | grep -a 'Filed' //可以加上-a进行特殊处理
 ```
 
+- curl匹配网页内容并只取第一条
+```
+curl -s https://github.com/v2ray/v2ray-core/releases|grep /v2ray/v2ray-core/releases/tag/|head -1
+```
+
 # 24.awk sed Perlre
 ## 1.awk
 - 注意：所有分割后的值都可以直接作为数组进行循环
