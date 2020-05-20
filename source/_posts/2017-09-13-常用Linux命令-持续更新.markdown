@@ -2342,7 +2342,10 @@ Distributor ID:Ubuntu
 history -c  # 清理当前缓存中的命令
 exit        # 关闭shell，可以避免写入~/.bash_history
 ```
-
+# 69.查看隐藏文件
+```
+ls -la
+```
 # 备注
 >2019年6月5号
 
