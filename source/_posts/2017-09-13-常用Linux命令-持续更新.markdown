@@ -2346,6 +2346,15 @@ exit        # 关闭shell，可以避免写入~/.bash_history
 ```
 ls -la
 ```
+# 70.Centos8更换源
+```
+yum install wget -y
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo
+yum makecache
+yum update -y
+```
+
 # 备注
 >2019年6月5号
 
@@ -2516,6 +2525,10 @@ ls -la
 >2020年5月18日
 
 - 增加清空history以及记录原理
+
+>2020年5月21日
+
+- Centos8更换源
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
