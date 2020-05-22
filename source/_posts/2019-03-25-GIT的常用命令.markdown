@@ -765,6 +765,34 @@ url = http://xxx.com/Name/project.git
 url = git@xxx.com/Name/project.git
 ```
 
+# 20.代理git
+## 1.代理https or http
+- 只有使用https clone时会生效
+```
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+
+# 只对github.com
+git config --global http.https://github.com.proxy socks5://127.0.0.1:1080
+# 取消代理
+git config --global --unset http.https://github.com.proxy)
+
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+## 2.代理git ssh
+- 代理GitHub
+```
+# 修改.ssh/config 【如果没有则新建】
+Host github.com
+
+# 添加下方这条
+ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p
+HostName github.com
+User git
+Port 22
+IdentityFile ~/.ssh/id_rsa
+```
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 >[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
@@ -795,3 +823,7 @@ url = git@xxx.com/Name/project.git
 >2020年5月19日
 
 - 完善优雅提交git log
+
+>2020年5月22日
+
+- 代理git
