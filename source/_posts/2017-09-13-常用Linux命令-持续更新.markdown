@@ -577,7 +577,7 @@ echo -e "\033[41;37m Tony Zhang \033[0m"
 - 2、文字颜色后面有个m
 - 3、字符串前后可以没有空格，如果有的话，输出也是同样有空格
 
-### 3.实例
+### 3.echo颜色 实例 
 ```
 echo -e "\033[30m 黑色字 \033[0m"
 echo -e "\033[31m 红色字 \033[0m"
@@ -768,7 +768,10 @@ curl -s http://XXX.com/xx/xx.sh | bash -s arg1 arg2
 # base <
 bash <(curl -s http://XXX.com/xx/xx.sh) arg1 arg2
 ```
-
+- 14.curl 输出字符串
+```
+curl -s http://somepage.com | grep whatever
+```
 # 15.查看socket连接数
 
     ulimit -n
@@ -883,6 +886,34 @@ cat filename | grep -a 'Filed' //可以加上-a进行特殊处理
 - curl匹配网页内容并只取第一条
 ```
 curl -s https://github.com/v2ray/v2ray-core/releases|grep /v2ray/v2ray-core/releases/tag/|head -1
+```
+## 参数
+```
+-a 不要忽略二进制数据。
+-A<显示列数> 除了显示符合范本样式的那一行之外，并显示该行之后的内容。
+-b 在显示符合范本样式的那一行之外，并显示该行之前的内容。
+-c 计算符合范本样式的列数。
+-C<显示列数>或-<显示列数>  除了显示符合范本样式的那一列之外，并显示该列之前后的内容。
+-d<进行动作> 当指定要查找的是目录而非文件时，必须使用这项参数，否则grep命令将回报信息并停止动作。
+-e<范本样式> 指定字符串作为查找文件内容的范本样式。
+-E 将范本样式为延伸的普通表示法来使用，意味着使用能使用扩展正则表达式。
+-f<范本文件> 指定范本文件，其内容有一个或多个范本样式，让grep查找符合范本条件的文件内容，格式为每一列的范本样式。
+-F 将范本样式视为固定字符串的列表。
+-G 将范本样式视为普通的表示法来使用。
+-h 在显示符合范本样式的那一列之前，不标示该列所属的文件名称。
+-H 在显示符合范本样式的那一列之前，标示该列的文件名称。
+-i 忽略字符大小写的差别。
+-l 列出文件内容符合指定的范本样式的文件名称。
+-L 列出文件内容不符合指定的范本样式的文件名称。
+-n 在显示符合范本样式的那一列之前，标示出该列的编号。
+-q 不显示任何信息。
+-R/-r 此参数的效果和指定“-d recurse”参数相同。
+-s 不显示错误信息。
+-v 反转查找。
+-w 只显示全字符合的列。
+-x 只显示全列符合的列。
+-y 此参数效果跟“-i”相同。
+-o 只输出文件中匹配到的部分。
 ```
 
 # 24.awk sed Perlre
@@ -1008,6 +1039,26 @@ sed 's/[ \t]*$//g'
 - 替换斜杠
 ```
 sed -i 's/. "\/root\/.acme.sh\/acme.sh.env"//g' `grep '. "/root/.acme.sh/acme.sh.env"' -rl /root/.bashrc`
+```
+
+- 指定行插入数据
+```
+sed '行号i 内容' 文件路径
+```
+
+- 替换斜杠为反斜杠+斜杠
+```
+sed 's#/#\\\/#g'
+```
+
+- 删除第N行
+```
+sed -i 'Nd' 文件路径
+```
+
+- 删除第M到N行
+```
+sed -i 'M,Nd' 文件路径
 ```
 
 # 25.jq 解析字符串为json
@@ -1875,6 +1926,10 @@ tcp_bbr                20480  28
 ```
 wget -P 目录 网址
 ```
+## 2.不输出信息
+```
+-q是不输出wget的头信息。
+```
 # 56.检测命令是否存在
 ```
 command -v <the_command>
@@ -2354,7 +2409,64 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos
 yum makecache
 yum update -y
 ```
+# 71.Ubuntu、Centos重装软件时报错
+- dpkg: error processing package *
+```
+# 需要卸载时吧所有相关包都要删除
+dpkg --get-selections | grep nginx|awk '{print $1}'|xargs sudo apt --purge remove -y
+```
+# 72.脚本路径/脚本名 >/dev/null 2>&1
+- /dev/null相当于Linux下的回收站
+- 2>&1是把出错输出也定向到标准输出
 
+# 73.Linux清楚用户登录记录和命令
+- 清除登陆系统成功的记录
+```
+echo > /var/log/wtmp # echo > /var/log/wtmp
+last # 此时即查不到用户登录信息
+```
+- 清除登陆系统失败的记录
+```
+echo > /var/log/btmp # 此文件默认打开时乱码，可查到登陆失败信息
+lastb # 查不到登陆失败信息
+```
+- 清除历史执行命令
+```
+history -c # 清空历史执行命令
+echo > ./.bash_history # 或清空用户目录下的这个文件即可
+```
+- 导入空历史记录
+```
+vi /root/history # 新建记录文件
+history -c       # 清除记录 
+history -r /root/history.txt # 导入记录 
+history # 查询导入结果
+```
+# 74.another app is currently holding the yum lock;waiting for it to exit
+- 执行命令删掉即可
+```
+rm -f /var/run/yum.pid
+```
+# 75.国内镜像
+## 1.[aliyun](https://developer.aliyun.com/mirror/)
+
+# 76.斜杠转圈
+```
+# Bash, with GNU sleep
+spin() {
+  local i=0
+  local sp='/-\|'
+  local n=${#sp}
+  printf ' '
+  sleep 0.1
+  while true; do
+    printf '\b%s' "${sp:i++%n:1}"
+    sleep 0.1
+  done
+}
+```
+# 77.sh: 0: getcwd() failed: No such file or directory
+- 执行脚本时目录被删除，但是还停留在删除之前的那个目录，换个目录即可
 # 备注
 >2019年6月5号
 
@@ -2529,6 +2641,10 @@ yum update -y
 >2020年5月21日
 
 - Centos8更换源
+
+>2020年5月24日
+
+- 完善内容
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
