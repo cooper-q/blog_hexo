@@ -6,7 +6,7 @@ if [[ !-z $1 ]]
 then
     echo '参数错误'
     exit 0;
-elif [[ "$1" = "tx"  ]]
+elif [[ $1 = "tx"  ]]
 then
     echo '开始部署腾讯云服务器'
     git push tx master
