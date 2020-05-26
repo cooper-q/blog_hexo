@@ -3,7 +3,7 @@
 echo ''>>git_hook
 git commit -am '部署'
 echo $1
-if [[ ! -z "$1" ]]
+if [[ -z "$1" ]]
 then
     echo '参数错误'
     exit 0;
