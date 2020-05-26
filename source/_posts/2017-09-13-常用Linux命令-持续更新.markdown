@@ -11,47 +11,74 @@ tags:
 ---
 
 # 常用Linux命令，持续更新
-# 1.查看某个端口的占用情况
+# 1.查看某个服务端口并杀死
 ```
+# 查看端口占用
 lsof -i :80
-kill -9 进程号 // 杀死进程
+# 查看服务并杀死相应的端口
+ps -ef|grep nginx|awk '{print $2}'|xargs kill -9
 ```
 # 2.文件&文件夹
 ## 1.查询指定位置的文件
-    find controller/ -name '*.js' | xargs grep 'decorator'  查询指定目录下 指定
+```
+## 查询指定目录下指定名称
+find controller/ -name '*.js' | xargs grep 'decorator'
+```
 
 ## 2.删除 rm
 ### 1.递归删除所有
-    rm -rf [file|folder]
-
-    -f, --force    忽略不存在的文件，从不给出提示。
-    -i, --interactive 进行交互式删除
-    -r, -R, --recursive   指示rm将参数中列出的全部目录和子目录均递归地删除。
-    -v, --verbose    详细显示进行的步骤
-      	--help     显示此帮助信息并退出
-      	--version  输出版本信息并退出
+```
+rm -rf [file|folder]
+```
+- 参数
+```
+-f, --force    忽略不存在的文件，从不给出提示。
+-i, --interactive 进行交互式删除
+-r, -R, --recursive   指示rm将参数中列出的全部目录和子目录均递归地删除。
+-v, --verbose    详细显示进行的步骤
+  	--help     显示此帮助信息并退出
+  	--version  输出版本信息并退出
+```
 
 ### 2.删除指定目录文件夹
-
-    find path(路径) -name 名称|xargs rm -rf
+```
+find path(路径) -name 名称|xargs rm -rf
+```
 
 ## 3.操作文件&文件夹
+- 1.查看文件类型
+```
+file 文件名
+more 文件名 # 查看文件内容是否可读文本
+```
+- 2.修改权限
+```
+# 如果没有权限，需要文件属主或管理员用户（root）执行
+chmod 777 文件名
+chmod a+x 文件名
+```
+- 3.写入文件
+```
+# 替换文件内容
+echo '123' > filename
 
-    1. file 文件名
-        可以查看文件类型;
-    2. 或者:  more  文件名
-        查看文件内容是否可读文本
-    3. 修改权限
-        chmod 777 文件名
-        或者： chmod a+x 文件名
-        如果没有权限， 需要文件属主或管理员用户（root）执行
-    4.写入文件
-        echo '123' > filename
+# 追加内容
+echo '123' >> filename
+```
+- 4.查看文件或者文件夹大小
+```
+du -h fileName&path
+# 查看当前文件夹内容
+du -ah
+# 查看指定文件大小
+du -ah fileName
+# 查看这个文件夹下的文件的大小
+du -ah path
+```
+```
+
     5.查看文件或者文件夹大小
-        du -h fileName&path
-        du -ah // 查看当前文件夹内容
-        du -ah fileName // 查看指定文件大小
-        du -ah path // 查看这个文件夹下的文件的大小
+
 
     6.新建文件夹
         mkdir  文件夹名字
@@ -199,7 +226,7 @@ kill -9 进程号 // 杀死进程
     15.>> >
         >定向数据文件，如果文件不存在就创建文件，如果文件存在清空。
         >>将内容追加到目标文件。
-
+```
 # 3.pscp&scp
 
 ## 1.利用pscp上传文件
@@ -577,7 +604,7 @@ echo -e "\033[41;37m Tony Zhang \033[0m"
 - 2、文字颜色后面有个m
 - 3、字符串前后可以没有空格，如果有的话，输出也是同样有空格
 
-### 3.echo颜色 实例 
+### 3.echo颜色 实例
 ```
 echo -e "\033[30m 黑色字 \033[0m"
 echo -e "\033[31m 红色字 \033[0m"
@@ -2438,8 +2465,8 @@ echo > ./.bash_history # 或清空用户目录下的这个文件即可
 - 导入空历史记录
 ```
 vi /root/history # 新建记录文件
-history -c       # 清除记录 
-history -r /root/history.txt # 导入记录 
+history -c       # 清除记录
+history -r /root/history.txt # 导入记录
 history # 查询导入结果
 ```
 # 74.another app is currently holding the yum lock;waiting for it to exit
@@ -2467,6 +2494,7 @@ spin() {
 ```
 # 77.sh: 0: getcwd() failed: No such file or directory
 - 执行脚本时目录被删除，但是还停留在删除之前的那个目录，换个目录即可
+
 # 备注
 >2019年6月5号
 
