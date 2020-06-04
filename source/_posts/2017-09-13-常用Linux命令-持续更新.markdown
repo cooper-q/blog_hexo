@@ -22,7 +22,7 @@ ps -ef|grep nginx|awk '{print $2}'|xargs kill -9
 ## 1.查询指定位置的文件
 ```
 ## 查询指定目录下指定名称
-find controller/ -name '*.js' | xargs grep 'decorator'
+find controller/ -name '*.js' | xargs grep 'decorator'  
 ```
 
 ## 2.删除 rm
@@ -774,9 +774,10 @@ echo -e "\033[47;30m 白底黑字 \033[0m"
     # 上传文件
     curl --form "fileupload=@filename.txt" http://hostname/resource
 
- >忽略https
+ >不校验https证书
 
-    curl https://127.0.0.1:9802/api/promote/template -k
+    curl  -k https://127.0.0.1:9802/api/promote/template
+
 >不显示统计信息 % Total %Received%
 
 ```
@@ -2501,6 +2502,21 @@ spin() {
 ```
 # 77.sh: 0: getcwd() failed: No such file or directory
 - 执行脚本时目录被删除，但是还停留在删除之前的那个目录，换个目录即可
+
+# 78.修改主机名
+- 1.查看当前主机名
+```
+hostname
+hostnamectl
+```
+- 2.hostnamectl 修改
+```
+sudo hostnamectl set-hostname <newhostname>
+```
+- 3.临时修改
+```
+sudo hostname <new-hostname>
+```
 
 # 备注
 >2019年6月5号
