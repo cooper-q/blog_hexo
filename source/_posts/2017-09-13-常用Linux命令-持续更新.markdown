@@ -228,6 +228,10 @@ chown 用户名:组名 文件路径（绝对or相对）
     -R 处理指定目录以及其子目录下的所有文件
     -v 显示详细的处理信息
     -deference 作用与符号链接的指向，而不是链接文件本身。
+
+# 给某个用户赋值权限
+chown -R 用户名 目录
+chmod 755  目录
 ```
 - 14.>> >
 ```
@@ -774,9 +778,10 @@ echo -e "\033[47;30m 白底黑字 \033[0m"
     # 上传文件
     curl --form "fileupload=@filename.txt" http://hostname/resource
 
- >忽略https
+ >不校验https证书
 
-    curl https://127.0.0.1:9802/api/promote/template -k
+    curl  -k https://127.0.0.1:9802/api/promote/template
+
 >不显示统计信息 % Total %Received%
 
 ```
