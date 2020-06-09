@@ -16,6 +16,7 @@ tags:
 # Nginx 配置Lets Encrypt 免费SSL证书
 # 自动化申请tls证书脚本
 - 此脚本是将下方的acme的教程进行一个整合
+- 兼容Centos7、Ubuntu 16.04 LTS、Debian GNU/Linux 10
 ```
 bash <(curl -L -s https://raw.githubusercontent.com/cooper-q/MattMeng_hexo/master/shell/tls.sh)
 ```
