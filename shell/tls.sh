@@ -78,7 +78,7 @@ installDepends(){
     echoColor yellow "\n检测是否安装Nginx"
     if [[ -z `find /sbin/ -executable -name 'nginx'` ]]
     then
-        echoColor red "nginx未安装，安装中\n"
+        echoColor yellow "nginx未安装，安装中\n"
         ${installType} nginx >/dev/null
         echoColor green "nginx安装完毕"
     else
