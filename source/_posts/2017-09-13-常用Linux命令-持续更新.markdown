@@ -22,7 +22,11 @@ ps -ef|grep nginx|awk '{print $2}'|xargs kill -9
 ## 1.查询指定位置的文件
 ```
 ## 查询指定目录下指定名称
-find controller/ -name '*.js' | xargs grep 'decorator'  
+find controller/ -name '*.js' | xargs grep 'decorator'
+
+## 查询某个程序为可执行文件[-executable]
+
+find /usr/bin/ -executable -name "socat"
 ```
 
 ## 2.删除 rm
