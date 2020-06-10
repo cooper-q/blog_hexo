@@ -308,13 +308,13 @@ git config --list      // 查看
 git config user.name   // 只查看name
 ```
 
-- 增加
+- 增加全局
 ```
 git config --global --add user.name usernmae
 git config --global --add user.email email
 ```
 
-- 删除
+- 删除全局
 ```
 git config --global --unset user.name                 // 删除username （但是只能删除唯一值，但存在多个user.name时无法删除）
 git config --unset --global user.name '指定的名称'      // 删除指定的user.name
@@ -325,9 +325,11 @@ git config --unset --global user.email '指定的emamil'  // 删除指定名称�
 ```
 # 全局
 git config --global user.name '名称' // 修改名称
+git config --global user.email 'email地址' // 修改email地址
 
 # 当前项目
 git config user.email matt.meng@aliyun
+git config user.name matt.meng
 
 // 修改log时间格式
 git config log.date iso-local           2018-11-03 03:30:04 +0000
