@@ -249,12 +249,12 @@ chmod 755  目录
 pscp d:\project\udpServer.zip root@101.201.30.9:/home
 ```
 ## 2.scp下载文件
+- 1.下载示例
 ```
 scp walle@52.80.63.5:/home/apps/sensor-tcp/tmp/fileName.txt 本地地址
-sudo echo ""  > hosts 清空hosts
-scp -P port // 指定端口
-
-// scp指定端口 指定秘钥下载
+```
+- 2.指定端口 指定密钥下载
+```
 scp -P xxxx -i /Users/xxx/.ssh/id_rsa root@xxx.xx.xx.xx:/etc/xx/config.json ./
 ```
 
@@ -263,8 +263,9 @@ scp -P xxxx -i /Users/xxx/.ssh/id_rsa root@xxx.xx.xx.xx:/etc/xx/config.json ./
 scp  -r /tmp/local_dir username@ip:remote_dir
 ```
 # 4.查看相关命令的帮助文档
-
-    tldr 查看某个命令的help
+```
+tldr 查看某个命令的help
+```
 
 # 5.打包/解压
 
