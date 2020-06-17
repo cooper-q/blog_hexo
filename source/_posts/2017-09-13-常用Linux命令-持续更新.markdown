@@ -269,23 +269,46 @@ tldr 查看某个命令的help
 
 # 5.打包/解压
 
->tar命令
+## 1.tar
+- 解包
+```
+tar zxvf FileName.tar
+```
+- 打包
+```
+tar czvf FileName.tar DirName
+```
 
-    解包：tar zxvf FileName.tar
-    打包：tar czvf FileName.tar DirName
+## 2.gz
+- 解压1
+```
+gunzip FileName.gz
+```
+- 解压2
+```
+gzip -d FileName.gz
+```
+- 指定压缩的路径并保留源文件
+```
+gzip -c test.txt > /root/test.gz
+```
+- 压缩
+```
+gzip FileName
+```
 
->gz命令
-
-    解压1：gunzip FileName.gz
-    解压2：gzip -d FileName.gz
-    gzip -c test.txt > /root/test.gz # 指定压缩的路径并保留源文件
-    压缩：gzip FileName
-    .tar.gz 和 .tgz
-    解压：tar zxvf FileName.tar.gz
-
-    压缩：tar zcvf FileName.tar.gz DirName
-
-    压缩多个文件：tar zcvf FileName.tar.gz DirName1 DirName2 DirName3 ...
+- 解压.tar.gz、.tgz
+```
+tar zxvf FileName.tar.gz
+```
+- 压缩 tar gz
+```
+tar zcvf FileName.tar.gz DirName
+```
+- 压缩多个文件
+```
+tar zcvf FileName.tar.gz DirName1 DirName2 DirName3 ...
+```
 
 >bz2命令
 
