@@ -310,28 +310,38 @@ tar zcvf FileName.tar.gz DirName
 tar zcvf FileName.tar.gz DirName1 DirName2 DirName3 ...
 ```
 
->bz2命令
+## 3.bz2命令
+- 解压
+```
+bzip2 -d FileName.bz2
+bunzip2 FileName.bz2
+tar jxvf FileName.tar.bz2
+```
+- 压缩
+```
+bzip2 -z FileName
+tar jcvf FileName.tar.bz2 DirName
+```
 
-    解压1：bzip2 -d FileName.bz2
-    解压2：bunzip2 FileName.bz2
-    压缩： bzip2 -z FileName
-    .tar.bz2
-    解压：tar jxvf FileName.tar.bz2
-    压缩：tar jcvf FileName.tar.bz2 DirName
->bz命令
+## 4.bz命令
+- 解压
+```
+bzip2 -d FileName.bz
+bunzip2 FileName.bz
+tar jxvf FileName.tar.bz
+```
 
-    解压1：bzip2 -d FileName.bz
-    解压2：bunzip2 FileName.bz
-    压缩：未知
-    .tar.bz
-    解压：tar jxvf FileName.tar.bz
->Z命令
-
-    解压：uncompress FileName.Z
-    压缩：compress FileName
-    .tar.Z
-    解压：tar Zxvf FileName.tar.Z
-    压缩：tar Zcvf FileName.tar.Z DirName
+## 5.Z命令
+- 解压
+```
+uncompress FileName.Z
+tar Zxvf FileName.tar.Z
+```
+- 压缩
+```
+compress FileName
+tar Zcvf FileName.tar.Z DirName
+```
 
 >zip命令
 
