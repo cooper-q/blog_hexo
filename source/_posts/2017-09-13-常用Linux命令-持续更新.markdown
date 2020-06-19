@@ -270,6 +270,8 @@ tldr 查看某个命令的help
 # 5.打包/解压
 
 ## 1.tar
+- tar -c创建包 -X释放包 -v显示命令过程 -z代表压缩包
+
 - 解包
 ```
 tar zxvf FileName.tar
@@ -277,6 +279,22 @@ tar zxvf FileName.tar
 - 打包
 ```
 tar czvf FileName.tar DirName
+```
+- 把/home/benet目录打包
+```
+tar -cvf benet.tar /home/benet
+```
+- 把目录打包并压缩
+```
+ tar -zcvf benet.tar /mnt
+```
+- 压缩包的文件解压恢复
+```
+tar -zxvf benet.tar.gz
+```
+- bz2解压缩
+```
+tar -jxvf benet.tar.gz
 ```
 
 ## 2.gz
@@ -343,18 +361,23 @@ compress FileName
 tar Zcvf FileName.tar.Z DirName
 ```
 
->zip命令
+## 6.zip命令
+- 解压
+```
+unzip FileName.zip
+# 指定解压的路径
+unzip -d path 解压的文件
+```
 
-    解压：unzip FileName.zip
-    压缩：zip -r FileName.zip DirName
-    压缩密码：zip -e 要压缩的压缩包生成的路径（./zip.zip） 文件名称 文件名称（多个文件用空格隔开）
-    tar -c创建包 -X释放包 -v显示命令过程 -z代表压缩包
-    tar -cvf benet.tar /home/benet 把/home/benet目录打包
-    tar -zcvf benet.tar /mnt 把目录打包并压缩
-    tar -zxvf benet.tar.gz 压缩包的文件解压恢复
-    tar -jxvf benet.tar.gz bz2解压缩
-    unzip 解压zip文件
-    unzip -d path 解压的文件 # 指定解压的路径
+- 压缩
+```
+zip -r FileName.zip DirName
+```
+
+- 压缩加密码
+```
+zip -e 要压缩的压缩包生成的路径（./zip.zip） 文件名称 文件名称（多个文件用空格隔开）
+```
 
 >解压tar.xz
 ```
