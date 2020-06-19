@@ -385,6 +385,7 @@ zip -e 要压缩的压缩包生成的路径（./zip.zip） 文件名称 文件�
 xz -d *.tar.xz
 
 tar -xvf *.tar.xz
+```
 
 # 2.直接解压
 ```
@@ -447,6 +448,7 @@ firewall-cmd--get-active-zones
 ```
 firewall-cmd--get-zone-of-interface=eth0
 ```
+
 - 8.拒绝所有包
 ```
 firewall-cmd --panic-on
@@ -563,11 +565,14 @@ vim ~/.zshrc
 export PATH="/usr/local/nginx:$PATH"
 
 ## 初始化文件并立即生效
+
+
 source /etc/profile
 ```
 
 # 8.查看系统、内存、CPU
 ## 1.系统
+
 - 查看内核/操作系统
 ```
 uname -a
@@ -599,8 +604,36 @@ lsmod
 ```
 env
 ```
+## 2.资源
+- 查看内存使用量和交换区使用量
+```
+free -m
+```
+- 查看各分区使用情况
+```
+df -h
+```
+- 查看指定目录的大小
+```
+du -sh <目录名>
+```
+- 查看内存总量
+```
+grep MemTotal /proc/meminfo
+```
+- 查看空闲内存量
+```
+grep MemFree /proc/meminfo
+```
+- 查看系统运行时间、用户数、负载
+```
+uptime
+```
+- 查看系统负载
+```
+cat /proc/loadavg
+```
 
-　　
 # 9.xargs
 
     之所以用这个命令，关键是有很多的命令不知道管道传递参数。xargs命令。
