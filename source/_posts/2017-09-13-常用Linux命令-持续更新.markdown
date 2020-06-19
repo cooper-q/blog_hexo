@@ -379,7 +379,7 @@ zip -r FileName.zip DirName
 zip -e 要压缩的压缩包生成的路径（./zip.zip） 文件名称 文件名称（多个文件用空格隔开）
 ```
 
->解压tar.xz
+- 解压tar.xz
 ```
 # 1.两层压缩，外面是xz压缩，里层是tar压缩，所以分两步实现解压。
 xz -d *.tar.xz
@@ -387,7 +387,8 @@ xz -d *.tar.xz
 tar -xvf *.tar.xz
 
 # 2.直接解压
- tar -xvJf *.tar.xz
+```
+tar -xvJf *.tar.xz
 ```
 
 # 6.CentOS7 打开关闭防火墙
@@ -565,28 +566,40 @@ export PATH="/usr/local/nginx:$PATH"
 source /etc/profile
 ```
 
-# 8.查看内存CPU使用情况
+# 8.查看系统、内存、CPU
+## 1.系统
+- 查看内核/操作系统
+```
+uname -a
+```
 
+- 查看CPU信息
+```
+cat /proc/cpuinfo
+```
 
-    top
-    top -u process_name
-    //退出q
-    PID：进程的ID
-    USER：进程所有者
-    PR：进程的优先级别，越小越优先被执行
-    NInice：值
-    VIRT：进程占用的虚拟内存
-    RES：进程占用的物理内存
-    SHR：进程使用的共享内存
-    S：进程的状态。
-        S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负数
-    %CPU：进程占用CPU的使用率
-    %MEM：进程使用的物理内存和总内存的百分比
-    TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。
-    COMMAND：进程启动命令名称
+- 查看计算机名
+```
+hostname
+```
 
-    Linux
-        free 查看占用内存
+- 列出所有PCI设备
+```
+lspci -tv
+```
+- 列出所有USB设备
+```
+lsusb -tv
+```
+- 列出加载的内核模块
+```
+lsmod
+```
+- 查看环境变量
+```
+env
+```
+
 　　
 # 9.xargs
 
