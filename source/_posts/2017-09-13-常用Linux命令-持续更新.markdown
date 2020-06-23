@@ -798,16 +798,17 @@ echo -e "\033[47;30m 白底黑字 \033[0m"
 # 14.curl
 [参考资料](http://www.cnblogs.com/duhuo/p/5695256.html)
 
->1.curl url 下载单个文件
+- 1.curl url 下载单个文件
 
->2.通过-o/-O选项保存下载的文件到指定文件中
-
-    # 将文件下载到本地并命名为mygettext.html
-    curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html
-    # 将文件保存到本地并命名为gettext.html
-    curl -O http://www.gnu.org/software/gettext/manual/gettext.html
-    同时获取多个文件
-    curl -o url -o url
+- 2.通过-o/-O选项保存下载的文件到指定文件中
+```
+# 将文件下载到本地并命名为mygettext.html
+curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html
+# 将文件保存到本地并命名为gettext.html
+curl -O http://www.gnu.org/software/gettext/manual/gettext.html
+同时获取多个文件
+curl -o url -o url
+```
 
 >3.断点续传
 
