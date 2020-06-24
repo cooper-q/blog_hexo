@@ -22,7 +22,7 @@ ps -ef|grep nginx|awk '{print $2}'|xargs kill -9
 ## 1.查询指定位置的文件
 ```
 ## 查询指定目录下指定名称
-find controller/ -name '*.js' | xargs grep 'decorator'
+find controller/ -name '*.js' | xargs grep 'decorator'  
 
 ## 查询某个程序为可执行文件[-executable]
 
@@ -73,7 +73,7 @@ echo '123' >> filename
 ```
 du -h fileName&path
 # 查看当前文件夹内容
-du -ah
+du -ah 
 # 查看指定文件大小
 du -ah fileName
 # 查看这个文件夹下的文件的大小
@@ -104,10 +104,10 @@ cp 文件名 路径+新文件名
 rmdir (选项) (参数)
 
 # 选项：
--p或--parents：删除指定目录后，若该目录的上层目录已变成空目录，则将其一并删除；
---ignore-fail-on-non-empty：此选项使rmdir命令忽略由于删除非空目录时导致的错误信息；
--v或-verboes：显示命令的详细执行过程；
---help：显示命令的帮助信息；
+-p或--parents：删除指定目录后，若该目录的上层目录已变成空目录，则将其一并删除； 
+--ignore-fail-on-non-empty：此选项使rmdir命令忽略由于删除非空目录时导致的错误信息； 
+-v或-verboes：显示命令的详细执行过程； 
+--help：显示命令的帮助信息； 
 --version：显示命令的版本信息。
 
 # 参数：
@@ -131,9 +131,9 @@ tree -L 1
 - 12.**ls**
 ```
 # 查看目录下文件的详情（大小&权限&数量&时间）
-ls -lh
+ls -lh 
 # 把文件或者文件夹排列成一列
-ls -1
+ls -1 
 
 # 查看当前目录下的文件数量（不包含子目录中的文件）
 ls -l|grep "^-"| wc -l
@@ -220,7 +220,7 @@ chmod go-rw xxx.xx
     g group
     o 代表其他人 但不是u和g
     a 代表全部的人 u g o
-
+    
 # 数字代替
     -rw------- 600 只有所有者才有读写权限。
     -rw-r--r-- 644 只有所有者才有读写权限，组群和其他人只要读的权限。
@@ -284,25 +284,25 @@ tldr 查看某个命令的help
 ```
 tar zxvf FileName.tar
 ```
-- 打包
+- 打包 
 ```
 tar czvf FileName.tar DirName
 ```
 - 把/home/benet目录打包
 ```
-tar -cvf benet.tar /home/benet
+tar -cvf benet.tar /home/benet 
 ```
 - 把目录打包并压缩
 ```
- tar -zcvf benet.tar /mnt
+ tar -zcvf benet.tar /mnt 
 ```
 - 压缩包的文件解压恢复
 ```
-tar -zxvf benet.tar.gz
+tar -zxvf benet.tar.gz 
 ```
 - bz2解压缩
 ```
-tar -jxvf benet.tar.gz
+tar -jxvf benet.tar.gz 
 ```
 
 ## 2.gz
@@ -374,7 +374,7 @@ tar Zcvf FileName.tar.Z DirName
 ```
 unzip FileName.zip
 # 指定解压的路径
-unzip -d path 解压的文件
+unzip -d path 解压的文件 
 ```
 
 - 压缩
@@ -583,7 +583,7 @@ source /etc/profile
 
 - 查看内核/操作系统
 ```
-uname -a
+uname -a   
 ```
 
 - 查看CPU信息
@@ -652,7 +652,7 @@ cat /proc/loadavg
 ## 3.磁盘和分区
 - 查看挂接的分区状态
 ```
-mount | column -t
+mount | column -t 
 ```
 - 查看所有分区
 ```
@@ -712,7 +712,7 @@ w
 ```
 - 查看指定用户信息
 ```
-id <用户名>
+id <用户名>     
 ```
 - 查看用户登录日志
 ```
@@ -737,7 +737,7 @@ chkconfig --list or systemctl list-unit-files
 ```
 - 列出所有启动的系统服务
 ```
-chkconfig --list | grep on
+chkconfig --list | grep on 
 systemctl list-unit-files|grep enable
 ```
 
@@ -829,7 +829,7 @@ echo -e "\033[41;37m Tony Zhang \033[0m"
 - 2、文字颜色后面有个m
 - 3、字符串前后可以没有空格，如果有的话，输出也是同样有空格
 
-### 3.echo颜色 实例
+### 3.echo颜色 实例 
 ```
 echo -e "\033[30m 黑色字 \033[0m"
 echo -e "\033[31m 红色字 \033[0m"
@@ -1679,26 +1679,27 @@ sudo systemctl mask nginxReboot.service
 systemctl --failed
 ```
 ## 4.注意的点
-- CentOS 7用systemctl启动nginx后
-- - 1.可能会出现 (13: Permission denied) while connecting to upstream:[nginx]
+- 1.可能会出现 (13: Permission denied) while connecting to upstream:[nginx]
 ```
 // 解决方法 执行下面的命令
 setsebool -P httpd_can_network_connect 1
 ```
-- - 2.可能会nginx: [emerg] BIO_new_file("/root/xxx/c...b
+
+- 2.可能会nginx: [emerg] BIO_new_file("/root/xxx/c...b
 ```
 // 解决办法
 // 需要把证书文件移动到nginx配置文件的地方
 比如我的证书在/root/xxx/xx.crt,需要移动到/etc/nginx/
 ```
-- CentOS7 运行systemctl后无响应（即shell阻塞）,但是程序启动成功
-- - 1.sytemctl status nginxReboot.service 后状态为activating (start)而不是activating (running)态
+>CentOS7 运行systemctl后无响应（即shell阻塞）,但是程序启动成功
+- 3.sytemctl status nginxReboot.service 后状态为activating (start)而不是activating (running)态
 ```
 // 需要将Type=forking 修改为 Type=simple 或者删掉这行
 ```
-- CentOS7启动后立马就会去执行stop
-- - 原因是启动时脚本失败，才会立马执行stop
-- - 检查脚本命令以及特别要注意环境变量的问题，仅仅使用绝对路径也是不行的，需要加上Environment（参考上面的hexo示例）
+
+>CentOS7启动后立马就会去执行stop
+- 原因是启动时脚本失败，才会立马执行stop
+- 检查脚本命令以及特别要注意环境变量的问题，仅仅使用绝对路径也是不行的，需要加上Environment（参考上面的hexo示例）
 
 # 46.lsmod 显示已载入系统的模块
 - 示例
@@ -1838,6 +1839,7 @@ Retype new password:
 ```
 
 # 52.复制到粘贴板
+
 - Mac
 ```
 echo 'pbcopy'|pbcopy
@@ -2692,8 +2694,8 @@ echo > ./.bash_history # 或清空用户目录下的这个文件即可
 - 导入空历史记录
 ```
 vi /root/history # 新建记录文件
-history -c       # 清除记录
-history -r /root/history.txt # 导入记录
+history -c       # 清除记录 
+history -r /root/history.txt # 导入记录 
 history # 查询导入结果
 ```
 # 74.another app is currently holding the yum lock;waiting for it to exit
