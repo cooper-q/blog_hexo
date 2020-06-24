@@ -1890,30 +1890,34 @@ dd if=/dev/zero of=/var/swapfile bs=1M count=2048
 ```
 /sbin/mkswap -f /var/swapfile
 ```
+
 - 3.给予swapfile 600权限
 ```
 chmod 600 /var/swapfile
 ```
-- 5.挂起swap文件
+
+- 4.挂起swap文件
 ```
 /sbin/swapon /var/swapfile
 ```
 
-- 6.检查swap是否正确
+- 5.检查swap是否正确
 ```
 /sbin/swapon -s
 ```
 
-- 7.加到fstab文件中让系统引导时自动启动（防止重启后swap分区变成0）
+- 6.加到fstab文件中让系统引导时自动启动（防止重启后swap分区变成0）
 ```
 vi /etc/fstab
 // 末尾加入
 /var/swapfile swap swap defaults 0 0
 ```
+
 - 6.重启系统
 ```
 reboot
 ```
+
 - 7.查看swap交换分区情况
 ```
 free -m
