@@ -2765,6 +2765,11 @@ currentTime=`date +%s`
 stampDiff=`expr ${currentTime} - ${startTime}`
 dayDiff=`expr ${stampDiff} / 86400`
 ```
+## 4.格式化时间
+```
+date -d "@1279592730" +"%F %H:%M:%S"
+# 2010-07-20 10:25:30
+```
 
 # 备注
 >2019年6月5号
