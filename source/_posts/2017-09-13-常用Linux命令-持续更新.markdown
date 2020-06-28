@@ -27,6 +27,9 @@ find controller/ -name '*.js' | xargs grep 'decorator'
 ## 查询某个程序为可执行文件[-executable]
 
 find /usr/bin/ -executable -name "socat"
+
+## 查找可执行文件
+ls -F|grep "*"
 ```
 
 ## 2.删除 rm
@@ -2741,6 +2744,18 @@ sudo hostnamectl set-hostname <newhostname>
 - 3.临时修改
 ```
 sudo hostname <new-hostname>
+```
+
+# 79.时间与时间戳互相转换
+## 1.时间->时间戳
+```
+date +%s
+# 1436781527
+```
+## 2.时间戳-时间
+```
+date -d '2018-06-12 07:21:22' +"%s"
+# 1528759282
 ```
 
 # 备注
