@@ -2757,6 +2757,14 @@ date +%s
 date -d '2018-06-12 07:21:22' +"%s"
 # 1528759282
 ```
+## 3.计算时间戳相隔多少天
+```
+startTime="2018-06-12 07:21:22"
+startTime=`date -d "${startTime}" +%s`
+currentTime=`date +%s`
+stampDiff=`expr ${currentTime} - ${startTime}`
+dayDiff=`expr ${stampDiff} / 86400`
+```
 
 # 备注
 >2019年6月5号
