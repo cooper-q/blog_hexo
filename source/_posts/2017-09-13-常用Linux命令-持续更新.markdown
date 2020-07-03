@@ -2780,6 +2780,14 @@ date -d "@1279592730" +"%F %H:%M:%S"
 # 2010-07-20 10:25:30
 ```
 
+# 80.Linux错误处理
+## 1.ubuntu执行普通用户或root用户执行apt-get update时报错"Couldn't create temporary file /tmp/apt.conf.sssss for passing config to apt-key" 如何处理?
+```
+# 这种情况一半都是手动删除tmp，然后手动创建，并且没给权限
+
+chmod 777 /tmp
+```
+
 # 备注
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
