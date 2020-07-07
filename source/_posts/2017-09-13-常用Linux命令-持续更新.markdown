@@ -2784,6 +2784,39 @@ sudo hostname <new-hostname>
 chmod 777 /tmp
 ```
 
+# 80.stat
+## 查看文件属性
+```
+# stat post-receive.sh
+
+File: ‘post-receive.sh’
+Size: 213       	Blocks: 8          IO Block: 4096   regular file
+Device: fd01h/64769d	Inode: 134036      Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2019-10-31 09:40:19.343143055 +0800
+Modify: 2019-10-31 09:40:19.343143055 +0800
+Change: 2019-10-31 09:40:19.355143062 +0800
+Birth: -
+```
+## 属性含义
+
+```
+Access : 文件最近一次被访问的时间
+Modify:  文件内容最近一次被修改的时间
+Change: 文件属性最近一次被改变的时间
+```
+- 区别
+```
+echo '' >> post-receive.sh
+# Modify Change会被更改
+
+chmod 777 post-receive.sh
+# Change会被更改
+
+如果vim打开post-receive.sh并保存退出则
+Access Modify Change都会被更改
+```
+
 
 # 备注
 
