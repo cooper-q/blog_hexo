@@ -1380,9 +1380,29 @@ echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","
     iconv -f 更改前encoding -t 更改后encoding inputfile
 
 # 30.date
-
-    date +%s
-    获取时间戳 秒为单位
+## 1.时间->时间戳
+```
+date +%s
+# 1436781527
+```
+## 2.时间戳-时间
+```
+date -d '2018-06-12 07:21:22' +"%s"
+# 1528759282
+```
+## 3.计算时间戳相隔多少天
+```
+startTime="2018-06-12 07:21:22"
+startTime=`date -d "${startTime}" +%s`
+currentTime=`date +%s`
+stampDiff=`expr ${currentTime} - ${startTime}`
+dayDiff=`expr ${stampDiff} / 86400`
+```
+## 4.格式化时间
+```
+date -d "@1279592730" +"%F %H:%M:%S"
+# 2010-07-20 10:25:30
+```
 
 # 31.traceroute 追踪
 
@@ -2755,38 +2775,14 @@ sudo hostnamectl set-hostname <newhostname>
 sudo hostname <new-hostname>
 ```
 
-# 79.时间与时间戳互相转换
-## 1.时间->时间戳
-```
-date +%s
-# 1436781527
-```
-## 2.时间戳-时间
-```
-date -d '2018-06-12 07:21:22' +"%s"
-# 1528759282
-```
-## 3.计算时间戳相隔多少天
-```
-startTime="2018-06-12 07:21:22"
-startTime=`date -d "${startTime}" +%s`
-currentTime=`date +%s`
-stampDiff=`expr ${currentTime} - ${startTime}`
-dayDiff=`expr ${stampDiff} / 86400`
-```
-## 4.格式化时间
-```
-date -d "@1279592730" +"%F %H:%M:%S"
-# 2010-07-20 10:25:30
-```
-
-# 80.Linux错误处理
+# 79.Linux错误处理
 ## 1.ubuntu执行普通用户或root用户执行apt-get update时报错"Couldn't create temporary file /tmp/apt.conf.sssss for passing config to apt-key" 如何处理?
 ```
 # 这种情况一半都是手动删除tmp，然后手动创建，并且没给权限
 
 chmod 777 /tmp
 ```
+
 
 # 备注
 
