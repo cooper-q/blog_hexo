@@ -245,7 +245,7 @@ chown 用户名:组名 文件路径（绝对or相对）
     -deference 作用与符号链接的指向，而不是链接文件本身。
 
 # 给某个用户赋值权限
-chown -R 用户名 目录
+chown -R 用户名 目录 # 更改所有权
 chmod 755  目录
 ```
 - 14.>> >
@@ -2783,6 +2783,10 @@ sudo hostname <new-hostname>
 
 chmod 777 /tmp
 ```
+
+## 2.gzip: stdin: not in gzip format
+- 检查源文件【压缩包可能没有用gzip格式压缩】
+- 源文件内容不完整
 
 # 80.stat
 ## 查看文件属性
