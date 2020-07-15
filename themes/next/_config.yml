@@ -769,7 +769,8 @@ needmoreshare2:
 
 # Google Analytics
 google_analytics:
-  tracking_id: UA-138369346-1
+  # UA-138369346-1
+  tracking_id:
   localhost_ignored: false
 
 # CNZZ count
