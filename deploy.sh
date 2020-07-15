@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 添加一个githook 并提交至githook服务器进行部署
-echo ' ' > git_hook
+echo ' '>git_hook
 git commit -am '部署'
 if [[ -z "$1" ]]
 then
