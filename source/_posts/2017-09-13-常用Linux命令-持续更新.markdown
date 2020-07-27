@@ -1217,6 +1217,10 @@ echo 'hello:/world'|awk -F"[:][/]" '{print $1" "$2}'
 
 # 输出 hello world
 ```
+- 用round-trip分割
+```
+echo "11round-trip11"|awk -F "[r][o][u][n][d][-][t][r][i][p]" '{print $2}' // 11
+```
 ### 2.split
 
 - awk的内建函数split运行把一个字符串分隔为单词并存储在数组中
