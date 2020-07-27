@@ -2397,6 +2397,11 @@ cat xxx.log|awk '{print $3}'|awk -F "[:]" '{print $1}'|sort|uniq -c|sort
 3    2
 4444 1
 ```
+- 去重并去掉空行
+```
+cat xx.xx|uniq|awk '/./ {print}'
+```
+
 # 61.qrencode 生成二维码
 ```
 echo 1234 | qrencode -s 10 -m 1 -t UTF8
