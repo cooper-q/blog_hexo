@@ -2818,6 +2818,19 @@ sudo hostname <new-hostname>
 chmod 777 /tmp
 ```
 
+## 2.centos nginx not found
+```
+rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+yum install nginx -y
+```
+
+## 3.jq not found
+```
+rpm -ivh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+yum install jq
+```
 # 80.stat
 ## 查看文件属性
 ```
@@ -2896,6 +2909,22 @@ echo '' > log
 # 追加
 echo '' >> log
 ```
+
+# 84.sort
+- 参数
+```
+# 先排列第一个再排列第二个依次排列
+-t # 按照什么字符分割
+-k # 第几列排序
+-k 2n # 第二列顺序排序
+-k 6n # 第六列顺序排序
+-k 7r # 第七列倒序排序
+```
+- 空格分割、按照第一列顺序排列、第二列倒序排列、第七列顺序排列
+```
+cat /tmp/xx.log|sort -t ' ' -k 1n -k 2r -k 7n
+```
+
 
 # 备注
 
