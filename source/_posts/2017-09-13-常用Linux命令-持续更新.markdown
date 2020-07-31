@@ -612,6 +612,7 @@ source /etc/profile
 - 查看内核/操作系统
 ```
 uname -a
+# Darwin 为MacOS
 ```
 
 - 查看CPU信息
@@ -2925,6 +2926,12 @@ echo '' >> log
 cat /tmp/xx.log|sort -t ' ' -k 1n -k 2r -k 7n
 ```
 
+# 85.判断内容全部为数字
+```
+if [[ "$num" =~ ^[1-9]+$ ]]
+then
+fi
+```
 
 # 备注
 
