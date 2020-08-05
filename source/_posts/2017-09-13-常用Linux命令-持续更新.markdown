@@ -2932,6 +2932,43 @@ if [[ "$num" =~ ^[1-9]+$ ]]
 then
 fi
 ```
+# 86.删除rpm包
+```
+rpm -qa|grep nginx|xargs rpm -e
+```
+
+# 87.centos查看系统版本
+```
+rpm -q centos-release
+
+# centos-release-6-9.el6.12.3.x86_64
+```
+- 输出版本号
+```
+rpm -q centos-release|awk -F "[-]" '{print $3}'
+```
+# 88.EOF
+- 覆盖文件
+- ` & 可以用\处理
+```
+cat << EOF > /tmp/log
+    param=\$1
+    echo \${param}
+EOF
+
+```
+
+- 效果 cat  /tmp/log
+```
+    param=$1
+    echo ${param}
+```
+
+# 89.保留两位小数
+- %.2f
+```
+awk 'BEGIN{printf "%.2f\n",('${num1}'/'${num2}')*100}'
+```
 
 # 备注
 
