@@ -412,7 +412,18 @@ git check commitID fileName
 ```
 
 ## 2.git revert
+- 丢弃某次修改
 - git revert用户反转提交，执行revert命令时工作树必须是干净的。
+```
+# 比如a文件被修改了三次，修改的值分别为 1 2 3
+
+# hash1 add 1 2020-8-5 11:00
+# hash2 add 2 2020-8-5 11:05
+# hash3 add 3 2020-8-5 11:10
+
+git revert hash2 # 这个时候会有冲突，因为后来修改了a文件导致树不干净
+git revert hash3 # 这个时候是正常的，丢掉了hash3添加的3
+```
 - git revert用一个新提交来消除一个历史提交所做的任何修改。
 - revert之后你的本地代码会回滚到指定的历史版本，这时git push不会有冲突。
 - revert使用，需要先找到你想要回滚的唯一的commit表示代码，可以用git log查看提交记录。
@@ -602,8 +613,9 @@ git show tag_name
 
 ## 2.建议使用
 ```
-git fetch
-git merge branch
+git fetch origin master //从远程主机的master分支拉取最新内容
+git log -p FETCH_HEAD # 查看取回的更新信息
+git merge FETCH_HEAD    //将拉取下来的最新内容合并到当前所在的分支中
 ```
 
 # 11.[git-extra](https://github.com/tj/git-extras)
@@ -637,8 +649,9 @@ git push -u origin master
 # 15.git rebase
 ## 1.合并多个未push的commit
 - 适用于多个commit重复修改一个文件的情况
+- 现在在master上执行rebase操作。会把从release合并过来的commit放在master现有commit的最前边，作为最早的提交，而把master现有的每个提交创建全新的提交来重写项目历史记录，放在maser最后边，作为最新的commit。这样打乱且篡改了历史提交记录。若别人想看公共分支的历史提交记录，它看到的不是完整的历史记录，因为已经被你打乱篡改了。
+- 正在开发的其他分支会定期从master上合并代码，使开发分支保持最新，由于在master执行了rebase，maser历史会形成全新的提交，合并过来后，git会认为和本地开发分支不一样，增加冲突可能性，更不知道代码提交顺序性，造成许多诡异现象。
 
-- 1.执行命令
 ```
 # 合并最近三个提交
 git rebase -i HEAD~3
@@ -694,7 +707,6 @@ git rebase --edit-todo
 git rebase --continue
 ```
 
-- 合并3个最近的提交
 
 # 16.git 状态详解
 
