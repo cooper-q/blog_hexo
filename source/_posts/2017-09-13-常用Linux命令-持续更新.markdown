@@ -2969,6 +2969,21 @@ EOF
 ```
 awk 'BEGIN{printf "%.2f\n",('${num1}'/'${num2}')*100}'
 ```
+# 90.大小写转换
+- 小写转大写
+```
+echo 'hello' | tr 'a-z' 'A-Z'
+```
+
+- 大写转小写
+```
+echo 'HELLO' | tr 'A-Z' 'a-z'
+```
+
+# 91.随机字符串
+```
+head -n 50 /dev/urandom|sed 's/[^a-z]//g'|strings -n 4|tr 'A-Z' 'a-z'|head -1
+```
 
 # 备注
 
