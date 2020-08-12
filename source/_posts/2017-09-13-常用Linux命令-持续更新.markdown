@@ -2984,6 +2984,110 @@ echo 'HELLO' | tr 'A-Z' 'a-z'
 ```
 head -n 50 /dev/urandom|sed 's/[^a-z]//g'|strings -n 4|tr 'A-Z' 'a-z'|head -1
 ```
+# 92.read
+- 1.简单读取
+```
+echo "请输入内容:"
+read content
+echo "内容为${content}"
+
+# 结果
+
+请输入内容:
+123
+内容为123
+```
+- 2.-p ，允许在read命令中直接指定一个提示
+```
+read -p "请输入内容:" content
+echo "内容为${content}"
+
+# 结果
+
+请输入内容:123
+内容为123
+
+```
+
+- 3.-t 指定read命令等待输入的秒数，当记时满时，read命令返回一个非零推出状态
+```
+if read -t 5 -p "输入网站名:" website
+then
+    echo "你输入的网站名是 $website"
+else
+    echo "\n抱歉，你输入超时了。"
+fi
+
+# 输入时
+输入网站名:123
+你输入的网站名是 123
+
+# 超时时
+输入网站名:\n抱歉，你输入超时了。
+```
+
+- 4.-n 限制输入的字数个数，当输入足够时会自动退出并赋值给变量
+```
+# -n 后面的数字，则表示只接受指定数量的字符就自动赋值给变量并且不用按回车。
+
+read -n1 -p "Do you want to continue [Y/N]?" answer
+case $answer in
+Y | y)
+      echo "fine ,continue";;
+N | n)
+      echo "ok,good bye";;
+*)
+     echo "error choice";;
+
+esac
+exit 0
+```
+- 5.-s选项能够使read命令输入的数据不显示在终端上（实际是显示的，只是read命令将文本颜色设置成与背景相同的颜色）
+```
+read  -s  -p "请输入您的密码:" pass
+echo "\n您输入的密码是 $pass"
+exit 0
+
+# 结果
+
+请输入您的密码:
+您输入的密码是 runoob
+```
+
+- 6.读取文件
+```
+# 每次调用read都会读取文中的一行文本，当文件没有可读是则非零状态退出
+count=1    # 赋值语句，不加空格
+cat test.txt | while read line      # cat 命令的输出作为read命令的输入,read读到>的值放在line中
+do
+   echo "Line $count:$line"
+   count=$[ $count + 1 ]          # 注意中括号中的空格。
+done
+echo "finish"
+exit 0
+
+# test.txt
+1
+2
+3
+4
+5
+
+# 结果
+Line 1:1
+Line 2:2
+Line 3:3
+Line 4:4
+Line 5:5
+finish
+```
+- 7.-e 当输入字符a后按入Tab键就会输出相关的文件名（当前目录存在的）
+```
+ read -e -p "输入文件名:" str
+输入文件名:a
+a.out    a.py     a.pyc    abc.txt
+输入文件名:a
+```
 
 # 备注
 
