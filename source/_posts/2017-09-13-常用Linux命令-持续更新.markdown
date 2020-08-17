@@ -3089,6 +3089,12 @@ a.out    a.py     a.pyc    abc.txt
 输入文件名:a
 ```
 
+# 93.验证DNS TXT
+```
+dig @8.8.8.8 blog.mengxc.info txt
+```
+
+
 # 备注
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
