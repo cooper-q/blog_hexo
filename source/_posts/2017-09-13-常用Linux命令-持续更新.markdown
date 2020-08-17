@@ -1245,14 +1245,19 @@ echo '123456'|awk '{print substr($0,1,2)}'
 # 输出 12
 ```
 
-### 6.FS 截取
+### 4.FS 截取
 ```
 echo 'hello:world'|awk 'BEGIN{FS=":"};{print $1};'
 
 # 输出hello
 ```
 
-### 7.示例脚本
+### 5.显示行号
+```
+cat test.log|awk '{print NR":"$0}'
+```
+
+### 6.示例脚本
 - 分隔字符串并循环打印所有的值
 ```
 echo '210.12.5.222 222.72.140.114'|awk '{len=split($0,ipList," ");for(i=1;i<=len;i++) print ipList[i];}'
@@ -3093,6 +3098,7 @@ a.out    a.py     a.pyc    abc.txt
 ```
 dig @8.8.8.8 blog.mengxc.info txt
 ```
+
 
 
 # 备注
