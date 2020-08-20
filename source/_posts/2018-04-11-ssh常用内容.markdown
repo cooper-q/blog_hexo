@@ -14,8 +14,8 @@ tags:
 # 1.SSH key
 
 ## 1.生成key
-```
-ssh-keygen -t rsa -C "your_email@example.com"
+```    
+ssh-keygen -t rsa -C "your_email@example.com" 
 生成公钥密钥
 生成路径:~/.ssh
 密钥：id_rsa
@@ -27,19 +27,20 @@ ssh-keygen -t rsa -C "your_email@example.com"
 ~/.ssh/authorized_keys 文件下加入公钥内容即可（如果没有新建文件）
 ```
 
-- 配置权限
+- 设置权限    
+
 ```
 chmod 600 ~/.ssh/authorized_keys # 给予权限
 ```
 
 ## 3.服务器配置使用ssh，并禁用密码登录
 
-- 修改配置前必须保证ssh配置正确，否则将无法登录服务器
-```
+>注:修改配置前必须保证ssh配置正确，否则将无法登录服务器
+
+```    
 /etc/ssh/sshd_config
 ```
-
-- sshd_config 是服务端的配置文件 ssh_config是针对客户端的配置文件
+>注：sshd_config 是服务端的配置文件 ssh_config是针对客户端的配置文件
 ```
 PasswordAuthentication no # 禁用密码验证
 RSAAuthentication yes # 启用 RSA 认证
@@ -48,80 +49,85 @@ AuthorizedKeysFile .ssh/authorized_keys # 公钥文件路径（和上面生成�
 PermitRootLogin no # 禁用root登录
 ```
 
-- 修改文件后重启服务
-```
+- 修改文件后需要重启服务
+```    
 service sshd restart 或者 /bin/systemctl restart  sshd.service
 ubuntu:service ssh restart
 ```
+    
+## 4.使用不同的key来访问不同的服务器或者网站
 
-## 3.使用示例
-- 连接
+- 创建或更新config文件
+```
+~/.ssh/config
+# 没有则新建 并给予权限 
+chmod 600 ~/.ssh/config
+
+# 示例
+Host gitlab.xxx.com             # 类似于别名（可以随便写） 
+HostName gitlab.xxx.com         # 要连接的服务器ip或者网址
+User git                        # 用户名
+Port 22                         # 端口号
+IdentityFile ~/.ssh/id_rsa_xxx  # 私钥位置
+
+# 连接
+ssh gitlab.xxx.com # 可直接使用上面创建的Host来连接
+```
+
+## ~~5.使用相同的key来连接不同的服务器或者网站~~
+
+- 修改config文件
+```
+~/.ssh/config
+# 增加配置
+Host github.com git.coding.net
+HostName %h
+Port 22
+User git
+IdentityFile  ~/.ssh/id_rsa_xxx
+```
+
+- 使用
+```
+ssh -T git@git.coding.net
+ssh -T git@github.com
+```
+## 3.使用ssh
+
+- 如没有配置config
 ```
 ssh user@ip -p port（默认22）
+```
+
+- 配置config
+```
+ssh Host中的名称即可
 ```
 
 - 指定私钥指定端口连接
 ```
 ssh  -i ~/.ssh/id_rsa_xxx  -p port user@ip(或域名)
 ```
-## 4.使用不同的key来访问不同的服务器或者网站
 
-- 创建或更新config文件
+# 4.超时配置
+- 客户端修改
 ```
-cd ~/.ssh/config                # 没有则新建 并给予权限
-chmod 600 ~/.ssh/config
+vi /etc/ssh/ssh_config
 
-# 示例
-Host gitlab.xxx.com             # 类似于别名（可以随便写）
-HostName gitlab.xxx.com         # 要连接的服务器ip或者网址
-User git                        # 用户名
-Port 22                         # 端口号
-IdentityFile ~/.ssh/id_rsa_xxx  # 私钥路径
+Host *
+ServerAliveInterval 120 # 每隔120秒模拟发送按键事件，防止断开
 ```
-
-- 使用
+- 服务端修改
 ```
-ssh gitlab.xxx.com              # 可直接使用上面创建的Host来连接
+# 客户端处于非活动状态20分钟，sshd将不会发送客户端活动消息并直接终止会话，不会进行尝试
+# vi /etc/ssh/sshd_config
+ClientAliveInterval 20m          # 20 minutes
+ClientAliveCountMax 0            # 0 次
 ```
-
-## 5.使用相同的key来连接不同的服务器或者网站
-### 1.修改config文件
-- 路径
+- 重启
 ```
-~/.ssh/config
-```
-- 普通配置示例
-```
-#### 配置1
-Host host1
-HostName 域名orIP
-User root
-Port 22
-IdentityFile ~/.ssh/id_rsa
-
-#### 配置2
-Host host2
-HostName 域名orIP
-User root
-Port 22
-IdentityFile ~/.ssh/id_rsa
-```
-
-- 代理示例【这里的1080则是代理工具的端口】
-```
-Host host3
-HostName 域名orIP
-ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p
-user root
-Port 22
-IdentityFile ~/.ssh/id_rsa
-```
-
-- 使用
-```
-ssh host1
-ssh host2
-ssh host3
+service sshd restart
+service ssh restart
 ```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
