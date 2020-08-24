@@ -10,7 +10,7 @@ tags:
     - Linux
 ---
 
-# 常用Linux命令，持续更新
+[toc]
 # 1.查看某个服务端口并杀死
 ```
 # 查看端口占用
@@ -22,7 +22,7 @@ ps -ef|grep nginx|awk '{print $2}'|xargs kill -9
 ## 1.查询指定位置的文件
 ```
 ## 查询指定目录下指定名称
-find controller/ -name '*.js' | xargs grep 'decorator'
+find controller/ -name '*.js' | xargs grep 'decorator'  
 
 ## 查询某个程序为可执行文件[-executable]
 
@@ -79,7 +79,7 @@ echo '123' >> filename
 ```
 du -h fileName&path
 # 查看当前文件夹内容
-du -ah
+du -ah 
 # 查看指定文件大小
 du -ah fileName
 # 查看这个文件夹下的文件的大小
@@ -111,10 +111,10 @@ cp 文件名 路径+新文件名
 rmdir (选项) (参数)
 
 # 选项：
--p或--parents：删除指定目录后，若该目录的上层目录已变成空目录，则将其一并删除；
---ignore-fail-on-non-empty：此选项使rmdir命令忽略由于删除非空目录时导致的错误信息；
--v或-verboes：显示命令的详细执行过程；
---help：显示命令的帮助信息；
+-p或--parents：删除指定目录后，若该目录的上层目录已变成空目录，则将其一并删除； 
+--ignore-fail-on-non-empty：此选项使rmdir命令忽略由于删除非空目录时导致的错误信息； 
+-v或-verboes：显示命令的详细执行过程； 
+--help：显示命令的帮助信息； 
 --version：显示命令的版本信息。
 
 # 参数：
@@ -138,12 +138,12 @@ tree -L 1
 ### 12.**ls**
 - 1.查看目录下文件的详情（大小&权限&数量&时间）
 ```
-ls -lh
+ls -lh 
 ```
 
 - 2.把文件或者文件夹排列成一列
 ```
-ls -1
+ls -1 
 ```
 
 - 3.查看当前目录下的文件数量（不包含子目录中的文件）
@@ -237,7 +237,7 @@ chmod go-rw xxx.xx
     g group
     o 代表其他人 但不是u和g
     a 代表全部的人 u g o
-
+    
 # 数字代替
     -rw------- 600 只有所有者才有读写权限。
     -rw-r--r-- 644 只有所有者才有读写权限，组群和其他人只要读的权限。
@@ -301,25 +301,25 @@ tldr 查看某个命令的help
 ```
 tar zxvf FileName.tar
 ```
-- 打包
+- 打包 
 ```
 tar czvf FileName.tar DirName
 ```
 - 把/home/benet目录打包
 ```
-tar -cvf benet.tar /home/benet
+tar -cvf benet.tar /home/benet 
 ```
 - 把目录打包并压缩
 ```
- tar -zcvf benet.tar /mnt
+ tar -zcvf benet.tar /mnt 
 ```
 - 压缩包的文件解压恢复
 ```
-tar -zxvf benet.tar.gz
+tar -zxvf benet.tar.gz 
 ```
 - bz2解压缩
 ```
-tar -jxvf benet.tar.gz
+tar -jxvf benet.tar.gz 
 ```
 
 ## 2.gz
@@ -402,7 +402,7 @@ zip -e -r demo.zip[压缩包名称] demoDir[文件夹名称]
 ```
 unzip FileName.zip
 # 指定解压的路径
-unzip -d path 解压的文件
+unzip -d path 解压的文件 
 ```
 
 - 压缩
@@ -681,7 +681,7 @@ cat /proc/loadavg
 ## 3.磁盘和分区
 - 查看挂接的分区状态
 ```
-mount | column -t
+mount | column -t 
 ```
 - 查看所有分区
 ```
@@ -741,7 +741,7 @@ w
 ```
 - 查看指定用户信息
 ```
-id <用户名>
+id <用户名>     
 ```
 - 查看用户登录日志
 ```
@@ -766,7 +766,7 @@ chkconfig --list or systemctl list-unit-files
 ```
 - 列出所有启动的系统服务
 ```
-chkconfig --list | grep on
+chkconfig --list | grep on 
 systemctl list-unit-files|grep enable
 ```
 
@@ -858,7 +858,7 @@ echo -e "\033[41;37m Tony Zhang \033[0m"
 - 2、文字颜色后面有个m
 - 3、字符串前后可以没有空格，如果有的话，输出也是同样有空格
 
-### 3.echo颜色 实例
+### 3.echo颜色 实例 
 ```
 echo -e "\033[30m 黑色字 \033[0m"
 echo -e "\033[31m 红色字 \033[0m"
@@ -2770,8 +2770,8 @@ echo > ./.bash_history # 或清空用户目录下的这个文件即可
 - 导入空历史记录
 ```
 vi /root/history # 新建记录文件
-history -c       # 清除记录
-history -r /root/history.txt # 导入记录
+history -c       # 清除记录 
+history -r /root/history.txt # 导入记录 
 history # 查询导入结果
 ```
 # 74.another app is currently holding the yum lock;waiting for it to exit
@@ -2881,7 +2881,7 @@ cat filename| head -n 30 | tail -n +10
 - 解析
 ```
 # 显示最后10行
-tail -n 10
+tail -n 10 
 
 # 从10行开始，显示以后的
 tail -n +10
@@ -3087,9 +3087,9 @@ finish
 ```
 - 7.-e 当输入字符a后按入Tab键就会输出相关的文件名（当前目录存在的）
 ```
- read -e -p "输入文件名:" str
+ read -e -p "输入文件名:" str 
 输入文件名:a
-a.out    a.py     a.pyc    abc.txt
+a.out    a.py     a.pyc    abc.txt  
 输入文件名:a
 ```
 
@@ -3103,7 +3103,10 @@ dig @8.8.8.8 blog.mengxc.info txt
 ```
 :set paste
 ```
-
+# 95.捕获stderr
+```
+find /tmp/ls -name demo > /tmp/log 2>&1
+```
 
 # 备注
 
