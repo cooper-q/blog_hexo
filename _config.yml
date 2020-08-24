@@ -74,10 +74,24 @@ time_format: HH:mm:ss
 per_page: 10
 pagination_dir: page
 
+navbar:
+  # Naviagtion menu items
+  menu:
+    首页: /
+    归档: /archives
+    分类: /categories
+    标签: /tags
+    影音: /media
+    相册: /album
+    友链: /friend
+    碎碎念: /self-talking
+    留言: /message
+    关于: /about
+
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: hexo-theme-amazing
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
