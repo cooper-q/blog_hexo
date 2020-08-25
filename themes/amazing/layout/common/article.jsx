@@ -71,7 +71,7 @@ module.exports = class extends Component {
                             <i class="far fa-calendar-plus">&nbsp;</i>{date(page.date)}&nbsp;&nbsp;
 
                             {showComment ?
-                                <a class="commentCountImg" href={`${url_for(page.link || page.path)}#comment-container`}><span class="display-none-class">{id}</span><i class="far fa-comment-dots" />&nbsp;<span class="commentCount" id={md5Id}>99+</span>&nbsp;&nbsp;</a> : null}
+                                <a class="commentCountImg" href={`${url_for(page.link || page.path)}#comment-container`}><span class="display-none-class">{id}</span><i class="far fa-comment-dots" />&nbsp;<span class="commentCount" id={md5Id}>0</span>&nbsp;&nbsp;</a> : null}
                             {/* Read time */}
                             {article && article.readtime && article.readtime === true ? <span class="level-item">
                                 <i class="far fa-clock">&nbsp;</i>{timeStr} &nbsp;<i class="fas fa-pencil-alt">&nbsp;</i>{wordsCount}&nbsp;k
