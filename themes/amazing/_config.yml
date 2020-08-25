@@ -4,136 +4,136 @@ version: 3.0.0
 logo: /images/logo.png #https://cdn.jsdelivr.net/gh/removeif/blog_image/images/2019/20191121115040.png
 # Page metadata configurations
 head:
-    # URL or path to the website's icon
-    favicon: /images/favicon.png
-    # Canonical URL of the current page
-    canonical_url:
-    # Open Graph metadata
-    # https://hexo.io/docs/helpers.html#open-graph
-    open_graph:
-        # Page title (og:title) (optional)
-        # You should leave this blank for most of the time
-        title: Matt.Meng|Notes
-        # Page type (og:type) (optional)
-        # You should leave this blank for most of the time
-        type: blog
-        # Page URL (og:url) (optional)
-        # You should leave this blank for most of the time
-        url: https://blog.mengxc.info
-        # Page cover (og:image) (optional) Default to the Open Graph image or thumbnail of the page
-        # You should leave this blank for most of the time
-        image: /images/avatar.png
-        # Site name (og:site_name) (optional)
-        # You should leave this blank for most of the time
-        site_name: Matt.Meng|Notes
-        # Page author (article:author) (optional)
-        # You should leave this blank for most of the time
-        author: removeif
-        # Page description (og:description) (optional)
-        # You should leave this blank for most of the time
-        description: 技术笔记
-        # Twitter card type (twitter:card)
-        twitter_card:
-        # Twitter ID (twitter:creator)
-        twitter_id:
-        # Twitter ID (twitter:creator)
-        twitter_site:
-        # Google+ profile link (deprecated)
-        google_plus:
-        # Facebook admin ID
-        fb_admins:
-        # Facebook App ID
-        fb_app_id:
-    # Structured data of the page
-    # https://developers.google.com/search/docs/guides/intro-structured-data
-    structured_data:
-        # Page title (optional)
-        # You should leave this blank for most of the time
-        title: Matt.Meng|Notes
-        # Page description (optional)
-        # You should leave this blank for most of the time
-        description: 技术笔记
-        # Page URL (optional)
-        # You should leave this blank for most of the time
-        url: https://blog.mengxc.info
-        # Page author (article:author) (optional)
-        # You should leave this blank for most of the time
-        author: Matt.Meng
-        # Page images (optional) Default to the Open Graph image or thumbnail of the page
-        # You should leave this blank for most of the time
-        image: /images/avatar.png
-    # Additional HTML meta tags in an array
-    meta:
-        # Meta tag specified in <attribute>=<value> style
-        # E.g., name=theme-color;content=#123456 => <meta name="theme-color" content="#123456">
-        - ''
-    # URL or path to the website's RSS atom.xml
-    rss: /atom.xml
+  # URL or path to the website's icon
+  favicon: /images/favicon.png
+  # Canonical URL of the current page
+  canonical_url:
+  # Open Graph metadata
+  # https://hexo.io/docs/helpers.html#open-graph
+  open_graph:
+    # Page title (og:title) (optional)
+    # You should leave this blank for most of the time
+    title: Matt.Meng|Notes
+    # Page type (og:type) (optional)
+    # You should leave this blank for most of the time
+    type: blog
+    # Page URL (og:url) (optional)
+    # You should leave this blank for most of the time
+    url: https://blog.mengxc.info
+    # Page cover (og:image) (optional) Default to the Open Graph image or thumbnail of the page
+    # You should leave this blank for most of the time
+    image: /images/avatar.png
+    # Site name (og:site_name) (optional)
+    # You should leave this blank for most of the time
+    site_name: Matt.Meng|Notes
+    # Page author (article:author) (optional)
+    # You should leave this blank for most of the time
+    author: removeif
+    # Page description (og:description) (optional)
+    # You should leave this blank for most of the time
+    description: 技术笔记
+    # Twitter card type (twitter:card)
+    twitter_card:
+    # Twitter ID (twitter:creator)
+    twitter_id:
+    # Twitter ID (twitter:creator)
+    twitter_site:
+    # Google+ profile link (deprecated)
+    google_plus:
+    # Facebook admin ID
+    fb_admins:
+    # Facebook App ID
+    fb_app_id:
+  # Structured data of the page
+  # https://developers.google.com/search/docs/guides/intro-structured-data
+  structured_data:
+    # Page title (optional)
+    # You should leave this blank for most of the time
+    title: Matt.Meng|Notes
+    # Page description (optional)
+    # You should leave this blank for most of the time
+    description: 技术笔记
+    # Page URL (optional)
+    # You should leave this blank for most of the time
+    url: https://blog.mengxc.info
+    # Page author (article:author) (optional)
+    # You should leave this blank for most of the time
+    author: Matt.Meng
+    # Page images (optional) Default to the Open Graph image or thumbnail of the page
+    # You should leave this blank for most of the time
+    image: /images/avatar.png
+  # Additional HTML meta tags in an array
+  meta:
+    # Meta tag specified in <attribute>=<value> style
+    # E.g., name=theme-color;content=#123456 => <meta name="theme-color" content="#123456">
+    - ''
+  # URL or path to the website's RSS atom.xml
+  rss: /atom.xml
 # Page top navigation bar configurations
 navbar:
-    # Naviagtion menu items
-    menu:
-        首页: /
-        归档: /archives
-        分类: /categories
-        标签: /tags
-#        影音: /media
-#        相册: /album
-        友链: /friend
-#        碎碎念: /self-talking
-#        留言: /message
-#        关于: /about
-    # Links to be shown on the right of the navigation bar
-    links:
-        Download on GitHub:
-            icon: fab fa-github
-            url: 'https://github.com/cooper-q'
+  # Naviagtion menu items
+  menu:
+    首页: /
+    归档: /archives
+    分类: /categories
+    标签: /tags
+    #        影音: /media
+    #        相册: /album
+    友链: /friend
+  #        碎碎念: /self-talking
+  #        留言: /message
+  #        关于: /about
+  # Links to be shown on the right of the navigation bar
+  links:
+    Download on GitHub:
+      icon: fab fa-github
+      url: 'https://github.com/cooper-q'
 # Page footer configurations
 footer:
-    # Links to be shown on the right of the footer section
-    links:
-        Creative Commons:
-            icon: fab fa-creative-commons
-            url: 'https://creativecommons.org/'
-        Attribution 4.0 International:
-            icon: fab fa-creative-commons-by
-            url: 'https://creativecommons.org/licenses/by/4.0/'
-        Download on GitHub:
-            icon: fab fa-github
-            url: 'https://github.com/removeif'
+  # Links to be shown on the right of the footer section
+  links:
+    Creative Commons:
+      icon: fab fa-creative-commons
+      url: 'https://creativecommons.org/'
+    Attribution 4.0 International:
+      icon: fab fa-creative-commons-by
+      url: 'https://creativecommons.org/licenses/by/4.0/'
+    Download on GitHub:
+      icon: fab fa-github
+      url: 'https://github.com/removeif'
 # Article related configurations
 article:
-    # Code highlight settings
-    highlight:
-        # Code highlight themes
-        # https://github.com/highlightjs/highlight.js/tree/master/src/styles
-        theme: atom-one-dark
-        # Show copy code button
-        clipboard: true
-        # Default folding status of the code blocks. Can be "", "folded", "unfolded"
-        fold: unfolded
-    # Whether to show thumbnail image for every article
-    thumbnail: true
-    # Whether to show estimated article reading time
-    readtime: true
+  # Code highlight settings
+  highlight:
+    # Code highlight themes
+    # https://github.com/highlightjs/highlight.js/tree/master/src/styles
+    theme: atom-one-dark
+    # Show copy code button
+    clipboard: true
+    # Default folding status of the code blocks. Can be "", "folded", "unfolded"
+    fold: unfolded
+  # Whether to show thumbnail image for every article
+  thumbnail: true
+  # Whether to show estimated article reading time
+  readtime: true
 # Search plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Search/
 search:
-    type: insight
+  type: insight
 
 # Donate plugin configurations
 donate:
-    # Alipay donate button configurations
-    # -
-        # Donation entry name
-        #type: alipay
-        # Qrcode image URL
-        #qrcode: ''
-    # -
-        # Donation entry name
-        #type: wechat
-        # Qrcode image URL
-        #qrcode: ''
+# Alipay donate button configurations
+# -
+# Donation entry name
+#type: alipay
+# Qrcode image URL
+#qrcode: ''
+# -
+# Donation entry name
+#type: wechat
+# Qrcode image URL
+#qrcode: ''
 #    -
 #    -
 #        type: patreon
@@ -154,188 +154,181 @@ donate:
 # Share plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Share/
 share:
-    type: sharejs
-    # URL to the ShareThis share plugin script
-    install_url: ''
+  type: sharejs
+  # URL to the ShareThis share plugin script
+  install_url: ''
 # Sidebar configurations.
 # Please be noted that a sidebar is only visible when it has at least one widget
 sidebar:
-    # Left sidebar configurations
-    left:
-        # Whether the sidebar sticks to the top when page scrolls
-        sticky: true
-    # Right sidebar configurations
-    right:
-        # Whether the sidebar sticks to the top when page scrolls
-        sticky: false
+  # Left sidebar configurations
+  left:
+    # Whether the sidebar sticks to the top when page scrolls
+    sticky: true
+  # Right sidebar configurations
+  right:
+    # Whether the sidebar sticks to the top when page scrolls
+    sticky: false
 # Sidebar widget configurations
 # http://ppoffice.github.io/hexo-theme-icarus/categories/Widgets/
 # 注释对应的节点，包括”-“一起注释掉，相应的widget不显示
 widgets:
-    -
-        # Where should the widget be placed, left sidebar or right sidebar
-        position: left
-        type: toc
-    # Profile widget configurations
-    -
-        # Where should the widget be placed, left sidebar or right sidebar
-        position: left
-        type: profile
-        # Author name
-        author: Matt.Meng
-        # Title of the author to be shown in the profile widget
-        author_title: 世界就是这样，当你开始思考时，你已经是小部分中的一员了。
-        # Author's current location to be shown in the profile widget
-        # location:
-        # Path or URL to the avatar to be shown in the profile widget
-        avatar: /images/avatar.png
-        # Whether show the rounded avatar image
-        avatar_rounded: true
-        # Email address for the Gravatar
-        gravatar:
-        # URL or path for the follow button
-        follow_link:
-        # Links to be shown on the bottom of the profile widget
-        social_links:
-            Github:
-                icon: fab fa-github
-                url: 'https://github.com/cooper-q'
-            #Weibo:
-            #    icon: fab fa-weibo
-            #    url:
-            #Email:
-            #    icon: fa fa-envelope
-            #    url:
-            #Next:
-            #    icon: fab fa-dribbble
-            #    url:
-            RSS:
-                icon: fas fa-rss
-                url: /atom.xml
-        has_hitokoto: false #左边一言开关，true-开，false-关
+  - # Where should the widget be placed, left sidebar or right sidebar
+    position: left
+    type: toc
+  # Profile widget configurations
+  - # Where should the widget be placed, left sidebar or right sidebar
+    position: left
+    type: profile
+    # Author name
+    author: Matt.Meng
+    # Title of the author to be shown in the profile widget
+    author_title: 世界就是这样，当你开始思考时，你已经是小部分中的一员了。
+    # Author's current location to be shown in the profile widget
+    # location:
+    # Path or URL to the avatar to be shown in the profile widget
+    avatar: /images/avatar.png
+    # Whether show the rounded avatar image
+    avatar_rounded: true
+    # Email address for the Gravatar
+    gravatar:
+    # URL or path for the follow button
+    follow_link:
+    # Links to be shown on the bottom of the profile widget
+    social_links:
+      Github:
+        icon: fab fa-github
+        url: 'https://github.com/cooper-q'
+      #Weibo:
+      #    icon: fab fa-weibo
+      #    url:
+      #Email:
+      #    icon: fa fa-envelope
+      #    url:
+      #Next:
+      #    icon: fab fa-dribbble
+      #    url:
+      RSS:
+        icon: fas fa-rss
+        url: /atom.xml
+    has_hitokoto: false #左边一言开关，true-开，false-关
 
-    # Recommendation links widget configurations
-    # Table of contents widget configurations
-    -
-        position: right
-        type: latest_comment
-#    -
-#        # Where should the widget be placed, left sidebar or right sidebar
-#        position: left
-#        type: links
-#        # Names and URLs of the sites
-#        links:
-#            Hexo: 'https://hexo.io'
-#            Bulma: 'https://bulma.io'
-    # Recent posts widget configurations
-    -
-        # Where should the widget be placed, left sidebar or right sidebar
-        position: right
-        type: recent_posts
-    # Categories widget configurations
-    -
-        # Where should the widget be placed, left sidebar or right sidebar
-        position: right
-        type: categories
-    # Archives widget configurations
-    -
-        # Where should the widget be placed, left sidebar or right sidebar
-        position: right
-        type: archives
-    # Tags widget configurations
-    -
-        # Where should the widget be placed, left sidebar or right sidebar
-        position: right
-        type: tags
+  # Recommendation links widget configurations
+  # Table of contents widget configurations
+  - position: right
+    type: latest_comment
+  #    -
+  #        # Where should the widget be placed, left sidebar or right sidebar
+  #        position: left
+  #        type: links
+  #        # Names and URLs of the sites
+  #        links:
+  #            Hexo: 'https://hexo.io'
+  #            Bulma: 'https://bulma.io'
+  # Recent posts widget configurations
+  - # Where should the widget be placed, left sidebar or right sidebar
+    position: right
+    type: recent_posts
+  # Categories widget configurations
+  - # Where should the widget be placed, left sidebar or right sidebar
+    position: right
+    type: categories
+  # Archives widget configurations
+  - # Where should the widget be placed, left sidebar or right sidebar
+    position: right
+    type: archives
+  # Tags widget configurations
+  - # Where should the widget be placed, left sidebar or right sidebar
+    position: right
+    type: tags
     # Google FeedBurner email subscription widget configurations
     # -
-        # Where should the widget be placed, left sidebar or right sidebar
-       # position: right
-        #type: subscribe_email
-        # Hint text under the email input
-        #description: 输入邮箱开始订阅，更博后邮件通知！
-        # Feedburner ID
-        #feedburner_id: removeifFeedsId
+    # Where should the widget be placed, left sidebar or right sidebar
+    # position: right
+    #type: subscribe_email
+    # Hint text under the email input
+    #description: 输入邮箱开始订阅，更博后邮件通知！
+    # Feedburner ID
+    #feedburner_id: removeifFeedsId
     # Google AdSense unit configurations
-#    -
-#        # Where should the widget be placed, left sidebar or right sidebar
-#        position: left
-#        type: adsense
-#        # AdSense client ID
-#        client_id: ''
-#        # AdSense AD unit ID
-#        slot_id: ''
-#    -
-        # position: right
-        # type: notice
-        # contents:
-        #     1: 2019.8.15 <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">主题开源</a>
-        #     2: 2020.5.20 添加公告widget
-        #     3: 2020.5.21 公告测试
+    #    -
+    #        # Where should the widget be placed, left sidebar or right sidebar
+    #        position: left
+    #        type: adsense
+    #        # AdSense client ID
+    #        client_id: ''
+    #        # AdSense AD unit ID
+    #        slot_id: ''
+    #    -
+    # position: right
+    # type: notice
+    # contents:
+    #     1: 2019.8.15 <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">主题开源</a>
+    #     2: 2020.5.20 添加公告widget
+    #     3: 2020.5.21 公告测试
 # Plugin configurations
 plugins:
-    # Enable page startup animations
-    animejs: true
-    # Show the "back to top" button
-    back_to_top: true
-    # Baidu Analytics plugin settings
-    # https://tongji.baidu.com
-    baidu_analytics:
-        # Baidu Analytics tracking ID
-        tracking_id:
-    # BuSuanZi site/page view counter
-    # https://busuanzi.ibruce.info
-    busuanzi: true
-    # Enable the lightGallery and Justified Gallery plugins
-    # https://ppoffice.github.io/hexo-theme-icarus/Plugins/General/gallery-plugin/
-    gallery: true
-    # Google Analytics plugin settings
-    # https://analytics.google.com
-    google_analytics:
-        # Google Analytics tracking ID
-        tracking_id:
-    # Hotjar user feedback plugin
-    # https://www.hotjar.com/
-    hotjar:
-        # Hotjar site id
-        site_id:
-    # Enable the KaTeX math typesetting supprot
-    # https://katex.org/
-    katex: false
-    # Enable the MathJax math typesetting support
-    # https://www.mathjax.org/
-    mathjax: false
-    # Enable the Outdated Browser plugin
-    # http://outdatedbrowser.com/
-    outdated_browser: false
-    # Show a progress bar at top of the page on page loading
-    progressbar: true
+  # Enable page startup animations
+  animejs: true
+  # Show the "back to top" button
+  back_to_top: true
+  # Baidu Analytics plugin settings
+  # https://tongji.baidu.com
+  baidu_analytics:
+    # Baidu Analytics tracking ID
+    tracking_id:
+  # BuSuanZi site/page view counter
+  # https://busuanzi.ibruce.info
+  busuanzi: true
+  # Enable the lightGallery and Justified Gallery plugins
+  # https://ppoffice.github.io/hexo-theme-icarus/Plugins/General/gallery-plugin/
+  gallery: true
+  # Google Analytics plugin settings
+  # https://analytics.google.com
+  google_analytics:
+    # Google Analytics tracking ID
+    tracking_id:
+  # Hotjar user feedback plugin
+  # https://www.hotjar.com/
+  hotjar:
+    # Hotjar site id
+    site_id:
+  # Enable the KaTeX math typesetting supprot
+  # https://katex.org/
+  katex: false
+  # Enable the MathJax math typesetting support
+  # https://www.mathjax.org/
+  mathjax: false
+  # Enable the Outdated Browser plugin
+  # http://outdatedbrowser.com/
+  outdated_browser: false
+  # Show a progress bar at top of the page on page loading
+  progressbar: true
 # CDN provider settings
 # https://ppoffice.github.io/hexo-theme-icarus/Configuration/Theme/speed-up-your-site-with-custom-cdn/
 providers:
-    # Name or URL template of the JavaScript and/or stylesheet CDN provider
-    cdn: loli
-    # Name or URL template of the webfont CDN provider
-    fontcdn: loli
-    # Name or URL of the fontawesome icon font CDN provider
-    iconcdn: loli
-    # https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.6/json_data/record.json, cdn前缀，对于hexo new page 页面中引用的资源文件不生效，需要手动改，如friend友链页中引用的资源
-    my_cdn_pre: #https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v2.2.1
+  # Name or URL template of the JavaScript and/or stylesheet CDN provider
+  cdn: loli
+  # Name or URL template of the webfont CDN provider
+  fontcdn: loli
+  # Name or URL of the fontawesome icon font CDN provider
+  iconcdn: loli
+  # https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v1.0.6/json_data/record.json, cdn前缀，对于hexo new page 页面中引用的资源文件不生效，需要手动改，如friend友链页中引用的资源
+  my_cdn_pre: #https://cdn.jsdelivr.net/gh/removeif/removeif.github.io@v2.2.1
 
 # Comment plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/Comment/
 comment:
-    type: gitalk
-    language: zh-CN #zh-CN #Localization language key, en, zh-CN and zh-TW are currently available.
-    owner: cooper-q         # (required) GitHub user name
-    repo: MattMeng_hexo          # (required) GitHub repository name
-    client_id: c3ceb652c3a08381e0c0     # (required) OAuth application client id
-    client_secret: 124ed5190a92944ebfdd6e8240c2cc3ad9146e6f # (required) OAuth application client secret
-    admin: ['cooper-q']
-    create_issue_manually: true
-    distraction_free_mode: false
-    has_hot_recommend: false # 是否有热门推荐
-    has_latest_comment: false #是否有最新评论
+  type: gitalk
+  language: zh-CN #zh-CN #Localization language key, en, zh-CN and zh-TW are currently available.
+  owner: cooper-q         # (required) GitHub user name
+  repo: MattMeng_hexo          # (required) GitHub repository name
+  client_id: c3ceb652c3a08381e0c0     # (required) OAuth application client id
+  client_secret: 124ed5190a92944ebfdd6e8240c2cc3ad9146e6f # (required) OAuth application client secret
+  admin: ['cooper-q']
+  create_issue_manually: true
+  distraction_free_mode: true
+  has_hot_recommend: true # 是否有热门推荐
+  has_latest_comment: true #是否有最新评论
 
 # comment:
 #     type: valine
