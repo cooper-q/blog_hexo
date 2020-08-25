@@ -5,15 +5,15 @@
 # Site
 title: Matt.Meng|Notes
 subtitle: ''
-description: ''
-keywords:
+description: 世界就是这样，当你开始思考时，你已经是小部分中的一员了。
+keywords: Matt.Meng,Node.js,Git,Mac,Linux,Nginx
 author: Matt.Meng
 language: zh-CN
 timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blog.mengxc.info
+url: https://blog.mengxc.info
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
