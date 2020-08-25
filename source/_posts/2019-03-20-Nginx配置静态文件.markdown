@@ -3,7 +3,7 @@ layout:     post
 
 title:      "Nginx 配置访问静态文件"
 date:       2019-03-20
-top: 10
+
 categories:
     - Nginx
     - 静态文件
@@ -16,7 +16,7 @@ tags:
 # 1.配置
 
     有两种方式可以设置访问静态文件配置
-
+<!-- more -->
 >alias
 
     通过alias关键字重新定义路径

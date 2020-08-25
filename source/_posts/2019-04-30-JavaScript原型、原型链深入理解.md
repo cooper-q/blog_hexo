@@ -3,7 +3,7 @@ layout: post
 title: JavaScript原型、原型链深入理解
 date: 2019-04-30
 keywords: JavaScript
-top: 10
+
 categories:
     - JavaScript
 tags:
@@ -12,7 +12,7 @@ tags:
 # JavaScript原型&原型链深入理解
 # 1.prototype
 >prototype属性是每一个函数都具有的属性，但是不是每一个对象都具有的属性。
-
+<!-- more -->
 ```
 
 function Foo(){

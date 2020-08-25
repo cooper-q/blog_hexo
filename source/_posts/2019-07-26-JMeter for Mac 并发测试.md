@@ -3,7 +3,7 @@ layout: post
 title: JMeter for Mac 并发测试
 date: 2019-07-26
 keywords:
-top: 10
+
 categories:
     - Mac
     - 并发测试
@@ -16,7 +16,7 @@ tags:
 # 1.下载、安装、启动
 ## 1.下载
 [点击此处打开官网，并下载下图中所示内容](http://jmeter.apache.org/download_jmeter.cgi)
-
+<!-- more -->
 <img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/software/picture/JMeter%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80.png' width='400'/>
 
 ##  2.安装、启动

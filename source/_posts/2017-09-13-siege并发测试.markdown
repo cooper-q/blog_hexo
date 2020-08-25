@@ -2,7 +2,7 @@
 layout:     post
 title:      "siege并发测试"
 date:       2017-9-13
-top: 10
+
 categories:
     - Mac
     - 并发测试
@@ -19,7 +19,7 @@ brew install siege
 ```
 
 # 2.模拟并发
-
+<!-- more -->
 >Siege命令常用参数
 
 ```

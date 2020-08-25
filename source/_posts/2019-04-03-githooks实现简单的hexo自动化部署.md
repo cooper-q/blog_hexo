@@ -4,7 +4,7 @@ title: git hooks实现简单的hexo自动化部署
 date: 2019-04-03
 tags: git
 keywords: git,githook,hexo
-top: 10
+
 categories:
     - git
 ---
@@ -23,7 +23,7 @@ cd remote
 // 初始化一个裸仓库，无工作区
 git init --bare
 ```
-
+<!-- more -->
 ## 2.服务器初始化一个本地仓库
 ```
 cd /root/project

@@ -2,7 +2,7 @@
 layout:     post
 title:      "koa2 快速搭建个人项目"
 date:       2018-1-13
-top: 10
+
 categories:
     - Node.js
     - koa2
@@ -22,7 +22,7 @@ tags:
         response.js 处理http响应
 
     package.json
-
+<!-- more -->
 ## 2.中间件开发
 
     // ./middleware/logger-generator.js

@@ -2,7 +2,7 @@
 layout:     post
 title:      "常用Linux命令，持续更新"
 date:       2017-9-18
-top: 10
+
 categories:
     - Linux
 catalog:    true
@@ -34,7 +34,7 @@ ls -F|grep "*"
 ## 查询多个目录[/bin | /usr/bin]
 find /bin /usr/bin -name "systemctl"
 ```
-
+<!-- more -->
 ## 2.删除 rm
 ### 1.递归删除所有
 ```

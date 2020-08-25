@@ -3,7 +3,7 @@ layout: post
 title: JavaScript 常用内容笔记
 date: 2019-06-19
 keywords: JavaScript
-top: 10
+
 categories:
     - JavaScript
 tags:
@@ -12,6 +12,7 @@ tags:
 # JavaScript 常用内容笔记
 
 # 1.匿名函数立即执行函数以及var作用域
+<!-- more -->
 
     (function(){
         alert(x+y);

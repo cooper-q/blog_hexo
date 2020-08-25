@@ -2,7 +2,7 @@
 layout:     post
 title:      "CleanMyMac X 破解版"
 date:       2019-03-18
-top: 10
+
 categories:
     - Mac
     - 软件
@@ -17,7 +17,7 @@ tags:
 [下载地址](https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/software/CleanMyMac_X_4.3.0.zip)
 
 # 2.解压并打开dmg文件
-
+<!-- more -->
 <img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/software/picture/CleanMyMac%20X%20%E7%A0%B4%E8%A7%A301.png'/>
 
     双击上图红框位置

@@ -3,7 +3,7 @@ layout: post
 title: JavaScript apply、call、bind 详解
 date: 2019-05-07
 keywords: JavaScript
-top: 10
+
 categories:
     - JavaScript
 tags:
@@ -16,7 +16,7 @@ tags:
 
 - 在JavaScript中，call和apply都是为了改变某个函数的上下文（context）而存在的。
 - 其实也就是为了改变this的指向。
-
+<!-- more -->
 >JavaScript一大特点
 
 - 定义时上下文

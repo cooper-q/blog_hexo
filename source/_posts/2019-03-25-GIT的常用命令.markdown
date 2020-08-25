@@ -2,7 +2,7 @@
 layout:     post
 title:      "git常用命令"
 date:       2019-03-25
-top: 10
+
 categories:
     - git
     - 常用命令
@@ -14,7 +14,7 @@ tags:
 # GIT常用命令
 # [学习地址](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5)
 # 1.分支
-
+<!-- more -->
 - 查看当前在那个分支上
 ```
 git show-branch

@@ -3,13 +3,14 @@ layout: post
 title: JavaScript基础概念
 date: 2019-04-19
 keywords: JavaScript基础概念
-top: 10
+
 categories:
     - JavaScript
 tags:
     - JavaScript
 ---
 # JavaScript基础概念（持续更新）
+<!-- more -->
 # 1.函数（function）
 ```
 function foo(){

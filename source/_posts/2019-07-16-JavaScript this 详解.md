@@ -3,7 +3,7 @@ layout: post
 title: JavaScript this详解
 date: 2019-07-16
 keywords:
-top: 10
+
 categories:
     - JavaScript
 tags:
@@ -15,6 +15,8 @@ tags:
 
 - this在运行期绑定（有特殊）JavaScript 函数中的 this 指向并不是在函数定义的时候确定的，而是在调用的时候确定的。
 - <span style='color:red'>函数的调用方式决定了 this 指向。</span>
+
+<!-- more -->
 
 # 2.this的指向和调用方式相关
 

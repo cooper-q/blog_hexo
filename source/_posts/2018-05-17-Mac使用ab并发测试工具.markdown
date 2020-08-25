@@ -2,7 +2,7 @@
 layout:     post
 title:      "Mac使用ab并发测试工具"
 date:       2018-05-17
-top: 10
+
 categories:
     - Mac
     - 并发测试
@@ -26,7 +26,7 @@ tags:
     sudo apachectl start
 
     这样Apache就启动了。打开Safari浏览器地址栏输入 “http://localhost”，可以看到内容为“It works!”的页面
-
+<!-- more -->
 ## 2.设置虚拟端终机
 
 >打开Apache的配置文件

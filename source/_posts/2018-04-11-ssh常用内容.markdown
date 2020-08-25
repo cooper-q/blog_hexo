@@ -2,7 +2,7 @@
 layout:     post
 title:      ssh常用内容
 date:       2018-04-11
-top: 10
+
 categories:
     - Linux
     - SSH
@@ -32,7 +32,7 @@ ssh-keygen -t rsa -C "your_email@example.com"
 ```
 chmod 600 ~/.ssh/authorized_keys # 给予权限
 ```
-
+<!-- more -->
 ## 3.服务器配置使用ssh，并禁用密码登录
 
 >注:修改配置前必须保证ssh配置正确，否则将无法登录服务器

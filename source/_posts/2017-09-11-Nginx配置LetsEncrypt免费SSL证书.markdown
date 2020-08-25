@@ -2,7 +2,7 @@
 layout:     post
 title:      "Nginx 配置Lets Encrypt 免费SSL证书"
 date:       2017-9-11
-top: 10
+
 categories:
     - Nginx
     - HTTPS
@@ -31,6 +31,7 @@ curl https://get.acme.sh | sh
 [Fri 30 Dec 01:03:33 GMT 2016] OK
 [Fri 30 Dec 01:03:33 GMT 2016] Install success!
 ```
+<!-- more -->
 ### 2.安装Nginx
 - Centos
 ```

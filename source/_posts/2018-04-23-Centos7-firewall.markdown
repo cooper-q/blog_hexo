@@ -3,7 +3,7 @@ layout:     post
 title:      "CentOS-firewall"
 
 date:       2018-04-23
-top: 11
+
 categories:
     - Linux
     - CentOS7
@@ -27,7 +27,7 @@ tags:
     查看服务是否开机启动：systemctl is-enabled firewalld.service
     查看已启动的服务列表：systemctl list-unit-files|grep enabled
     查看启动失败的服务列表：systemctl --failed
-
+<!-- more -->
 ### 2.firewalld的基本使用
 
     启动： systemctl start firewalld

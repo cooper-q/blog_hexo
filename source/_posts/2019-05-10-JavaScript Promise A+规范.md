@@ -3,7 +3,7 @@ layout: post
 title: JavaScript Promise A+规范
 date: 2019-05-10
 keywords: JavaScript
-top: 10
+
 categories:
     - JavaScript
 tags:
@@ -12,7 +12,7 @@ tags:
 # JavaScript Promise A+规范
 
 # 1.概述
-
+<!-- more -->
 ```
 一份针对健全、通用JavaScript promises对象的开发标准——由实现者制定，
 仅供参考。

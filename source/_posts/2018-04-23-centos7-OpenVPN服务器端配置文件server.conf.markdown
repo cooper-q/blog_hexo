@@ -2,7 +2,7 @@
 layout:     post
 title:      "CentOS7-OpenVPN服务器端配置文件server.conf"
 date:       2018-04-23
-top: 11
+
 categories:
     - Linux
     - CentOS7
@@ -26,7 +26,7 @@ tags:
     #并且使用两个反斜杠，例如："C:\Program Files\OpenVPN\config\foo.key"
     '#' or ';'开头的均为注释内容
     #################################################
-
+<!-- more -->
 ### OpenVPN应该监听本机的哪些IP地址？
 
     #该命令是可选的，如果不设置，则默认监听本机的所有IP地址。

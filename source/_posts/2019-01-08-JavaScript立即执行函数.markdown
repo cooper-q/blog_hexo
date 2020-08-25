@@ -2,7 +2,7 @@
 layout:     post
 title:      "JavaScript立即执行函数"
 date:       2019-01-22
-top: 10
+
 categories:
     - JavaScript
 tags:
@@ -17,7 +17,8 @@ tags:
     function f(){
 
     }
-
+    
+<!-- more -->
 >表达式（非匿名）
 
     const f1 = function f(){

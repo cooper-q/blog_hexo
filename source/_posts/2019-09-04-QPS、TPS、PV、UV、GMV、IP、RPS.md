@@ -3,7 +3,7 @@ layout: post
 title: QPS、TPS、PV、UV、GMV、IP、RPS详解
 date: 2019-09-04
 keywords:
-top: 10
+
 categories:
     - 网络相关
 tags:
@@ -14,7 +14,7 @@ tags:
 - Queries Per Second,每秒查询数。每秒能够响应的查询次数
 - QPS是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准。
 - 每秒的响应请求数，即最大吞吐量。
-
+<!-- more -->
 # 2.TPS
 - Transactions Per Second的缩写，每秒处理的事务数目。
 - 一个事务是指一个客户机向服务端发送请求服务器做出反应的过程。

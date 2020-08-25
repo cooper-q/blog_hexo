@@ -2,7 +2,7 @@
 layout:     post
 title:      "CentOS7上搭建OpenVPN.markdown"
 date:       2018-04-23
-top: 11
+
 categories:
     - Linux
     - CentOS7
@@ -15,6 +15,7 @@ tags:
 
 ### 1.安装软件（如果没安装）
      yum install openvpn easy-rsa
+<!-- more -->
 ### 2.准备相关目录和配置文件
 
     cp /usr/share/doc/easy-rsa-3.0.3/vars.example /etc/openvpn/easy-rsa/vars

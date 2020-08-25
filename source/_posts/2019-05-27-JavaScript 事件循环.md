@@ -3,7 +3,7 @@ layout: post
 title: JavaScript 事件循环（转载）
 date: 2019-05-27
 keywords: JavaScript、Event Loop
-top: 10
+
 categories:
     - JavaScript
 tags:
@@ -15,7 +15,7 @@ tags:
 - Node.js:v12.3.1（不同v8版本结果有所有不同）
 
 # 1.任务队列
-
+<!-- more -->
 ## 1.概述
 - js分为同步任务和异步任务
 - 同步任务都在主线程上执行，形成一个执行栈

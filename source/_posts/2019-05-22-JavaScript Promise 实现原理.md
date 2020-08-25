@@ -3,7 +3,7 @@ layout: post
 title: JavaScript Promise 实现原理（转载）
 date: 2019-05-22
 keywords: JavaScript
-top: 10
+
 categories:
     - JavaScript
 tags:
@@ -19,7 +19,7 @@ new Promise((resolve,reject)=>{
 })
 ```
 >构造函数<span style='color:#C82B52;background-color:#F9F2F4'>Promise</span>必须接受一个函数作为参数，我们称该函数为<span style='color:#C82B52;background-color:#F9F2F4'>handle</span>，<span style='color:#C82B52;background-color:#F9F2F4'>handle</span>又包含<span style='color:#C82B52;background-color:#F9F2F4'>resolve</span>和<span style='color:#C82B52;background-color:#F9F2F4'>reject</span>两个参数，它们是两个参数。
-
+<!-- more -->
 
 ```JavaScript
 定义一个判断一个变量是否为函数的方法，后面会用到

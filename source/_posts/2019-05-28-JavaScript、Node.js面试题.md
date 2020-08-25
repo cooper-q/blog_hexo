@@ -3,7 +3,7 @@ layout: post
 title: JavaScript、Node.js面试题（持续更新）
 date: 2019-05-28
 keywords: JavaScript
-top: 10
+
 categories:
     - JavaScript
 tags:
@@ -15,7 +15,7 @@ tags:
 ```
 在JavaScript中，两个不同的内置类型间的转换称为强制类型。强制类型在JavaScript中有两种形式：显示和隐式。
 ```
-
+<!-- more -->
 >强制转型
 
 ```

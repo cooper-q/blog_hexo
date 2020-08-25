@@ -3,7 +3,7 @@ layout: post
 title: MySQL explain 详解（转载）
 date: 2019-09-17
 keywords:
-top: 10
+
 categories:
     - MySQL
 tags:
@@ -16,7 +16,7 @@ tags:
 // 示例
 EXPLAIN select * from test where age=12;
 ```
-
+<!-- more -->
 # 2.准备工作
 - 创建表
 ```
