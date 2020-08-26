@@ -29,7 +29,7 @@ widget:
     latest_comment_tip: '加载中，最新评论有1分钟缓存...'
     hot_recommend_tip: '加载中，请稍等...'
     hitokoto_from: '来源'
-#    hitokoto_provider: '提供者'
+    hitokoto_provider: '提供者'
     notice: '通知'
 article:
     more: '阅读更多'

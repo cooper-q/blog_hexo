@@ -38,7 +38,7 @@ class Profile extends Component {
                                 if(data){
                                     $('#hitokoto').html("");
                                     $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
-                                    "<p>"+"${hitokotoFrom}《"+data.from+"》</p><p>${hitokotoProvider}-"+data.creator+"</p>");
+                                    "<p>"+"${hitokotoFrom}《"+data.from+"》</p>");
                                 }});}
                                 $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});`;
 
