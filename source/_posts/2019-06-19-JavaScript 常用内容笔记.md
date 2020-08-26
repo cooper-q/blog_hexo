@@ -9,7 +9,6 @@ categories:
 tags:
     - JavaScript
 ---
-# JavaScript 常用内容笔记
 
 # 1.匿名函数立即执行函数以及var作用域
 <!-- more -->

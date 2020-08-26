@@ -9,7 +9,6 @@ categories:
 tags:
     - JavaScript
 ---
-# JavaScript Promise A+规范
 
 # 1.概述
 <!-- more -->

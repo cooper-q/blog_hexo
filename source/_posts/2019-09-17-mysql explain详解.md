@@ -9,7 +9,7 @@ categories:
 tags:
     - MySQL
 ---
-# MySQL explain 详解
+
 # 1.概述
 - MySQL提供了一个explain命令，它可以对select语句进行分析，并输出select执行的详细信息，以供开发人员针对性的优化
 ```

@@ -9,7 +9,6 @@ categories:
 tags:
     - JavaScript
 ---
-# JavaScript原型&原型链深入理解
 # 1.prototype
 >prototype属性是每一个函数都具有的属性，但是不是每一个对象都具有的属性。
 <!-- more -->

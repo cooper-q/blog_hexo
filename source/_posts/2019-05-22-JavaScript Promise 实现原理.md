@@ -9,7 +9,7 @@ categories:
 tags:
     - JavaScript
 ---
-# JavaScript Promise 实现原理
+
 # 1.<span style='color:#C82B52;background-color:#F9F2F4'>Promise</span> 基本结构
 ```JavaScript
 new Promise((resolve,reject)=>{

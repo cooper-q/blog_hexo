@@ -12,7 +12,7 @@ tags:
     - Mac
     - JMeter
 ---
-# JMeter for Mac 并发测试
+
 # 1.下载、安装、启动
 ## 1.下载
 [点击此处打开官网，并下载下图中所示内容](http://jmeter.apache.org/download_jmeter.cgi)

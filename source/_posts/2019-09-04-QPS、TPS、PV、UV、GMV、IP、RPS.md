@@ -9,7 +9,7 @@ categories:
 tags:
     - 网络相关
 ---
-# QPS、TPS、PV、UV、GMV、IP、RPS详解
+
 # 1.QPS
 - Queries Per Second,每秒查询数。每秒能够响应的查询次数
 - QPS是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准。

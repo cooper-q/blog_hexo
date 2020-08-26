@@ -9,7 +9,7 @@ categories:
 tags:
     - JavaScript
 ---
-# JavaScript 事件循环（转载）
+
 >版本
 
 - Node.js:v12.3.1（不同v8版本结果有所有不同）
