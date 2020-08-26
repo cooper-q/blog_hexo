@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 title: JavaScript 常用内容笔记
 date: 2019-06-19
 keywords: JavaScript

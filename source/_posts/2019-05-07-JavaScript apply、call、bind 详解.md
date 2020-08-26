@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 title: JavaScript apply、call、bind 详解
 date: 2019-05-07
 keywords: JavaScript

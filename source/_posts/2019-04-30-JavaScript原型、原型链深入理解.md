@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 title: JavaScript原型、原型链深入理解
 date: 2019-04-30
 keywords: JavaScript

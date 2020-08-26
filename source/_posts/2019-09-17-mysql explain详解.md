@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 title: MySQL explain 详解（转载）
 date: 2019-09-17
 keywords:

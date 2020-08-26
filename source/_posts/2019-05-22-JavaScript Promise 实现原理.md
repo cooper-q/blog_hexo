@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 title: JavaScript Promise 实现原理（转载）
 date: 2019-05-22
 keywords: JavaScript
