@@ -210,7 +210,7 @@ widgets:
       RSS:
         icon: fas fa-rss
         url: /atom.xml
-    has_hitokoto: false #左边一言开关，true-开，false-关
+    has_hitokoto: true #左边一言开关，true-开，false-关
 
   # Recommendation links widget configurations
   # Table of contents widget configurations
