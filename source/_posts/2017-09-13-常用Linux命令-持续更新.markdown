@@ -33,7 +33,7 @@ ls -F|grep "*"
 ## 查询多个目录[/bin | /usr/bin]
 find /bin /usr/bin -name "systemctl"
 ```
-<!-- more -->
+
 ## 2.删除 rm
 ### 1.递归删除所有
 ```
@@ -1765,6 +1765,16 @@ lsmod | grep bbr
 ```
 
 # 47.dig
+## 1.验证DNS TXT
+```
+dig @8.8.8.8 blog.mengxc.info txt
+```
+
+## 2.指定dns查询ip
+```
+dig @8.8.8.8 blog.mengxc.info
+```
+
 # 48.while 循环
 # 49.shell异步编程
 ## 1.sleep
@@ -3092,17 +3102,12 @@ a.out    a.py     a.pyc    abc.txt
 输入文件名:a
 ```
 
-# 93.验证DNS TXT
-```
-dig @8.8.8.8 blog.mengxc.info txt
-```
-
-# 94.vim
+# 93.vim
 - vim 粘贴乱行
 ```
 :set paste
 ```
-# 95.捕获stderr
+# 94.捕获stderr
 ```
 find /tmp/ls -name demo > /tmp/log 2>&1
 ```
