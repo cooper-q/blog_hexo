@@ -777,10 +777,15 @@ systemctl list-unit-files|grep enable
         find /sbin -perm + 700|xargs ls -1//这是对的
 
 # 10.base64
+- 编码
+```
+echo '要转换的内容'|base64
+```
 
-    echo '要转换的内容'|base64 (encoded，编码)
-
-    echo 'aGVsbG8K'|base64 -D  (decoded,解码)
+- 解码
+```
+echo 'aGVsbG8K'|base64 -D
+```
 
 # 11. nc
 
