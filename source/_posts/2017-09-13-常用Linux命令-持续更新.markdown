@@ -3116,6 +3116,7 @@ a.out    a.py     a.pyc    abc.txt
 - vim 粘贴乱行
 ```
 :set paste
+
 ```
 # 94.捕获stderr
 ```
