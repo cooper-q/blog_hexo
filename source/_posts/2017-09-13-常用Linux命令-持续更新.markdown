@@ -1174,6 +1174,11 @@ cat filename | grep -a 'Filed' //可以加上-a进行特殊处理
 ```
 curl -s https://github.com/v2ray/v2ray-core/releases|grep /v2ray/v2ray-core/releases/tag/|head -1
 ```
+- 精准匹配
+```
+cat txt|grep -w "123"
+```
+
 ## 参数
 ```
 -a 不要忽略二进制数据。
