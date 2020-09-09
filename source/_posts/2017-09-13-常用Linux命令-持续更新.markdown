@@ -1082,7 +1082,7 @@ curl 127.0.0.1:4001/get_traffic/query?key=1
 // 2.执行 source ~/.zshrc
 ```
 
-## 13.curl方式执行shell脚本传递参数
+## 14.curl方式执行shell脚本传递参数
 ```
 # -s
 curl -s http://XXX.com/xx/xx.sh | bash -s arg1 arg2
@@ -1090,10 +1090,16 @@ curl -s http://XXX.com/xx/xx.sh | bash -s arg1 arg2
 # base <
 bash <(curl -s http://XXX.com/xx/xx.sh) arg1 arg2
 ```
-## 14.curl 输出字符串
+## 15.curl 输出字符串
 ```
 curl -s http://somepage.com | grep whatever
 ```
+## 16.curl 超时
+- 连接超时SECONDS秒，最大请求超时SECONDS秒，按最小的为准
+```
+curl --connect-time SECONDS  --max-time SECONDS --url https://xxx.com
+```
+
 # 15.查看socket连接数
 ```
 ulimit -n
