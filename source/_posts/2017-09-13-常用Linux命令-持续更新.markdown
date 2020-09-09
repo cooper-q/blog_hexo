@@ -18,6 +18,7 @@ lsof -i :80
 ps -ef|grep nginx|awk '{print $2}'|xargs kill -9
 ```
 # 2.文件&文件夹
+<!-- more -->
 ## 1.查询指定位置的文件
 ```
 ## 查询指定目录下指定名称
