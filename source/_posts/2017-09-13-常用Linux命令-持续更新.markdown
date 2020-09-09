@@ -55,6 +55,16 @@ rm -rf [file|folder]
 find path(路径) -name 名称|xargs rm -rf
 ```
 
+## 3.删除不符合规则的文件
+```
+rm -fr !(re*) 
+```
+
+- 删除非2018的Log
+```
+rm -fr !(2018*)
+```
+
 ## 3.操作文件&文件夹
 ### 1.查看文件类型
 ```
@@ -3244,7 +3254,15 @@ else
   echo '$var1 not eq $var2'
 fi
 ```
-
+- 判断条件
+```
+lt：less than 小于
+le：less than or equal to 小于等于
+eq：equal to 等于
+ne：not equal to 不等于
+ge：greater than or equal to 大于等于
+gt：greater than 大于
+```
 
 # 备注
 
