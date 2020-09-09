@@ -18,7 +18,6 @@ lsof -i :80
 ps -ef|grep nginx|awk '{print $2}'|xargs kill -9
 ```
 # 2.文件&文件夹
-<!-- more -->
 ## 1.查询指定位置的文件
 ```
 ## 查询指定目录下指定名称
@@ -2268,6 +2267,18 @@ wget -P 目录 网址
 ```
 -q是不输出wget的头信息。
 ```
+## 3.wget 不检查tls证书
+```
+wget -N --no-check-certificate https://url
+```
+## 4.下载文件并重命名
+```
+# 重命名
+wget -c "www.baidu.com" -O baidu.index.html
+# 保存输出日志
+wget -c "www.baidu.com" -O baidu.index.html -o wget.log
+```
+
 # 56.检测命令是否存在
 ```
 command -v <the_command>
