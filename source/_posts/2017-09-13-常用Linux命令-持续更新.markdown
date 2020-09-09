@@ -17,6 +17,7 @@ lsof -i :80
 # 查看服务并杀死相应的端口
 ps -ef|grep nginx|awk '{print $2}'|xargs kill -9
 ```
+<!-- more -->
 # 2.文件&文件夹
 ## 1.查询指定位置的文件
 ```
