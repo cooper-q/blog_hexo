@@ -2,7 +2,7 @@
 layout:     post
 title:      "常用Linux命令，持续更新"
 date:       2017-9-18
-
+toc: true
 categories:
     - Linux
 catalog:    true
