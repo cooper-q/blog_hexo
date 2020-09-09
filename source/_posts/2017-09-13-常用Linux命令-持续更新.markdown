@@ -207,8 +207,13 @@ ls -l | sort -r +7  # 时间最近的在前面
 -X 以文件的扩展名(最后一个 . 后的字符)排序。
 -1 一行只输出一个文件。
 ```
+### 13.rename
+```
+重命名、批量重命名 支持正则表达式
+rename 's/$/.jpg/' * 把所有的文件后面加上.jpg
+```
 
-### 13.文件以及文件夹权限
+### 14.文件以及文件夹权限
 ```
 # 1.查看以及用来更改某个目录活文件访问权限
 
@@ -933,111 +938,140 @@ echo -e "\033[47;30m 白底黑字 \033[0m"
 
 - 1.curl url 下载单个文件
 
-- 2.通过-o/-O选项保存下载的文件到指定文件中
+## 2.通过-o/-O选项保存下载的文件到指定文件中
+- 1.将文件下载到本地并命名为mygettext.html
 ```
-# 将文件下载到本地并命名为mygettext.html
 curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html
-# 将文件保存到本地并命名为gettext.html
+```
+- 2.将文件保存到本地并命名为gettext.html
+```
 curl -O http://www.gnu.org/software/gettext/manual/gettext.html
-同时获取多个文件
+```
+- 3.同时获取多个文件
+```
 curl -o url -o url
 ```
 
->3.断点续传
+## 3.断点续传
+- 通过添加-C选项继续对该文件进行下载，已经下载过的文件不会被重新下载
+```
+curl -C - -O http://www.gnu.org/software/gettext/manual/gettext.html
+```
+## 4.对curl进行网络限速、时间
 
-    # 通过添加-C选项继续对该文件进行下载，已经下载过的文件不会被重新下载
-    curl -C - -O http://www.gnu.org/software/gettext/manual/gettext.html
+## 5.curl授权
+```
+curl -u username:password URL
 
->4.对curl进行网络限速、时间
+# 通常的做法是在命令行只输入用户名，之后会提示输入密码，这样可以保证在查看历史记录时不会将密码泄露
+curl -u username url
+```
 
->5.curl授权
+## 6.从FTP服务器下载文件
+- 1.列出public_html下的所有文件夹和文件
+```
+curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/
+```
 
-    curl -u username:password URL
-    # 通常的做法是在命令行只输入用户名，之后会提示输入密码，这样可以保证在查看历史记录时不会将密码泄露
-    curl -u username url
+- 2.下载xss.php文件
+```
+curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/xss.php
+```
+## 7.上传文件到FTP服务器
 
->    6.从FTP服务器下载文件
+- 通过 -T 选项可将指定的本地文件上传到FTP服务器上
+- 将myfile.txt文件上传到服务器
+```
+curl -u ftpuser:ftppass -T myfile.txt ftp://ftp.testserver.com
+```
 
-    # 列出public_html下的所有文件夹和文件
-    curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/
+- 同时上传多个文件
+```
+curl -u ftpuser:ftppass -T "{file1,file2}" ftp://ftp.testserver.com
+```
+- 从标准输入获取内容保存到服务器指定的文件中
+```
+curl -u ftpuser:ftppass -T - ftp://ftp.testserver.com/myfile_1.txt
+```
 
-    # 下载xss.php文件
-    curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/xss.php
+## 8.通过-v、-trace获取更多的链接信息
 
->7.上传文件到FTP服务器
+## 9.通过字典查询单词
 
-    通过 -T 选项可将指定的本地文件上传到FTP服务器上
-    # 将myfile.txt文件上传到服务器
-    curl -u ftpuser:ftppass -T myfile.txt ftp://ftp.testserver.com
+- 查询bash单词的含义
+```    
+curl dict://dict.org/d:bash
+```
+- 列出所有可用词典
+```    
+curl dict://dict.org/show:db
+```
+- 在foldoc词典中查询bash单词的含义
+```
+curl dict://dict.org/d:bash:foldoc
+```
 
-    # 同时上传多个文件
-    curl -u ftpuser:ftppass -T "{file1,file2}" ftp://ftp.testserver.com
+## 10.curl设置代理
+- 指定代理主机和端口
+```
+curl -x proxysever.test.com:3128 http://google.co.in
+```
 
-    # 从标准输入获取内容保存到服务器指定的文件中
-    curl -u ftpuser:ftppass -T - ftp://ftp.testserver.com/myfile_1.txt
+## 11.保存与使用其他网站的cookie信息
 
->8.通过-v、-trace获取更多的链接信息
+- 将网站的cookies信息保存到sugarcookies文件中
+```
+curl -D sugarcookies http://localhost/sugarcrm/index.php
+```
 
->9.通过字典查询单词
+- 使用上次保存的cookie信息
+```
+curl -b sugarcookies http://localhost/sugarcrm/index.php
+```
 
-    # 查询bash单词的含义
-    curl dict://dict.org/d:bash
+## 12.传递请求参数POST GET
+- 默认curl使用GET方式请求数据，这种方式下直接通过URL传递数据,可以通过 --data/-d 方式指定使用POST方式传递数据
+```
+# GET
+curl -u username https://api.github.com/user?access_token=XXXXXXXXXX
 
-    # 列出所有可用词典
-    curl dict://dict.org/show:db
+# POST
+curl -u username --data "param1=value1&param2=value" https://api.github.com
 
-    # 在foldoc词典中查询bash单词的含义
-    curl dict://dict.org/d:bash:foldoc
+curl -d 'ip=222.72.140.114' http://ip.taobao.com/service/getIpInfo2.php
 
->10.curl设置代理
+curl -H "Content-Type:application/x-www-form-urlencoded" -X POST -d 'ip=222.72.140.114' http://ip.taobao.com/service/getIpInfo2.php
+```
+- 也可以指定一个文件，将该文件中的内容当作数据传递给服务器端
+```
+curl --data @filename https://github.api.com/authorizations
+```
+- 如果特殊字符需要转义,直接使用--data-urlencode会自动转义
+```
+curl --data-urlencode "value 1" http://hostname.com
+```
+- 除了GET、POST，还可以通过-X指定请求方式
+```
+curl -I -X DELETE https://api.github.com
+```
 
-    # 指定代理主机和端口
-    curl -x proxysever.test.com:3128 http://google.co.in
+- 上传文件
+```
+curl --form "fileupload=@filename.txt" http://hostname/resource
+```
 
->11.保存与使用其他网站的cookie信息
+- 不校验https证书
+```
+curl  -k https://127.0.0.1:9802/api/promote/template
 
-    # 将网站的cookies信息保存到sugarcookies文件中
-    curl -D sugarcookies http://localhost/sugarcrm/index.php
-    # 使用上次保存的cookie信息
-    curl -b sugarcookies http://localhost/sugarcrm/index.php
+```
 
->12.传递请求参数POST GET
-
-    默认curl使用GET方式请求数据，这种方式下直接通过URL传递数据
-    可以通过 --data/-d 方式指定使用POST方式传递数据
-    # GET
-    curl -u username https://api.github.com/user?access_token=XXXXXXXXXX
-
-    # POST
-    curl -u username --data "param1=value1&param2=value" https://api.github.com
-
-    curl -d 'ip=222.72.140.114' http://ip.taobao.com/service/getIpInfo2.php
-
-    curl -H "Content-Type:application/x-www-form-urlencoded" -X POST -d 'ip=222.72.140.114' http://ip.taobao.com/service/getIpInfo2.php
-
-    # 也可以指定一个文件，将该文件中的内容当作数据传递给服务器端
-    curl --data @filename https://github.api.com/authorizations
-
-    # 如果特殊字符需要转义
-    # 直接使用--data-urlencode会自动转义
-    curl --data-urlencode "value 1" http://hostname.com
-
-    # 除了GET、POST，还可以通过-X指定请求方式。
-    curl -I -X DELETE https://api.github.com
-    # 上传文件
-    curl --form "fileupload=@filename.txt" http://hostname/resource
-
- >不校验https证书
-
-    curl  -k https://127.0.0.1:9802/api/promote/template
-
->不显示统计信息 % Total %Received%
-
+- 不显示统计信息 % Total %Received%
 ```
 curl -s
 ```
 
->curl不识别 ? （zsh: no matches found:）
+## 13.curl不识别 ? （zsh: no matches found:）
 
 - 出现这个问题是由于zsh引起的
 ```
@@ -1048,7 +1082,7 @@ curl 127.0.0.1:4001/get_traffic/query?key=1
 // 2.执行 source ~/.zshrc
 ```
 
-- 13.curl方式执行shell脚本传递参数
+## 13.curl方式执行shell脚本传递参数
 ```
 # -s
 curl -s http://XXX.com/xx/xx.sh | bash -s arg1 arg2
@@ -1056,111 +1090,66 @@ curl -s http://XXX.com/xx/xx.sh | bash -s arg1 arg2
 # base <
 bash <(curl -s http://XXX.com/xx/xx.sh) arg1 arg2
 ```
-- 14.curl 输出字符串
+## 14.curl 输出字符串
 ```
 curl -s http://somepage.com | grep whatever
 ```
 # 15.查看socket连接数
+```
+ulimit -n
+修改socket连接数
+sudo vim /etc/security/limits.conf
+* soft nofile 65535
+* hard nofile 65535
+```
 
-    ulimit -n
-    修改socket连接数
-    sudo vim /etc/security/limits.conf
-    * soft nofile 65535
-    * hard nofile 65535
+# 16.后台运行
+```
+只要在要执行的命令后面加上&就可以。
+```
 
-# 16.执行脚本的四种方法
+# 17.**nl**
 
-    1.  ./脚本.sh
-    2.使用全路径执行 /Users/mengxiangcun/semioe/private/tool/hello.sh
-    3.直接使用bash or sh来执行
-        bash hello.sh
-        sh hello.sh
-    4.在当前环境执行shell脚本。
-        . ./hello.sh
-        source hello.sh
+- nl用于计算文件中的行号。nl可以将输出的内容自动加上行号，其可以将行号做比较多的显示设计，包括位数和是否自动补0等等的功能。
+```
+nl[选项]...[文件]...
+```
 
->区别
+- 参数
+```
+-b：指定行号的显示方式
+    -b a 空行显示行号
+    -b t 空行不显示行号
 
-    1、.sh文件
-        .sh为linux的脚本文件，可以通过.sh执行一些命令，可以理解为windows的bat的批处理文件。
+-n:列出行号表示的方法
+    -n ln 行号在屏幕的左方显示
+    -n rn 行号在屏幕的右方显示不加0
+    -n rz 行号在屏幕的左方显示加0
 
-    二、.命令
-        .命令和source是同一命令。
-    三、sh/base/source/. 执行.sh文件的区别
+-w:行号栏的占用的位数
+-p:在逻辑定界符不重新开始计算
+```
 
-        #!/bin/bash
-        pidstat -d  1 > pidstat.txt
+- 示例
+```
+nl file.log 列出文件的内容，空行没有行号
+nl -b a -n rz 自动补0统一输出格式
 
-        假如有一个脚本test.sh
-            echo "step 1 sleeping"
-            sleep 200
-            echo "step 2 sleeping"
-            sleep 200
+nl -b a -n rz 命令行号默认为六位，要调整位数可以加上参数 -w 3 调整为3位。
+```
 
-            1、./test.sh
+# 18.查看某个进程
+```
+ps -mp <pid>
+ps -ef|grep 进程名称
+```
 
-            2、sh test.sh/bash test.sh
+# 19.source
+```
+source ~/.zshrc # 重新加载，使文件立马生效
+```
 
-            3、. test.sh
-
-            4、source test.sh
-        区别是：
-            第一种需要x权限，才能执行。如果中途停止，下面的不会执行。
-
-            第二种是新建一个shell执行test.sh脚本里面的命令，不需要执行权限，有r 读取权限即可，有两个进程在运行，一个是bash，一个是sleep。如果中途终止，下面不会执行。
-            提示:bash，是sh的加强版，sh相当于是bash的子集，效果基本一致。
-
-            第三种只需要r 读取权限，不需要执行权限，只有一个新进程在运行sleep，如果终止会接着执行，直到结束。
-
-            第四种和第三种一致。
-
-# 17.后台运行
-
-    只要在要执行的命令后面加上&就可以。
-
-# 18.sudo
-
-    切换用户名：
-        su 用户名
-
-# 19.nl
-
-    nl用于计算文件中的行号。nl可以将输出的内容自动加上行号，其可以将行号做比较多的显示设计，包括位数和是否自动补0等等的功能。
-
-    nl[选项]...[文件]...
-
->参数
-
-    -b：指定行号的显示方式
-        -b a 空行显示行号
-        -b t 空行不显示行号
-    -n:列出行号表示的方法
-        -n ln 行号在屏幕的左方显示
-        -n rn 行号在屏幕的右方显示不加0
-        -n rz 行号在屏幕的左方显示加0
-    -w:行号栏的占用的位数
-    -p:在逻辑定界符不重新开始计算
-
-    nl file.log 列出文件的内容，空行没有行号
-    nl -b a -n rz 自动补0统一输出格式
-
-    nl -b a -n rz 命令行号默认为六位，要调整位数可以加上参数 -w 3 调整为3位。
-
-# 20.查看某个进程
-
-    ps -mp <pid>
-
-# 21.soure
-
-    source ~/.zshrc 使文件立马生效
-
-# 22.读取用户键入的值
-
-    echo '请输入:'
-    read input
-    echo "输入的值为$input"
-
-# 23.grep
+# 20.grep
 ```
 grep 要搜索的内容 filePath
 grep -E '1|2' 查询符合 1或者2的条件的内容
@@ -1183,33 +1172,57 @@ cat txt|grep -w "123"
 ## 参数
 ```
 -a 不要忽略二进制数据。
--A<显示列数> 除了显示符合范本样式的那一行之外，并显示该行之后的内容。
+
+-A <显示列数> 除了显示符合范本样式的那一行之外，并显示该行之后的内容。
+
 -b 在显示符合范本样式的那一行之外，并显示该行之前的内容。
+
 -c 计算符合范本样式的列数。
+
 -C<显示列数>或-<显示列数>  除了显示符合范本样式的那一列之外，并显示该列之前后的内容。
+
 -d<进行动作> 当指定要查找的是目录而非文件时，必须使用这项参数，否则grep命令将回报信息并停止动作。
+
 -e<范本样式> 指定字符串作为查找文件内容的范本样式。
+
 -E 将范本样式为延伸的普通表示法来使用，意味着使用能使用扩展正则表达式。
+
 -f<范本文件> 指定范本文件，其内容有一个或多个范本样式，让grep查找符合范本条件的文件内容，格式为每一列的范本样式。
+
 -F 将范本样式视为固定字符串的列表。
+
 -G 将范本样式视为普通的表示法来使用。
+
 -h 在显示符合范本样式的那一列之前，不标示该列所属的文件名称。
+
 -H 在显示符合范本样式的那一列之前，标示该列的文件名称。
+
 -i 忽略字符大小写的差别。
+
 -l 列出文件内容符合指定的范本样式的文件名称。
+
 -L 列出文件内容不符合指定的范本样式的文件名称。
+
 -n 在显示符合范本样式的那一列之前，标示出该列的编号。
+
 -q 不显示任何信息。
+
 -R/-r 此参数的效果和指定“-d recurse”参数相同。
+
 -s 不显示错误信息。
+
 -v 反转查找。
+
 -w 只显示全字符合的列。
+
 -x 只显示全列符合的列。
+
 -y 此参数效果跟“-i”相同。
+
 -o 只输出文件中匹配到的部分。
 ```
 
-# 24.awk sed Perlre
+# 21.awk sed Perlre
 ## 1.awk
 - 注意：所有分割后的值都可以直接作为数组进行循环
 
@@ -1232,6 +1245,7 @@ echo 'hello:/world'|awk -F"[:][/]" '{print $1" "$2}'
 ```
 echo "11round-trip11"|awk -F "[r][o][u][n][d][-][t][r][i][p]" '{print $2}' // 11
 ```
+
 ### 2.split
 
 - awk的内建函数split运行把一个字符串分隔为单词并存储在数组中
@@ -1241,6 +1255,7 @@ echo "11round-trip11"|awk -F "[r][o][u][n][d][-][t][r][i][p]" '{print $2}' // 11
 echo 'hello.world'|awk '{split($0,a,".");print a[1],a[2]}'
 // 输出 hello world
 ```
+
 ### 3.substr
 
 - substr(s,p) 返回字符串s中从p开始的后缀部分
@@ -1266,6 +1281,7 @@ echo 'hello:world'|awk 'BEGIN{FS=":"};{print $1};'
 ```
 cat test.log|awk '{print NR":"$0}'
 ```
+
 ### 6.示例脚本
 - 分隔字符串并循环打印所有的值
 ```
@@ -1286,6 +1302,7 @@ awk 'BEGIN{a="100";b="10test10";print (a+b+0)}'
 ```
 awk 'BEGIN {print "Name\tDesignation\tDepartment\tSalary"} {print $2,"\t",$3,"\t",$4,"\t",$NF;} END{print "Report Generated\n--------------"}' employee.txt;
 ```
+
 - 赋值外部变量【数组】
 ```
 eval $(echo "1 2 3 4"|awk '{split($0,serverNameList," ");for(i in serverNameList) print "lenArr["i"]="serverNameList[i]}')
@@ -1363,10 +1380,14 @@ sed -i 'M,Nd' 文件路径
 ```
 
 # 25.jq 解析字符串为json
+- 示例01
 ```
 echo '{"a":"1"}'|jq .
 cat xx.json|jq .
+```
 
+- 示例02
+```
 location='{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'
 # 普通取值
 data=`echo $location|jq '.data'`
@@ -1377,12 +1398,15 @@ city=`echo $data|jq '.city'`
 isp=`echo $data|jq '.isp'`
 echo  "该ip:$ip 位于 $country $region $city $isp"
 # 输出 该ip:"110.12.112.12" 位于 "新西兰" "奥克兰" "奥克兰" "未知"
+```
 
-# 取json中的数组
+- 取json中的数组
+```
 echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'|jq .data.arr[0].a
 # 1
-
-# 格式化json数据
+```
+- 格式化json数据
+```
 echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'|jq 'to_entries[]'
 
 {
@@ -1402,38 +1426,39 @@ echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","
 }
 ```
 
-# 26.rename
 
-    重命名、批量重命名 支持正则表达式
-    rename 's/$/.jpg/' * 把所有的文件后面加上.jpg
+# 22.通过pid获取进程以及文件信息
+```
+ll /proc/PID
+cwd 进程
+exe 路径
+```
 
-# 27.通过pid获取进程以及文件信息
+# 23.监听IO&监听 io 内存 cpu
+```
+pidstat -d  1
 
-    ll /proc/PID
-    cwd 进程
-    exe 路径
+pidstat -u -r -d -t 1
+```
 
-# 28.监听IO&监听 io 内存 cpu
+# 24.更改文件的编码
+```
+iconv -f 更改前encoding -t 更改后encoding inputfile
+```
 
-    pidstat -d  1
-
-    pidstat -u -r -d -t 1
-
-# 29.更改文件的编码
-
-    iconv -f 更改前encoding -t 更改后encoding inputfile
-
-# 30.date
+# 25.date
 ## 1.时间->时间戳
 ```
 date +%s
 # 1436781527
 ```
+
 ## 2.时间戳-时间
 ```
 date -d '2018-06-12 07:21:22' +"%s"
 # 1528759282
 ```
+
 ## 3.计算时间戳相隔时长
 ```
 startTime="2018-06-12 07:21:22"
@@ -1443,76 +1468,91 @@ stampDiff=`expr ${currentTime} - ${startTime}`
 dayDiff=`expr ${stampDiff} / 86400`
 minutes=`expr ${stampDiff}/60`
 ```
+
 ## 4.格式化时间
 ```
 date -d "@1279592730" +"%F %H:%M:%S"
 # 2010-07-20 10:25:30
 ```
 
-# 31.traceroute 追踪
-
-    traceroute ip/域名
-
-# 32.无挂起启动 nohup
-    nohup Command &
-
-# 33.zsh切换bash bash切换zsh
-
-    切换bash
-
-    chsh -s /bin/bash
-
-    切换zsh
-
-    chsh -s /bin/zsh
-
-# 34.查询进程号 ps
-
-    ps -ef|grep nginx
-
-# 35.强制停止
-
-    pkill -9 nginx
-
-# 36.查看CPU
-
-    lscpu
-
-# 37.清空history
-
-    history -c
-
-# 38.清楚日志
-
-    日志文件都在/var/log
-    需要清除messages、以及secure
-
-# 39.周期性执行某个命令
-
-    watch [选项][参数]
->选项
-
-    -n：指定指令执行的间隔时间（秒）；
-    -d：高亮显示指令输出信息不同之处；
-    -t：不显示标题。
->参数
-
-    指令：需要周期性执行的指令。
-
-# 40.sips Mac压缩图片
-# 41.netstat
+# 26.traceroute 追踪
 ```
-// 查询指定ip的链接内容
-netstat -anp |grep ESTABLISHED|grep -E '172.96.194.164:16718|172.96.194.164:19997'
+traceroute ip/域名
+```
 
-// 获取指定ip的相对应的ip
+# 27.无挂起启动 nohup
+```
+nohup Command &
+```
+
+# 28.zsh切换bash bash切换zsh
+- 切换bash
+```
+chsh -s /bin/bash
+```
+
+- 切换zsh
+```
+chsh -s /bin/zsh
+```
+
+# 29.查询进程号 ps
+```
+ps -ef|grep nginx
+```
+
+# 30.强制停止
+```
+pkill -9 nginx
+```
+
+# 31.查看CPU
+```
+lscpu
+```
+
+# 32.清空history
+```
+history -c
+```
+
+# 33.清楚日志
+```
+日志文件都在/var/log
+需要清除messages、以及secure
+```
+
+# 34.周期性执行某个命令
+```
+watch [选项][参数]
+```
+- 选项
+```
+-n：指定指令执行的间隔时间（秒）；
+-d：高亮显示指令输出信息不同之处；
+-t：不显示标题。
+```
+- 参数
+```
+指令：需要周期性执行的指令。
+```
+# 35.sips Mac压缩图片
+# 36.netstat
+- 查询指定ip的链接内容
+```
+netstat -anp |grep ESTABLISHED|grep -E '172.96.194.164:16718|172.96.194.164:19997'
+```
+
+- 获取指定ip的相对应的ip
+```
 netstat -anp |grep ESTABLISHED|grep -E '172.96.194.164:16718|172.96.194.164:19997'|awk '{print $5}'|awk 'BEGIN{FS=":"} {print $1}'|sort|uniq
 ```
-# 42.查询进程并杀死相关进程
+
+# 37.查询进程并杀死相关进程
 ```
 ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9
 ```
-# 43.数组操作
+# 38.数组操作
 
 - 获取元素个数
 ```
@@ -1587,8 +1627,8 @@ lrwxrwxrwx  1 root root      4 Dec 18  2018 /bin/sh -> dash
 重新创建数组|array_name=("${array_name[@]}" value1 ... valueN)|是|否|是|否
 赋值运算符+=|array_name+=(value1 ... valueN)|是|是	|是|否
 
-# 44.变量运算
-# 45.CentOS 7服务注册、部署、开机自启
+# 39.变量运算
+# 40.CentOS 7服务注册、部署、开机自启
 ## 1.参数说明
 ```
 [Unit]部分主要是对这个服务的说明，内容包括Description和After，Description 用于描述服务，After用于描述服务类别
@@ -1769,13 +1809,13 @@ setsebool -P httpd_can_network_connect 1
 - 原因是启动时脚本失败，才会立马执行stop
 - 检查脚本命令以及特别要注意环境变量的问题，仅仅使用绝对路径也是不行的，需要加上Environment（参考上面的hexo示例）
 
-# 46.lsmod 显示已载入系统的模块
+# 41.lsmod 显示已载入系统的模块
 - 示例
 ```
 lsmod | grep bbr
 ```
 
-# 47.dig
+# 42.dig
 ## 1.验证DNS TXT
 ```
 dig @8.8.8.8 blog.mengxc.info txt
@@ -1878,7 +1918,7 @@ echo '完成'
 1: 1
 完成
 ```
-# 50.修改linux密码
+# 43.修改linux密码
 - 修改root密码
 ```
 // 执行 passwd
@@ -1896,7 +1936,8 @@ passwd kook
 New password:
 Retype new password:
 ```
-# 51.wc
+
+# 44.wc
 - Linux系统中的wc(Word Count)命令的功能为统计指定文件中的字节数、字数、行数，并将统计结果显示输出
 >命令参数
 
@@ -1916,20 +1957,20 @@ Retype new password:
 --version 显示版本信息
 ```
 
-# 52.复制到粘贴板
+# 45.复制到粘贴板
 
 - Mac
 ```
 echo 'pbcopy'|pbcopy
 ```
 
-# 53./usr/bin /usr/local/bin区别
+# 46./usr/bin /usr/local/bin区别
 - usr 指 Unix SystemResource，而不是User
 - /usr/bin下面的都是系统预装的可执行程序，会随着系统升级而改变
 - usr/local/bin目录是给用户放置自己的可执行程序的地方，推荐放在这里，不会被系统升级而覆盖同名文件。
 - 如果两个目录下有相同的可执行程序，谁优先执行受到PATH环境变量的影响
 
-# 54.You have new mail
+# 47.You have new mail
 - 由于系统错误（cron的权限问题）引起
 - 系统会将检查的各种状态汇总，定期发送本机用户邮箱
 - 删除可解决
@@ -1949,13 +1990,15 @@ Mail version 8.1 6/6/93.  Type ? for help.
 sudo rm /var/mail/xxx
 sudo touch /var/mail/xxx
 ```
-# 54.linux修改DNS服务
+
+# 48.linux修改DNS服务
 ```
 1.编辑/etc/resolv.conf
 2.添加  nameserver 8.8.8.8
 3.执行 service network restart 重启网络服务
 ```
-# 55.增加、删除虚拟内存
+
+# 49.增加、删除虚拟内存
 ## 1.增加虚拟内存
 - 1.获取文件块（具体划分多少swap交换分区，根据你的物理内存具体应用情况磁盘情况而定一般是物理内存的1~2倍）
 ```
@@ -2018,7 +2061,7 @@ vi /etc/fstab
 // 删除下面内容
 /var/swapfile swap swap defaults 0 0
 ```
-# 56.dd命令
+# 50.dd命令
 - 用于复制文件并对源文件的内容进行转换和格式化处理。
 
 ## 1.选项
@@ -2058,7 +2101,7 @@ count 代表被复制的块数。
 兆字节（1024KB）|M
 吉字节（1024MB）|G
 
-# 57.CentOS7时区设置
+# 51.CentOS7时区设置
 - 查看系统时间方面的状态
 ```
 timedatectl status
@@ -2157,7 +2200,7 @@ s1c.time.edu.cn #北京大学
 clock.cuhk.edu.hk #香港中文大学授时中心
 ```
 
-# 58.开启CentOS bbr拥塞控制算法[我的测试机是CentOS 8]
+# 52.开启CentOS bbr拥塞控制算法[我的测试机是CentOS 8]
 ## 1.检查是否安装bbr
 - 有一些vps会自带bbr模块 比如搬瓦工的某些机器，执行下面命令
 ```
@@ -2259,7 +2302,7 @@ lsmod | grep bbr
 tcp_bbr                20480  28
 ```
 
-# 55.wget
+# 53.wget
 ## 1.下载文件并指定目录
 ```
 wget -P 目录 网址
@@ -2280,11 +2323,11 @@ wget -c "www.baidu.com" -O baidu.index.html
 wget -c "www.baidu.com" -O baidu.index.html -o wget.log
 ```
 
-# 56.检测命令是否存在
+# 54.检测命令是否存在
 ```
 command -v <the_command>
 ```
-# 58.mtr 命令详解(路由跟踪)
+# 55.mtr 命令详解(路由跟踪)
 ## 1.语法
 ```
 Usage:
@@ -2331,7 +2374,8 @@ Usage:
 ```
 mtr -rn ip
 ```
-# 59.nslookup
+
+# 56.nslookup
 - 常用域名查询工具，查询DNS信息的指令
 - nslookup 有两种工作模式，交互模式、非交互模式
 
@@ -2424,7 +2468,8 @@ baidu.com	mail exchanger = 10 mx.maillb.baidu.com.
 
 Authoritative answers can be found from:
 ```
-# 60.去重
+
+# 57.去重
 ```
 cat xx.xx|uniq
 ```
@@ -2443,12 +2488,12 @@ cat xxx.log|awk '{print $3}'|awk -F "[:]" '{print $1}'|sort|uniq -c|sort
 cat xx.xx|uniq|awk '/./ {print}'
 ```
 
-# 61.qrencode 生成二维码
+# 58.qrencode 生成二维码
 ```
 echo 1234 | qrencode -s 10 -m 1 -t UTF8
 ```
 
-# 62.dnsmasq【自定义dns服务器】
+# 59.dnsmasq【自定义dns服务器】
 ## 1.安装
 ```
 # Ubuntu/Debian
@@ -2663,7 +2708,7 @@ service dnsmasq start
 dig @xxx.xxx.xxx.xxx xxx.xxx.com
 ```
 
-# 63.查询外网IP
+# 60.查询外网IP
 ```
 curl icanhazip.com
 curl ifconfig.me
@@ -2674,12 +2719,12 @@ curl ipecho.net/plain
 curl www.trackip.net/i
 ```
 
-# 64.查看sh的指向
+# 61.查看sh的指向
 ```
 ls -al /bin/sh
 ```
 
-# 65.终端代理
+# 62.终端代理
 ## 1.需要根据不同的本地代理软件来找到相对应的端口
 ## 2.根据不同的终端修改配置文件
 ```
@@ -2696,7 +2741,7 @@ export https_proxy=$http_proxy
 # source相应的配置文件即可
 ```
 
-# 65.代理ssh
+# 63.代理ssh
 - 利用nc进行代理，也可使用Ncat
 ```
 # 127.0.0.1:1080 这里修改为自己的代理软件的ip和地址
@@ -2705,7 +2750,7 @@ export https_proxy=$http_proxy
 ssh -o ProxyCommand="nc -X 5 -x 127.0.0.1:1080 %h %p" root@server
 ```
 
-# 66.Mac清除dns缓存
+# 64.Mac清除dns缓存
 - Mac OS X 12 (Sierra) and later
 ```
 sudo killall -HUP mDNSResponder
@@ -2723,7 +2768,7 @@ sudo dscacheutil -flushcache
 sudo killall -HUP mDNSResponder
 ```
 
-# 67.查看系统相关信息
+# 65.查看系统相关信息
 ## 1.查看Linux内核版本信息
 - 方法1:cat /proc/version
 ```
@@ -2753,7 +2798,7 @@ DISTRIB_ID=Ubuntu
 Distributor ID:Ubuntu
 ```
 
-# 68.清空history以及记录原理
+# 66.清空history以及记录原理
 - 1.执行命令exit退出后会把缓存信息放到~/.bash_history
 - 2.当session直接被kill时，缓存中国呢的历史命令不会写入～/.bash_history
 - 3.清理history方法
@@ -2761,11 +2806,11 @@ Distributor ID:Ubuntu
 history -c  # 清理当前缓存中的命令
 exit        # 关闭shell，可以避免写入~/.bash_history
 ```
-# 69.查看隐藏文件
+# 67.查看隐藏文件
 ```
 ls -la
 ```
-# 70.Centos8更换源
+# 68.Centos8更换源
 ```
 yum install wget -y
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
@@ -2773,17 +2818,20 @@ wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos
 yum makecache
 yum update -y
 ```
-# 71.Ubuntu、Centos重装软件时报错
+
+# 69.Ubuntu、Centos重装软件时报错
 - dpkg: error processing package *
 ```
 # 需要卸载时吧所有相关包都要删除
 dpkg --get-selections | grep nginx|awk '{print $1}'|xargs sudo apt --purge remove -y
 ```
-# 72.脚本路径/脚本名 >/dev/null 2>&1
+
+# 70.脚本路径/脚本名 >/dev/null 2>&1
 - /dev/null相当于Linux下的回收站
 - 2>&1是把出错输出也定向到标准输出
 
-# 73.Linux清楚用户登录记录和命令
+
+# 71.Linux清楚用户登录记录和命令
 - 清除登陆系统成功的记录
 ```
 echo > /var/log/wtmp # echo > /var/log/wtmp
@@ -2806,15 +2854,16 @@ history -c       # 清除记录
 history -r /root/history.txt # 导入记录 
 history # 查询导入结果
 ```
-# 74.another app is currently holding the yum lock;waiting for it to exit
+# 72.another app is currently holding the yum lock;waiting for it to exit
 - 执行命令删掉即可
 ```
 rm -f /var/run/yum.pid
 ```
-# 75.国内镜像
+
+# 73.国内镜像
 ## 1.[aliyun](https://developer.aliyun.com/mirror/)
 
-# 76.斜杠转圈
+# 74.斜杠转圈
 ```
 # Bash, with GNU sleep
 spin() {
@@ -2829,10 +2878,11 @@ spin() {
   done
 }
 ```
-# 77.sh: 0: getcwd() failed: No such file or directory
+
+# 75.sh: 0: getcwd() failed: No such file or directory
 - 执行脚本时目录被删除，但是还停留在删除之前的那个目录，换个目录即可
 
-# 78.修改主机名
+# 76.修改主机名
 - 1.查看当前主机名
 ```
 hostname
@@ -2847,7 +2897,7 @@ sudo hostnamectl set-hostname <newhostname>
 sudo hostname <new-hostname>
 ```
 
-# 79.Linux错误处理
+# 77.Linux错误处理
 ## 1.ubuntu执行普通用户或root用户执行apt-get update时报错"Couldn't create temporary file /tmp/apt.conf.sssss for passing config to apt-key" 如何处理?
 ```
 # 这种情况一半都是手动删除tmp，然后手动创建，并且没给权限
@@ -2868,7 +2918,8 @@ rpm -ivh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
 yum install jq
 ```
-# 80.stat
+
+# 78.stat
 ## 查看文件属性
 ```
 # stat post-receive.sh
@@ -2901,7 +2952,7 @@ chmod 777 post-receive.sh
 Access Modify Change都会被更改
 ```
 
-# 81.显示一个文件的某几行
+# 79.显示一个文件的某几行
 - 从第十行开始，显示20行。10-30
 ```
 cat filename | tail -n +10 | head -n 20
@@ -2926,7 +2977,8 @@ head -m 10
 # 第5-10行
 sed -n '5,10p' filename
 ```
-# 82.crontab修改默认的编辑器
+
+# 80.crontab修改默认的编辑器
 ```
 sudo select-editor
 
@@ -2938,7 +2990,8 @@ Select an editor.  To change later, run 'select-editor'.
 
 Choose 1-3 [1]:
 ```
-# 83.新建文件并追加、覆盖内容
+
+# 81.新建文件并追加、覆盖内容
 ```
 # 覆盖
 echo '' > log
@@ -2947,7 +3000,7 @@ echo '' > log
 echo '' >> log
 ```
 
-# 84.sort
+# 82.sort
 - 参数
 ```
 # 先排列第一个再排列第二个依次排列
@@ -2962,18 +3015,19 @@ echo '' >> log
 cat /tmp/xx.log|sort -t ' ' -k 1n -k 2r -k 7n
 ```
 
-# 85.判断内容全部为数字
+# 83.判断内容全部为数字
 ```
 if [[ "$num" =~ ^[1-9]+$ ]]
 then
 fi
 ```
-# 86.删除rpm包
+
+# 84.删除rpm包
 ```
 rpm -qa|grep nginx|xargs rpm -e
 ```
 
-# 87.centos查看系统版本
+# 85.centos查看系统版本
 ```
 rpm -q centos-release
 
@@ -2983,7 +3037,8 @@ rpm -q centos-release
 ```
 rpm -q centos-release|awk -F "[-]" '{print $3}'
 ```
-# 88.EOF
+
+# 86.EOF
 - 覆盖文件
 - ` & 可以用\处理
 ```
@@ -3000,12 +3055,13 @@ EOF
     echo ${param}
 ```
 
-# 89.保留两位小数
+# 87.保留两位小数
 - %.2f
 ```
 awk 'BEGIN{printf "%.2f\n",('${num1}'/'${num2}')*100}'
 ```
-# 90.大小写转换
+
+# 88.大小写转换
 - 小写转大写
 ```
 echo 'hello' | tr 'a-z' 'A-Z'
@@ -3016,11 +3072,12 @@ echo 'hello' | tr 'a-z' 'A-Z'
 echo 'HELLO' | tr 'A-Z' 'a-z'
 ```
 
-# 91.随机字符串
+# 89.随机字符串
 ```
 head -n 50 /dev/urandom|sed 's/[^a-z]//g'|strings -n 4|tr 'A-Z' 'a-z'|head -1
 ```
-# 92.read
+
+# 90.read
 - 1.简单读取
 ```
 echo "请输入内容:"
@@ -3125,17 +3182,17 @@ a.out    a.py     a.pyc    abc.txt
 输入文件名:a
 ```
 
-# 93.vim
+# 91.vim
 - vim 粘贴乱行
 ```
 :set paste
 ```
-# 94.捕获stderr
+# 92.捕获stderr
 ```
 find /tmp/ls -name demo > /tmp/log 2>&1
 ```
 
-# 95.bash
+# 93.bash
 - 判断文件夹存在
 ```
 if [[ -d "/myfolder" ]]
@@ -3181,6 +3238,7 @@ else
   echo '$var1 not eq $var2'
 fi
 ```
+
 
 # 备注
 
