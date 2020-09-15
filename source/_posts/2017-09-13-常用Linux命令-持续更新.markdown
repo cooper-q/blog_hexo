@@ -10,6 +10,7 @@ tags:
     - Linux
 ---
 
+[toc]
 # 1.查看某个服务端口并杀死
 ```
 # 查看端口占用
@@ -277,11 +278,17 @@ chown 用户名:组名 文件路径（绝对or相对）
 chown -R 用户名 目录
 chmod 755  目录
 ```
-- 14.>> >
+### 15.>> >
 ```
 # >定向数据文件，如果文件不存在就创建文件，如果文件存在清空。
 # >>将内容追加到目标文件
 ```
+
+### 16.文件置空
+```
+cat /dev/null > filename
+```
+
 # 3.pscp&scp
 
 ## 1.利用pscp上传文件
@@ -1483,6 +1490,8 @@ currentTime=`date +%s`
 stampDiff=`expr ${currentTime} - ${startTime}`
 dayDiff=`expr ${stampDiff} / 86400`
 minutes=`expr ${stampDiff}/60`
+# 乘法
+expr  ${stampDiff} \* 60
 ```
 
 ## 4.格式化时间
@@ -3262,6 +3271,103 @@ eq：equal to 等于
 ne：not equal to 不等于
 ge：greater than or equal to 大于等于
 gt：greater than 大于
+```
+
+# 94.Centos查看安装路径
+- 查找相应的安装包
+```
+rpm -qa|grep redis
+```
+
+- 查找安装包的安装路径
+```
+rpm -ql redis-3.2.10-2.el7.x86_64
+
+
+/etc/logrotate.d/redis
+/etc/redis-sentinel.conf
+/etc/redis.conf
+/etc/systemd/system/redis-sentinel.service.d
+/etc/systemd/system/redis-sentinel.service.d/limit.conf
+/etc/systemd/system/redis.service.d
+/etc/systemd/system/redis.service.d/limit.conf
+/usr/bin/redis-benchmark
+/usr/bin/redis-check-aof
+/usr/bin/redis-check-rdb
+/usr/bin/redis-cli
+```
+# 95.循环
+## 1.数字性循环
+- 1
+```
+for((i=1;i<=10;i++));  
+do   
+    echo $(expr $i \* 3 + 1);  
+done 
+```
+- 2
+```
+for i in $(seq 1 10)  
+do   
+    echo $(expr $i \* 3 + 1);  
+done 
+```
+
+- 3
+```
+for i in {1..10}  
+do  
+    echo $(expr $i \* 3 + 1);  
+done 
+```
+- 4
+```
+awk 'BEGIN{for(i=1; i<=10; i++) print i}'  
+```
+## 2.字符性循环
+- 1
+```
+for i in `ls`;  
+do   
+    echo $i is file name\! ;  
+done 
+```
+- 2
+```
+for i in $* ;  
+do  
+    echo $i is input chart\! ;  
+done  
+```
+- 3
+```
+for i in f1 f2 f3 ;  
+do  
+    echo $i is appoint ;  
+done 
+```
+- 4
+```
+list="rootfs usr data data2"  
+for i in $list;  
+do  
+echo $i is appoint ;  
+done
+```
+## 3.路径查找
+- 1
+```
+for file in /proc/*;  
+do  
+    echo $file is file path \! ;  
+done  
+```
+- 2
+```
+for file in $(ls *.sh)  
+do  
+    echo $file is file path \! ;  
+done  
 ```
 
 # 备注
