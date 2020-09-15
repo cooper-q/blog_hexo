@@ -10,7 +10,6 @@ tags:
     - Linux
 ---
 
-[toc]
 # 1.查看某个服务端口并杀死
 ```
 # 查看端口占用
@@ -289,6 +288,48 @@ chmod 755  目录
 cat /dev/null > filename
 ```
 
+### 17.获取字符串长度
+- 利用${#str}
+```
+${#str}
+```
+- 利用awk的length方法
+```
+echo ${str}|awk '{print length($0)}'
+```
+- length($0)统计
+```
+awk '{print length($0)}' /etc/passwd
+```
+- awk NF项
+```
+# -F为分隔符，NF为域的个数，即单行字符串的长度
+echo 'ABCDEF'|awk -F "" '{print NF}'
+```
+- 利用 wc的-L的参数
+```
+echo ${str}|wc -L
+
+# -L参数
+# 对多行文件来说，表示打印最长行的长度
+# 对单行字符串而言，表示当前行字符串的长度
+```
+
+- 利用wc的-c参数
+```
+echo -n "ABCDEF"|wc -c
+```
+
+- 利用expr的length
+```
+expr length "ABCDEF"
+```
+
+- 利用expr的$str : ".*"
+```
+# .* 代表任意字符
+expr "ABCDEF" : ".*"
+```
 # 3.pscp&scp
 
 ## 1.利用pscp上传文件
@@ -3369,8 +3410,6 @@ do
     echo $file is file path \! ;  
 done  
 ```
-
-# 备注
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
