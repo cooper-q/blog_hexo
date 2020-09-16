@@ -277,6 +277,7 @@ chown 用户名:组名 文件路径（绝对or相对）
 chown -R 用户名 目录
 chmod 755  目录
 ```
+
 ### 15.>> >
 ```
 # >定向数据文件，如果文件不存在就创建文件，如果文件存在清空。
@@ -330,12 +331,19 @@ expr length "ABCDEF"
 # .* 代表任意字符
 expr "ABCDEF" : ".*"
 ```
+
+### 18.字符串截取
+- 从0开始截取64个
+```
+echo ${result:0:64}
+```
 # 3.pscp&scp
 
 ## 1.利用pscp上传文件
 ```
 pscp d:\project\udpServer.zip root@101.201.30.9:/home
 ```
+
 ## 2.scp下载文件
 - 1.下载示例
 ```
@@ -3337,7 +3345,6 @@ rpm -ql redis-3.2.10-2.el7.x86_64
 /usr/bin/redis-check-rdb
 /usr/bin/redis-cli
 ```
-
 # 95.循环
 ## 1.数字性循环
 - 1
@@ -3366,6 +3373,7 @@ done
 ```
 awk 'BEGIN{for(i=1; i<=10; i++) print i}'  
 ```
+
 ## 2.字符性循环
 - 1
 ```
@@ -3396,6 +3404,7 @@ do
 echo $i is appoint ;  
 done
 ```
+
 ## 3.路径查找
 - 1
 ```
@@ -3411,6 +3420,32 @@ do
     echo $file is file path \! ;  
 done  
 ```
+
+## 4.读取文件的每一行内容并输出
+- 方法1
+```
+while read line
+do
+    echo $line
+done < file(待读取的文件)
+```
+
+- 方法2
+```
+cat file(待读取的文件) | while read line
+do
+    echo $line
+done
+```
+
+- 方法3
+```
+for line in `cat file(待读取的文件)`
+do
+    echo $line
+done
+```
+
 
 # 备注
 
