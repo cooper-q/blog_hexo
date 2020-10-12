@@ -1498,6 +1498,21 @@ echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","
 }
 ```
 
+- jq循环
+```
+# 数据
+{
+    "test":[
+        {"settings"{clients":[{"id":'123123'}]}}
+    ]
+}
+
+# code
+cat demo.json|jq .test|jq -c '.[].settings.clients'|jq -c '.[].id'|while read row
+do
+    echo ${row}
+done
+```
 
 # 22.通过pid获取进程以及文件信息
 ```
