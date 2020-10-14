@@ -3461,6 +3461,61 @@ do
 done
 ```
 
+# 96.循环赋值作用域问题
+- 当为管道符时，管道符为非内建命令，会启动子shell进行循环，所以当前的shell则不能获取值
+```
+cat demo.txt|while read row
+do
+    a=${a}${row}
+done
+echo ${a} # 空
+```
+## 解决方法
+- 1.可以使用重定向
+```
+while read row
+do
+    a=${a}${row}
+done < ./demo.txt
+echo ${a}
+```
+
+- 2.新建文件
+```
+a=
+cat ./demo.txt|while read row
+do
+    exsitValue=`cat ./demo2.txt`
+    echo ${exsitValue}${row} > ./demo2.txt
+done
+cat ./demo2.txt
+```
+
+- 3.方法3
+```
+while read line
+do
+    echo ${line}
+done <<< "abc xyz"
+```
+
+- 4.进程替换
+```
+while read var
+do
+    echo ${var}
+done < <(cmd_list)
+```
+
+- 5.改变标准输入
+```
+exec <filename
+while read var
+do
+    echo ${var}
+done
+
+```
 
 # 备注
 
