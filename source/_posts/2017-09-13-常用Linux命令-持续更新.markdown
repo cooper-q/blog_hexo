@@ -2414,6 +2414,13 @@ wget -c "www.baidu.com" -O baidu.index.html
 # 保存输出日志
 wget -c "www.baidu.com" -O baidu.index.html -o wget.log
 ```
+## 5.下载文件时只显示进度
+```
+# -c 断点续传
+# -q 安静模式
+# --show-progress 展示进度（需wget支持1.16）
+wget -c -q --show-progress
+```
 
 # 54.检测命令是否存在
 ```
