@@ -1943,6 +1943,21 @@ dig @8.8.8.8 blog.mengxc.info
 ```
 
 # 48.while 循环
+- 读取文件目录 包含最后一行
+```
+ls /home/xxx|while read row|| [[ -n ${line} ]]
+do
+   
+done
+```
+
+- 读取文件内容 包含最后一行
+```
+cat /etc/xxx|while read row|| [[ -n ${line} ]]
+do
+    
+done
+```
 # 49.shell异步编程
 ## 1.sleep
 - 等待进程（10秒）继续往下执行
@@ -3621,6 +3636,7 @@ else
 	echo "非root用户!"
 fi
 ```
+
 
 # 备注
 
