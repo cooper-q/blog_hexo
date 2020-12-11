@@ -379,10 +379,16 @@ scp walle@52.80.63.5:/home/apps/sensor-tcp/tmp/fileName.txt 本地地址
 scp -P xxxx -i /Users/xxx/.ssh/id_rsa root@xxx.xx.xx.xx:/etc/xx/config.json ./
 ```
 
-## 3.scp 上传文件
+## 3.scp 上传文件夹
 ```
 scp  -r /tmp/local_dir username@ip:remote_dir
 ```
+
+## 4.上传文件
+```
+scp path/file root@ip:/serverPath
+```
+
 # 4.查看相关命令的帮助文档
 ```
 tldr 查看某个命令的help
@@ -3635,6 +3641,30 @@ if [ `id -u` -eq 0 ];then
 else
 	echo "非root用户!"
 fi
+```
+
+# 100.ssh 执行命令
+>-T 需要一个远程TTY用于shell的交互
+- 执行单条命令
+```
+ssh -T root@ip "ls -1"
+```
+
+- 执行多条命令
+```
+ssh -T root@ip "pwd; cat hello.txt"
+```
+
+- 远端直接运行一个shell
+```
+ssh root@ip < test.sh
+```
+
+- 远端执行脚本并带参数
+```
+# $0 bash
+# $1 test
+ssh root@ip 'bash -s' < test.sh test
 ```
 
 
