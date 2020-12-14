@@ -1,11 +1,12 @@
 ---
 layout: post
-title: 记一次Nodejs OOM
+title: 记一次Nodejs OOM.md
 date: 2020-12-14
-keywords:Node.js
-categories:Node.js
-tags:Node.js
+keywords: Node.js
+categories: Node.js
+tags: Node.js
 ---
+
 # 概述
 >运维同学发现某个服务器，会出现频繁读写磁盘、cpu直接100%的情况。
 
