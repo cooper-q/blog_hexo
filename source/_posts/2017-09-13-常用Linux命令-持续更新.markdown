@@ -1547,6 +1547,15 @@ do
 done
 ```
 
+- json中添加数据
+```
+echo {\"a\":\"1\"}|jq '.b += 1'
+
+# 数组
+
+echo {\"a\":[]}|jq '.a +=[1]'
+```
+
 # 22.通过pid获取进程以及文件信息
 ```
 ll /proc/PID
@@ -3383,6 +3392,7 @@ else
   echo '$var1 not eq $var2'
 fi
 ```
+
 - 判断条件
 ```
 lt：less than 小于
@@ -3391,6 +3401,12 @@ eq：equal to 等于
 ne：not equal to 不等于
 ge：greater than or equal to 大于等于
 gt：greater than 大于
+
+# ex
+if [[ $1 -gt 0 ]]
+then
+    echo
+fi
 ```
 
 # 94.Centos查看安装路径
@@ -3667,6 +3683,12 @@ ssh root@ip < test.sh
 ssh root@ip 'bash -s' < test.sh test
 ```
 
+# 101.匹配字母数字
+```
+if [[ "${str}" =~ ^[a-zA-Z0-9] ]]
+then
+fi
+```
 
 # 备注
 
