@@ -11,10 +11,9 @@ tags:
     - Linux
 ---
 
-# GIT常用命令
 # [学习地址](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5)
 # 1.分支
-<!-- more -->
+-<!-- more -->
 - 查看当前在那个分支上
 ```
 git show-branch
@@ -366,6 +365,12 @@ git fetch origin master // 从远程获取最新版本到本地
 ```
 # fatal: refusing to merge unrelated histories
 git pull origin master --allow-unrelated-histories
+git push
+
+# error: remote unpack failed: index-pack abnormal exit
+
+git pull --allow-unrelated-histories
+git push
 ```
 
 ## 2.本地merge 远程分支(步骤)
@@ -418,7 +423,7 @@ git check commitID fileName
 # 比如a文件被修改了三次，修改的值分别为 1 2 3
 
 # hash1 add 1 2020-8-5 11:00
-# hash2 add 2 2020-8-5 11:05
+# hash2 add 2 2020-8-5 11:05 
 # hash3 add 3 2020-8-5 11:10
 
 git revert hash2 # 这个时候会有冲突，因为后来修改了a文件导致树不干净
@@ -613,7 +618,7 @@ git show tag_name
 
 ## 2.建议使用
 ```
-git fetch origin master //从远程主机的master分支拉取最新内容
+git fetch origin master //从远程主机的master分支拉取最新内容 
 git log -p FETCH_HEAD # 查看取回的更新信息
 git merge FETCH_HEAD    //将拉取下来的最新内容合并到当前所在的分支中
 ```
@@ -786,12 +791,12 @@ url = git@xxx.com/Name/project.git
 ```
 git config --global http.proxy 'socks5://127.0.0.1:1080'
 git config --global https.proxy 'socks5://127.0.0.1:1080'
-
+ 
 # 只对github.com
 git config --global http.https://github.com.proxy socks5://127.0.0.1:1080
 # 取消代理
 git config --global --unset http.https://github.com.proxy)
-
+ 
 git config --global --unset http.proxy
 git config --global --unset https.proxy
 ```
@@ -812,34 +817,3 @@ IdentityFile ~/.ssh/id_rsa
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 >[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
-
-# 备注
-
->2019年5月5日
-
-- 1.增加额外的搜索日志命令
-- 2.增加修改显示日期的配置命令
-
->2019年7月15日
-
-- 重新排版
-
->2019年9月6日
-
-- 重新排版并删除无用的内容
-
->2019年10月15日
-
-- 增加配置局部变量配置
-
->2019年11月14日
-
-- 增加GitHub贡献度说明
-
->2020年5月19日
-
-- 完善优雅提交git log
-
->2020年5月22日
-
-- 代理git
