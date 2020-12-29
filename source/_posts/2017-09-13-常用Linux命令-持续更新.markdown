@@ -1556,6 +1556,16 @@ echo {\"a\":\"1\"}|jq '.b += 1'
 echo {\"a\":[]}|jq '.a +=[1]'
 ```
 
+- jq删除数组中的数据
+```
+cat xx.json|jq 'del(.a[0].clients[0])'
+```
+
+- jq 获取数组中的数量
+```
+cat xx.json|jq '.clients|length'
+```
+
 # 22.通过pid获取进程以及文件信息
 ```
 ll /proc/PID
@@ -3688,6 +3698,13 @@ ssh root@ip 'bash -s' < test.sh test
 if [[ "${str}" =~ ^[a-zA-Z0-9] ]]
 then
 fi
+```
+
+# 102.计算数字
+```
+foo=3
+foo=`expr ${foo} + 2`
+echo ${foo} # 5
 ```
 
 # 备注
