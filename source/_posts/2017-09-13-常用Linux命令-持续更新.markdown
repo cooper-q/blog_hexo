@@ -3707,6 +3707,31 @@ foo=`expr ${foo} + 2`
 echo ${foo} # 5
 ```
 
+# 103.操作SELinux
+- 查看SELinux状态
+```
+sestatus -v 、getenforce
+
+# enabled为启用状态
+SELinux status: enabled
+```
+
+- 临时关闭SELinux
+```
+# 设置SELinux为permissive模式
+setenforce 0
+
+# 设置SELinux 成为enforcing模式
+setenforce 1
+```
+
+- 永久关闭
+```
+修改/etc/selinux/config 文件下
+SELINUX=enforcing--->SELINUX=disabled
+然后重启
+```
+
 # 备注
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
