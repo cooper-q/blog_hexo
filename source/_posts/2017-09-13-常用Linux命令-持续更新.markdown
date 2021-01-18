@@ -1288,6 +1288,11 @@ fi
 
 ```
 
+- grep匹配文件
+```
+grep <path -q -i 'demo'
+```
+
 ## 参数
 ```
 -a 不要忽略二进制数据。
@@ -1524,6 +1529,7 @@ echo  "该ip:$ip 位于 $country $region $city $isp"
 echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'|jq .data.arr[0].a
 # 1
 ```
+
 - 格式化json数据
 ```
 echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'|jq 'to_entries[]'
@@ -1578,6 +1584,11 @@ cat xx.json|jq 'del(.a[0].clients[0])'
 - jq 获取数组中的数量
 ```
 cat xx.json|jq '.clients|length'
+```
+
+- jq 取文件中的数据
+```
+jq .a path
 ```
 
 # 22.通过pid获取进程以及文件信息
@@ -3744,6 +3755,11 @@ setenforce 1
 修改/etc/selinux/config 文件下
 SELINUX=enforcing--->SELINUX=disabled
 然后重启
+```
+
+# 104.查看PID
+```
+pgrep -f 'nginx'
 ```
 
 # 备注
