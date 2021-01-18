@@ -1274,6 +1274,20 @@ curl -s https://github.com/v2ray/v2ray-core/releases|grep /v2ray/v2ray-core/rele
 cat txt|grep -w "123"
 ```
 
+- 忽略大小写
+```
+cat txt|grep -i "aB"
+```
+
+- 安静模式 有匹配则返回0
+```
+cat txt|grep -q "ab"
+if cat txt|grep -q 'ab';then
+    echo 匹配成功
+fi
+
+```
+
 ## 参数
 ```
 -a 不要忽略二进制数据。
