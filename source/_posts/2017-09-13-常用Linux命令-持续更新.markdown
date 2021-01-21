@@ -403,7 +403,7 @@ tldr 查看某个命令的help
 ```
 tar zxvf FileName.tar
 ```
-- 打包 
+- 打包
 ```
 tar czvf FileName.tar DirName
 ```
@@ -885,10 +885,17 @@ systemctl list-unit-files|grep enable
 echo '要转换的内容'|base64
 ```
 
+- 编码不换行
+```
+# -w 每隔多少个字符换行 0为不换行
+cat demo.txt|base64 -w 0
+```
+
 - 解码
 ```
 echo 'aGVsbG8K'|base64 -D
 ```
+
 
 # 11. nc
 
@@ -965,7 +972,7 @@ echo -e "\033[41;37m Tony Zhang \033[0m"
 - 2、文字颜色后面有个m
 - 3、字符串前后可以没有空格，如果有的话，输出也是同样有空格
 
-### 3.echo颜色 实例 
+### 3.echo颜色 实例
 ```
 echo -e "\033[30m 黑色字 \033[0m"
 echo -e "\033[31m 红色字 \033[0m"
@@ -1255,10 +1262,11 @@ source ~/.zshrc # 重新加载，使文件立马生效
 - 执行脚本时，其中的命令是在一个子shell中执行的。子shell继承了父shell的环境变量，但无法修改他们，或者说所做的修改仅对子shell有效。所以当shell脚本执行完后，到了回到shell命令行中，先前脚本中执行的source命令就没有效果了。
 
 # 20.grep
+- 查找多个内容
 ```
-grep 要搜索的内容 filePath
-grep -E '1|2' 查询符合 1或者2的条件的内容
+grep -E '1|2' # 查询符合 1或者2的条件的内容
 ```
+
 - cat filename | grep 'Filed' 时报Binary file (standard input) matches
 
 ```
