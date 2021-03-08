@@ -1202,8 +1202,17 @@ curl -s http://somepage.com | grep whatever
 - 连接超时SECONDS秒，最大请求超时SECONDS秒，按最小的为准
 ```
 curl --connect-time SECONDS  --max-time SECONDS --url https://xxx.com
+
+curl -m 2 https://www.baidu.com
 ```
 
+## 17.指定ip端口访问网址
+```
+# -k 忽略TLS
+# -s 静默输出
+# -H header
+curl -s -m 2 -k -H 'Host:www.baidu.com' https://ip:port
+```
 # 15.查看socket连接数
 ```
 ulimit -n
@@ -1511,7 +1520,8 @@ sed -i 'Nd' 文件路径
 sed -i 'M,Nd' 文件路径
 ```
 
-# 25.jq 解析字符串为json
+# 25.jq使用
+>解析为json
 - 示例01
 ```
 echo '{"a":"1"}'|jq .
@@ -1597,6 +1607,11 @@ cat xx.json|jq '.clients|length'
 - jq 取文件中的数据
 ```
 jq .a path
+```
+
+- jq标准输出，而不输出格式化后的内容
+```
+echo '{"a":"1"}'|jq -r .a // 1而不是"1"
 ```
 
 # 22.通过pid获取进程以及文件信息
@@ -3802,12 +3817,23 @@ pgrep -f 'nginx'
 -  /usr/sbin存放的一些非必须的系统命令；/usr/bin存放一些用户命令，如led(控制LED灯的)
 
 ## 5.总结
+
 - /bin是系统指令。bin为binary的简写主要放置一些系统的必备执行档例如:cat、cp、chmod df、dmesg、gzip、kill、ls、mkdir、more、mount、rm、su、tar等
 -  /sbin一般是指超级用户指令。主要放置一些系统管理的必备程式例如:cfdisk、dhcpcd、dump、e2fsck、fdisk、halt、ifconfig、ifup、 ifdown、init、insmod、lilo、lsmod、mke2fs、modprobe、quotacheck、reboot、rmmod、 runlevel、shutdown等。
 - /usr/bin　是你在后期安装的一些软件的运行脚本。主要放置一些应用软体工具的必备执行档例如c++、g++、gcc、chdrv、diff、dig、du、eject、elm、free、gnome*、 gzip、htpasswd、kfm、ktop、last、less、locale、m4、make、man、mcopy、ncftp、 newaliases、nslookup passwd、quota、smb*、wget等。
 - /usr/sbin   放置一些用户安装的系统管理的必备程式例如:dhcpd、httpd、imap、in.*d、inetd、lpd、named、netconfig、nmbd、samba、sendmail、squid、swap、tcpd、tcpdump等。
 
-# 备注
+# 107.DoH查询域名ip
+>[文档](https://developers.cloudflare.com/1.1.1.1/dns-over-https/json-format)
+- ipv4
+```
+curl -s -H 'accept:application/dns-json' 'https://cloudflare-dns.com/dns-query?name='www.baidu.com'&type=A' | jq -r .Answer[0].data
+```
+
+- ipv6
+```
+curl -s -H 'accept:application/dns-json' 'https://cloudflare-dns.com/dns-query?name='www.baidu.com'&type=AAAA' | jq -r .Answer[0].data
+```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
