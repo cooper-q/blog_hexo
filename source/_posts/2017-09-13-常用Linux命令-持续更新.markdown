@@ -3835,6 +3835,41 @@ curl -s -H 'accept:application/dns-json' 'https://cloudflare-dns.com/dns-query?n
 curl -s -H 'accept:application/dns-json' 'https://cloudflare-dns.com/dns-query?name='www.baidu.com'&type=AAAA' | jq -r .Answer[0].data
 ```
 
+# 108.iperf测试两台服务器间的带宽
+
+- 1.安装
+```
+* install iperf -y
+```
+
+- 2.测试
+```
+# 192.168.1.2
+iperf -s
+
+
+# 192.168.1.3
+iperf -c 192.168.1.2
+```
+
+- 3.结果
+```
+[root@server5 ~]# iperf -s
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 192.168.1.2 port 5001 connected with 192.168.1.3 port 54990
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0-10.0 sec  1.10 GBytes   942 Mbits/sec
+```
+
+# 109.测速脚本
+```
+https://github.com/oooldking/script
+```
+
+
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 [如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
