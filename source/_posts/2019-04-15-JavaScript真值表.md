@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 title: JavaScript真值表
 date: 2019-04-15
 keywords: JavaScript

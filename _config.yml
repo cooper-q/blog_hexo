@@ -30,9 +30,9 @@ navbar:
     标签: /tags
     #    影音: /media
 #    相册: /album
-    友链: /friend
+#    友链: /friend
     #    碎碎念: /self-talking
-    留言: /message
+#    留言: /message
 #    关于: /about
 
 # Directory
@@ -78,8 +78,8 @@ prismjs:
 index_generator:
   path: ''
   per_page: 20
-  order_by: -date
-#  order_by: -update
+#  order_by: -date
+  order_by: -updated
 
 # Category & Tag
 default_category: uncategorized

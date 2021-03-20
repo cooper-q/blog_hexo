@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 title: JavaScript 事件循环（转载）
 date: 2019-05-27
 keywords: JavaScript、Event Loop

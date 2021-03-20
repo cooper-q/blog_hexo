@@ -1,5 +1,6 @@
 ---
 layout: post
+toc: true
 title: JavaScript Promise A+规范
 date: 2019-05-10
 keywords: JavaScript
