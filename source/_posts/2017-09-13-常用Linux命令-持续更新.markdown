@@ -9,7 +9,7 @@ catalog:    true
 tags:
     - Linux
 ---
-
+[toc]
 # 1.查看某个服务端口并杀死
 ```
 # 查看端口占用
@@ -108,6 +108,10 @@ du -ah
 du -ah fileName
 # 查看这个文件夹下的文件的大小
 du -ah path
+# 查看当前目录占用大小
+du -ah --max-depth=1
+# 查看设备利用率
+df -lh
 ```
 ### 5.新建文件夹
 ```
@@ -1518,6 +1522,13 @@ sed -i 'Nd' 文件路径
 - 删除第M到N行
 ```
 sed -i 'M,Nd' 文件路径
+```
+
+- 删除文件中匹配的行
+```
+sed '/abc/d' a.txt # 不更改源文件 匹配条件为abc
+sed '/abc/d' a.txt >a.txt # 更改源文件
+sed '/abc/d;/bcd/d' a.txt # 删除多个匹配条件
 ```
 
 # 25.jq使用
