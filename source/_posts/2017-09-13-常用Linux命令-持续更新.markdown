@@ -9,7 +9,6 @@ catalog:    true
 tags:
     - Linux
 ---
-[toc]
 # 1.查看某个服务端口并杀死
 ```
 # 查看端口占用
