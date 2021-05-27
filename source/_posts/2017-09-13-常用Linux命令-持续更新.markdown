@@ -1531,6 +1531,12 @@ sed '/abc/d;/bcd/d' a.txt # 删除多个匹配条件
 ```
 
 # 25.jq使用
+- centos安装jq
+```
+yum install epel-release -y
+yum install jq -y
+```
+
 >解析为json
 - 示例01
 ```
@@ -2692,9 +2698,15 @@ Authoritative answers can be found from:
 ```
 
 # 57.去重
+- 需要先通过sort排序让重复行相邻
+```
+cat xxx.log|sort -r|uniq
+```
+
 ```
 cat xx.xx|uniq
 ```
+
 - 去重、排序、统计次数
 ```
 cat xxx.log|awk '{print $3}'|awk -F "[:]" '{print $1}'|sort|uniq -c|sort
@@ -3879,6 +3891,30 @@ TCP window size: 85.3 KByte (default)
 https://github.com/oooldking/script
 ```
 
+# 110.按照指定格式分割字符并循环
+```
+str="1,2,3,4"
+while read -r line;do
+    echo ${line}
+done < <(echo ${str}|tr ',' '\n')
+```
+# 111.Linux 强制登录用户下线
+- 查看在线用户
+```
+w
+
+root     pts/1    192.168.1.200    14:18   21.00s  0.01s  0.01s -bash
+root     pts/2    192.168.1.200    14:21    0.00s  0.01s  0.00s w
+```
+
+- 踢人下线
+```
+pkill -kill -t pts/1
+```
+# 112.将中文客户端修改为英文
+```
+export LANG=en_US.UTF-8
+```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
