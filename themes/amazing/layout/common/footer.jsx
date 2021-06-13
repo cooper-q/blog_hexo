@@ -54,7 +54,7 @@ class Footer extends Component {
                             href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> & <a
                             href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a>&nbsp;
                             <br/>
-                            {registeredNo ? <span>&copy; <a href="http://www.beian.miit.gov.cn/"
+                            {registeredNo ? <span>&copy; <a href="https://beian.miit.gov.cn/#/Integrated/recordQuery"
                                                             target="_blank">{registeredNo}</a><br/></span> : null}
                             {footerCopyrightDsec ?
                                 <span dangerouslySetInnerHTML={{__html: footerCopyrightDsec}}></span> : null}
