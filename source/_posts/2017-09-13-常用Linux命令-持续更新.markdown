@@ -1530,6 +1530,11 @@ sed '/abc/d' a.txt >a.txt # 更改源文件
 sed '/abc/d;/bcd/d' a.txt # 删除多个匹配条件
 ```
 
+- 变量中替换(批量)
+```
+str=1,2,3
+${str//,/0} # 10203
+```
 # 25.jq使用
 - centos安装jq
 ```
@@ -2047,6 +2052,14 @@ do
     
 done
 ```
+
+- 循环读取awk的值
+```
+cat demo|awk -F "[:]" '{print $1}'| while read -r line;do
+    echo ${line}
+done
+```
+
 # 49.shell异步编程
 ## 1.sleep
 - 等待进程（10秒）继续往下执行
