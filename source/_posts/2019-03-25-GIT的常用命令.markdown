@@ -281,7 +281,7 @@ git diff <commmitID> <commitID>
 git diff HEAD
 ```
 - 比较与上一个版本的差异
-HEAD~100 比较往上100次提交
+  HEAD~100 比较往上100次提交
 ```
 git diff HEAD^
 git diff HEAD~2
@@ -434,8 +434,8 @@ git revert hash3 # 这个时候是正常的，丢掉了hash3添加的3
 - revert使用，需要先找到你想要回滚的唯一的commit表示代码，可以用git log查看提交记录。
 - git revert c011eb3c20ba6fb38cc94fe5a8dda366a3990c61是用一次新的commit来回滚之前的commit，git reset是直接删除。
 - git revert 版本id -m 1
-这个1 指的是master，2指的是develop。现在是在master分支上回滚 develop合并到master上的部分代码。
-这种方式，是用一种反向的push来重新提交一次。git中可以看到操作记录。
+  这个1 指的是master，2指的是develop。现在是在master分支上回滚 develop合并到master上的部分代码。
+  这种方式，是用一种反向的push来重新提交一次。git中可以看到操作记录。
 
 ### reset revert区别
 
@@ -455,7 +455,7 @@ git revert hash3 # 这个时候是正常的，丢掉了hash3添加的3
 ## 2.git log -p [file]
 
 - 展示提交的内容差异、或者查看单独某个文件
-显示每次提交的内容差异
+  显示每次提交的内容差异
 - git log -p -2       #  -2 表示只显示两次提交更新
 
 <img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/git/git%20log%20-p.png' height='250px'/>
@@ -800,16 +800,27 @@ git config --global --unset http.https://github.com.proxy)
 git config --global --unset http.proxy
 git config --global --unset https.proxy
 ```
+
 ## 2.代理git ssh
 - 代理GitHub
 ```
 # 修改.ssh/config 【如果没有则新建】
 Host github.com
 
-# 添加下方这条
+# 添加下方这条（macos）
 ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p
 HostName github.com
 User git
+Port 22
+IdentityFile ~/.ssh/id_rsa
+
+# 添加下方这条（linux）
+# linux安装apt-get/yum/apt install netcat
+
+Host h
+HostName x
+ProxyCommand ncat --proxy 127.0.0.1:port %h %p
+user root
 Port 22
 IdentityFile ~/.ssh/id_rsa
 ```

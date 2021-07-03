@@ -26,7 +26,7 @@ ssh-keygen -t rsa -C "your_email@example.com"
 ~/.ssh/authorized_keys 文件下加入公钥内容即可（如果没有新建文件）
 ```
 
-- 设置权限    
+- 设置权限
 
 ```
 chmod 600 ~/.ssh/authorized_keys # 给予权限
@@ -53,7 +53,7 @@ PermitRootLogin no # 禁用root登录
 service sshd restart 或者 /bin/systemctl restart  sshd.service
 ubuntu:service ssh restart
 ```
-    
+
 ## 4.使用不同的key来访问不同的服务器或者网站
 
 - 创建或更新config文件
@@ -127,6 +127,17 @@ ClientAliveCountMax 0            # 0 次
 ```
 service sshd restart
 service ssh restart
+```
+
+# 5.错误处理
+- ssh "permissions are too open" error
+
+```
+# Keys need to be only readable by you:
+chmod 400 ~/.ssh/id_rsa
+
+# If Keys need to be read-writable by you:
+chmod 600 ~/.ssh/id_rsa
 ```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
