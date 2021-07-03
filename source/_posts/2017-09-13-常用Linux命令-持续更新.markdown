@@ -1216,6 +1216,12 @@ curl -m 2 https://www.baidu.com
 # -H header
 curl -s -m 2 -k -H 'Host:www.baidu.com' https://ip:port
 ```
+
+# 18.curl 指定host、端口、ip
+```
+curl xxx.com/test --resolve xxx.com:80:192.168.2.1
+```
+
 # 15.查看socket连接数
 ```
 ulimit -n
@@ -1274,6 +1280,18 @@ source ~/.zshrc # 重新加载，使文件立马生效
 - 执行脚本时，其中的命令是在一个子shell中执行的。子shell继承了父shell的环境变量，但无法修改他们，或者说所做的修改仅对子shell有效。所以当shell脚本执行完后，到了回到shell命令行中，先前脚本中执行的source命令就没有效果了。
 
 # 20.grep
+
+- grep忽略错误[No such file or directory]
+```
+grep -s
+```
+
+- 查找符合条件的文件内容的文件[输出文件路径]
+```
+# type 一般正规文件(f)、设备文件(b,c)、目录(d)、连接文件(l)、socket（s）及FIFO(p)等
+find . -type f|xargs grep -ls 1234
+```
+
 - 查找多个内容
 ```
 grep -E '1|2' # 查询符合 1或者2的条件的内容
@@ -1530,6 +1548,11 @@ sed '/abc/d' a.txt >a.txt # 更改源文件
 sed '/abc/d;/bcd/d' a.txt # 删除多个匹配条件
 ```
 
+- 变量中替换(批量)
+```
+str=1,2,3
+${str//,/0} # 10203
+```
 # 25.jq使用
 - centos安装jq
 ```
@@ -2047,6 +2070,14 @@ do
     
 done
 ```
+
+- 循环读取awk的值
+```
+cat demo|awk -F "[:]" '{print $1}'| while read -r line;do
+    echo ${line}
+done
+```
+
 # 49.shell异步编程
 ## 1.sleep
 - 等待进程（10秒）继续往下执行
@@ -3914,6 +3945,25 @@ pkill -kill -t pts/1
 # 112.将中文客户端修改为英文
 ```
 export LANG=en_US.UTF-8
+```
+
+# 113.获取随机数
+- 获取F范围【1-F】内的随机数
+```
+echo $((RANDOM%F+1))
+
+# 3-1
+echo $((RANDOM%3+1))
+```
+# 114.find
+- 常规
+```
+find path -name 'xxx'
+```
+- 查找符合条件的文件内容的文件[输出文件路径]
+```
+# type 类型 一般正规文件(f)、设备文件(b,c)、目录(d)、连接文件(l)、socket（s）及FIFO(p)等
+find . -type f|xargs grep -ls 1234
 ```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
