@@ -20,6 +20,7 @@ ssh-keygen -t rsa -C "your_email@example.com"
 密钥：id_rsa
 公钥：id_rsa.pub
 ```
+<!-- more -->
 ## 2.服务器配置ssh
 - 服务端配置公钥
 ```
@@ -31,15 +32,15 @@ ssh-keygen -t rsa -C "your_email@example.com"
 ```
 chmod 600 ~/.ssh/authorized_keys # 给予权限
 ```
-<!-- more -->
+
 ## 3.服务器配置使用ssh，并禁用密码登录
 
->注:修改配置前必须保证ssh配置正确，否则将无法登录服务器
-
+- 注:修改配置前必须保证ssh配置正确，否则将无法登录服务器
 ```    
 /etc/ssh/sshd_config
 ```
->注：sshd_config 是服务端的配置文件 ssh_config是针对客户端的配置文件
+
+- 注：sshd_config 是服务端的配置文件 ssh_config是针对客户端的配置文件
 ```
 PasswordAuthentication no # 禁用密码验证
 RSAAuthentication yes # 启用 RSA 认证
@@ -73,7 +74,7 @@ IdentityFile ~/.ssh/id_rsa_xxx  # 私钥位置
 ssh gitlab.xxx.com # 可直接使用上面创建的Host来连接
 ```
 
-## ~~5.使用相同的key来连接不同的服务器或者网站~~
+## 5.使用相同的key来连接不同的服务器或者网站
 
 - 修改config文件
 ```
@@ -81,6 +82,9 @@ ssh gitlab.xxx.com # 可直接使用上面创建的Host来连接
 # 增加配置
 Host github.com git.coding.net
 HostName %h
+# ProxyCommand ssh走代理 socks
+# ProxyCommand ncat --proxy 127.0.0.1:1080 %h %p  #linux
+# ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p  #mac
 Port 22
 User git
 IdentityFile  ~/.ssh/id_rsa_xxx
@@ -91,7 +95,8 @@ IdentityFile  ~/.ssh/id_rsa_xxx
 ssh -T git@git.coding.net
 ssh -T git@github.com
 ```
-## 3.使用ssh
+
+# 2.使用ssh
 
 - 如没有配置config
 ```
@@ -108,7 +113,7 @@ ssh Host中的名称即可
 ssh  -i ~/.ssh/id_rsa_xxx  -p port user@ip(或域名)
 ```
 
-# 4.超时配置
+# 3.超时配置
 - 客户端修改
 ```
 vi /etc/ssh/ssh_config
@@ -129,7 +134,7 @@ service sshd restart
 service ssh restart
 ```
 
-# 5.错误处理
+# 4.错误处理
 - ssh "permissions are too open" error
 
 ```
@@ -139,12 +144,3 @@ chmod 400 ~/.ssh/id_rsa
 # If Keys need to be read-writable by you:
 chmod 600 ~/.ssh/id_rsa
 ```
-
->如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
-
->[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
-
-# 备注
->2019年10月14日
-- 重新排版和整理
-
