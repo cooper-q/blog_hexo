@@ -12,7 +12,6 @@ tags:
     - Nginx
 ---
 
-
 # 自动化申请tls证书脚本
 - 此脚本是将下方的acme的教程进行一个整合
 - 兼容Centos7、Ubuntu 16.04 LTS、Debian GNU/Linux 10
@@ -163,7 +162,7 @@ chmod a+x /sbin/certbot-auto
 
 ## 2.配置Nginx以满足WebRoot验证方式的注意事项
 - 在使用 certbot 之前，我们先要对 Nginx 进行配置，因为使用 webroot 方式，
-certbot 会在域名对应的根目录创建一个叫做 well-known 的隐藏文件夹，并且创建用于验证域名所有权的文件。
+  certbot 会在域名对应的根目录创建一个叫做 well-known 的隐藏文件夹，并且创建用于验证域名所有权的文件。
 - 这个文件夹在证书签发的过程中，是需要被访问的。
 
 ### 1.修改nginx config
@@ -269,6 +268,38 @@ server {
 ```
 nginx -s reload
 ```
+
+- 备注
+```
+注意：在修改ssl_certificate（即公钥）时最好使用fullchain.pem而不是cert.pem。cert.pem中不包含中间
+证书链的信息，某些客户端（比如Github使用的camo）在连接时可能会出现验证身份失败的情况。
+```
+
+# 2.不同扩展名代表的意思
+
+- CRT - CRT应该是certificate的三个字母,其实还是证书的意思,常见于*NIX系统,有可能是PEM编码,也有可能是DER编码,大多数应该是PEM编码,相信你已经知道怎么辨别.
+
+- CER - 还是certificate,还是证书,常见于Windows系统,同样的,可能是PEM编码,也可能是DER编码,大多数应该是DER编码.
+
+- KEY - 通常用来存放一个公钥或者私钥,并非X.509证书,编码同样的,可能是PEM,也可能是DER.
+  查看KEY的办法:
+  openssl rsa -in mykey.key -text -noout
+  如果是DER格式的话,同理应该这样了:
+  openssl rsa -in mykey.key -text -noout -inform der
+
+- CSR - Certificate Signing Request,即证书签名请求,这个并不是证书,而是向权威证书颁发机构获得签名证书的申请,其核心内容是一个公钥(当然还附带了一些别的信息),在生成这个申请的时候,同时也会生成一个私钥,私钥要自己保管好.做过iOS APP的朋友都应该知道是怎么向苹果申请开发者证书的吧.
+  查看的办法:
+  openssl req -noout -text -in my.csr
+  (如果是DER格式的话照旧加上-inform der,这里不写了)
+
+- PFX/P12 - predecessor of PKCS#12,对*nix服务器来说,一般CRT和KEY是分开存放在不同文件中的,但Windows的IIS则将它们存在一个PFX文件中,(因此这个文件包含了证书及私钥)这样会不会不安全？应该不会,PFX通常会有一个"提取密码",你想把里面的东西读取出来的话,它就要求你提供提取密码,PFX文件使用的是DER编码,如何把PFX转换为PEM编码？
+  openssl pkcs12 -in for-iis.pfx -out for-iis.pem -nodes
+  这个时候会提示你输入提取码. 输出文件for-iis.pem就是可读的文本.
+  生成pfx的命令类似这样:
+  openssl pkcs12 -export -in certificate.crt -inkey privateKey.key -out certificate.pfx -certfile CACert.crt
+  其中CACert.crt是CA(权威证书颁发机构)的根证书,有的话也通过-certfile参数一起带进去.这么看来,PFX其实是个证书密钥库.
+
+- JKS - 即Java Key Storage,这是Java的专利,跟OpenSSL关系不大,利用Java的一个叫"keytool"的工具,可以将PFX转为JKS. 注: keytool也能直接生成JKS.
 
 - 备注
 ```
