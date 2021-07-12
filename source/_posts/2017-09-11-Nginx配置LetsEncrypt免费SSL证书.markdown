@@ -11,17 +11,13 @@ tags:
     - HTTPS
     - Nginx
 ---
-
-# 自动化申请tls证书脚本
-- 此脚本是将下方的acme的教程进行一个整合
-- 兼容Centos7、Ubuntu 16.04 LTS、Debian GNU/Linux 10
-```
-bash <(curl -L -s https://raw.githubusercontent.com/cooper-q/MattMeng_hexo/master/shell/tls.sh)
-```
+# Nginx 配置Lets Encrypt 免费SSL证书
+[toc]
 
 # 1.acme.**sh**【推荐使用】
 ## 1.安装环境
 ### 1.安装acme.**sh**
+<!-- more -->
 - 如缺少环境则安装相应的依赖即可
 ```
 curl https://get.acme.sh | sh
@@ -29,7 +25,6 @@ curl https://get.acme.sh | sh
 [Fri 30 Dec 01:03:33 GMT 2016] OK
 [Fri 30 Dec 01:03:33 GMT 2016] Install success!
 ```
-<!-- more -->
 ### 2.安装Nginx
 - Centos
 ```
@@ -72,13 +67,55 @@ $ sudo ~/.acme.sh/acme.sh --issue -d mengxc.info --standalone -k ec-256
 [Fri Dec 30 08:59:16 HKT 2016] And the full chain certs is there:  /root/.acme.sh/mengxc.info_ecc/fullchain.cer
 ```
 
-### 2.通配符证书
+### 2.通配符证书[dns api]
+- 1.配置dns api key secret
 ```
 ## 首先要根据下面配置全局key或者其余内容
 https://github.com/Neilpang/acme.sh/wiki/dnsapi
 
 ## 下面示例为Cloudflare
 acme.sh --issue --dns dns_cf -d *.mengxc.info -d mengxc.info
+```
+
+- 2.生成证书
+```
+~/.acme.sh/acme.sh --issue -d *.example.com --dns --yes-I-know-dns-manual-mode-enough-go-ahead-please
+
+#### 会提示添加TXT解析，这里需要去域名解析添加TXT解析
+
+[Wed Dec 16 16:04:49 CST 2020] Add the following TXT record:
+[Wed Dec 16 16:04:49 CST 2020] Domain: '_acme-challenge.example.com'
+[Wed Dec 16 16:04:49 CST 2020] TXT value: '-jEWdpI**************EVh01_a3ywrW426wmppjuDqXOs'
+[Wed Dec 16 16:04:49 CST 2020] Please be aware that you prepend _acme-challenge. before your domain
+[Wed Dec 16 16:04:49 CST 2020] so the resulting subdomain will be: _acme-challenge.devopsing.site
+[Wed Dec 16 16:04:49 CST 2020] Please add the TXT records to the domains, and re-run with --renew.
+[Wed Dec 16 16:04:49 CST 2020] Please add '--debug' or '--log' to check more details.
+[Wed Dec 16 16:04:49 CST 2020] See: https://github.com/acmesh-official/acme.sh/wiki/How-to-debug-acme.sh
+```
+
+- 3.验证解析是否有效
+```
+nslookup -q=TXT _acme-challenge.example.com
+
+# 返回
+
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+_acme-challenge.devopsing.site	text = "-jEWdpI****************1_a3ywrW426wmppjuDqXOs"
+
+Authoritative answers can be found from:
+```
+
+- 4.解析生效后重新生成证书 --renew
+```
+./acme.sh --renew -d *.example.com --yes-I-know-dns-manual-mode-enough-go-ahead-please
+```
+
+- 5.安装
+```
+./acme.sh --installcert -d *.example.com --fullchainpath /tmp/example.crt --keypath /tmp/example.key
 ```
 
 ## 3.安装证书和密钥
@@ -300,7 +337,7 @@ nginx -s reload
   其中CACert.crt是CA(权威证书颁发机构)的根证书,有的话也通过-certfile参数一起带进去.这么看来,PFX其实是个证书密钥库.
 
 - JKS - 即Java Key Storage,这是Java的专利,跟OpenSSL关系不大,利用Java的一个叫"keytool"的工具,可以将PFX转为JKS. 注: keytool也能直接生成JKS.
-
+  
 - 备注
 ```
 注意：在修改ssl_certificate（即公钥）时最好使用fullchain.pem而不是cert.pem。cert.pem中不包含中间
