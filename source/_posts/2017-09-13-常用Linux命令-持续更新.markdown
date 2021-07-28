@@ -1653,6 +1653,11 @@ jq .a path
 echo '{"a":"1"}'|jq -r .a // 1而不是"1"
 ```
 
+- jq获取json数组的length
+```
+cat xx|jq '.arr|length'
+```
+
 # 22.通过pid获取进程以及文件信息
 ```
 ll /proc/PID
@@ -3964,6 +3969,20 @@ find path -name 'xxx'
 ```
 # type 类型 一般正规文件(f)、设备文件(b,c)、目录(d)、连接文件(l)、socket（s）及FIFO(p)等
 find . -type f|xargs grep -ls 1234
+```
+
+# 115.批量替换文件内容为空格(多文件)
+- -i原地替换 因为替换会直接替换源文件比较危险，为了规避需要为替换后的文件加一个后缀
+```
+# 替换后的文件加一个.bak后缀
+sed -i ".bak" "s/源码之家//g" $(find ./* -type f|xargs grep -ls 源码之家)
+
+# 如果"" 则不备份
+sed -i "" "s/源码之家//g" $(find ./* -type f|xargs grep -ls 源码之家)
+
+sed -i "" "s/更多模板//g" $(grep -rl 更多模板 ./*)
+
+sed -i "" "s/网页模板//g" $(find ./* -type f|xargs grep -ls 网页模板)
 ```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
