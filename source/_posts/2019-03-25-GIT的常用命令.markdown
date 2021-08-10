@@ -148,6 +148,10 @@ git add -i [<path>] ，但是没有提交的文件
 ```
 git reset --soft HEAD^
 ```
+- 取消add
+```
+git reset
+```
 
 - 将指定的内容移除暂存区
 ```
@@ -824,7 +828,3 @@ user root
 Port 22
 IdentityFile ~/.ssh/id_rsa
 ```
-
->如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
-
->[如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
