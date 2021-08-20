@@ -3096,10 +3096,51 @@ yum update -y
 dpkg --get-selections | grep nginx|awk '{print $1}'|xargs sudo apt --purge remove -y
 ```
 
-# 70.脚本路径/脚本名 >/dev/null 2>&1
-- /dev/null相当于Linux下的回收站
-- 2>&1是把出错输出也定向到标准输出
+# 70.输入/输出重定向
+一般情况下，每个 Unix/Linux 命令运行时都会打开三个文件
 
+- 标准输入文件(stdin)：stdin的文件描述符为0，Unix程序默认从stdin读取数据。
+
+- 标准输出文件(stdout)：stdout 的文件描述符为1，Unix程序默认向stdout输出数据。
+- 标准错误文件(stderr)：stderr的文件描述符为2，Unix程序会向stderr流中写入错误信息。
+
+## 1.输入重定向
+```
+command < file1
+```
+- 例1
+```
+ wc -l << EOF
+    1
+    2
+    3
+EOF
+# 3
+```
+- 例2
+```
+wc -l < file
+# 2
+```
+### 同时重定向输入/输出
+```
+command < infile > outfile
+```
+
+## 2.输出重定向stdout
+```
+command > file
+# 不保留日志输出则是
+command  >/dev/null
+```
+## 3.输出重定向stderr
+```
+command 2>file
+```
+## 4.stdout/stderr合并输出
+```
+command >file 2>&1
+```
 
 # 71.Linux清楚用户登录记录和命令
 - 清除登陆系统成功的记录
