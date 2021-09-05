@@ -9,6 +9,7 @@ catalog:    true
 tags:
     - Linux
 ---
+[toc]
 # 1.查看某个服务端口并杀死
 ```
 # 查看端口占用
@@ -3133,11 +3134,11 @@ command > file
 # 不保留日志输出则是
 command  >/dev/null
 ```
-## 3.输出重定向stderr
+## 3.stderr
 ```
-command 2>file
+command >file 2>&1
 ```
-## 4.stdout/stderr合并输出
+## 3.stdout stderr合并
 ```
 command >file 2>&1
 ```
@@ -4025,7 +4026,20 @@ sed -i "" "s/更多模板//g" $(grep -rl 更多模板 ./*)
 
 sed -i "" "s/网页模板//g" $(find ./* -type f|xargs grep -ls 网页模板)
 ```
-
+# 116.记录命令操作日志
+```
+export HISTORY_FILE=/var/lg/`date '+%y-%m-%d'`.log
+export PROMPT_COMMAND='{ date "+%y-%m-%d %T ##### $(who am i |awk "{print \$1\" \"\$2\" \"\$5}") #### $(pwd) #### $(history 1 | { read x cmd; echo "$cmd"; })"; } >> $HISTORY_FILE'
+```
+# 117.恢复rm后的数据
+```
+https://cloud.tencent.com/developer/article/1684479
+http://www.bewindoweb.com/207.html
+https://blog.51cto.com/ixdba/1566856
+https://www.jianshu.com/p/662293f12a47
+# debian&ubuntu 
+apt install extundelete
+```
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 [如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
