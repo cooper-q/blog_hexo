@@ -4039,6 +4039,49 @@ https://www.jianshu.com/p/662293f12a47
 # debian&ubuntu 
 apt install extundelete
 ```
+
+# 118.计算
+## 1.使用$[]
+```
+x=1
+echo $[$x+=1]
+# 2
+```
+
+## 2.使用expr
+```
+x=1
+expr $4 + 4
+# 5
+```
+
+## 3.(())
+- 使用方法：((表达式1,表达式2，表达式3))
+
+- 相比上面的两种方法,(())这种方法略显强大，它的强大之处在于：
+- 1) 支持a++,a--操作（是不是找到C语言的感觉）
+- 2) 支持多个表达式运算，各个表达式之间用“，”分开
+- 3) 双括号可以进行逻辑运算，四则运算
+- 4) 双括号结构 扩展了for，while,if条件测试运算
+- 5) 在双括号结构中，所有变量可以不加入：“$”符号前缀
+
+```
+x=1
+((y = x + 1,z = y + x))
+# 3
+```
+## 4.let
+- 注意：let必须是完整的算术表达式，即有等号两边
+```
+var=1
+let "var+=1" 或者 let var+=1
+
+echo $var
+
+output:
+2
+```
+
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 [如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
