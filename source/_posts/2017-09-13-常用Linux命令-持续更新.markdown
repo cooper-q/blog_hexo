@@ -3269,6 +3269,16 @@ Access Modify Change都会被更改
 touch -t 202005131212.50 xxx.file
 ```
 
+## 修改Change时间
+- linux无法直接修改Change时间，但是可以通过修改本地时间重新创建文件来修改
+```
+# 执行下条命令修改本地时间
+date -s "Fri 17 Sep 2021 06:18:54 AM UTC"
+
+# touch 文件名
+# vim 文件名 // 写入内容
+```
+
 # 79.显示一个文件的某几行
 - 从第十行开始，显示20行。10-30
 ```
@@ -4039,6 +4049,71 @@ https://www.jianshu.com/p/662293f12a47
 # debian&ubuntu 
 apt install extundelete
 ```
+
+# 118.计算
+## 1.使用$[]
+```
+x=1
+echo $[$x+=1]
+# 2
+```
+
+## 2.使用expr
+```
+x=1
+expr $4 + 4
+# 5
+```
+
+## 3.(())
+- 使用方法：((表达式1,表达式2，表达式3))
+
+- 相比上面的两种方法,(())这种方法略显强大，它的强大之处在于：
+- 1) 支持a++,a--操作（是不是找到C语言的感觉）
+- 2) 支持多个表达式运算，各个表达式之间用“，”分开
+- 3) 双括号可以进行逻辑运算，四则运算
+- 4) 双括号结构 扩展了for，while,if条件测试运算
+- 5) 在双括号结构中，所有变量可以不加入：“$”符号前缀
+
+```
+x=1
+((y = x + 1,z = y + x))
+# 3
+```
+## 4.let
+- 注意：let必须是完整的算术表达式，即有等号两边
+```
+var=1
+let "var+=1" 或者 let var+=1
+
+echo $var
+
+output:
+2
+```
+
+# 119.linux暴力优化(适合单客户端)
+```
+net.ipv4.tcp_fin_timeout = 2
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_keepalive_time = 600
+net.ipv4.ip_local_port_range = 2000 65000
+net.ipv4.tcp_max_syn_backlog = 16384
+net.ipv4.tcp_max_tw_buckets = 36000
+net.ipv4.route.gc_timeout = 100
+net.ipv4.tcp_syn_retries = 1
+net.ipv4.tcp_synack_retries = 1
+net.ipv4.tcp_max_orphans = 16384
+net.core.somaxconn = 16384
+net.core.netdev_max_backlog = 16384
+```
+
+# 120.修改时间
+```
+date -s  "Sat Sep 18 17:41:59 CST 2021"
+```
+
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 [如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
