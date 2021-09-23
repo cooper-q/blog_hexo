@@ -4119,6 +4119,15 @@ date -s  "Sat Sep 18 17:41:59 CST 2021"
 netstat -tlnp
 ```
 
+# 122.#!/usr/bin/env bash和#!/usr/bin/bash、#!/bin/bash比较
+## #!/usr/bin/env bash 提供了更多的灵活性
+- 用户不需要去寻找程序在系统中的位置
+- 不同的系统命令或者程序存放的位置可能是不同的，只要程序在你的$PATH里面，就可以查找到
+
+## #!/bin/bash、#!/usr/bin/bash
+- 指定了程序路径
+
+
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 [如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
