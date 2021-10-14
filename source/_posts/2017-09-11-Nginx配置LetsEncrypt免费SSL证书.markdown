@@ -12,9 +12,8 @@ tags:
     - Nginx
 ---
 # Nginx 配置Lets Encrypt 免费SSL证书
-[toc]
 
-# 1.acme.**sh**【推荐使用】
+# 1.acme.**sh**
 ## 1.安装环境
 ### 1.安装acme.**sh**
 <!-- more -->
@@ -68,20 +67,20 @@ $ sudo ~/.acme.sh/acme.sh --issue -d mengxc.info --standalone -k ec-256
 ```
 
 ### 2.通配符证书[dns api]
-- 1.配置dns api key secret
+>下面使用的是 letsencrypt
+#### 第一种 配置dns api key secret
 ```
 ## 首先要根据下面配置全局key或者其余内容
 https://github.com/Neilpang/acme.sh/wiki/dnsapi
 
-## 下面示例为Cloudflare
-acme.sh --issue --dns dns_cf -d *.mengxc.info -d mengxc.info
+## 下面示例为Cloudflare，下面是全自动的
+~/.acme.sh/acme.sh --issue --dns dns_cf -d *.example.com --server letsencrypt
 ```
 
-- 2.生成证书
+#### 第二种手动添加TXT，生成证书
+- 1.会提示添加TXT解析，这里需要去域名解析添加TXT解析
 ```
-~/.acme.sh/acme.sh --issue -d *.example.com --dns --yes-I-know-dns-manual-mode-enough-go-ahead-please
-
-#### 会提示添加TXT解析，这里需要去域名解析添加TXT解析
+~/.acme.sh/acme.sh --issue -d *.example.com --dns --yes-I-know-dns-manual-mode-enough-go-ahead-please --server letsencrypt
 
 [Wed Dec 16 16:04:49 CST 2020] Add the following TXT record:
 [Wed Dec 16 16:04:49 CST 2020] Domain: '_acme-challenge.example.com'
@@ -93,7 +92,7 @@ acme.sh --issue --dns dns_cf -d *.mengxc.info -d mengxc.info
 [Wed Dec 16 16:04:49 CST 2020] See: https://github.com/acmesh-official/acme.sh/wiki/How-to-debug-acme.sh
 ```
 
-- 3.验证解析是否有效
+- 2.添加完后去验证解析是否有效
 ```
 nslookup -q=TXT _acme-challenge.example.com
 
@@ -110,12 +109,12 @@ Authoritative answers can be found from:
 
 - 4.解析生效后重新生成证书 --renew
 ```
-./acme.sh --renew -d *.example.com --yes-I-know-dns-manual-mode-enough-go-ahead-please
+~/.acme.sh/acme.sh  --renew -d *.example.com --yes-I-know-dns-manual-mode-enough-go-ahead-please  --server letsencrypt
 ```
 
 - 5.安装
 ```
-./acme.sh --installcert -d *.example.com --fullchainpath /tmp/example.crt --keypath /tmp/example.key
+~/.acme.sh/acme.sh --installcert -d *.example.com --fullchainpath /tmp/example.crt --keypath /tmp/example.key
 ```
 
 ## 3.安装证书和密钥
