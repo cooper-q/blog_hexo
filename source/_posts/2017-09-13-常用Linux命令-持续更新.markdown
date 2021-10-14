@@ -766,6 +766,29 @@ df -h
 ```
 du -sh <目录名>
 ```
+
+- 查看当前目录的所有文件的大小
+```
+du -sh *
+```
+- 查看当前目录所有文件的大小并按照大小来排序
+```
+du -sk * | sort -n
+
+du -sh * | sort -n
+```
+
+- 查看指定文件类型的所有文件的综合大小
+```
+find . -name "*.zip"|xargs du -cm
+```
+- 如果文件列表在一个文件里面，可以使用下面的统计
+```
+cat list.txt  | xargs du -cm
+
+du -cm `cat list.txt `
+```
+
 - 查看内存总量
 ```
 grep MemTotal /proc/meminfo
@@ -4126,7 +4149,6 @@ netstat -tlnp
 
 ## #!/bin/bash、#!/usr/bin/bash
 - 指定了程序路径
-
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
