@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ssh tengxun <./shell/reload.sh
+ssh ma <./shell/reload.sh
 
 # 添加一个githook 并提交至githook服务器进行部署
 
