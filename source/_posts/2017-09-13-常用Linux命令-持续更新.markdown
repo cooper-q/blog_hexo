@@ -1340,13 +1340,20 @@ cat txt|grep -w "123"
 cat txt|grep -i "aB"
 ```
 
-- 安静模式 有匹配则返回0
+- 安静模式 有匹配则返回0，不匹配则跳出
 ```
 cat txt|grep -q "ab"
 if cat txt|grep -q 'ab';then
     echo 匹配成功
 fi
 
+# 如果用在if判断中可引发错误
+a="abc"
+if true && echo ${a} | grep -q c || true && echo ${a} | grep -q d; then
+    echo success
+else
+    echo fail
+fi 
 ```
 
 - grep匹配文件
@@ -4148,7 +4155,7 @@ netstat -tlnp
 - 不同的系统命令或者程序存放的位置可能是不同的，只要程序在你的$PATH里面，就可以查找到
 
 ## #!/bin/bash、#!/usr/bin/bash
-- 指定了程序路径
+- 指定了程序路径~~
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
