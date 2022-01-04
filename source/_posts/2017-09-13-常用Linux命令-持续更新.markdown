@@ -1688,6 +1688,11 @@ echo '{"a":"1"}'|jq -r .a // 1而不是"1"
 cat xx|jq '.arr|length'
 ```
 
+- jq筛选特定数据
+```
+echo '[{"a":"false","tag":"1"},{"a":"true","tag":"2"},{"a":"false","tag":"3"}]'|jq -r '.[]|select (.a=="false")|.tag'
+```
+
 # 22.通过pid获取进程以及文件信息
 ```
 ll /proc/PID
@@ -4172,6 +4177,17 @@ echo $? $1
 # 124.bash打印执行过程
 ```
 bash -x xx.sh
+```
+
+# 125.查看docker container
+- 安装
+```
+apt install python-pip
+pip install runlike
+```
+- 使用
+```
+runlike -p containerID/containerName
 ```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
