@@ -1240,9 +1240,14 @@ curl -m 2 https://www.baidu.com
 curl -s -m 2 -k -H 'Host:www.baidu.com' https://ip:port
 ```
 
-# 18.curl 指定host、端口、ip
+## 18.curl 指定host、端口、ip
 ```
 curl xxx.com/test --resolve xxx.com:80:192.168.2.1
+```
+
+## 19.curl 测试http2
+```
+curl -I --http2 https://www.baidu.com
 ```
 
 # 15.查看socket连接数
