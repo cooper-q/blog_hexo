@@ -3330,6 +3330,15 @@ date -s "Fri 17 Sep 2021 06:18:54 AM UTC"
 # vim 文件名 // 写入内容
 ```
 
+- 批量修改
+```
+path='xx'
+
+find ${path}|while read -r line;do
+	touch -t 202203081212.50 "${line}"
+done
+```
+
 # 79.显示一个文件的某几行
 - 从第十行开始，显示20行。10-30
 ```
