@@ -1250,6 +1250,11 @@ curl xxx.com/test --resolve xxx.com:80:192.168.2.1
 curl -I --http2 https://www.baidu.com
 ```
 
+## 20.curl处理 argument list too long: curl
+```
+curl https://xx -X POST -d @/tmp/file --header "Content-Type: application/json"
+```
+
 # 15.查看socket连接数
 ```
 ulimit -n
@@ -4214,6 +4219,7 @@ pip install runlike
 ```
 runlike -p containerID/containerName
 ```
+
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
