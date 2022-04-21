@@ -1371,6 +1371,11 @@ fi
 grep <path -q -i 'demo'
 ```
 
+- grep匹配后显示行数
+```
+cat file|grep -n demo
+```
+
 ## 参数
 ```
 -a 不要忽略二进制数据。
