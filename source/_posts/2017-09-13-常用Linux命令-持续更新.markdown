@@ -922,6 +922,12 @@ cat demo.txt|base64 -w 0
 echo 'aGVsbG8K'|base64 -D
 ```
 
+- 不打印末尾的换行符编码
+```
+echo -n "123"|base64
+```
+
+
 
 # 11. nc
 
@@ -1376,6 +1382,14 @@ grep <path -q -i 'demo'
 cat file|grep -n demo
 ```
 
+- grep排除文件或者文件夹
+```
+--exclude=FILE_PATTERN  skip files and directories matching FILE_PATTERN
+--exclude-from=FILE   skip files matching any file pattern from FILE
+--exclude-dir=PATTERN  directories that match PATTERN will be skipped.
+```
+
+
 ## 参数
 ```
 -a 不要忽略二进制数据。
@@ -1429,6 +1443,13 @@ cat file|grep -n demo
 -o 只输出文件中匹配到的部分。
 ```
 
+## 忽略指定内容
+
+### -v
+```
+cat xx|grep -v '1\|2\|3\'
+cat xx|grep -v '1'|grep -v '2'|grep -v '3'
+```
 # 21.awk sed Perlre
 ## 1.awk
 - 注意：所有分割后的值都可以直接作为数组进行循环
@@ -1571,6 +1592,24 @@ sed -i 's/. "\/root\/.acme.sh\/acme.sh.env"//g' `grep '. "/root/.acme.sh/acme.sh
 sed '行号i 内容' 文件路径
 ```
 
+- 指定行替换数据
+```
+sed '行号c 内容' 文件路径
+```
+
+- 将2-5行替换为xxxx
+```
+sed '2,5c xxxx' a.txt
+```
+- 将第2行和第5行替换为xxxx
+```
+sed -e '2c xxxx' -e '5c xxxx' a.txt
+```
+- 将奇数行替换为xxxx
+```
+sed '1~2c xxxx' a.txt
+```
+
 - 替换斜杠为反斜杠+斜杠
 ```
 sed 's#/#\\\/#g'
@@ -1598,6 +1637,33 @@ sed '/abc/d;/bcd/d' a.txt # 删除多个匹配条件
 str=1,2,3
 ${str//,/0} # 10203
 ```
+
+- sed匹配多行并替换其中内容
+```
+aaa开始，eee结束中间的123替换成xyz
+sed -i '/aaa/{:a;n;s/123/xyz/g;/eee/!ba}' yourfile
+
+怎么匹配aaa~eee（开始结束字符串确定），然后替换123这样的
+
+先匹配aaa，匹配到后执行大括号里的语句。
+
+n 读取下一行
+
+s/123/xyz/g  将123替换为xyz，全局替换，同一行中出现几次替换几次
+
+:a 设定跳转标签a
+
+/eee/!ba  若当前行匹配不上eee，则跳转到标签a处继续执行，构成一个循环。若匹配到eee，则退出循环，sed重新对读入的每行匹配aaa。
+
+由于sed没有加-n静默选项，所以默认对每行数据处理后都打印。
+```
+- 最前面一行&最后面一行添加内容
+```
+sed 'li 添加的内容' file # 这是在第一行前添加字符串
+sed '$i 添加的内容' file # 这是在最后一行行前添加字符串
+sed '$a添加内容' file # 这是在最后一行行后添加字符串
+```
+
 # 25.jq使用
 - centos安装jq
 ```
@@ -1706,6 +1772,34 @@ cat xx|jq '.arr|length'
 - jq筛选特定数据
 ```
 echo '[{"a":"false","tag":"1"},{"a":"true","tag":"2"},{"a":"false","tag":"3"}]'|jq -r '.[]|select (.a=="false")|.tag'
+```
+
+- 将a改为123
+```
+cat xx|jq '.a="123"'
+
+{
+    "a":"123"
+}
+```
+- 数组删除指定字段
+```
+cat test.json | jq 'map(del(.Country, .number, .Language))'
+```
+
+- 数组只取指定字段
+```
+cat test.json | jq 'map({label, region, locale, currency})'
+```
+
+- 数组删除符合条件的元素
+```
+cat xx|jq 'del(.[]|select(.name==null or .a===null))'
+```
+
+- 取指定key并生成新的数组
+```
+echo xx | jq '.|{"pw":.id,"jq":"123","pq":.wabc}'
 ```
 
 # 22.通过pid获取进程以及文件信息
@@ -3411,6 +3505,10 @@ echo '' >> log
 ```
 cat /tmp/xx.log|sort -t ' ' -k 1n -k 2r -k 7n
 ```
+- 倒叙排列
+```
+sort -r xx.xx
+```
 
 # 83.判断内容全部为数字
 ```
@@ -3964,6 +4062,20 @@ setenforce 1
 SELINUX=enforcing--->SELINUX=disabled
 然后重启
 ```
+- nginx添加端口
+```
+# 查询是否开放
+$(find /usr/bin /usr/sbin | grep -w semanage) port -l | grep http_port | grep  443
+
+# 开放端口
+$(find /usr/bin /usr/sbin | grep -w semanage) port -a -t http_port_t -p tcp 31300
+
+```
+- 查看状态
+```
+getenforce
+# permissive 宽容模式、enforcing 强制模式
+```
 
 # 104.查看PID
 ```
@@ -4224,7 +4336,48 @@ pip install runlike
 ```
 runlike -p containerID/containerName
 ```
+# 126.apt
+```
+*** nscd.conf (Y/I/N/O/D/Z) [default=N] ?
 
+忽略上述选择
+
+--force-confold: do not modify the current configuration file, the new version is installed with a .dpkg-dist suffix. With this option alone, even configuration files that you have not modified are left untouched. You need to combine it with --force-confdef to let dpkg overwrite configuration files that you have not modified.
+--force-confnew: always install the new version of the configuration file, the current version is kept in a file with the .dpkg-old suffix.
+--force-confdef: ask dpkg to decide alone when it can and prompt otherwise. This is the default behavior of dpkg and this option is mainly useful in combination with --force-confold.
+--force-confmiss: ask dpkg to install the configuration file if it’s currently missing (for example because you have removed the file by mistake).
+
+
+apt -o Dpkg::Options::="--force-confold" -y install xx
+```
+# 127.-bash: !": event not found错误
+```
+!有特殊含义转椅或者单引号
+```
+# 129.if条件判断
+- -d ：判断制定的是否为目录
+- -z：判断制定的变量是否存在值
+
+- -f：判断制定的是否为文件
+- -L:判断制定的是否为符号链接
+- -r：判断制定的是否可读
+- -w:判断制定的是否可写
+- -x：判断存在的对象是否可以执行
+- !：测试条件的否定符号
+
+# 128.无法ping通127
+- 如果多网卡请注意设置
+```
+sudo vim /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+auto eth0
+iface eth0 inet dhcp
+
+sudo ifconfig lo up
+
+```
 
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
