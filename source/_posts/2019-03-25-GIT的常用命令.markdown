@@ -167,6 +167,11 @@ git checkout -- file 丢弃工作区的修改
 ```
 git commit -m 'log'
 ```
+- 提交忽略eslint 校验
+```
+git commit --no-verify -m "commit"
+```
+
 - 推送当前分支所对应的远程分支
 ```
 git push
