@@ -13,7 +13,7 @@ tags:
 
 # [学习地址](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5)
 # 1.分支
--<!-- more -->
+<!-- more -->
 - 查看当前在那个分支上
 ```
 git show-branch
