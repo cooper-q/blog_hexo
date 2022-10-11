@@ -3510,10 +3510,17 @@ cat /tmp/xx.log|sort -t ' ' -k 1n -k 2r -k 7n
 sort -r xx.xx
 ```
 
-# 83.判断内容全部为数字
+# 83.判断内容
+- 全部为数字
 ```
 if [[ "$num" =~ ^[1-9]+$ ]]
 then
+fi
+```
+
+- 判断数字范围
+```
+if ((number >= 1 && number <= 65535)); then
 fi
 ```
 
@@ -4378,7 +4385,6 @@ iface eth0 inet dhcp
 sudo ifconfig lo up
 
 ```
-
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/MattMeng_hexo/issues)联系我删除
 
 [如发现疑问或者错误点击反馈](https://github.com/cooper-q/MattMeng_hexo/issues)
