@@ -1663,6 +1663,10 @@ sed 'li 添加的内容' file # 这是在第一行前添加字符串
 sed '$i 添加的内容' file # 这是在最后一行行前添加字符串
 sed '$a添加内容' file # 这是在最后一行行后添加字符串
 ```
+- 匹配成功后行首添加数据
+```
+sed '/pdf/ s/^/xx/' redis.conf
+```
 
 # 25.jq使用
 - centos安装jq
@@ -2729,6 +2733,11 @@ wget -c "www.baidu.com" -O baidu.index.html -o wget.log
 # -q 安静模式
 # --show-progress 展示进度（需wget支持1.16）
 wget -c -q --show-progress
+```
+
+## 6.后台下载
+```
+wget -b url
 ```
 
 # 54.检测命令是否存在
