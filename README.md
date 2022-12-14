@@ -1,3 +1,7 @@
+> [感谢 JetBrains 提供的非商业开源软件开发授权](https://www.jetbrains.com/?from=MattMeng_hexo)
+
+> [Thanks for non-commercial open source development authorization by JetBrains](https://www.jetbrains.com/?from=MattMeng_hexo)
+> 
 # 概述
 [博客地址](https://blog.mengxc.info)
 ## 1.架构
