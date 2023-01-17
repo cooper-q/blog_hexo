@@ -833,3 +833,36 @@ user root
 Port 22
 IdentityFile ~/.ssh/id_rsa
 ```
+
+# 21.修改历史commit作者和邮箱
+- 脚本
+```
+#!/bin/sh
+
+git filter-branch -f --env-filter '
+
+# 之前的邮箱
+OLD_EMAIL="old@163.com"
+# 修改后的邮箱
+CORRECT_EMAIL="new@163.com"
+
+# 修改后的用户名
+CORRECT_NAME="newname"
+
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags
+```
+- 2.提交
+```
+git push --force --tags origin 'refs/heads/*'
+```
