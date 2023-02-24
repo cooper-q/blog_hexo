@@ -33,6 +33,10 @@ ls -F|grep "*"
 
 ## 查询多个目录[/bin | /usr/bin]
 find /bin /usr/bin -name "systemctl"
+
+## 多个条件
+
+find ./ -name '*mp4' -o -name '*.ts'|sort
 ```
 
 ## 2.删除 rm
@@ -4397,7 +4401,7 @@ sudo ifconfig lo up
 ```
 
 # 129.截取字符的后两位
-- 注意-2前面有空格，
+- 注意-2前面有空格
 ```
 foo="abcd"
 ${foo: -2} // cd 
