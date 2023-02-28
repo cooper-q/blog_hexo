@@ -390,6 +390,7 @@ scp -P xxxx -i /Users/xxx/.ssh/id_rsa root@xxx.xx.xx.xx:/etc/xx/config.json ./
 ## 3.scp 上传文件夹
 ```
 scp  -r /tmp/local_dir username@ip:remote_dir
+scp  -i /Users/xxx/.ssh/id_rsa -r /tmp/local_dir username@ip:remote_dir
 ```
 
 ## 4.上传文件
