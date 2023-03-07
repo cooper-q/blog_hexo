@@ -3704,6 +3704,11 @@ a.out    a.py     a.pyc    abc.txt
 ```
 :set paste
 ```
+- vim 编辑指定行
+```
+# n代表行数
+vim +n filename
+```
 # 92.捕获stderr
 ```
 find /tmp/ls -name demo > /tmp/log 2>&1
