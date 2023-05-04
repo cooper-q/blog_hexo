@@ -1,0 +1,3 @@
+User-agent: *
+Allow:/
+Sitemap: https://www.cooper-q.com/sitemap.xml

@@ -1,0 +1,873 @@
+---
+layout:     post
+title:      "git常用命令"
+date:       2019-03-25
+toc: true
+categories:
+    - git
+    - 常用命令
+tags:
+    - git
+    - Linux
+---
+
+# [学习地址](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5)
+# 1.分支
+<!-- more -->
+- 查看当前在那个分支上
+```
+git show-branch
+```
+- 切换分支
+```
+git checkout branch_name
+```
+- 查看远程所有分支 *代表所处的
+```
+git branch -a
+```
+- 查看本地分支
+```
+git branch
+```
+- 删除本地分支
+```
+git branch -d name
+```
+- 删除远程分支
+```
+git push origin --delete <BranchName>
+git push origin -d <BranchName>
+```
+
+- 创建分支
+```
+git branch branch_name
+```
+- 创建并切换到指定分支
+```
+git checkout -b branch_name
+```
+- 把远程分支拉取到本地并合并
+```
+git pull origin :branch_name
+```
+- 把本地分支提交到远程服务器
+```
+git push orgin :branch_name
+```
+- 更改文件名称 移动文件
+```
+git mv 原名称 新名称
+git mv 文件名 文件路径
+```
+- 删除远程分支
+```
+git push --delete/-m origin <branch_name>
+```
+- 指定默认主机
+```
+git push -u origin master
+```
+- 本地分支修改名称
+```
+git branch -m <old_branch_name> <new_branch_name>
+```
+- 显示包含提交50089的分支
+```
+git branch --contains 50089
+```
+- 从当前分支创建新分支master_copy并检出
+```
+git checkout -b master_copy
+git checkout -b master master_copy 上面的完整版
+```
+
+# 2.删除
+
+- 在git中删除
+```
+git rm file_name|dir -r
+```
+- 清除未跟踪的文件以及目录
+```
+git clean -f
+```
+- 从git上删除该文件 本地保留 .ignore 加上了该文件(想要添加上该文件 需要从.ignore删除)
+```
+git rm --cached readme1.txt
+```
+# 3.添加、提交、合并、撤销、比较
+## 1.添加到暂存区
+
+- .gitignore添加不被跟踪的文件
+
+- 当前目录下都添加暂存区
+```
+git add .
+```
+- 把指定目录下面的所有txt文件添加到暂存区
+```
+git add document/*.txt
+```
+- 把所有当前目录的git-*.sh 添加到暂存区
+```
+git add git-*.sh
+```
+- 添加文件或者目录到暂存区
+```
+git add <path>
+```
+- 将所有以Controller结尾的文件添加到暂存区
+```
+git add *Controller
+```
+- 将所有的Hello开头的文件添加至暂存区
+```
+git add Hello*
+```
+- 将以Hello开头后面只有一位的文件提交至暂存区
+```
+git add Hello?
+```
+- 省略path 即为.，只标记有改动的（修改、删除）
+```
+git add -u [<path>]
+```
+- 添加所有
+```
+git add -A [<path>]
+```
+- 查看<path>中被所有修改过或已删除文件但没有提交的文件，执行后是一个小的系统
+```
+git add -i [<path>] ，但是没有提交的文件
+```
+## 2.撤销、回退
+
+- 回退多个未push的记录（合并多个commit）
+```
+git reset --soft HEAD^
+```
+- 取消add
+```
+git reset
+```
+
+- 将指定的内容移除暂存区
+```
+git reset HEAD [.|fileName]
+```
+
+- 丢掉指定文件的修改
+```
+git checkout -- file 丢弃工作区的修改
+```
+## 3.提交、合并
+- 提交到本地分支
+```
+git commit -m 'log'
+```
+- 提交忽略eslint 校验
+```
+git commit --no-verify -m "commit"
+```
+
+- 推送当前分支所对应的远程分支
+```
+git push
+```
+- 查看文件的状态
+```
+git status
+```
+- 把branch_name 合并到当前分支
+```
+git merge branch_name
+```
+- add commit合为一步
+```
+git commit -am 'xxx'
+```
+- 修改上次提交的日志
+```
+git commit --amend
+```
+- 查看修改具体内容
+```
+git diff
+```
+- 强制提交
+```
+git push -f
+```
+- 抛弃合并过程并且尝试重建合并前的状态，退出合并
+```
+git merge --abort
+```
+- 忽略的已有空白的修改
+```
+git merge -Xignore-all-space branch_name
+```
+- 忽略所有空白修改
+```
+git merge -Xignore-space-change branch_name
+```
+- git merge的三种方式
+```
+fast-forward
+no fast forward
+squash
+```
+- git merge单个文件、单个文件夹
+- - git 无法merge单个文件或者文件夹
+- - 可以使用git checkout实现
+```
+// 需求:分支有 master dev dev_test 需要把dev_test的source_/_posts/下某些内容合并至master
+
+// 1.新建master的临时分支master_temp，并切换到该分支
+git branch master_temp
+git checkout master_temp
+
+// 2.用dev_test指定内容替换master_temp下的相应内容 如果有冲突可以在此分支解决
+git checkout dev_test  source/_posts // 这里是字节一个文件夹
+
+// 3.合并并提交
+git commit -am 'test'
+
+// 4.将master_temp分支合并到master
+git checkout master
+git merge master_temp
+```
+
+## 4.比较
+
+- 如果没有其他参数，git diff 会以规范化的 diff 格式（一个补丁）显示自从你上次提交快照之后尚未缓存的所有更改。
+- 查看某一分支自它偏离出来起与过去某一点之间项目的改动。 总是使用 git diff branchA...branchB 来查看 branchB 与 branchA 的相对差值，这会让事情简单点。
+
+
+
+- 查看已缓存的改动
+```
+git diff
+```
+- 查看已缓存的与未缓存的所有改动
+```
+git diff HEAD
+```
+- 显示摘要
+```
+git diff –-stat
+```
+- 比较branchA与branchB的不同
+```
+git diff branchA branchB
+```
+- 如果我们不想要看整个 diff 输出，但是又想比 **git status** 详细点， 就可以用 **--stat** 选项。该选项使它显示摘要而非全文。上文示例在使用 --stat 选项时
+
+- 执行 git diff 来查看执行 git status 的结果的详细信息 —— 一行一行地显示这些文件是如何被修改或写入缓存的。
+- 查看暂存区和工作目录的变动
+```
+git diff <filename>
+```
+- 查看和某个分支的不同之处
+```
+git diff <branch> <filename>
+```
+- 查看已经add但是没有commit与最近一次的提交之间的不同
+```
+git diff --cached <filename>
+```
+- 查看与某个commitID的不同之处
+```
+git diff <commit> <filename>
+```
+- 比较两个不同commit之间的不同
+```
+git diff <commmitID> <commitID>
+```
+- 比较最近一次commit
+```
+git diff HEAD
+```
+- 比较与上一个版本的差异
+  HEAD~100 比较往上100次提交
+```
+git diff HEAD^
+git diff HEAD~2
+```
+- 比较时去掉空格
+```
+git diff -b
+```
+- 可以查询两边文件是怎么改变的
+```
+git diff --base
+```
+
+# 4.配置
+- 查看
+```
+# 全局
+git config --global --list      // 查看
+git config --global user.name   // 只查看name
+
+# 当前用户
+git config --list      // 查看
+git config user.name   // 只查看name
+```
+
+- 增加全局
+```
+git config --global --add user.name usernmae
+git config --global --add user.email email
+```
+
+- 删除全局
+```
+git config --global --unset user.name                 // 删除username （但是只能删除唯一值，但存在多个user.name时无法删除）
+git config --unset --global user.name '指定的名称'      // 删除指定的user.name
+git config --unset --global user.email '指定的emamil'  // 删除指定名称的email
+```
+
+- 修改
+```
+# 全局
+git config --global user.name '名称' // 修改名称
+git config --global user.email 'email地址' // 修改email地址
+
+# 当前项目
+git config user.email cooper-q@aliyun
+git config user.name cooper-q
+
+// 修改log时间格式
+git config log.date iso-local           2018-11-03 03:30:04 +0000
+git config log.date iso-strict-local    2018-11-03T03:30:04+00:00
+```
+
+# 5.远程 remote 操作
+
+## 1.修改本地仓库地址
+- 1.命令直接修改
+```
+git remote set-url origin http://xxxx
+git push --set-upstream origin xxxx
+```
+
+- 2.通过命令先删除再添加远程仓库地址
+```
+git remote // 查看所有远程仓库
+git remote xx //查看指定远程仓库地址
+git remote rm origin
+git remote add origin http://xxx
+```
+
+- 3.修改配置文件
+```
+cd .git&&vim config
+修改[remote 'origin']下面的url即可。
+
+git remote -v // 查看远程仓库地址
+git fetch origin master // 从远程获取最新版本到本地
+```
+
+- 4.异常处理
+```
+# fatal: refusing to merge unrelated histories
+git pull origin master --allow-unrelated-histories
+git push
+
+# error: remote unpack failed: index-pack abnormal exit
+
+git pull --allow-unrelated-histories
+git push
+```
+
+## 2.本地merge 远程分支(步骤)
+```
+1.git pull          // 远程分支 保证最新代码
+2.git checkout      // 本地要merge的分支
+3.git merge master  // 合并解决冲突
+4.git push
+```
+
+# 6.错误
+- git add . 时错误
+```
+If no other git process is currently running, this probably means a
+git process crashed in this repository earlier. Make sure no other git
+process is running and remove the file manually to continue.
+
+解决方法：
+    rm -f ./.git/index.lock
+```
+
+#  7.还原、恢复
+
+## 1.git reset
+- --soft 保留源码，只退回到commit信息到某个版本，不涉及index的回滚，如果还需要提交，直接commit即可。
+- --hard commit和index都回退到某个版本。注意这种方式是改变本地仓库源码。也可以用到线上，但是有问题。再提交时就会有冲突。
+
+- 永久回退到某个版本
+```
+git reset --hard commitId
+```
+
+- ~~reset对某个文件进行回退~~
+```
+git reset commitID fileName
+
+1.git reset -mixed：此为默认方式，不带任何参数的git reset，这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+2.git reset -soft:回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+3.git reset -hard 彻底回退到某个版本，本地的源码也会变成为上一个版本的内容
+```
+- checkout 对某个文件进行回退
+```
+git check commitID fileName
+```
+
+## 2.git revert
+- 丢弃某次修改
+- git revert用户反转提交，执行revert命令时工作树必须是干净的。
+```
+# 比如a文件被修改了三次，修改的值分别为 1 2 3
+
+# hash1 add 1 2020-8-5 11:00
+# hash2 add 2 2020-8-5 11:05 
+# hash3 add 3 2020-8-5 11:10
+
+git revert hash2 # 这个时候会有冲突，因为后来修改了a文件导致树不干净
+git revert hash3 # 这个时候是正常的，丢掉了hash3添加的3
+```
+- git revert用一个新提交来消除一个历史提交所做的任何修改。
+- revert之后你的本地代码会回滚到指定的历史版本，这时git push不会有冲突。
+- revert使用，需要先找到你想要回滚的唯一的commit表示代码，可以用git log查看提交记录。
+- git revert c011eb3c20ba6fb38cc94fe5a8dda366a3990c61是用一次新的commit来回滚之前的commit，git reset是直接删除。
+- git revert 版本id -m 1
+  这个1 指的是master，2指的是develop。现在是在master分支上回滚 develop合并到master上的部分代码。
+  这种方式，是用一种反向的push来重新提交一次。git中可以看到操作记录。
+
+### reset revert区别
+
+- reset是删除向后退，revert是提交一个新的向前进。
+- 如果你已经push到线上代码库, reset 删除指定commit以后,你git push可能导致一大堆冲突.但是revert 并不会。
+- revert 恢复部分的代码依然会出现在历史分支里。但是reset提交的commit 并不会出现在历史分支里。
+
+#  8.git log历史记录
+
+## 1.git log 查看提交记录
+
+
+- 显示每次更新的SHA-1和作者的名字以及邮件地址、提交时间
+
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/git/git%20log.png' />
+
+## 2.git log -p [file]
+
+- 展示提交的内容差异、或者查看单独某个文件
+  显示每次提交的内容差异
+- git log -p -2       #  -2 表示只显示两次提交更新
+
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/git/git%20log%20-p.png' height='250px'/>
+
+## 3.git log -p --word-diff 单词层面的对比
+
+- 适用于大文本书籍之类的
+
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/git/git%20log%20-p%20--word-diff.png' height='250px'/>
+
+## 4.git log --stat 查看文件的修改记录
+
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/git/git%20log%20--stat.png' heigth='250px'/>
+
+
+## 5.git log --oneline
+- 对于提交记录日志只显示一行
+
+>提交记录放到一行只展示commitID以及commit log
+
+```
+git log --oneline -1 // 显示一行
+```
+
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/git/git%20log%20--oneline.png' height='200px'/>
+
+<!--## 6.git log --author usernmae 通过用户名过滤-->
+## 6.git log --pretty=format:'' >定制输出的记录格式
+
+选项|说明
+--|--
+%H|提交对象（commit）的完整哈希字串
+%h|提交对象的简短哈希字串
+%T|树对象（tree）的完整哈希字串
+%t|树对象的简短哈希字串
+%P|父对象（parent）的完整哈希字串
+%p|父对象的简短哈希字串
+%an|作者（author）的名字
+%ae|作者的电子邮件地址
+%ad|作者修订日期（可以用 -date= 选项定制格式）
+%ar|作者修订日期，按多久以前的方式显示
+%cn|提交者(committer)的名字
+%ce|提交者的电子邮件地址
+%cd|提交日期
+%cr|提交日期，按多久以前的方式显示
+%s	|提交说明
+
+>例如
+
+```
+git log --pretty=format:'%h %an %ad %s' // 展示短哈希、作者名称、修订日期、提交说明
+```
+## 7.git log --grep '要搜索的log内容'
+## 8.git log --pretty=format:'%h %an %ad %s'|grep "要搜索的log"
+## 9.git log fileName 查看单个文件的提交记录
+## 10.参考表
+
+选项|说明
+--|--
+-p|按补丁格式显示每个更新之间的差异。
+--word-diff|按 word diff 格式显示差异。
+--stat|显示每次更新的文件修改统计信息。
+--shortstat|只显示 --stat 中最后的行数修改添加移除统计。
+--name-only|仅在提交信息后显示已修改的文件清单。
+--name-status|显示新增、修改、删除的文件清单。
+--abbrev-commit|仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。
+--relative-date|使用较短的相对时间显示（比如，“2 weeks ago”）。
+--graph|显示 ASCII 图形表示的分支合并历史。
+--pretty|使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。
+--oneline|	--pretty=oneline --abbrev-commit 的简化用法。
+-(n)|	仅显示最近的 n 条提交
+--since, --after|	仅显示指定时间之后的提交。
+--until, --before|	仅显示指定时间之前的提交。
+--author|	仅显示指定作者相关的提交。
+--committer|	仅显示指定提交者相关的提交。
+--left-right|显示每个提交到底处于哪一侧的分支
+
+# 9.git tag(标签)
+- 相当于快照，在那个分支上打tag没有关系，也和分支没关系。
+
+## 1.列出所有的tag
+```
+git tag
+```
+
+## 2.如果只对某个版本感兴趣
+```
+git tag -l 'v1.1.*
+```
+
+## 3.含附注的标签
+```
+git tag -a v0.7.1 -m '稳定版本'
+如果有私钥
+git tag -s v1.1 -m 'my version'
+git show 某个tag的时候GPG的签名也在其中。
+```
+## 4.轻量级标签
+```
+git tag v1.1.4
+```
+## 5.验证标签
+```
+git tag -v [tag-name]
+```
+## 6.后期加注标签
+```
+git tag -a v1.2 9fceb02 -m 'content'
+```
+## 7.推送标签到远程
+```
+git push origin v1.5
+```
+## 8.推送本地所有标签到远程
+```
+git push origin --tags
+```
+
+## 9.删除某个tag
+```
+git tag -d tag_name
+```
+
+## 10.删除远程的tag
+```
+git push origin --delete tag <tagname>
+git push origin :refs/tagName
+```
+
+## 11.列出所有的提交记录以及hash码
+
+```
+git log --pretty=oneline
+```
+
+## 12.查看这个分支或者tag的内容
+```
+git show hash/tag
+```
+
+## 13.提交某个commit merge
+```
+git cherry-pick
+```
+
+## 14.查看git详细信息
+```
+git show tag_name
+```
+
+## 15.自定义私有包
+```
+"mongoose-models":"git+ssh://git@gitlab.xxx.com:backend/mongoose-models.git#tag号",
+```
+
+# 10.pull、fetch
+## 1.区别
+- pull:从远端仓库提取数据并尝试合并到当前分支。
+- fetch:git fetch 从远端仓库下载新分支与数据。
+
+## 2.建议使用
+```
+git fetch origin master //从远程主机的master分支拉取最新内容 
+git log -p FETCH_HEAD # 查看取回的更新信息
+git merge FETCH_HEAD    //将拉取下来的最新内容合并到当前所在的分支中
+```
+
+# 11.[git-extra](https://github.com/tj/git-extras)
+
+- git-line-summary 查看贡献
+
+# 12.不常用命令或者不会用命令
+
+```
+git add -N
+git add --refresh
+```
+
+# 13.git 创建仓库
+```
+mkdir directory
+git init
+mkdir README.md
+git commit -am 'README'
+git remote add orgin url
+git pull origin master  --allow-unrelated-histories (兼容版本)
+git push -u origin master
+```
+
+# 14.git 进行私有包管理
+- package.json中加入
+```
+"mongoose-models":"git+ssh://git@gitlab.semioe.com:backend/mongoose-models.git#tag号",
+```
+
+# 15.git rebase
+## 1.合并多个未push的commit
+- 适用于多个commit重复修改一个文件的情况
+- 现在在master上执行rebase操作。会把从release合并过来的commit放在master现有commit的最前边，作为最早的提交，而把master现有的每个提交创建全新的提交来重写项目历史记录，放在maser最后边，作为最新的commit。这样打乱且篡改了历史提交记录。若别人想看公共分支的历史提交记录，它看到的不是完整的历史记录，因为已经被你打乱篡改了。
+- 正在开发的其他分支会定期从master上合并代码，使开发分支保持最新，由于在master执行了rebase，maser历史会形成全新的提交，合并过来后，git会认为和本地开发分支不一样，增加冲突可能性，更不知道代码提交顺序性，造成许多诡异现象。
+
+```
+# 合并最近三个提交
+git rebase -i HEAD~3
+
+# 显示 需要注意下方的commands
+pick 3864555 feat(test): test1
+pick d4dfcd1 feat(test): test2
+pick 8ad0363 feat(test): test3
+
+# Rebase 5f2452b2..8f33126c onto 5f2452b2 (4 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+
+# 修改为下面内容（把后添加的合并到3864555上面）
+p 3864555 feat(test): test1
+s d4dfcd1 feat(test): test2
+s 8ad0363 feat(test): test3
+
+# 修改后会让修改commit log（修改即可）
+
+commit 8e946c090489656c47549463fbb9462a2e41883a (HEAD -> master)
+Author: cooper-q <>
+Date:   Mon Dec 16 14:28:12 2019 +0800
+
+    feat(test):合并后的commit log (test)
+
+```
+
+- 2.异常错误
+```
+# 如果遇到以下错误
+error: cannot 'squash' without a previous commit
+
+# 执行一下命令重新打开编辑模式
+git rebase --edit-todo
+
+# 编辑完成后
+git rebase --continue
+```
+
+
+# 16.git 状态详解
+
+## 1.状态图
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/git/git%20%E7%8A%B6%E6%80%81%E5%9B%BE.jpg'/>
+
+## 2.基本状态标识
+```
+A- = untracked 未跟踪
+A  = tracked 已跟踪未修改
+A+ = modified -已修改未暂存
+B  = staged - 已暂存未提交
+C  = committed -已提交未push
+```
+
+## 3.各状态之间的变化
+```
+A--->B:     git add <file> // 加入到暂存区
+B--->A:     git rm --cached <file>
+B--->删除不保留文件：git rm -f <file>
+A--->A- :   git rm --cached <file>
+A--->A+:    修改文件
+A+--->A:    git checkout <file>
+A+--->B:    git add <file>
+B--->A+:    git reset HEAD <file>
+B--->C:     git commit -m '' // 加入到本次仓库
+C--->B:     git reset --soft HEAD^
+git commit --amend 修改最后一次提交
+```
+
+## 4.git diff 对比修改
+```
+已修改，未提交 ：git diff
+已暂存，未提交 : git diff --cached
+已提交，未推送 ：git diff master origin/master
+```
+
+# 17.优雅的提交你的git log
+- [x] [详情链接](https://github.com/commitizen/cz-cli)
+
+```
+npm i -g commitizen
+npm i -g cz-conventional-changelog
+echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
+shell输入cz使用
+```
+
+# 18.github贡献度
+## 1.Commits展示条件
+- 1.一年以内提交commits
+- 2.commits使用的email地址与你的Github账号相关联
+- 3.这些commits是一个独立的仓库而不是fork仓库
+- 4.这个commits在默认分之或在gh-pages分支
+- 5.至少满足下面条件中的一个
+- - 1.你是这个仓库的协作者活着版本库的拥有组织中的一员
+- - 2.你fork个这个仓库
+- - 3.你对仓库发起了pull request或issue
+- - 4.你对仓库标记了star
+
+## 2.Contributions未被Github计入的几个常见原因
+- 1.进行Commits的用户没有被关联到你的Github账号中
+- 2.不是在这个版本库的默认分支进行Commit
+- 3.这个仓库是一个Fork仓库，而不是独立仓库
+
+# 19.https转换成ssh
+- 1.进入项目的.git文件夹
+- 2.修改.git/config文件下的url为ssh链接
+```
+url = http://xxx.com/Name/project.git
+# 修改为
+url = git@xxx.com/Name/project.git
+```
+
+# 20.代理git
+## 1.代理https or http
+- 只有使用https clone时会生效
+```
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+ 
+# 只对github.com
+git config --global http.https://github.com.proxy socks5://127.0.0.1:1080
+# 取消代理
+git config --global --unset http.https://github.com.proxy)
+ 
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+## 2.代理git ssh
+- 代理GitHub
+```
+# 修改.ssh/config 【如果没有则新建】
+Host github.com
+
+# 添加下方这条（macos）
+ProxyCommand nc -X 5 -x 127.0.0.1:1080 %h %p
+HostName github.com
+User git
+Port 22
+IdentityFile ~/.ssh/id_rsa
+
+# 添加下方这条（linux）
+# linux安装apt-get/yum/apt install netcat
+
+Host h
+HostName x
+ProxyCommand ncat --proxy 127.0.0.1:port %h %p
+user root
+Port 22
+IdentityFile ~/.ssh/id_rsa
+```
+
+# 21.修改历史commit作者和邮箱
+- 脚本
+```
+#!/bin/sh
+
+git filter-branch -f --env-filter '
+
+# 之前的邮箱
+OLD_EMAIL="old@163.com"
+# 修改后的邮箱
+CORRECT_EMAIL="new@163.com"
+
+# 修改后的用户名
+CORRECT_NAME="newname"
+
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags
+```
+- 2.提交
+```
+git push --force --tags origin 'refs/heads/*'
+```
+
+# 22.批量删除tag
+```
+git tag -l | xargs -n 1 git push --delete origin
+```

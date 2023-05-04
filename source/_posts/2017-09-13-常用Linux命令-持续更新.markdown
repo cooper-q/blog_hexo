@@ -1,0 +1,4447 @@
+---
+layout:     post
+title:      "常用Linux命令，持续更新"
+date:       2017-9-18
+toc: true
+sticky: 99
+categories:
+    - Linux
+catalog:    true
+tags:
+    - Linux
+---
+# 1.查看某个服务端口并杀死
+```
+# 查看端口占用
+lsof -i :80
+# 查看服务并杀死相应的端口
+ps -ef|grep nginx|awk '{print $2}'|xargs kill -9
+```
+<!-- more -->
+# 2.文件&文件夹
+## 1.查询指定位置的文件
+```
+## 查询指定目录下指定名称
+find controller/ -name '*.js' | xargs grep 'decorator'  
+
+## 查询某个程序为可执行文件[-executable]
+
+find /usr/bin/ -executable -name "socat"
+
+## 查找可执行文件
+ls -F|grep "*"
+
+## 查询多个目录[/bin | /usr/bin]
+find /bin /usr/bin -name "systemctl"
+
+## 多个条件
+
+find ./ -name '*mp4' -o -name '*.ts'|sort
+```
+
+## 2.删除 rm
+### 1.递归删除所有
+```
+rm -rf [file|folder]
+```
+- 参数
+```
+-f, --force    忽略不存在的文件，从不给出提示。
+-i, --interactive 进行交互式删除
+-r, -R, --recursive   指示rm将参数中列出的全部目录和子目录均递归地删除。
+-v, --verbose    详细显示进行的步骤
+  	--help     显示此帮助信息并退出
+  	--version  输出版本信息并退出
+```
+
+### 2.删除指定目录文件夹
+```
+find path(路径) -name 名称|xargs rm -rf
+```
+
+### 3.删除文件时排除指定文件
+```
+rm `ls *.txt|egrep -v test.txt`
+
+```
+- 排除多个文件
+```
+rm `ls *.txt|egrep -v '(test.txt|fff.txt|ppp.txt)'`
+```
+- 排除文件夹&文件
+```
+rm -rf `ls /etc/nginx/|egrep -v '(demo|conf)'`
+```
+
+## 3.删除不符合规则的文件
+```
+rm -fr !(re*) 
+```
+
+- 删除非2018的Log
+```
+rm -fr !(2018*)
+```
+
+## 3.操作文件&文件夹
+### 1.查看文件类型
+```
+file 文件名
+more 文件名 # 查看文件内容是否可读文本
+```
+### 2.修改权限
+```
+# 如果没有权限，需要文件属主或管理员用户（root）执行
+chmod 777 文件名
+chmod a+x 文件名
+```
+### 3.写入文件
+```
+# 替换文件内容
+echo '123' > filename
+
+# 追加内容
+echo '123' >> filename
+```
+### 4.查看文件或者文件夹大小
+```
+du -h fileName&path
+# 查看当前文件夹内容
+du -ah 
+# 查看指定文件大小
+du -ah fileName
+# 查看这个文件夹下的文件的大小
+du -ah path
+# 查看当前目录占用大小
+du -ah --max-depth=1
+# 查看设备利用率
+df -lh
+```
+### 5.新建文件夹
+```
+mkdir  文件夹名字
+```
+### 6.新建文件
+```
+touch 文件名称
+```
+### 7.移动文件&修改名称
+```
+mv cooper-q  ~/.ssh/id_rsa
+mv cooper-q ~/.ssh/id_rsa.pub
+mv 修改前名字  修改后的
+```
+
+### 8.拷贝文件以及文件夹
+```
+cp -R directory newDirectory
+cp 文件名 路径+新文件名
+```
+
+### 9.删除空目录
+```
+rmdir (选项) (参数)
+
+# 选项：
+-p或--parents：删除指定目录后，若该目录的上层目录已变成空目录，则将其一并删除； 
+--ignore-fail-on-non-empty：此选项使rmdir命令忽略由于删除非空目录时导致的错误信息； 
+-v或-verboes：显示命令的详细执行过程； 
+--help：显示命令的帮助信息； 
+--version：显示命令的版本信息。
+
+# 参数：
+目录列表：要删除的空目录列表。当删除多个空目录时，目录名之间使用空格隔开。
+
+# 示例：
+rmdir /Desktop/null
+```
+
+### 10.搜索文件中的内容
+```
+cat /etc/ssh/sshd_config |grep AuthorizedKeysFile
+```
+
+### 11.tree&&ls
+```
+# 显示一级目录
+tree -L 1
+```
+
+### 12.**ls**
+- 1.查看目录下文件的详情（大小&权限&数量&时间）
+```
+ls -lh 
+```
+
+- 2.把文件或者文件夹排列成一列
+```
+ls -1 
+```
+
+- 3.查看当前目录下的文件数量（不包含子目录中的文件）
+```
+ls -l|grep "^-"| wc -l
+```
+
+- 4.查看当前目录下的文件数量（包含子目录中的文件） 注意：R，代表子目录
+```
+ls -lR|grep "^-"| wc -l
+```
+- 5.查看当前目录下的文件夹目录个数（不包含子目录中的目录），同上述理，如果需要查看子目录的，加上R
+```
+ls -l|grep "^d"| wc -l
+```
+
+- 6.查询当前路径下的指定前缀名的目录下的所有文件数量
+```
+# 例如：统计所有以“20161124”开头的目录下的全部文件数量
+ls -lR 20161124*/|grep "^-"| wc -l
+```
+
+- 7.ls实现列文件按时间排序
+```
+ls -lt  # 时间最近的在前面
+ls -ltr # 时间从前到后
+
+# 利用sort
+ls -l | sort +7     # (日期为第8列)  时间从前到后
+ls -l | sort -r +7  # 时间最近的在前面
+# 参数
+-a 列出目录下的所有文件，包括以 . 开头的隐含文件。
+-b 把文件名中不可输出的字符用反斜杠加字符编号(就象在C语言里一样)的形式列出。
+-c 输出文件的 i 节点的修改时间，并以此排序。
+-d 将目录象文件一样显示，而不是显示其下的文件。
+-e 输出时间的全部信息，而不是输出简略信息。
+-f -U 对输出的文件不排序。
+-g 无用。
+-i 输出文件的 i 节点的索引信息。
+-k 以 k 字节的形式表示文件的大小。
+-l 列出文件的详细信息。
+-m 横向输出文件名，并以“，”作分格符。
+-n 用数字的 UID,GID 代替名称。
+-o 显示文件的除组信息外的详细信息。
+-p -F 在每个文件名后附上一个字符以说明该文件的类型，“*”表示可执行的普通文件；“/”表示目录；“@”表示符号链接；“|”表示FIFOs；“=”表示套接字(sockets)。
+-q 用?代替不可输出的字符。
+-r 对目录反向排序。
+-s 在每个文件名后输出该文件的大小。
+-t 以时间排序。
+-u 以文件上次被访问的时间排序。
+-x 按列输出，横向排序。
+-A 显示除 “.”和“..”外的所有文件。
+-B 不输出以 “~”结尾的备份文件。
+-C 按列输出，纵向排序。
+-G 输出文件的组的信息。
+-L 列出链接文件名而不是链接到的文件。
+-N 不限制文件长度。
+-Q 把输出的文件名用双引号括起来。
+-R 列出所有子目录下的文件。
+-S 以文件大小排序。
+-X 以文件的扩展名(最后一个 . 后的字符)排序。
+-1 一行只输出一个文件。
+```
+### 13.rename
+```
+重命名、批量重命名 支持正则表达式
+rename 's/$/.jpg/' * 把所有的文件后面加上.jpg
+```
+
+### 14.文件以及文件夹权限
+```
+# 1.查看以及用来更改某个目录活文件访问权限
+
+# chmod 修改某个文件
+
+ls -l xxx.xx
+-rw-rw-r--
+其中：
+    最前面那个 - 代表的是类型
+    中间那三个 rw- 代表的是所有者（user）
+    然后那三个 rw- 代表的是群组（group）
+    最后那三个 r-- 代表的是其他人(other)
+
+    r--read
+    w--write
+    x 文件可以被执行
+    - 表示相应的权限还没有被赋予
+
+# 给其他人授予这个文件的权限
+chmod o+w xxx.xx
+
+# 删除xxx.xx中的群组和其他人的读和写的权限。
+chmod go-rw xxx.xx
+
+    u 所有者
+    g group
+    o 代表其他人 但不是u和g
+    a 代表全部的人 u g o
+    
+# 数字代替
+    -rw------- 600 只有所有者才有读写权限。
+    -rw-r--r-- 644 只有所有者才有读写权限，组群和其他人只要读的权限。
+    -rwx------ 700 只要所有者才有读写执行的权利
+    -rwxr-xr-x 755 只有所有者才有读写执行的权利，组群和其他人只有读和执行的权限
+    -rwx--x--x 711 只有所有者才有读，写，执行的权限，组群和其他人只有执行的权限
+    -rw-rw-rw- 666 每个人都有读写的权限
+    -rwxrwxrwx 777 每个人都有读写和执行的权限
+
+# 修改某个目录或文件的用户名和用户组的权限
+
+chown 用户名:组名 文件路径（绝对or相对）
+参数：
+    -c 显示更改的部分信息
+    -f 忽略错误信息
+    -h 修复符号链接
+    -R 处理指定目录以及其子目录下的所有文件
+    -v 显示详细的处理信息
+    -deference 作用与符号链接的指向，而不是链接文件本身。
+
+# 给某个用户赋值权限
+chown -R 用户名 目录
+chmod 755  目录
+```
+
+### 15.>> >
+```
+# >定向数据文件，如果文件不存在就创建文件，如果文件存在清空。
+# >>将内容追加到目标文件
+```
+
+### 16.文件置空
+```
+cat /dev/null > filename
+```
+
+### 17.获取字符串长度
+- 利用下面的方法
+```
+${#str}
+```
+- 利用awk的length方法
+```
+echo ${str}|awk '{print length($0)}'
+```
+- length($0)统计
+```
+awk '{print length($0)}' /etc/passwd
+```
+- awk NF项
+```
+# -F为分隔符，NF为域的个数，即单行字符串的长度
+echo 'ABCDEF'|awk -F "" '{print NF}'
+```
+- 利用 wc的-L的参数
+```
+echo ${str}|wc -L
+
+# -L参数
+# 对多行文件来说，表示打印最长行的长度
+# 对单行字符串而言，表示当前行字符串的长度
+```
+
+- 利用wc的-c参数
+```
+echo -n "ABCDEF"|wc -c
+```
+
+- 利用expr的length
+```
+expr length "ABCDEF"
+```
+
+- 利用expr的$str : ".*"
+```
+# .* 代表任意字符
+expr "ABCDEF" : ".*"
+```
+
+### 18.字符串截取
+- 从0开始截取64个
+```
+echo ${result:0:64}
+```
+
+- 从指定位置开始到结束
+```
+${var:7}
+```
+
+- 从右边第几个字符开始以及字符的个数
+```
+${var:0-start:len}
+```
+
+# 3.pscp&scp
+
+## 1.利用pscp上传文件
+```
+pscp d:\project\udpServer.zip root@101.201.30.9:/home
+```
+
+## 2.scp下载文件
+- 1.下载示例
+```
+scp walle@52.80.63.5:/home/apps/sensor-tcp/tmp/fileName.txt 本地地址
+```
+- 2.指定端口 指定密钥下载
+```
+scp -P xxxx -i /Users/xxx/.ssh/id_rsa root@xxx.xx.xx.xx:/etc/xx/config.json ./
+```
+
+## 3.scp 上传文件夹
+```
+scp  -r /tmp/local_dir username@ip:remote_dir
+scp  -i /Users/xxx/.ssh/id_rsa -r /tmp/local_dir username@ip:remote_dir
+```
+
+## 4.上传文件
+```
+scp path/file root@ip:/serverPath
+```
+
+# 4.查看相关命令的帮助文档
+```
+tldr 查看某个命令的help
+```
+
+# 5.打包/解压
+
+## 1.tar
+- tar -c创建包 -X释放包 -v显示命令过程 -z代表压缩包
+
+- 解包
+```
+tar zxvf FileName.tar
+```
+- 打包
+```
+tar czvf FileName.tar DirName
+```
+- 把/home/benet目录打包
+```
+tar -cvf benet.tar /home/benet 
+```
+- 把目录打包并压缩
+```
+ tar -zcvf benet.tar /mnt 
+```
+- 压缩包的文件解压恢复
+```
+tar -zxvf benet.tar.gz 
+```
+- bz2解压缩
+```
+tar -jxvf benet.tar.gz 
+```
+
+## 2.gz
+- 解压1
+```
+gunzip FileName.gz
+```
+- 解压2
+```
+gzip -d FileName.gz
+```
+- 指定压缩的路径并保留源文件
+```
+gzip -c test.txt > /root/test.gz
+```
+- 压缩
+```
+gzip FileName
+```
+
+- 解压.tar.gz、.tgz
+```
+tar zxvf FileName.tar.gz
+```
+- 压缩 tar gz
+```
+tar zcvf FileName.tar.gz DirName
+```
+- 压缩多个文件
+```
+tar zcvf FileName.tar.gz DirName1 DirName2 DirName3 ...
+```
+
+## 3.bz2命令
+- 解压
+```
+bzip2 -d FileName.bz2
+bunzip2 FileName.bz2
+tar jxvf FileName.tar.bz2
+```
+- 压缩
+```
+bzip2 -z FileName
+tar jcvf FileName.tar.bz2 DirName
+```
+
+## 4.bz命令
+- 解压
+```
+bzip2 -d FileName.bz
+bunzip2 FileName.bz
+tar jxvf FileName.tar.bz
+```
+
+## 5.Z命令
+- 解压
+```
+uncompress FileName.Z
+tar Zxvf FileName.tar.Z
+```
+- 压缩
+```
+compress FileName
+tar Zcvf FileName.tar.Z DirName
+```
+
+## 6.zip命令
+### 1.压缩加密
+- 压缩单个文件
+```
+zip -e demo.zip[压缩包名称] demo[文件名称]
+```
+- 压缩文件夹
+```
+# -r 代表文件夹下面的所有文件都进行压缩
+zip -e -r demo.zip[压缩包名称] demoDir[文件夹名称]
+```
+
+- 解压
+```
+unzip FileName.zip
+# 指定解压的路径
+unzip -d path 解压的文件 
+```
+
+- 压缩
+```
+zip -r FileName.zip DirName
+```
+
+- 压缩加密码
+```
+zip -e 要压缩的压缩包生成的路径（./zip.zip） 文件名称 文件名称（多个文件用空格隔开）
+```
+
+- 解压tar.xz
+```
+# 1.两层压缩，外面是xz压缩，里层是tar压缩，所以分两步实现解压。
+xz -d *.tar.xz
+
+tar -xvf *.tar.xz
+```
+
+# 2.直接解压
+```
+tar -xvJf *.tar.xz
+```
+
+# 6.CentOS7 打开关闭防火墙
+## 1.基本操作
+- 1.查看状态
+```
+systemctl status firewalld
+```
+- 2.启动
+```
+systemctl start firewalld
+```
+- 3.关闭防火墙
+```
+systemctl stop firewalld
+```
+- 4.开机启动
+```
+systemctl enable firewalld
+```
+- 5.禁止防火墙开机启动
+```
+systemctl disable firewalld
+```
+## 2.firwalld-cmd
+- 1查看版本
+```
+firewall-cmd --version
+```
+- 2查看帮助
+```
+firewall-cmd --help
+```
+
+- 3显示状态
+```
+firewall-cmd --state
+```
+
+- 4.查看所有打开的端口
+```
+firewall-cmd--zone=public --list-ports
+```
+
+- 5.更新防火墙规则
+```
+firewall-cmd --reload
+```
+
+- 6.查看区域信息
+```
+firewall-cmd--get-active-zones
+```
+
+- 7.查看指定接口所属区域
+```
+firewall-cmd--get-zone-of-interface=eth0
+```
+
+- 8.拒绝所有包
+```
+firewall-cmd --panic-on
+```
+
+- 9.取消拒绝状态
+```
+firewall-cmd --panic-off
+```
+- 10.查看是否拒绝
+```
+firewall-cmd --query-panic
+```
+- 11.查看已经开放的端口
+```
+// 第一种
+firewall-cmd --list-ports
+
+// 第二种
+firewall-cmd --zone=public --query-port=80/tcp
+```
+
+- 12.开启端口
+```
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+-zone # 作用域
+-add-port=80/tcp # 添加端口，格式为：端口/通讯协议
+-permanent # 永久生效，没有此参数重启后失效
+```
+- 13.关闭端口
+```
+firewall-cmd --permanent --remove-port=8080/tcp
+```
+- 14.打开某个服务
+```
+firewall-cmd --permanent --add-service=https
+```
+- 15.关闭某个服务
+```
+firewall-cmd --permanent --remove-service=https
+```
+- 16.重启防火墙生效
+```
+firewall-cmd --reload
+```
+- 17.查看所有支持的服务
+```
+firewall-cmd --get-service
+```
+
+# 7.PATH
+## 1.概述
+- $PATH：指定目录寻找命令或程序
+
+## 2.格式
+- 中间用冒号隔开
+- 建议使用绝对路径
+
+```
+PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:------:<PATH N>
+```
+## 3.查看PATH值
+- export
+```
+[root@in-8 ~]# export
+
+declare -x HISTCONTROL="ignoredups"
+declare -x HISTSIZE="1000"
+declare -x HOME="/root"
+declare -x HOSTNAME="instance-8"
+declare -x LANG="en_US.UTF-8"
+declare -x LC_ALL="en_US.UTF-8"
+declare -x LESSOPEN="||/usr/bin/lesspipe.sh %s"
+declare -x LE_WORKING_DIR="/root/.acme.sh"
+declare -x LOGNAME="root"
+```
+- echo $PATH
+```
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
+```
+
+## 4.添加PATH
+- :(冒号)分割
+
+### 1.临时添加&修改
+- 重启机器&&重启shell失效
+- PATH重新赋值则修改
+```
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
+```
+### 2.永久添加&修改
+- 1.全局添加
+```
+vi /etc/profile
+
+## 如果多个:（冒号）后面添加即可
+
+export PATH="/usr/local/nginx:$PATH"
+
+## 初始化文件并立即生效
+source /etc/profile
+```
+
+- 2.当前用户添加
+```
+# bash
+vim ~/.bashrc
+
+# zsh
+vim ~/.zshrc
+
+## 如果多个:（冒号）后面添加即可
+export PATH="/usr/local/nginx:$PATH"
+
+## 初始化文件并立即生效
+
+
+source /etc/profile
+```
+
+# 8.查看系统、内存、CPU
+## 1.系统
+
+- 查看内核/操作系统
+```
+uname -a
+# Darwin 为MacOS
+```
+
+- 查看CPU信息
+```
+cat /proc/cpuinfo
+```
+- 查看CPU信息（型号）
+```
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+```
+- 查看计算机名
+```
+hostname
+```
+
+- 列出所有PCI设备
+```
+lspci -tv
+```
+- 列出所有USB设备
+```
+lsusb -tv
+```
+- 列出加载的内核模块
+```
+lsmod
+```
+- 查看环境变量
+```
+env
+```
+- 查看网卡信息
+```
+dmesg | grep -i eth
+```
+## 2.资源
+- 查看内存使用量和交换区使用量
+```
+free -m
+```
+- 查看各分区使用情况
+```
+df -h
+```
+- 查看指定目录的大小
+```
+du -sh <目录名>
+```
+
+- 查看当前目录的所有文件的大小
+```
+du -sh *
+```
+- 查看当前目录所有文件的大小并按照大小来排序
+```
+du -sk * | sort -n
+
+du -sh * | sort -n
+```
+
+- 查看指定文件类型的所有文件的综合大小
+```
+find . -name "*.zip"|xargs du -cm
+```
+- 如果文件列表在一个文件里面，可以使用下面的统计
+```
+cat list.txt  | xargs du -cm
+
+du -cm `cat list.txt `
+```
+
+- 查看内存总量
+```
+grep MemTotal /proc/meminfo
+```
+- 查看空闲内存量
+```
+grep MemFree /proc/meminfo
+```
+- 查看系统运行时间、用户数、负载
+```
+uptime
+```
+- 查看系统负载
+```
+cat /proc/loadavg
+```
+
+## 3.磁盘和分区
+- 查看挂接的分区状态
+```
+mount | column -t 
+```
+- 查看所有分区
+```
+fdisk -l
+```
+- 查看所有交换分区
+```
+swapon -s
+```
+- 查看磁盘参数(仅适用于IDE设备)
+```
+hdparm -i /dev/hda
+```
+- 查看启动时IDE设备检测状况
+```
+dmesg | grep IDE
+```
+
+## 3.网络
+- 查看所有网络接口的属性
+```
+ifconfig
+```
+- 查看防火墙设置
+```
+iptables -L
+```
+- 查看路由表
+```
+route -n
+```
+- 查看所有监听端口
+```
+netstat -lntp
+```
+- 查看所有已经建立的连接
+```
+netstat -antp
+```
+- 查看网络统计信息
+```
+netstat -s
+```
+## 4.进程
+- 查看所有进程
+```
+ps -ef
+```
+- 实时显示进程状态
+```
+top
+```
+## 5.用户
+- 查看活动用户
+```
+w
+```
+- 查看指定用户信息
+```
+id <用户名>     
+```
+- 查看用户登录日志
+```
+last
+```
+- 查看系统所有用户
+```
+cut -d: -f1 /etc/passwd
+```
+- 查看系统所有组
+```
+cut -d: -f1 /etc/group
+```
+- 查看当前用户的计划任务
+```
+crontab -l
+```
+## 6.服务
+- 列出所有服务
+```
+chkconfig --list or systemctl list-unit-files
+```
+- 列出所有启动的系统服务
+```
+chkconfig --list | grep on 
+systemctl list-unit-files|grep enable
+```
+
+# 9.xargs
+
+    之所以用这个命令，关键是有很多的命令不知道管道传递参数。xargs命令。
+    例如：
+        find /sbin -perm + 700 |ls-1 //这是不对的
+        find /sbin -perm + 700|xargs ls -1//这是对的
+
+# 10.base64
+- 编码
+```
+echo '要转换的内容'|base64
+```
+
+- 编码不换行
+```
+# -w 每隔多少个字符换行 0为不换行
+cat demo.txt|base64 -w 0
+```
+
+- 解码
+```
+echo 'aGVsbG8K'|base64 -D
+```
+
+- 不打印末尾的换行符编码
+```
+echo -n "123"|base64
+```
+
+
+
+# 11. nc
+
+## 1.端口扫描
+        nc -z -v -n 172.31.100.7 21-25
+        可以运行在TCP或者UDP模式，默认是TCP，-u参数调整为udp.
+        这个命令会打印21到25 所有开放的端口。Banner是一个文本，Banner是一个你连接的服务发送给你的文本信息。当你试图鉴别漏洞或者服务的类型和版本的时候，Banner信息是非常有用的。但是，并不是所有的服务都会发送banner。
+        一旦你发现开放的端口，你可以容易的使用netcat 连接服务抓取他们的banner。
+        -4 IPv4
+        -6 IPv6
+        -A 设置SO_RECV_ANYIF 给socket，除非要发送超级大的包的时候会用到。
+        -a 设置SO_AWDL_UNRESTRICTED
+        -b Bind socket to interface
+        -c 发送CRLF作为结束符
+        -C 不使用移动网络
+        -D 启动debug模式
+        -d 后台模式        -------------------------------（只windows下可用）
+        -e prog 程序重定向，一旦连接，就执行 [危险!!]  (只windows下可用)
+        -F Do not use flow advisory (flow adv enabled by default)
+        -G 超时时间
+        -h 帮助
+        -H keepidle	Initial idle timeout in seconds
+        -I keepintvl	Interval for repeating idle timeouts in seconds
+        -i<延迟秒数>  设置时间间隔，以便传送信息及扫描通信端口。
+        -J 重复超时的次数
+        -k	保持多个链接
+        -K Specify traffic class
+        -l 监听模式，查看是否有错误。
+        -L num_probes Number of probes to send before generating a read timeout event
+        -m		Set SO_INTCOPROC_ALLOW on socket
+        -n  直接使用IP地址，而不通过域名服务器。
+        -M		Use MULTIPATH domain socket
+        -N num_probes Number of probes to send before generating a write timeout event
+        -O		Use old-style connect instead of connectx
+        -p port 指定远程端口，但是不可以使用-l
+        -r 随机远程端口
+        -s addr		Local source address
+        -t 使nc能够与telnet交互
+        -U		Use UNIX domain socket
+        -u 使用UDP传输协议。
+        -v 详细输出--用两个-v可得到更详细的内容
+        -w <超时秒数>  设置等待连线的时间。
+        -X proto	Proxy protocol: "4", "5" (SOCKS) or "connect"
+        -x addr[:port]	Specify proxy address and port
+        -z  使用输入/输出模式，只在扫描通信端口时使用
+        -o		Issue socket options after connect/bind
+        --apple-delegate-pid pid	Set socket as delegate using pid
+
+## 2.传输tcp包
+        echo 'hello'|nc -n 127.0.0.1 5004
+        回车继续发送tcp，请求
+
+# 12.echo
+## 1.功能说明
+- 打印文字
+
+## 2.参数说明
+- -n 不换行
+- -e 开启转义
+- - 可以用打印带颜色[也可以不带有这个参数]
+- - 输出一些需要转义的字符
+
+## 3.使用方法
+### 1.打印带有颜色的文字
+- 基本格式
+```
+echo -e "\033[字背景颜色;文字颜色m字符串\033[0m"
+
+# 其中41 代表底色、37代表字的颜色
+echo -e "\033[41;37m Tony Zhang \033[0m"
+```
+### 2.备注
+- 1、字背景颜色和文字颜色之间是英文的“""”
+- 2、文字颜色后面有个m
+- 3、字符串前后可以没有空格，如果有的话，输出也是同样有空格
+
+### 3.echo颜色 实例
+```
+echo -e "\033[30m 黑色字 \033[0m"
+echo -e "\033[31m 红色字 \033[0m"
+echo -e "\033[32m 绿色字 \033[0m"
+echo -e "\033[33m 黄色字 \033[0m"
+echo -e "\033[34m 蓝色字 \033[0m"
+echo -e "\033[35m 紫色字 \033[0m"
+echo -e "\033[36m 天蓝字 \033[0m"
+echo -e "\033[37m 白色字 \033[0m"
+echo -e "\033[40;37m 黑底白字 \033[0m"
+echo -e "\033[41;37m 红底白字 \033[0m"
+echo -e "\033[42;37m 绿底白字 \033[0m"
+echo -e "\033[43;37m 黄底白字 \033[0m"
+echo -e "\033[44;37m 蓝底白字 \033[0m"
+echo -e "\033[45;37m 紫底白字 \033[0m"
+echo -e "\033[46;37m 天蓝底白字 \033[0m"
+echo -e "\033[47;30m 白底黑字 \033[0m"
+```
+<img src='https://dpq123456-1256164122.cos.ap-beijing.myqcloud.com/shell/echo%20font%20color.png' width='100px'/>
+
+### 4.控制选项说明
+- \33[0m 关闭所有属性
+- \33[1m 设置高亮度
+- \33[4m 下划线
+- \33[5m 闪烁
+- \33[7m 反显
+- \33[8m 消隐
+- \33[30m -- \33[37m 设置前景色
+- \33[40m -- \33[47m 设置背景色
+- \33[nA 光标上移n行
+- \33[nB 光标下移n行
+- \33[nC 光标右移n行
+- \33[nD 光标左移n行
+- \33[y;xH设置光标位置
+- \33[2J 清屏
+- \33[K 清除从光标到行尾的内容
+- \33[s 保存光标位置
+- \33[u 恢复光标位置
+- \33[?25l 隐藏光标
+- \33[?25h 显示光标
+
+# 13.alias
+
+    alias 快捷名字='要执行的命令'
+    alias 快捷名字='要执行的命令'|'其他命令'
+    # 传递参数 alias 不支持参数，但是可以提供一个function
+    # $1 第一个参数 $2 第二个参数
+        alias 快捷键名字='add(){
+            git add app/controller app/dao app/router app/service;
+            git commit -m $1;
+        };add'
+    # 取消别名
+    unalias 别名名称
+
+    zsh 增加别名
+        vim ~/.zshrc
+    bash 增加别名
+        vim /etc/bashrc
+    .bash_profile和.bashrc的区别
+    一个在etc下面一个根目录下面
+    etc下面的是全系统通用的权限比较大，~/下是当前用户的
+
+
+
+# 14.curl
+[参考资料](http://www.cnblogs.com/duhuo/p/5695256.html)
+
+- 1.curl url 下载单个文件
+
+## 2.通过-o/-O选项保存下载的文件到指定文件中
+- 1.将文件下载到本地并命名为mygettext.html
+```
+curl -o mygettext.html http://www.gnu.org/software/gettext/manual/gettext.html
+```
+- 2.将文件保存到本地并命名为gettext.html
+```
+curl -O http://www.gnu.org/software/gettext/manual/gettext.html
+```
+- 3.同时获取多个文件
+```
+curl -o url -o url
+```
+
+## 3.断点续传
+- 通过添加-C选项继续对该文件进行下载，已经下载过的文件不会被重新下载
+```
+curl -C - -O http://www.gnu.org/software/gettext/manual/gettext.html
+```
+## 4.对curl进行网络限速、时间
+
+## 5.curl授权
+```
+curl -u username:password URL
+
+# 通常的做法是在命令行只输入用户名，之后会提示输入密码，这样可以保证在查看历史记录时不会将密码泄露
+curl -u username url
+```
+
+## 6.从FTP服务器下载文件
+- 1.列出public_html下的所有文件夹和文件
+```
+curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/
+```
+
+- 2.下载xss.php文件
+```
+curl -u ftpuser:ftppass -O ftp://ftp_server/public_html/xss.php
+```
+## 7.上传文件到FTP服务器
+
+- 通过 -T 选项可将指定的本地文件上传到FTP服务器上
+- 将myfile.txt文件上传到服务器
+```
+curl -u ftpuser:ftppass -T myfile.txt ftp://ftp.testserver.com
+```
+
+- 同时上传多个文件
+```
+curl -u ftpuser:ftppass -T "{file1,file2}" ftp://ftp.testserver.com
+```
+- 从标准输入获取内容保存到服务器指定的文件中
+```
+curl -u ftpuser:ftppass -T - ftp://ftp.testserver.com/myfile_1.txt
+```
+
+## 8.通过-v、-trace获取更多的链接信息
+
+## 9.通过字典查询单词
+
+- 查询bash单词的含义
+```    
+curl dict://dict.org/d:bash
+```
+- 列出所有可用词典
+```    
+curl dict://dict.org/show:db
+```
+- 在foldoc词典中查询bash单词的含义
+```
+curl dict://dict.org/d:bash:foldoc
+```
+
+## 10.curl设置代理
+- 指定代理主机和端口
+```
+curl -x proxysever.test.com:3128 http://google.co.in
+```
+
+## 11.保存与使用其他网站的cookie信息
+
+- 将网站的cookies信息保存到sugarcookies文件中
+```
+curl -D sugarcookies http://localhost/sugarcrm/index.php
+```
+
+- 使用上次保存的cookie信息
+```
+curl -b sugarcookies http://localhost/sugarcrm/index.php
+```
+
+## 12.传递请求参数POST GET
+- 默认curl使用GET方式请求数据，这种方式下直接通过URL传递数据,可以通过 --data/-d 方式指定使用POST方式传递数据
+```
+# GET
+curl -u username https://api.github.com/user?access_token=XXXXXXXXXX
+
+# POST
+curl -u username --data "param1=value1&param2=value" https://api.github.com
+
+curl -d 'ip=222.72.140.114' http://ip.taobao.com/service/getIpInfo2.php
+
+curl -H "Content-Type:application/x-www-form-urlencoded" -X POST -d 'ip=222.72.140.114' http://ip.taobao.com/service/getIpInfo2.php
+```
+- 也可以指定一个文件，将该文件中的内容当作数据传递给服务器端
+```
+curl --data @filename https://github.api.com/authorizations
+```
+- 如果特殊字符需要转义,直接使用--data-urlencode会自动转义
+```
+curl --data-urlencode "value 1" http://hostname.com
+```
+- 除了GET、POST，还可以通过-X指定请求方式
+```
+curl -I -X DELETE https://api.github.com
+```
+
+- 上传文件
+```
+curl --form "fileupload=@filename.txt" http://hostname/resource
+```
+
+- 不校验https证书
+```
+curl  -k https://127.0.0.1:9802/api/promote/template
+
+```
+
+- 不显示统计信息 % Total %Received%
+```
+curl -s
+```
+
+## 13.curl不识别 ? （zsh: no matches found:）
+
+- 出现这个问题是由于zsh引起的
+```
+curl 127.0.0.1:4001/get_traffic/query?key=1
+// zsh: no matches found: 127.0.0.1:4001/get_traffic/query?key=1
+
+// 1.在 ~/.zshrc 中加入：setopt no_nomatch
+// 2.执行 source ~/.zshrc
+```
+
+## 14.curl方式执行shell脚本传递参数
+```
+# -s
+curl -s http://XXX.com/xx/xx.sh | bash -s arg1 arg2
+
+# base <
+bash <(curl -s http://XXX.com/xx/xx.sh) arg1 arg2
+```
+## 15.curl 输出字符串
+```
+curl -s http://somepage.com | grep whatever
+```
+## 16.curl 超时
+- 连接超时SECONDS秒，最大请求超时SECONDS秒，按最小的为准
+```
+curl --connect-time SECONDS  --max-time SECONDS --url https://xxx.com
+
+curl -m 2 https://www.baidu.com
+```
+
+## 17.指定ip端口访问网址
+```
+# -k 忽略TLS
+# -s 静默输出
+# -H header
+curl -s -m 2 -k -H 'Host:www.baidu.com' https://ip:port
+```
+
+## 18.curl 指定host、端口、ip
+```
+curl xxx.com/test --resolve xxx.com:80:192.168.2.1
+```
+
+## 19.curl 测试http2
+```
+curl -I --http2 https://www.baidu.com
+```
+
+## 20.curl处理 argument list too long: curl
+```
+curl https://xx -X POST -d @/tmp/file --header "Content-Type: application/json"
+```
+
+# 15.查看socket连接数
+```
+ulimit -n
+修改socket连接数
+sudo vim /etc/security/limits.conf
+* soft nofile 65535
+* hard nofile 65535
+```
+
+# 16.后台运行
+```
+只要在要执行的命令后面加上&就可以。
+```
+
+# 17.**nl**
+
+- nl用于计算文件中的行号。nl可以将输出的内容自动加上行号，其可以将行号做比较多的显示设计，包括位数和是否自动补0等等的功能。
+```
+nl[选项]...[文件]...
+```
+
+- 参数
+```
+-b：指定行号的显示方式
+    -b a 空行显示行号
+    -b t 空行不显示行号
+
+-n:列出行号表示的方法
+    -n ln 行号在屏幕的左方显示
+    -n rn 行号在屏幕的右方显示不加0
+    -n rz 行号在屏幕的左方显示加0
+
+-w:行号栏的占用的位数
+-p:在逻辑定界符不重新开始计算
+```
+
+- 示例
+```
+nl file.log 列出文件的内容，空行没有行号
+nl -b a -n rz 自动补0统一输出格式
+
+nl -b a -n rz 命令行号默认为六位，要调整位数可以加上参数 -w 3 调整为3位。
+```
+
+# 18.查看某个进程
+```
+ps -mp <pid>
+ps -ef|grep 进程名称
+```
+
+# 19.source
+```
+source ~/.zshrc # 重新加载，使文件立马生效
+```
+## 脚本中source不生效
+- 执行脚本时，其中的命令是在一个子shell中执行的。子shell继承了父shell的环境变量，但无法修改他们，或者说所做的修改仅对子shell有效。所以当shell脚本执行完后，到了回到shell命令行中，先前脚本中执行的source命令就没有效果了。
+
+# 20.grep
+
+- grep忽略错误[No such file or directory]
+```
+grep -s
+```
+
+- 查找符合条件的文件内容的文件[输出文件路径]
+```
+# type 一般正规文件(f)、设备文件(b,c)、目录(d)、连接文件(l)、socket（s）及FIFO(p)等
+find . -type f|xargs grep -ls 1234
+```
+
+- 查找多个内容
+```
+grep -E '1|2' # 查询符合 1或者2的条件的内容
+```
+
+- cat filename | grep 'Filed' 时报Binary file (standard input) matches
+
+```
+cat filename | grep -a 'Filed' //可以加上-a进行特殊处理
+```
+
+- curl匹配网页内容并只取第一条
+```
+curl -s https://github.com/v2ray/v2ray-core/releases|grep /v2ray/v2ray-core/releases/tag/|head -1
+```
+- 精准匹配
+```
+cat txt|grep -w "123"
+```
+
+- 忽略大小写
+```
+cat txt|grep -i "aB"
+```
+
+- 安静模式 有匹配则返回0，不匹配则跳出
+```
+cat txt|grep -q "ab"
+if cat txt|grep -q 'ab';then
+    echo 匹配成功
+fi
+
+# 如果用在if判断中可引发错误
+a="abc"
+if true && echo ${a} | grep -q c || true && echo ${a} | grep -q d; then
+    echo success
+else
+    echo fail
+fi 
+```
+
+- grep匹配文件
+```
+grep <path -q -i 'demo'
+```
+
+- grep匹配后显示行数
+```
+cat file|grep -n demo
+```
+
+- grep排除文件或者文件夹
+```
+--exclude=FILE_PATTERN  skip files and directories matching FILE_PATTERN
+--exclude-from=FILE   skip files matching any file pattern from FILE
+--exclude-dir=PATTERN  directories that match PATTERN will be skipped.
+```
+
+
+## 参数
+```
+-a 不要忽略二进制数据。
+
+-A <显示列数> 除了显示符合范本样式的那一行之外，并显示该行之后的内容。
+
+-b 在显示符合范本样式的那一行之外，并显示该行之前的内容。
+
+-c 计算符合范本样式的列数。
+
+-C<显示列数>或-<显示列数>  除了显示符合范本样式的那一列之外，并显示该列之前后的内容。
+
+-d<进行动作> 当指定要查找的是目录而非文件时，必须使用这项参数，否则grep命令将回报信息并停止动作。
+
+-e<范本样式> 指定字符串作为查找文件内容的范本样式。
+
+-E 将范本样式为延伸的普通表示法来使用，意味着使用能使用扩展正则表达式。
+
+-f<范本文件> 指定范本文件，其内容有一个或多个范本样式，让grep查找符合范本条件的文件内容，格式为每一列的范本样式。
+
+-F 将范本样式视为固定字符串的列表。
+
+-G 将范本样式视为普通的表示法来使用。
+
+-h 在显示符合范本样式的那一列之前，不标示该列所属的文件名称。
+
+-H 在显示符合范本样式的那一列之前，标示该列的文件名称。
+
+-i 忽略字符大小写的差别。
+
+-l 列出文件内容符合指定的范本样式的文件名称。
+
+-L 列出文件内容不符合指定的范本样式的文件名称。
+
+-n 在显示符合范本样式的那一列之前，标示出该列的编号。
+
+-q 不显示任何信息。
+
+-R/-r 此参数的效果和指定“-d recurse”参数相同。
+
+-s 不显示错误信息。
+
+-v 反转查找。
+
+-w 只显示全字符合的列。
+
+-x 只显示全列符合的列。
+
+-y 此参数效果跟“-i”相同。
+
+-o 只输出文件中匹配到的部分。
+```
+
+## 忽略指定内容
+
+### -v
+```
+cat xx|grep -v '1\|2\|3\'
+cat xx|grep -v '1'|grep -v '2'|grep -v '3'
+```
+# 21.awk sed Perlre
+## 1.awk
+- 注意：所有分割后的值都可以直接作为数组进行循环
+
+### 1.-F 参数
+
+```
+# 用:或者空格进行分隔字符串（或的关系）
+echo 'hello:world 123'|awk -F "[: ]" '{print $1" "$2" "$3}'
+
+# 输出 hello world 123
+```
+
+- 用:/分隔字符串（并的关系）
+```
+echo 'hello:/world'|awk -F"[:][/]" '{print $1" "$2}'
+
+# 输出 hello world
+```
+- 用round-trip分割
+```
+echo "11round-trip11"|awk -F "[r][o][u][n][d][-][t][r][i][p]" '{print $2}' // 11
+```
+
+### 2.split
+
+- awk的内建函数split运行把一个字符串分隔为单词并存储在数组中
+- split(string,array,[field separator])
+- split(string,array) // 默认FS值为空格
+```
+echo 'hello.world'|awk '{split($0,a,".");print a[1],a[2]}'
+// 输出 hello world
+```
+
+### 3.substr
+
+- substr(s,p) 返回字符串s中从p开始的后缀部分
+- substr(s,p,n) 返回字符串s中从p开始长度为n的后缀部分
+```
+echo '123456'|awk '{print substr($0,2)}'
+
+# 输出 23456
+
+echo '123456'|awk '{print substr($0,1,2)}'
+
+# 输出 12
+```
+
+### 4.FS 截取
+```
+echo 'hello:world'|awk 'BEGIN{FS=":"};{print $1};'
+
+# 输出hello
+```
+
+### 5.显示行号
+```
+cat test.log|awk '{print NR":"$0}'
+```
+
+### 6.示例脚本
+- 分隔字符串并循环打印所有的值
+```
+echo '210.12.5.222 222.72.140.114'|awk '{len=split($0,ipList," ");for(i=1;i<=len;i++) print ipList[i];}'
+```
+
+- 分隔字符串并打印第一个值
+```
+echo 'hello:world'|awk 'BEGIN{FS=":"} {print $1}'
+```
+
+- 强转为数字
+```
+awk 'BEGIN{a="100";b="10test10";print (a+b+0)}'
+```
+
+- 输出开头结尾
+```
+awk 'BEGIN {print "Name\tDesignation\tDepartment\tSalary"} {print $2,"\t",$3,"\t",$4,"\t",$NF;} END{print "Report Generated\n--------------"}' employee.txt;
+```
+
+- 赋值外部变量【数组】
+```
+eval $(echo "1 2 3 4"|awk '{split($0,serverNameList," ");for(i in serverNameList) print "lenArr["i"]="serverNameList[i]}')
+echo ${#lenArr[*]} # 4
+```
+
+- 赋值外部变量【普通变量】
+```
+eval $(echo '1 2' | awk '{printf("var1=%s; var2=%s;",$1,$2)}')
+echo $var1,$var2 # 1,2
+```
+
+- 赋值awk内部变量
+```
+var=123
+awk -v awk_var="$var" 'BEGIN {print awk_var}'
+# 123
+```
+
+## 2.sed
+
+- 去掉所有的双引号
+```
+echo '"hello world"'|sed 's/\"//g'
+```
+
+- 替换某文件字符串
+```
+sed -i "s/oldString/newString/g"  `grep "oldString" -rl /path`
+```
+
+- 替换空格
+```
+sed 's/ //g' fileName
+```
+
+- 替换换行
+```
+sed ':label;N;s/\n/ /;b label'
+```
+
+- 替换行首的空格
+```
+sed 's/^[ \t]*//g'
+```
+
+- 替换行末空格
+```
+sed 's/[ \t]*$//g'
+```
+
+- 替换斜杠
+```
+sed -i 's/. "\/root\/.acme.sh\/acme.sh.env"//g' `grep '. "/root/.acme.sh/acme.sh.env"' -rl /root/.bashrc`
+```
+
+- 指定行插入数据
+```
+sed '行号i 内容' 文件路径
+```
+
+- 指定行替换数据
+```
+sed '行号c 内容' 文件路径
+```
+
+- 将2-5行替换为xxxx
+```
+sed '2,5c xxxx' a.txt
+```
+- 将第2行和第5行替换为xxxx
+```
+sed -e '2c xxxx' -e '5c xxxx' a.txt
+```
+- 将奇数行替换为xxxx
+```
+sed '1~2c xxxx' a.txt
+```
+
+- 替换斜杠为反斜杠+斜杠
+```
+sed 's#/#\\\/#g'
+```
+
+- 删除第N行
+```
+sed -i 'Nd' 文件路径
+```
+
+- 删除第M到N行
+```
+sed -i 'M,Nd' 文件路径
+```
+
+- 删除文件中匹配的行
+```
+sed '/abc/d' a.txt # 不更改源文件 匹配条件为abc
+sed '/abc/d' a.txt >a.txt # 更改源文件
+sed '/abc/d;/bcd/d' a.txt # 删除多个匹配条件
+```
+
+- 变量中替换(批量)
+```
+str=1,2,3
+${str//,/0} # 10203
+```
+
+- sed匹配多行并替换其中内容
+```
+aaa开始，eee结束中间的123替换成xyz
+sed -i '/aaa/{:a;n;s/123/xyz/g;/eee/!ba}' yourfile
+
+怎么匹配aaa~eee（开始结束字符串确定），然后替换123这样的
+
+先匹配aaa，匹配到后执行大括号里的语句。
+
+n 读取下一行
+
+s/123/xyz/g  将123替换为xyz，全局替换，同一行中出现几次替换几次
+
+:a 设定跳转标签a
+
+/eee/!ba  若当前行匹配不上eee，则跳转到标签a处继续执行，构成一个循环。若匹配到eee，则退出循环，sed重新对读入的每行匹配aaa。
+
+由于sed没有加-n静默选项，所以默认对每行数据处理后都打印。
+```
+- 最前面一行&最后面一行添加内容
+```
+sed 'li 添加的内容' file # 这是在第一行前添加字符串
+sed '$i 添加的内容' file # 这是在最后一行行前添加字符串
+sed '$a添加内容' file # 这是在最后一行行后添加字符串
+```
+- 匹配成功后行首添加数据
+```
+sed '/pdf/ s/^/xx/' redis.conf
+```
+
+# 25.jq使用
+- centos安装jq
+```
+yum install epel-release -y
+yum install jq -y
+```
+
+>解析为json
+- 示例01
+```
+echo '{"a":"1"}'|jq .
+cat xx.json|jq .
+```
+
+- 示例02
+```
+location='{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'
+# 普通取值
+data=`echo $location|jq '.data'`
+ip=`echo $data|jq '.ip'`
+country=`echo $data|jq '.country'`
+region=`echo $data|jq '.region'`
+city=`echo $data|jq '.city'`
+isp=`echo $data|jq '.isp'`
+echo  "该ip:$ip 位于 $country $region $city $isp"
+# 输出 该ip:"110.12.112.12" 位于 "新西兰" "奥克兰" "奥克兰" "未知"
+```
+
+- 取json中的数组
+```
+echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'|jq .data.arr[0].a
+# 1
+```
+
+- 格式化json数据
+```
+echo '{"data":{"ip":"110.12.112.12","country":"新西兰","region":"奥克兰","city":"奥克兰","isp":"未 >知","arr":[{"a":1}]}}'|jq 'to_entries[]'
+
+{
+  "key": "data",
+  "value": {
+    "ip": "110.12.112.12",
+    "country": "新西兰",
+    "region": "奥克兰",
+    "city": "奥克兰",
+    "isp": "未 >知",
+    "arr": [
+      {
+        "a": 1
+      }
+    ]
+  }
+}
+```
+
+- jq循环
+```
+# 数据
+{
+    "test":[
+        {"settings"{clients":[{"id":'123123'}]}}
+    ]
+}
+
+# code
+cat demo.json|jq .test|jq -c '.[].settings.clients'|jq -c '.[].id'|while read row
+do
+    echo ${row}
+done
+```
+
+- json中添加数据
+```
+echo {\"a\":\"1\"}|jq '.b += 1'
+
+# 数组
+
+echo {\"a\":[]}|jq '.a +=[1]'
+```
+
+- jq删除数组中的数据
+```
+cat xx.json|jq 'del(.a[0].clients[0])'
+```
+
+- jq 获取数组中的数量
+```
+cat xx.json|jq '.clients|length'
+```
+
+- jq 取文件中的数据
+```
+jq .a path
+```
+
+- jq标准输出，而不输出格式化后的内容
+```
+echo '{"a":"1"}'|jq -r .a // 1而不是"1"
+```
+
+- jq获取json数组的length
+```
+cat xx|jq '.arr|length'
+```
+
+- jq筛选特定数据
+```
+echo '[{"a":"false","tag":"1"},{"a":"true","tag":"2"},{"a":"false","tag":"3"}]'|jq -r '.[]|select (.a=="false")|.tag'
+```
+
+- 将a改为123
+```
+cat xx|jq '.a="123"'
+
+{
+    "a":"123"
+}
+```
+- 数组删除指定字段
+```
+cat test.json | jq 'map(del(.Country, .number, .Language))'
+```
+
+- 数组只取指定字段
+```
+cat test.json | jq 'map({label, region, locale, currency})'
+```
+
+- 数组删除符合条件的元素
+```
+cat xx|jq 'del(.[]|select(.name==null or .a===null))'
+```
+
+- 取指定key并生成新的数组
+```
+echo xx | jq '.|{"pw":.id,"jq":"123","pq":.wabc}'
+```
+
+# 22.通过pid获取进程以及文件信息
+```
+ll /proc/PID
+cwd 进程
+exe 路径
+```
+
+# 23.监听IO&监听 io 内存 cpu
+```
+pidstat -d  1
+
+pidstat -u -r -d -t 1
+```
+
+# 24.更改文件的编码
+```
+iconv -f 更改前encoding -t 更改后encoding inputfile
+```
+
+# 25.date
+## 1.时间->时间戳
+```
+date +%s
+# 1436781527
+```
+
+## 2.时间戳-时间
+```
+date -d '2018-06-12 07:21:22' +"%s"
+# 1528759282
+```
+
+## 3.计算时间戳相隔时长
+```
+startTime="2018-06-12 07:21:22"
+startTime=`date -d "${startTime}" +%s`
+currentTime=`date +%s`
+stampDiff=`expr ${currentTime} - ${startTime}`
+dayDiff=`expr ${stampDiff} / 86400`
+minutes=`expr ${stampDiff}/60`
+# 乘法
+expr  ${stampDiff} \* 60
+```
+
+## 4.格式化时间
+```
+date -d "@1279592730" +"%F %H:%M:%S"
+# 2010-07-20 10:25:30
+```
+
+# 26.traceroute 追踪
+```
+traceroute ip/域名
+```
+
+# 27.无挂起启动 nohup
+```
+nohup Command &
+```
+
+# 28.zsh切换bash bash切换zsh
+- 切换bash
+```
+chsh -s /bin/bash
+```
+
+- 切换zsh
+```
+chsh -s /bin/zsh
+```
+
+# 29.查询进程号 ps
+```
+ps -ef|grep nginx
+```
+
+# 30.强制停止
+```
+pkill -9 nginx
+```
+
+# 31.查看CPU
+```
+lscpu
+```
+
+# 32.清空history
+```
+history -c
+```
+
+# 33.清楚日志
+```
+日志文件都在/var/log
+需要清除messages、以及secure
+```
+
+# 34.周期性执行某个命令
+```
+watch [选项][参数]
+```
+- 选项
+```
+-n：指定指令执行的间隔时间（秒）；
+-d：高亮显示指令输出信息不同之处；
+-t：不显示标题。
+```
+- 参数
+```
+指令：需要周期性执行的指令。
+```
+# 35.sips Mac压缩图片
+# 36.netstat
+- 查询指定ip的链接内容
+```
+netstat -anp |grep ESTABLISHED|grep -E '172.96.194.164:16718|172.96.194.164:19997'
+```
+
+- 获取指定ip的相对应的ip
+```
+netstat -anp |grep ESTABLISHED|grep -E '172.96.194.164:16718|172.96.194.164:19997'|awk '{print $5}'|awk 'BEGIN{FS=":"} {print $1}'|sort|uniq
+```
+
+# 37.查询进程并杀死相关进程
+```
+ps -ef | grep "hexo" |grep -v grep|awk '{print $2}'|xargs kill -9
+```
+# 38.数组操作
+
+- 获取元素个数
+```
+numList=(1 2 3 4)
+num=${#numList[@]} # 4
+# 或者
+num=${#numList[*]} # 4
+```
+
+- 获取数组的所有元素
+```
+numList=(1 2 3 4)
+echo ${numList[*]}
+// 获取所有元素后就可以进行循环
+for value in ${numList[*]}
+do
+    echo $value
+done
+// 输出 1 2 3 4
+// 1
+// 2
+// 3
+// 4
+```
+
+- 删除数组元素
+```
+# 删除单个
+arr=(1 2 3 4)
+unset arr[1] # 2 3 4
+
+# 删除所有
+unset arr
+```
+
+- 数组转为字符串
+```
+str=''
+for i in ${arr[@]};do
+  str=$str$i;
+done
+```
+
+- 直接下标添加
+```
+array_name[index]=value
+```
+
+- shell脚本数组报错Syntax error: "(" unexpected
+```
+# 执行下方代码会报错
+# 与使用的shell版本相关
+#!/bin/sh
+a=(1 2 3)
+for number in ${a[@]}
+do
+echo $number
+done
+
+# 执行下方代码，这里sh被重定向到dash，因此执行上方代码时会使用dash
+# 可以直接使用bash执行上方脚本，规避错误
+ls -l /bin/*sh
+
+lrwxrwxrwx  1 root root      4 Dec 18  2018 /bin/sh -> dash
+-rwxr-xr-x  1 root root 778736 Apr 11  2018 /bin/ssh
+```
+- 总结
+
+添加方式|语法|可添加多个元素|下标必须连续|添加后下标改变|可能覆盖原有元素
+-|-|-|-|-|-
+直接下标添加|array_name[index]=value|否|否|否|是
+重新创建数组|array_name=("${array_name[@]}" value1 ... valueN)|是|否|是|否
+赋值运算符+=|array_name+=(value1 ... valueN)|是|是	|是|否
+
+# 39.变量运算
+# 40.CentOS 7服务注册、部署、开机自启
+## 1.参数说明
+```
+[Unit]部分主要是对这个服务的说明，内容包括Description和After，Description 用于描述服务，After用于描述服务类别
+
+[Service]部分是服务的关键，是服务的一些具体运行参数的设置.
+Type=forking是后台运行的形式，
+User=users是设置服务运行的用户,
+Group=users是设置服务运行的用户组,
+PIDFile为存放PID的文件路径，
+ExecStart为服务的具体运行命令,
+ExecReload为重启命令，
+ExecStop为停止命令，
+PrivateTmp=True表示给服务分配独立的临时空间
+注意：[Service]部分的启动、重启、停止命令全部要求使用绝对路径，使用相对路径则会报错
+
+[Install]部分是服务安装的相关设置，可设置为多用户的
+```
+
+## 2.服务示例
+- nginx
+```
+[Unit]
+Description=nginx - high performance web server
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+PIDFile=/run/nginx.pid
+Environment=PATH=/root/.nvm/versions/node/v12.8.1/bin:/usr/bin/v2ray/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+ExecStartPre=/usr/sbin/nginx -t -c /etc/nginx/nginx.conf
+ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf
+ExecReload=/usr/sbin/nginx -s reload
+ExecStop=/usr/sbin/nginx -s stop
+ExecQuit=/usr/sbin/nginx -s quit
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+- pm2
+```
+[Unit]
+Description=PM2 process manager
+Documentation=https://pm2.keymetrics.io/
+After=network.target
+
+[Service]
+Type=forking
+User=root
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+Environment=PATH=/root/.nvm/versions/node/v12.8.1/bin:/usr/bin/v2ray/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Environment=PM2_HOME=/root/.pm2
+PIDFile=/root/.pm2/pm2.pid
+Restart=on-failure
+
+ExecStart=/root/.nvm/versions/node/v12.8.1/lib/node_modules/pm2/bin/pm2 resurrect
+ExecReload=/root/.nvm/versions/node/v12.8.1/lib/node_modules/pm2/bin/pm2 reload all
+ExecStop=/root/.nvm/versions/node/v12.8.1/lib/node_modules/pm2/bin/pm2 kill
+
+[Install]
+WantedBy=multi-user.target
+```
+
+- hexo
+```
+[Unit]
+Description=hexo server
+After=network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=simple
+PIDFile=/run/hexo.pid
+Environment=PATH=/root/.nvm/versions/node/v10.15.3/bin:/usr/bin/
+ExecStart=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh start
+ExecStop=/usr/bin/sh /root/project/deployment/local/remote/shell/hexo.sh stop
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target
+```
+- hexo 脚本示例
+```
+#!/usr/bin/env bash
+start(){
+  echo 'start'
+  cd /root/project/deployment/local/remote
+  /root/.nvm/versions/node/v10.15.3/bin/hexo clean
+  /usr/bin/nohup /root/.nvm/versions/node/v10.15.3/bin/hexo s
+}
+
+stop(){
+    processID=`ps -ef |grep -v grep|grep -v sh|grep hexo|awk '{print $2}'`
+    bool=`echo $processID|awk '{print($0~/^[-]?([0-9])+[.]?([0-9])+$/)?"true":"false"}'`
+
+    if [ $bool == "true" ]
+    then
+        kill -9 $processID
+    else
+        echo '服务未启动'
+    fi
+}
+case $1 in
+    start)
+        start
+    ;;
+    stop)
+        stop
+    ;;
+esac
+exit 0
+
+```
+## 3.常用命令
+
+- 重新加载 systemd 程序的配置文件
+```
+sudo systemctl daemon-reload
+```
+- 启动服务
+```
+sudo systemctl start nginxReboot.service
+```
+- 停止服务
+```
+sudo systemctl stop nginxReboot.service
+```
+- 查看服务状态
+```
+systemctl status nginxReboot.service
+```
+- 设置开机自启
+```
+sudo systemctl enable nginxReboot.service
+```
+- 禁用开机自启
+```
+sudo systemctl disable nginxReboot.service
+```
+- 查看服务是否开机启动：
+```
+systemctl is-enabled nginxReboot.service
+```
+- 查看已启动的服务列表：
+```
+systemctl list-unit-files|grep enabled
+```
+- 掩盖服务禁止开机自启
+```
+sudo systemctl mask nginxReboot.service
+```
+- 查看启动失败的服务
+```
+systemctl --failed
+```
+## 4.注意的点
+- 1.可能会出现 (13: Permission denied) while connecting to upstream:[nginx]
+```
+// 解决方法 执行下面的命令
+setsebool -P httpd_can_network_connect 1
+```
+
+- 2.可能会nginx: [emerg] BIO_new_file("/root/xxx/c...b
+```
+// 解决办法
+// 需要把证书文件移动到nginx配置文件的地方
+比如我的证书在/root/xxx/xx.crt,需要移动到/etc/nginx/
+```
+>CentOS7 运行systemctl后无响应（即shell阻塞）,但是程序启动成功
+- 3.sytemctl status nginxReboot.service 后状态为activating (start)而不是activating (running)态
+```
+// 需要将Type=forking 修改为 Type=simple 或者删掉这行
+```
+
+>CentOS7启动后立马就会去执行stop
+- 原因是启动时脚本失败，才会立马执行stop
+- 检查脚本命令以及特别要注意环境变量的问题，仅仅使用绝对路径也是不行的，需要加上Environment（参考上面的hexo示例）
+
+# 41.lsmod 显示已载入系统的模块
+- 示例
+```
+lsmod | grep bbr
+```
+
+# 42.dig
+## 1.验证DNS TXT
+```
+dig @8.8.8.8 blog.cooper-q.info txt
+```
+
+## 2.指定dns查询ip
+```
+dig @8.8.8.8 blog.cooper-q.info
+```
+
+# 48.while 循环
+- 读取文件目录 包含最后一行
+```
+ls /home/xxx|while read row|| [[ -n ${line} ]]
+do
+   
+done
+```
+
+- 读取文件内容 包含最后一行
+```
+cat /etc/xxx|while read row|| [[ -n ${line} ]]
+do
+    
+done
+```
+
+- 循环读取awk的值
+```
+cat demo|awk -F "[:]" '{print $1}'| while read -r line;do
+    echo ${line}
+done
+```
+
+# 49.shell异步编程
+## 1.sleep
+- 等待进程（10秒）继续往下执行
+```
+sleep 10 node console.js # 等待10秒，再继续下一操作
+```
+- 当前shell不等待，后台子shell等待
+```
+sleep 10 node console.js &
+```
+
+## 2.wait
+
+- 1.等待作业号或者进程号制定的进程退出，返回最后一个作业或进程的退出状态状态。如果没有制定参数，则等待所有子进程的退出，其退出状态为0.
+- 2.如果是shell中等待使用wait，则不会等待调用函数中子任务。在函数中使用wait，则只等待函数中启动的后台子任务。
+- 3.在shell中使用wait命令，相当于高级语言里的多线程同步。
+
+### 1.用法
+
+```
+wait [作业指示或进程号]
+```
+- 使用wait等待所有子任务结束
+```
+#!/bin/bash
+sleep 10 &
+sleep 5&
+wait #等待10秒后，退出
+
+#!/bin/bash
+sleep 10 &
+sleep 5&
+wait $! #$!表示上个子进程的进程号，wait等待一个子进程，等待5秒后，退出
+
+#!/bin/bash
+sleep 1 & echo 123 &
+sleep 1 & echo 456 &
+sleep 1 & echo 789 &
+wait # 等待所有子进程结束后打印完成
+echo '完成'
+// 结果
+// 123
+// 456
+// 789
+// 完成
+```
+- 不等待直接异步执行
+```
+sleep 1 echo 123 &
+sleep 1 echo 456 &
+sleep 1 echo 789 &
+```
+#### 1.示例（结合node异步）等待子进程全部结束后打印完成
+
+- console.js
+```JavaScript
+if(process.argv[2]==1){
+  setTimeout(function(){
+    console.log('1:',process.argv[2])
+  },10000)
+}else if(process.argv[2]==2){
+  setTimeout(function(){
+    console.log('2:',process.argv[2])
+  },7000)
+}else if(process.argv[2]==3){
+  setTimeout(function(){
+    console.log('3:',process.argv[2])
+  },5000)
+}else if(process.argv[2]==4){
+  setTimeout(function(){
+    console.log('4:',process.argv[2])
+  },3000)
+}
+```
+- sleep.*sh*
+```
+sleep 1  node console.js 1 &
+sleep 1  node console.js 2 &
+sleep 1  node console.js 3 &
+sleep 1  node console.js 4 &
+wait
+echo '完成'
+```
+- 输出结果
+```
+4: 4
+3: 3
+2: 2
+1: 1
+完成
+```
+# 43.修改linux密码
+- 修改root密码
+```
+// 执行 passwd
+
+New password:
+Retype new password:
+按提示输入
+```
+
+- 修改其余用户密码
+```
+// 执行 passwd :用户名
+passwd kook
+
+New password:
+Retype new password:
+```
+
+# 44.wc
+- Linux系统中的wc(Word Count)命令的功能为统计指定文件中的字节数、字数、行数，并将统计结果显示输出
+>命令参数
+
+```
+-c 统计字节数。
+
+-l 统计行数。
+
+-m 统计字符数。这个标志不能与 -c 标志一起使用。
+
+-w 统计字数。一个字被定义为由空白、跳格或换行字符分隔的字符串。
+
+-L 打印最长行的长度。
+
+-help 显示帮助信息
+
+--version 显示版本信息
+```
+
+# 45.复制到粘贴板
+
+- Mac
+```
+echo 'pbcopy'|pbcopy
+```
+
+# 46./usr/bin /usr/local/bin区别
+- usr 指 Unix SystemResource，而不是User
+- /usr/bin下面的都是系统预装的可执行程序，会随着系统升级而改变
+- usr/local/bin目录是给用户放置自己的可执行程序的地方，推荐放在这里，不会被系统升级而覆盖同名文件。
+- 如果两个目录下有相同的可执行程序，谁优先执行受到PATH环境变量的影响
+
+# 47.You have new mail
+- 由于系统错误（cron的权限问题）引起
+- 系统会将检查的各种状态汇总，定期发送本机用户邮箱
+- 删除可解决
+
+## 1.查看
+```
+mail
+
+Mail version 8.1 6/6/93.  Type ? for help.
+"/var/mail/xxxx": 29 messages 29 new
+>N  1 xx@xx.local     Fri Feb 23 10:39  21/954   "Cron <xx@xx> curl "http://localhost/t/cron.php" >>"
+...
+```
+## 2.删除
+- xxx对应上面看到的xxx的实际名称
+```
+sudo rm /var/mail/xxx
+sudo touch /var/mail/xxx
+```
+
+# 48.linux修改DNS服务
+```
+1.编辑/etc/resolv.conf
+2.添加  nameserver 8.8.8.8
+3.执行 service network restart 重启网络服务
+```
+
+# 49.增加、删除虚拟内存
+## 1.增加虚拟内存
+- 1.获取文件块（具体划分多少swap交换分区，根据你的物理内存具体应用情况磁盘情况而定一般是物理内存的1~2倍）
+```
+dd if=/dev/zero of=/var/swapfile bs=1M count=2048
+
+# block_size、number_of_block 大小可以自定义，比如 bs=1M count=1024 代表设置 1G 大小 SWAP 分区。
+```
+
+- 2.创建swap文件
+```
+/sbin/mkswap -f /var/swapfile
+```
+
+- 3.给予swapfile 600权限
+```
+chmod 600 /var/swapfile
+```
+
+- 4.挂起swap文件
+```
+/sbin/swapon /var/swapfile
+```
+
+- 5.检查swap是否正确
+```
+/sbin/swapon -s
+```
+
+- 6.加到fstab文件中让系统引导时自动启动（防止重启后swap分区变成0）
+```
+vi /etc/fstab
+// 末尾加入
+/var/swapfile swap swap defaults 0 0
+```
+
+- 6.重启系统
+```
+reboot
+```
+
+- 7.查看swap交换分区情况
+```
+free -m
+```
+
+## 2.删除虚拟内存
+- 1.停止swap分区
+```
+/sbin/swapoff /var/swapfile
+```
+
+- 2.删除swap分区文件
+```
+rm -rf /var/swapfile
+```
+
+- 3.删除自动挂载配置命令
+```
+vi /etc/fstab
+// 删除下面内容
+/var/swapfile swap swap defaults 0 0
+```
+# 50.dd命令
+- 用于复制文件并对源文件的内容进行转换和格式化处理。
+
+## 1.选项
+- bs=<字节数>：将 ibs（输入）与 obs（输出）设成指定的字节数；
+- cbs=<字节数>：转换时，每次只转换指定的字节数；
+- conv=<关键字>：指定文件转换的方式；
+- count=<区块数>：仅读取指定的区块数；
+- ibs=<字节数>：每次读取的字节数；
+- obs=<字节数>：每次输出的字节数；
+- of=<文件>：输出到文件；
+- seek=<区块数>：一开始输出时，跳过指定的区块数；
+- skip=<区块数>：一开始读取时，跳过指定的区块数；
+- --help：帮助；
+- --version：显示版本信息。
+
+## 2.实例
+- 1.创建一个2G的swapfile文件
+```
+dd if=/dev/zero of=/var/swapfile bs=1M count=2048
+```
+- 2.参数解释
+```
+if 代表输入文件。如果不指定if，默认就会从stdin中读取输入。
+of 代表输出文件。如果不指定of，默认就会将stdout作为默认输出。
+bs 代表字节为单位的块大小。
+count 代表被复制的块数。
+/dev/zero 是一个字符设备，会不断返回0值字节（\0）。
+```
+- 3.块大小的计量单位
+
+单元大小|代码
+-|-
+字节（1B）|c
+字节（2B）|w
+块（512B）|b
+千字节（1024B）|k
+兆字节（1024KB）|M
+吉字节（1024MB）|G
+
+# 51.CentOS7时区设置
+- 查看系统时间方面的状态
+```
+timedatectl status
+
+Local time: 四 2014-12-25 10:52:10 CST
+Universal time: 四 2014-12-25 02:52:10 UTC
+RTC time: 四 2014-12-25 02:52:10
+Timezone: Asia/Shanghai (CST, +0800)
+NTP enabled: yes
+NTP synchronized: yes
+RTC in local TZ: no
+DST active: n/a
+```
+- 列出所有时区
+```
+timedatectl list-timezones
+```
+
+- 将硬件时钟调整为与本地时钟一致, 0 为设置为 UTC 时间
+```
+timedatectl set-local-rtc 1
+```
+
+- 设置系统时区为上海
+```
+timedatectl set-timezone Asia/Shanghai
+```
+## 使用ntpdate同步时间
+- 1.安装ntpdate
+```
+yum -y install ntpdate
+```
+- 2.同步时间
+```
+ntpdate -u pool.ntp.org
+```
+
+- 3.查看是否正确
+```
+date
+```
+
+- 4.常用ntp server
+```
+#中国
+cn.ntp.org.cn
+#中国香港
+hk.ntp.org.cn
+#美国
+us.ntp.org.cn
+```
+## 定时同步时间
+```
+# 安装crontab
+yum -y install crontab
+# 创建crontab任务
+crontab -e
+# 添加定时任务【二十分钟同步一次】
+*/20 * * * * /usr/sbin/ntpdate pool.ntp.org > /dev/null 2>&1
+# 重启crontab
+service crond reload
+```
+
+## 使用rdate同步时间
+- ntpdate需要使用udp/123端口，有时候被禁用后用不了，可以改用rdate来同步时间
+```
+#安装rdate
+yum -y install rdate
+#同步时间
+rdate -s time-b.nist.gov
+#查看时间是否正确
+date
+```
+- 定时任务
+```
+#安装crontab
+yum -y install crontab
+#创建crontab任务
+crontab -e
+#添加定时任务
+*/20 * * * * /usr/bin/rdate -s time-b.nist.gov > /dev/null 2>&1
+#重启crontab
+service crond reload
+```
+- rdate时间服务器
+```
+s1d.time.edu.cn #东南大学
+s1e.time.edu.cn #清华大学
+s2a.time.edu.cn #清华大学
+s2b.time.edu.cn #清华大学
+s2c.time.edu.cn #北京邮电大学
+ntp.sjtu.edu.cn 202.120.2.101 #(上海交通大学网络中心NTP服务器地址）
+s1a.time.edu.cn #北京邮电大学
+s1b.time.edu.cn #清华大学
+s1c.time.edu.cn #北京大学
+clock.cuhk.edu.hk #香港中文大学授时中心
+```
+
+# 52.开启CentOS bbr拥塞控制算法[我的测试机是CentOS 8]
+## 1.检查是否安装bbr
+- 有一些vps会自带bbr模块 比如搬瓦工的某些机器，执行下面命令
+```
+lsmod | grep bbr
+```
+- 如果输出类似内容则已经开启bbr 到这里就可以结束了
+```
+tcp_bbr                20480  28
+```
+## 2.yum更新
+```
+yum update
+```
+## 3.查看系统版本
+- 执行下面命令
+```
+cat /etc/redhat-release
+```
+
+- 如果release后面的数字大于7.3即可
+```
+CentOS Linux release 7.7.1908 (Core)
+```
+## 4.安装elrepo并升级内核
+- 分别依次执行下面命令
+```
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+yum --enablerepo=elrepo-kernel install kernel-ml -y
+```
+- 正常情况下会输出下面内容
+```
+Transaction Summary
+================================================================================
+Install  1 Package
+Total download size: 39 M
+Installed size: 169 M
+Downloading packages:
+kernel-ml-4.9.0-1.el7.elrepo.x86_64.rpm                    |  39 MB   00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+Warning: RPMDB altered outside of yum.
+  Installing : kernel-ml-4.9.0-1.el7.elrepo.x86_64                          1/1
+  Verifying  : kernel-ml-4.9.0-1.el7.elrepo.x86_64                          1/1
+Installed:
+  kernel-ml.x86_64 0:4.9.0-1.el7.elrepo
+Complete!
+```
+## 5.更新grud文件并重启
+- 依次执行下面的命令，重启后需要等待数秒重新使用ssh连接
+```
+egrep ^menuentry /etc/grub2.cfg | cut -f 2 -d \'
+grub2-set-default 0
+reboot
+```
+## 6.开机后检查内容是否为4.9及以上版本
+- 执行下面的命令
+```
+uname -r
+```
+- 输出结果
+```
+5.3.7-1.el7.elrepo.x86_64
+```
+## 7.开启bbr
+- 执行下面的命令
+```
+vim /etc/sysctl.conf
+```
+- 添加如下内容
+```
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+```
+- 加载系统参数
+```
+sysctl -p
+```
+## 8.验证bbr是否开启成功
+### 测试方法1
+- 执行下面的命令
+```
+sysctl net.ipv4.tcp_available_congestion_control
+```
+- 输出下面内容即为成功
+```
+net.ipv4.tcp_available_congestion_control = bbr cubic reno
+```
+
+### 测试方法2
+- 执行下面的命令
+```
+lsmod | grep bbr
+```
+- 输出下面内容即为成功
+```
+tcp_bbr                20480  28
+```
+
+# 53.wget
+## 1.下载文件并指定目录
+```
+wget -P 目录 网址
+```
+## 2.不输出信息
+```
+-q是不输出wget的头信息。
+```
+## 3.wget 不检查tls证书
+```
+wget -N --no-check-certificate https://url
+```
+## 4.下载文件并重命名
+```
+- O 重命令
+# 重命名
+wget -c "www.baidu.com" -O baidu.index.html
+# 保存输出日志
+wget -c "www.baidu.com" -O baidu.index.html -o wget.log
+```
+## 5.下载文件时只显示进度
+```
+# -c 断点续传
+# -q 安静模式
+# --show-progress 展示进度（需wget支持1.16）
+wget -c -q --show-progress
+```
+
+## 6.后台下载
+```
+wget -b url
+```
+
+# 54.检测命令是否存在
+```
+command -v <the_command>
+```
+# 55.mtr 命令详解(路由跟踪)
+## 1.语法
+```
+Usage:
+ mtr [options] hostname
+
+ -F, --filename FILE        在文件中读取主机名
+ -4                         仅使用IPv4
+ -6                         仅使用IPv6
+ -u, --udp                  使用UDP替代 ICMP echo
+ -T, --tcp                  使用TCP替代 ICMP echo
+ -I, --interface NAME       使用指定名称的网络接口
+ -a, --address ADDRESS      指定socket地址
+ -f, --first-ttl NUMBER     开始时设置TTL
+ -m, --max-ttl NUMBER       最大跳数
+ -U, --max-unknown NUMBER   允许出现的最大未知主机数量
+ -P, --port PORT            指定TCP、SCTP、UDP端口
+ -L, --localport LOCALPORT  UDP来源端口号
+ -s, --psize PACKETSIZE     设置用于嗅探的数据包大小
+ -B, --bitpattern NUMBER    设置数据载体中使用bit模式
+ -i, --interval SECONDS     设置ICMP echo 请求的间隔
+ -G, --gracetime SECONDS    设置响应的等待时间（秒）
+ -Q, --tos NUMBER           IP报头中的服务字段类型
+ -e, --mpls                 显示来自ICMP的扩展信息
+ -Z, --timeout SECONDS      设置sockets超时时间
+ -r, --report               输出信息使用报告模式
+ -w, --report-wide          输出更多的信息
+ -c, --report-cycles COUNT  设置发送ping包的数量
+ -j, --json                 输出json模式
+ -x, --xml                  输出xml模式
+ -C, --csv                  输出内容用逗号分割
+ -l, --raw                  输出原始格式
+ -p, --split                分割输出
+ -t, --curses               使用curses终端接口
+     --displaymode MODE     默认显示模式
+ -n, --no-dns               不解析主机名
+ -b, --show-ips             显示ip地址和主机名
+ -o, --order FIELDS         选择输出字段
+ -y, --ipinfo NUMBER        输出内容中显示ip信息
+ -z, --aslookup             显示AS号
+ -h, --help                 显示帮助信息并退出
+ -v, --version              显示版本信息并退出
+```
+## 2.示例
+```
+mtr -rn ip
+```
+
+# 56.nslookup
+## 1.安装
+- debian/ubuntu
+```
+apt-get install dnsutils
+```
+- red-hat
+```
+yum install bind-utils
+```
+
+- 常用域名查询工具，查询DNS信息的指令
+- nslookup 有两种工作模式，交互模式、非交互模式
+
+## 2.交互模式
+- 可以查询各类主机、域名信息、输出主机列表
+- 输入nslookup，不带有任何参数直接连接到默认的DNS服务器（/etc/resolv.conf的第一个dns地址）
+
+## 3.非交互模式
+- 针对一个主机或者域名获取特定的名称、信息
+- 直接输入 nslookup 域名 即可
+
+## 4.使用方法
+### 1.语法
+```
+nslookup(选项) (参数) [dns]
+```
+### 2.选项
+- -sil
+
+```
+不显示任何警告信息
+```
+
+- 参数
+
+```
+域名【指定要查询的域名】
+```
+- type
+
+type|简述
+-|-
+A|地址记录
+AAAA|地址记录
+AFSDB|Andrew文件系统数据库服务器记录
+ATMA|ATM地址记录
+CNAME|别名记录
+HINFO|硬件配置记录，包括CPU、操作系统信息
+ISDN|域名对应的ISDN号码
+MB|存放指定邮箱的服务器
+MG|邮件组记录
+MINFO|邮件组和邮箱的信息记录
+MR|改名的邮箱记录
+MX|邮件服务器记录
+NS|名字服务器记录
+PTR|反向记录
+RP|负责人记录
+RT|路由穿透记录
+SRV|TCP服务器信息记录
+TXT|域名对应的文本信息
+X25|域名对应的X.25地址记录
+
+## 5.实例
+```
+# 非交互模式
+nslookup blog.cooper-q.info
+/etc/resolv.conf的第一个dns地址
+➜  ~ nslookup blog.cooper-q.info
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	blog.cooper-q.info
+Address: 211.159.157.129
+
+# 交互模式
+nslookup blog.cooper-q.info
+➜  ~ nslookup
+> blog.cooper-q.info
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	blog.cooper-q.info
+Address: 211.159.157.129
+
+# 设置type
+➜  ~ nslookup
+> set type=MX
+> baidu.com
+Server:		169.254.169.254
+Address:	169.254.169.254#53
+
+Non-authoritative answer:
+baidu.com	mail exchanger = 15 mx.n.shifen.com.
+baidu.com	mail exchanger = 20 mx1.baidu.com.
+baidu.com	mail exchanger = 20 jpmx.baidu.com.
+baidu.com	mail exchanger = 20 mx50.baidu.com.
+baidu.com	mail exchanger = 10 mx.maillb.baidu.com.
+
+Authoritative answers can be found from:
+```
+
+
+# 57.去重
+- 需要先通过sort排序让重复行相邻
+```
+cat xxx.log|sort -r|uniq
+```
+
+```
+cat xx.xx|uniq
+```
+
+- 去重、排序、统计次数
+```
+cat xxx.log|awk '{print $3}'|awk -F "[:]" '{print $1}'|sort|uniq -c|sort
+
+# 结果
+1    4
+2    5
+3    2
+4444 1
+```
+- 去重并去掉空行
+```
+cat xx.xx|uniq|awk '/./ {print}'
+```
+
+# 58.qrencode 生成二维码
+```
+echo 1234 | qrencode -s 10 -m 1 -t UTF8
+```
+
+# 59.dnsmasq【自定义dns服务器】
+## 1.安装
+```
+# Ubuntu/Debian
+apt-get install dnsmasq
+
+# CentOS/RHEL
+yum -y install dnsmasq
+```
+## 2.配置文件
+```
+# 服务监听的网络接口地址【注释后可以让外网连接使用】
+# listen-address=127.0.0.1
+
+# dhcp动态分配的地址范围,自动分配50-150ip段，有效期48小时
+# dhcp-range=192.168.1.50,192.168.1.150,48h
+
+# dhcp服务的静态绑定
+# dhcp-host的配置方式有很多种，这里使用的是：[client端MAC地址] + [分配的IP]+ [主机名]
+# dhcp-host=00:0C:29:5E:F2:6F,192.168.1.201
+# dhcp-host=00:0C:29:5E:F2:6F,192.168.1.201,infinite	无限租期
+# dhcp-host=00:0C:29:5E:F2:6F,192.168.1.201,os02
+# dhcp-host=00:0C:29:15:63:CF,192.168.1.202,os03
+
+# dhcp服务的其它几种绑定方式
+# 绑定网卡地址对应ip地址，用的是host的方式，类似在hosts文件写一个host name 对应一个ip，所以这个不是arp绑定，要区分。
+# dhcp-host=11:22:33:44:55:66,192.168.1.60
+
+# Always set the name of the host with hardware address
+# 11:22:33:44:55:66 to be "fred"
+# 绑定mac地址对应一个host name ，我个人觉得绑定mac对应ip就足够了，绑定对应名字比较少见
+# dhcp-host=11:22:33:44:55:66,fred
+
+# Always give the host with ethernet address 11:22:33:44:55:66
+# the name fred and IP address 192.168.0.60 and lease time 45 minutes
+# 这个是组合版，绑定某个mac对应fred名字，然后加上一个ip分配，并设置租约，这个只能说是灵活配置的参考，没啥实际意义
+# dhcp-host=11:22:33:44:55:66,fred,192.168.0.60,45m
+
+# Give a host with ethernet address 11:22:33:44:55:66 or
+# 12:34:56:78:90:12 the IP address 192.168.0.60. Dnsmasq will assume
+# that these two ethernet interfaces will never be in use at the same
+# time, and give the IP address to the second, even if it is already
+# in use by the first. Useful for laptops with wired and wireless
+# addresses.
+# 绑定一个ip对应多mac地址，用途场景存在于实验室和无线网络，我想只是为了让2块网卡用同一个ip这样单纯而纯洁的需求而已[不常用]
+# dhcp-host=11:22:33:44:55:66,12:34:56:78:90:12,192.168.0.60
+
+# Give the machine which says its name is "bert" IP address
+# 192.168.0.70 and an infinite lease
+# 绑定名字对应ip，并且给了一个新参数，无限租约
+# dhcp-host=bert,192.168.0.70,infinite
+
+# Always give the host with client identifier 01:02:02:04
+# the IP address 192.168.0.60
+# 给予一个特殊标识符对应ip，用途不明
+# dhcp-host=id:01:02:02:04,192.168.0.60
+
+# Always give the host with client identifier "marjorie"
+# the IP address 192.168.0.60
+# 跟上一条类似，只是标识符还支持普通字符字串
+# dhcp-host=id:marjorie,192.168.0.60
+
+# 通过/etc/hosts来分配对应的hostname
+# Enable the address given for "judge" in /etc/hosts
+# to be given to a machine presenting the name "judge" when
+# it asks for a DHCP lease.
+# dhcp-host=judge
+
+# 忽略下面MAC地址的DHCP请求,不分配ip
+# Never offer DHCP service to a machine whose ethernet
+# address is 11:22:33:44:55:66
+#dhcp-host=11:22:33:44:55:66,ignore
+
+# If this line is uncommented, dnsmasq will read /etc/ethers and act
+# on the ethernet-address/IP pairs found there just as if they had
+# been given as --dhcp-host options. Useful if you keep
+# MAC-address/host mappings there for other purposes.
+# 使用额外的文件代替主配置文件来处理dhcp-host的匹配，这个主要为了方便管理，将所有需要用到的dhcp-host配置都放进/etc/ethers
+
+# 设置默认租期
+# Set the limit on DHCP leases, the default is 150
+#dhcp-lease-max=150
+
+# 租期保存在下面文件
+# The DHCP server needs somewhere on disk to keep its lease database.
+# This defaults to a sane location, but if you want to change it, use
+# the line below.
+#dhcp-leasefile=/var/lib/dnsmasq/dnsmasq.leases
+
+# Set this (and domain: see below) if you want to have a domain
+# automatically added to simple names in a hosts-file.
+# 自动给hosts的域名增加一个简单的名字，搭配下面的domain用的[不常用]
+expand-hosts
+
+# dhcp所在的域
+# Set the domain for dnsmasq. this is optional, but if it is set, it
+# does the following things.
+# 1) Allows DHCP hosts to have fully qualified domain names, as long
+#     as the domain part matches this setting.
+# 2) Sets the "domain" DHCP option thereby potentially setting the
+#    domain of all systems configured by DHCP
+# 3) Provides the domain part for "expand-hosts"
+domain=hi-linux.com
+
+# 设置默认路由出口
+# dhcp-option遵循RFC 2132（Options and BOOTP Vendor Extensions),可以通过dnsmasq --help dhcp来查看具体的配置
+# 很多高级的配置，如iSCSI连接配置等同样可以由RFC 2132定义的dhcp-option中给出。
+# option 3为default route
+# Override the default route supplied by dnsmasq, which assumes the
+# router is the same machine as the one running dnsmasq.
+dhcp-option=3,192.168.1.1
+
+# 设置NTP Server.这是使用option name而非选项名来进行设置
+# Set the NTP time server addresses to 192.168.0.4 and 10.10.0.5
+#dhcp-option=option:ntp-server,192.168.0.4,10.10.0.5
+
+# resolv-file配置Dnsmasq额外的向流的DNS服务器，如果不开启就使用linux主机默认的/etc/resolv.conf里的nameserver，通过下面的选项指定其他文件。
+# resolv-file=/etc/dnsmasq.d/upstream_dns.conf
+
+# 默认情况下Dnsmasq会发送查询到它的任何上游DNS服务器上，如果取消注释，则Dnsmasq则会严格按照/etc/resolv.conf中的DNS Server顺序进行查询。
+# strict-order
+
+# 以下两个参数控制是否通过/etc/resolv.conf确定上游服务器，是否检测/etc/resolv.conf的变化，则取消注释。
+
+# 如果你不想Dnsmasq读取/etc/resolv.conf文件或者其他文件，获得它的servers
+# If you don't want dnsmasq to read /etc/resolv.conf or any other
+# file, getting its servers from this file instead (see below), then
+# uncomment this.
+#no-resolv
+
+如果你不允许Dnsmasq通过轮询/etc/resolv.conf或者其他文件来获取配置的改变，则取消注释。
+#no-poll
+
+# 增加一个本地域名，会在/etc/hosts中进行查询
+#local=/localnet/
+
+# 增加查询yahoo google和它们的子域名到vpn、search查找
+# Add the IPs of all queries to yahoo.com, google.com, and their
+# subdomains to the vpn and search ipsets:
+# ipset=/yahoo.com/google.com/vpn,search
+
+# 你还可以控制Dnsmasq和Server之间的查询从哪个网卡出去
+# server=10.1.2.3@eth1
+
+# 指定源地址携带10.1.2.3地址和192.168.1.1的55端口进行通讯
+# and this sets the source (ie local) address used to talk to
+# 10.1.2.3 to 192.168.1.1 port 55 (there must be a interface with that
+# IP on the machine, obviously).
+# server=10.1.2.3@192.168.1.1#55
+
+# 改变Dnsmasq默认的uid和gid
+# user=
+# group=
+
+# 如果你想Dnsmasq监听某个端口为dhcp、dns提供服务
+#interface=
+
+# 你还可以指定哪个端口你不想监听
+# except-interface=
+
+# 设置想监听的地址，如果你本机要使用写上127.0.0.1。
+# listen-address=
+
+# 自动的给hosts中的name增加一个域名
+# expand-hosts
+
+# 给dhcp服务赋予一个域名
+# domain=thekelleys.org.uk
+
+# 给dhcp的一个子域赋予一个不同的域名
+# domain=wireless.thekelleys.org.uk,192.168.2.0/24
+
+# 如果你想在某个端口只提供dns服务，则可以进行配置禁止dhcp服务
+# no-dhcp-interface=
+
+# 自定义hosts 【格式与/etc/hosts相同】
+# addn-hosts=/etc/dnsmasq.hosts
+
+# 自动加载conf-dir目录下的配置文件
+# conf-dir=/etc/dnsmasq.d
+
+# 设置dns缓存大小,默认为150条
+# cache-size=150
+
+# 同时查询下方，选择最快的一条
+all-servers
+server=8.8.4.4
+server=8.8.8.8
+
+# 国内的域名都通过114解析
+server=/cn/114.114.114.114
+
+# 给*.apple.com和taobao.com使用专用的DNS
+server=/taobao.com/223.5.5.5
+server=/.apple.com/223.5.5.5
+
+# 给指定域名指定ip【类似于修改hosts】
+address=/ad.iqiyi.com/127.0.0.1
+同上，还支持ipv6
+#address=/ad.iqiyi.com/fe80::20d:60ff:fe36:f83
+
+# 不使用/etc/hosts
+no-hosts
+```
+
+## 3.启动
+- 1.启动Dnsmasq
+```
+service dnsmasq start
+```
+## 4.测试
+```
+dig @xxx.xxx.xxx.xxx xxx.xxx.com
+```
+
+# 60.查询外网IP
+```
+curl icanhazip.com
+curl ifconfig.me
+curl curlmyip.com
+curl ip.appspot.com
+curl ipinfo.io/ip
+curl ipecho.net/plain
+curl www.trackip.net/i
+```
+
+# 61.查看sh的指向
+```
+ls -al /bin/sh
+```
+
+# 62.终端代理
+## 1.需要根据不同的本地代理软件来找到相对应的端口
+## 2.根据不同的终端修改配置文件
+```
+# bash
+~/.bash_profile
+
+# zsh
+~/.zshrc
+
+# 增加下方代码
+export http_proxy=http://127.0.0.1:1087
+export https_proxy=$http_proxy
+
+# source相应的配置文件即可
+```
+
+# 63.代理ssh
+- 利用nc进行代理，也可使用Ncat
+```
+# 127.0.0.1:1080 这里修改为自己的代理软件的ip和地址
+# root@server 则为 服务器的用户名以及ip或者git config的Host
+
+ssh -o ProxyCommand="nc -X 5 -x 127.0.0.1:1080 %h %p" root@server
+```
+
+# 64.Mac清除dns缓存
+- Mac OS X 12 (Sierra) and later
+```
+sudo killall -HUP mDNSResponder
+sudo killall mDNSResponderHelper
+sudo dscacheutil -flushcache
+```
+- Mac OS X 11 (El Capitan) and OS X 12 (Sierra)
+```
+sudo killall -HUP mDNSResponder
+```
+
+- Mac OS X 10.10 (Yosemite), Versions 10.10.4+
+```
+sudo dscacheutil -flushcache
+sudo killall -HUP mDNSResponder
+```
+
+# 65.查看系统相关信息
+## 1.查看Linux内核版本信息
+- 方法1:cat /proc/version
+```
+Linux version 4.19.8-1.el7.elrepo.x86_64 (mockbuild@Build64R7) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-36) (GCC)) #1 SMP Sat Dec 8 10:07:47 EST 2018
+```
+- 方法2:uname -a
+```
+Linux jerry 4.19.8-1.el7.elrepo.x86_64 #1 SMP Sat Dec 8 10:07:47 EST 2018 x86_64 x86_64 x86_64 GNU/Linux
+```
+
+- 方法3:uname -r
+```
+4.19.8-1.el7.elrepo.x86_64
+```
+
+## 2.查看Linux系统版本信息
+- 方法1:cat /etc/issue
+```
+Kernel \r on an \m
+```
+- 方法2:cat /etc/lsb-release
+```
+DISTRIB_ID=Ubuntu
+```
+- 方法3:lsb_release -a
+```
+Distributor ID:Ubuntu
+```
+
+# 66.清空history以及记录原理
+- 1.执行命令exit退出后会把缓存信息放到~/.bash_history
+- 2.当session直接被kill时，缓存中国呢的历史命令不会写入～/.bash_history
+- 3.清理history方法
+```
+history -c  # 清理当前缓存中的命令
+exit        # 关闭shell，可以避免写入~/.bash_history
+```
+# 67.查看隐藏文件
+```
+ls -la
+```
+# 68.Centos8更换源
+```
+yum install wget -y
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-8.repo
+yum makecache
+yum update -y
+```
+
+# 69.Ubuntu、Centos重装软件时报错
+- dpkg: error processing package *
+```
+# 需要卸载时吧所有相关包都要删除
+dpkg --get-selections | grep nginx|awk '{print $1}'|xargs sudo apt --purge remove -y
+```
+
+# 70.输入/输出重定向
+一般情况下，每个 Unix/Linux 命令运行时都会打开三个文件
+
+- 标准输入文件(stdin)：stdin的文件描述符为0，Unix程序默认从stdin读取数据。
+
+- 标准输出文件(stdout)：stdout 的文件描述符为1，Unix程序默认向stdout输出数据。
+- 标准错误文件(stderr)：stderr的文件描述符为2，Unix程序会向stderr流中写入错误信息。
+
+## 1.输入重定向
+```
+command < file1
+```
+- 例1
+```
+ wc -l << EOF
+    1
+    2
+    3
+EOF
+# 3
+```
+- 例2
+```
+wc -l < file
+# 2
+```
+### 同时重定向输入/输出
+```
+command < infile > outfile
+```
+
+## 2.输出重定向stdout
+```
+command > file
+# 不保留日志输出则是
+command  >/dev/null
+```
+## 3.stderr
+```
+command >file 2>&1
+```
+## 3.stdout stderr合并
+```
+command >file 2>&1
+```
+
+# 71.Linux清楚用户登录记录和命令
+- 清除登陆系统成功的记录
+```
+echo > /var/log/wtmp # echo > /var/log/wtmp
+last # 此时即查不到用户登录信息
+```
+- 清除登陆系统失败的记录
+```
+echo > /var/log/btmp # 此文件默认打开时乱码，可查到登陆失败信息
+lastb # 查不到登陆失败信息
+```
+- 清除历史执行命令
+```
+history -c # 清空历史执行命令
+echo > ./.bash_history # 或清空用户目录下的这个文件即可
+```
+- 导入空历史记录
+```
+vi /root/history # 新建记录文件
+history -c       # 清除记录 
+history -r /root/history.txt # 导入记录 
+history # 查询导入结果
+```
+# 72.another app is currently holding the yum lock;waiting for it to exit
+- 执行命令删掉即可
+```
+rm -f /var/run/yum.pid
+```
+
+# 73.国内镜像
+## 1.[aliyun](https://developer.aliyun.com/mirror/)
+
+# 74.斜杠转圈
+```
+# Bash, with GNU sleep
+spin() {
+  local i=0
+  local sp='/-\|'
+  local n=${#sp}
+  printf ' '
+  sleep 0.1
+  while true; do
+    printf '\b%s' "${sp:i++%n:1}"
+    sleep 0.1
+  done
+}
+```
+
+# 75.sh: 0: getcwd() failed: No such file or directory
+- 执行脚本时目录被删除，但是还停留在删除之前的那个目录，换个目录即可
+
+# 76.修改主机名
+- 1.查看当前主机名
+```
+hostname
+hostnamectl
+```
+- 2.hostnamectl 修改
+```
+sudo hostnamectl set-hostname <newhostname>
+```
+- 3.临时修改
+```
+sudo hostname <new-hostname>
+```
+
+# 77.Linux错误处理
+## 1.ubuntu执行普通用户或root用户执行apt-get update时报错"Couldn't create temporary file /tmp/apt.conf.sssss for passing config to apt-key" 如何处理?
+```
+# 这种情况一半都是手动删除tmp，然后手动创建，并且没给权限
+
+chmod 777 /tmp
+```
+
+## 2.centos nginx not found
+```
+rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+yum install nginx -y
+```
+
+## 3.jq not found
+```
+rpm -ivh http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+yum install jq
+```
+
+# 78.stat
+## 查看文件属性
+```
+# stat post-receive.sh
+
+File: ‘post-receive.sh’
+Size: 213       	Blocks: 8          IO Block: 4096   regular file
+Device: fd01h/64769d	Inode: 134036      Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2019-10-31 09:40:19.343143055 +0800
+Modify: 2019-10-31 09:40:19.343143055 +0800
+Change: 2019-10-31 09:40:19.355143062 +0800
+Birth: -
+```
+## 属性含义
+
+```
+Access : 文件最近一次被访问的时间
+Modify:  文件内容最近一次被修改的时间
+Change: 文件属性最近一次被改变的时间
+```
+- 区别
+```
+echo '' >> post-receive.sh
+# Modify Change会被更改
+
+chmod 777 post-receive.sh
+# Change会被更改
+
+如果vim打开post-receive.sh并保存退出则
+Access Modify Change都会被更改
+```
+
+## 修改modify时间
+```
+# 文件时间戳修改为2020年5月13日12点12分50秒
+touch -t 202005131212.50 xxx.file
+```
+
+## 修改Change时间
+- linux无法直接修改Change时间，但是可以通过修改本地时间重新创建文件来修改
+```
+# 执行下条命令修改本地时间
+date -s "Fri 17 Sep 2021 06:18:54 AM UTC"
+
+# touch 文件名
+# vim 文件名 // 写入内容
+```
+
+- 批量修改
+```
+path='xx'
+
+find ${path}|while read -r line;do
+	touch -t 202203081212.50 "${line}"
+done
+```
+
+# 79.显示一个文件的某几行
+- 从第十行开始，显示20行。10-30
+```
+cat filename | tail -n +10 | head -n 20
+```
+- 显示10-30
+```
+cat filename| head -n 30 | tail -n +10
+```
+- 解析
+```
+# 显示最后10行
+tail -n 10 
+
+# 从10行开始，显示以后的
+tail -n +10
+
+# 显示前面的10行
+head -m 10
+```
+- sed实现
+```
+# 第5-10行
+sed -n '5,10p' filename
+```
+
+# 80.crontab修改默认的编辑器
+```
+sudo select-editor
+
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/nano        <---- easiest
+  2. /usr/bin/vim.basic
+  3. /usr/bin/vim.tiny
+
+Choose 1-3 [1]:
+```
+
+# 81.新建文件并追加、覆盖内容
+```
+# 覆盖
+echo '' > log
+
+# 追加
+echo '' >> log
+```
+
+# 82.sort
+- 参数
+```
+# 先排列第一个再排列第二个依次排列
+-t # 按照什么字符分割
+-k # 第几列排序
+-k 2n # 第二列顺序排序
+-k 6n # 第六列顺序排序
+-k 7r # 第七列倒序排序
+```
+- 空格分割、按照第一列顺序排列、第二列倒序排列、第七列顺序排列
+```
+cat /tmp/xx.log|sort -t ' ' -k 1n -k 2r -k 7n
+```
+- 倒叙排列
+```
+sort -r xx.xx
+```
+
+# 83.判断内容
+- 全部为数字
+```
+if [[ "$num" =~ ^[1-9]+$ ]]
+then
+fi
+```
+
+- 判断数字范围
+```
+if ((number >= 1 && number <= 65535)); then
+fi
+```
+
+# 84.删除rpm包
+```
+rpm -qa|grep nginx|xargs rpm -e
+```
+
+# 85.centos查看系统版本
+```
+rpm -q centos-release
+
+# centos-release-6-9.el6.12.3.x86_64
+```
+- 输出版本号
+```
+rpm -q centos-release|awk -F "[-]" '{print $3}'
+```
+
+# 86.EOF
+- 覆盖文件
+- ` & 可以用\处理
+```
+cat << EOF > /tmp/log
+    param=\$1
+    echo \${param}
+EOF
+
+```
+
+- 效果 cat  /tmp/log
+```
+    param=$1
+    echo ${param}
+```
+
+# 87.保留两位小数
+- %.2f
+```
+awk 'BEGIN{printf "%.2f\n",('${num1}'/'${num2}')*100}'
+```
+
+# 88.大小写转换
+- 小写转大写
+```
+echo 'hello' | tr 'a-z' 'A-Z'
+```
+
+- 大写转小写
+```
+echo 'HELLO' | tr 'A-Z' 'a-z'
+```
+
+# 89.随机字符串
+```
+head -n 50 /dev/urandom|sed 's/[^a-z]//g'|strings -n 4|tr 'A-Z' 'a-z'|head -1
+```
+
+# 90.read
+- 1.简单读取
+```
+echo "请输入内容:"
+read content
+echo "内容为${content}"
+
+# 结果
+
+请输入内容:
+123
+内容为123
+```
+- 2.-p ，允许在read命令中直接指定一个提示
+```
+read -p "请输入内容:" content
+echo "内容为${content}"
+
+# 结果
+
+请输入内容:123
+内容为123
+
+```
+
+- 3.-t 指定read命令等待输入的秒数，当记时满时，read命令返回一个非零推出状态
+```
+if read -t 5 -p "输入网站名:" website
+then
+    echo "你输入的网站名是 $website"
+else
+    echo "\n抱歉，你输入超时了。"
+fi
+
+# 输入时
+输入网站名:123
+你输入的网站名是 123
+
+# 超时时
+输入网站名:\n抱歉，你输入超时了。
+```
+
+- 4.-n 限制输入的字数个数，当输入足够时会自动退出并赋值给变量
+```
+# -n 后面的数字，则表示只接受指定数量的字符就自动赋值给变量并且不用按回车。
+
+read -n1 -p "Do you want to continue [Y/N]?" answer
+case $answer in
+Y | y)
+      echo "fine ,continue";;
+N | n)
+      echo "ok,good bye";;
+*)
+     echo "error choice";;
+
+esac
+exit 0
+```
+- 5.-s选项能够使read命令输入的数据不显示在终端上（实际是显示的，只是read命令将文本颜色设置成与背景相同的颜色）
+```
+read  -s  -p "请输入您的密码:" pass
+echo "\n您输入的密码是 $pass"
+exit 0
+
+# 结果
+
+请输入您的密码:
+您输入的密码是 runoob
+```
+
+- 6.读取文件
+```
+# 每次调用read都会读取文中的一行文本，当文件没有可读是则非零状态退出
+count=1    # 赋值语句，不加空格
+cat test.txt | while read line      # cat 命令的输出作为read命令的输入,read读到>的值放在line中
+do
+   echo "Line $count:$line"
+   count=$[ $count + 1 ]          # 注意中括号中的空格。
+done
+echo "finish"
+exit 0
+
+# test.txt
+1
+2
+3
+4
+5
+
+# 结果
+Line 1:1
+Line 2:2
+Line 3:3
+Line 4:4
+Line 5:5
+finish
+```
+- 7.-e 当输入字符a后按入Tab键就会输出相关的文件名（当前目录存在的）
+```
+ read -e -p "输入文件名:" str 
+输入文件名:a
+a.out    a.py     a.pyc    abc.txt  
+输入文件名:a
+```
+
+# 91.vim
+- vim 粘贴乱行
+```
+:set paste
+```
+- vim 编辑指定行
+```
+# n代表行数
+vim +n filename
+```
+# 92.捕获stderr
+```
+find /tmp/ls -name demo > /tmp/log 2>&1
+```
+
+# 93.bash
+- 判断文件夹存在
+```
+if [[ -d "/myfolder" ]]
+then
+  mkdir /myfolder
+fi
+```
+
+- 判断文件、目录是否有可执行权限
+```
+folder="/var/www/"
+file="/var/www/log"
+
+# -x 参数判断 $folder 是否存在并且是否具有可执行权限
+if [[ ! -x "$folder" ]]
+then
+  mkdir "$folder"
+fi
+```
+
+- -f 参数判断文件是否存在
+```
+if [[ -f "$file" ]]
+then
+    echo 存在
+fi
+```
+
+- 判断一个变量是否有值
+```
+if [[ -n "${var}" ]
+then
+  echo 有值
+fi
+```
+
+- 判断两个变量是否相等
+```
+if [[ "${var1}" = "${var2}" ]]
+then
+  echo '$var1 eq $var2'
+else
+  echo '$var1 not eq $var2'
+fi
+```
+
+- 判断条件
+```
+lt：less than 小于
+le：less than or equal to 小于等于
+eq：equal to 等于
+ne：not equal to 不等于
+ge：greater than or equal to 大于等于
+gt：greater than 大于
+
+# ex
+if [[ $1 -gt 0 ]]
+then
+    echo
+fi
+```
+
+# 94.Centos查看安装路径
+- 查找相应的安装包
+```
+rpm -qa|grep redis
+```
+
+- 查找安装包的安装路径
+```
+rpm -ql redis-3.2.10-2.el7.x86_64
+
+
+/etc/logrotate.d/redis
+/etc/redis-sentinel.conf
+/etc/redis.conf
+/etc/systemd/system/redis-sentinel.service.d
+/etc/systemd/system/redis-sentinel.service.d/limit.conf
+/etc/systemd/system/redis.service.d
+/etc/systemd/system/redis.service.d/limit.conf
+/usr/bin/redis-benchmark
+/usr/bin/redis-check-aof
+/usr/bin/redis-check-rdb
+/usr/bin/redis-cli
+```
+# 95.循环
+## 1.数字性循环
+- 1
+```
+for((i=1;i<=10;i++));  
+do   
+    echo $(expr $i \* 3 + 1);  
+done 
+```
+- 2
+```
+for i in $(seq 1 10)  
+do   
+    echo $(expr $i \* 3 + 1);  
+done 
+```
+
+- 3
+```
+for i in {1..10}  
+do  
+    echo $(expr $i \* 3 + 1);  
+done 
+```
+- 4
+```
+awk 'BEGIN{for(i=1; i<=10; i++) print i}'  
+```
+
+## 2.字符性循环
+- 1
+```
+for i in `ls`;  
+do   
+    echo $i is file name\! ;  
+done 
+```
+- 2
+```
+for i in $* ;  
+do  
+    echo $i is input chart\! ;  
+done  
+```
+- 3
+```
+for i in f1 f2 f3 ;  
+do  
+    echo $i is appoint ;  
+done 
+```
+- 4
+```
+list="rootfs usr data data2"  
+for i in $list;  
+do  
+echo $i is appoint ;  
+done
+```
+
+## 3.路径查找
+- 1
+```
+for file in /proc/*;  
+do  
+    echo $file is file path \! ;  
+done  
+```
+- 2
+```
+for file in $(ls *.sh)  
+do  
+    echo $file is file path \! ;  
+done  
+```
+
+## 4.读取文件的每一行内容并输出
+- 方法1
+```
+while read line
+do
+    echo $line
+done < file(待读取的文件)
+```
+
+- 方法2
+```
+cat file(待读取的文件) | while read line
+do
+    echo $line
+done
+```
+
+- 方法3
+```
+for line in `cat file(待读取的文件)`
+do
+    echo $line
+done
+```
+
+# 96.循环赋值作用域问题
+- 当为管道符时，管道符为非内建命令，会启动子shell进行循环，所以当前的shell则不能获取值
+```
+cat demo.txt|while read row
+do
+    a=${a}${row}
+done
+echo ${a} # 空
+```
+## 解决方法
+- 1.可以使用重定向
+```
+while read row
+do
+    a=${a}${row}
+done < ./demo.txt
+echo ${a}
+```
+
+- 2.新建文件
+```
+a=
+cat ./demo.txt|while read row
+do
+    exsitValue=`cat ./demo2.txt`
+    echo ${exsitValue}${row} > ./demo2.txt
+done
+cat ./demo2.txt
+```
+
+- 3.方法3
+```
+while read line
+do
+    echo ${line}
+done <<< "abc xyz"
+```
+
+- 4.进程替换
+```
+while read var
+do
+    echo ${var}
+done < <(cmd_list)
+```
+
+- 5.改变标准输入
+```
+exec <filename
+while read var
+do
+    echo ${var}
+done
+
+```
+# 97.软连接、硬连接
+- ln命令会保持每一处链接文件的同步性
+- 不论是硬连结或软链结都不会将原本的档案复制一份，只会占用非常少量的磁盘空间
+
+## 语法
+```
+ln -s 源文件 目标文件
+```
+- 详细参数
+```
+-f : 链结时先将与 dist 同档名的档案删除
+-d : 允许系统管理者硬链结自己的目录
+-i : 在删除与 dist 同档名的档案时先进行询问
+-n : 在进行软连结时，将 dist 视为一般的档案
+-s : 进行软链结(symbolic link)
+-v : 在连结之前显示其档名
+-b : 将在链结时会被覆写或删除的档案进行备份
+-S SUFFIX : 将备份的档案都加上 SUFFIX 的字尾
+-V METHOD : 指定备份的方式
+--help : 显示辅助说明
+--version : 显示版本
+```
+
+- 示例
+```
+ln 源文件 连接文件
+# 硬连接
+ln /root/demo /usr/bin/demo 
+# 软连接
+ln -s /root/demo /usr/bin/demo 
+```
+
+## 硬连接
+- 硬连接指通过索引节点来进行连接。
+- 在Linux的文件系统中，保存在磁盘分区中的文件不管是什么类型都给它分配一个编号，称为索引节点号(Inode Index)。
+- 在Linux中，多个文件名指向同一索引节点是存在的。一般这种连接就是硬连接。
+- 硬连接的作用是允许一个文件拥有多个有效路径名，这样用户就可以建立硬连接到重要文件，以防止“误删”的功能。
+- 其原因如上所述，因为对应该目录的索引节点有一个以上的连接。
+- 只删除一个连接并不影响索引节点本身和其它的连接，只有当最后一个连接被删除后，文件的数据块及目录的连接才会被释放。
+- 也就是说，文件真正删除的条件是与之相关的所有硬连接文件均被删除。
+- 不允许给目录创建硬链接
+- 只有在同一文件系统中的文件之间才能创建链接，而且只有超级用户才有建立硬链接权限。
+- 无论源文件怎么移动只要在一个文件系统都可以找到。
+
+## 软连接
+- 另外一种连接称之为符号连接（Symbolic Link），也叫软连接。
+- 软链接文件有类似于Windows的快捷方式。
+- 它实际上是一个特殊的文件。
+- 在符号连接中，文件实际上是一个文本文件，其中包含的有另一文件的位置信息。
+
+
+## 软连接&硬连接区别
+
+- 硬连接必须删除主体文件才会消失
+- 软连接包含文件的路径，如果源文件移除或者移动则找不到主体文件，硬连接则无需担心此问题
+- 软连接应用更加官方，可以跨越不通的文件系统、网络等进行链接。
+
+# 98.正则匹配ip
+```
+cat ip.txt |grep '^\([1-9]\|[1-9][0-9]\|1[0-9][0-9]\|2[0-4][0-9]\|25[0-5]\)\(\.\([0-9]\|([1-9][0-9]\|1[0-9][0-9]\|2[0-4][0-9]\|25[0-5]\)\)\{3\}$'
+```
+
+# 99.判断当前用户是root
+```
+if [ `id -u` -eq 0 ];then
+	echo "root用户!"
+else
+	echo "非root用户!"
+fi
+```
+
+# 100.ssh 执行命令
+>-T 需要一个远程TTY用于shell的交互
+- 执行单条命令
+```
+ssh -T root@ip "ls -1"
+```
+
+- 执行多条命令
+```
+ssh -T root@ip "pwd; cat hello.txt"
+```
+
+- 远端直接运行一个shell
+```
+ssh root@ip < test.sh
+```
+
+- 远端执行脚本并带参数
+```
+# $0 bash
+# $1 test
+ssh root@ip 'bash -s' < test.sh test
+```
+
+# 101.匹配字母数字
+```
+if [[ "${str}" =~ ^[a-zA-Z0-9] ]]
+then
+fi
+```
+
+# 102.计算数字
+```
+foo=3
+foo=`expr ${foo} + 2`
+echo ${foo} # 5
+```
+
+# 103.操作SELinux
+- 查看SELinux状态
+```
+sestatus -v 、getenforce
+
+# enabled为启用状态
+SELinux status: enabled
+```
+
+- 临时关闭SELinux
+```
+# 设置SELinux为permissive模式
+setenforce 0
+
+# 设置SELinux 成为enforcing模式
+setenforce 1
+```
+
+- 永久关闭
+```
+修改/etc/selinux/config 文件下
+SELINUX=enforcing--->SELINUX=disabled
+然后重启
+```
+- nginx添加端口
+```
+# 查询是否开放
+$(find /usr/bin /usr/sbin | grep -w semanage) port -l | grep http_port | grep  443
+
+# 开放端口
+$(find /usr/bin /usr/sbin | grep -w semanage) port -a -t http_port_t -p tcp 31300
+
+```
+- 查看状态
+```
+getenforce
+# permissive 宽容模式、enforcing 强制模式
+```
+
+# 104.查看PID
+```
+pgrep -f 'nginx'
+```
+
+# 105./usr/bin /usr/local/bin区别
+- usr 指 Unix System Resource
+- /usr/bin下面的都是系统预装的可执行程序，会随着系统升级而改变
+- /usr/local/bin目录是给用户放置自己的可执行程序的地方，推荐放在这里，不会被系统升级而覆盖同名文件。
+- 优先级一般是 /usr/local/bin > /usr/bin
+
+# 106./bin /sbin /usr/sbin /usr/bin
+## 1./sbin
+- 基本命令，如shutdown reboot
+
+## 2./bin
+- 普通的基本命令 如ls chmod
+
+## 3.区别
+- 从用户权限的角度 /sbin目录下的命令通常只有管理员才可以运行，/bin下的命令 管理员和一般用户都可以使用
+- 从可运行的角度/sbin /bin能够挂载其他文件系统前可以使用
+
+## 4./usr/bin,/usr/sbin与/sbin /bin目录的区别在于
+
+-bin,/sbin目录是在系统启动后挂载到根文件系统中的，所以/sbin,/bin目录必须和根文件系统在同一分区
+
+- /usr/bin,usr/sbin可以和根文件系统不在一个分区
+
+-  /usr/sbin存放的一些非必须的系统命令；/usr/bin存放一些用户命令，如led(控制LED灯的)
+
+## 5.总结
+
+- /bin是系统指令。bin为binary的简写主要放置一些系统的必备执行档例如:cat、cp、chmod df、dmesg、gzip、kill、ls、mkdir、more、mount、rm、su、tar等
+-  /sbin一般是指超级用户指令。主要放置一些系统管理的必备程式例如:cfdisk、dhcpcd、dump、e2fsck、fdisk、halt、ifconfig、ifup、 ifdown、init、insmod、lilo、lsmod、mke2fs、modprobe、quotacheck、reboot、rmmod、 runlevel、shutdown等。
+- /usr/bin　是你在后期安装的一些软件的运行脚本。主要放置一些应用软体工具的必备执行档例如c++、g++、gcc、chdrv、diff、dig、du、eject、elm、free、gnome*、 gzip、htpasswd、kfm、ktop、last、less、locale、m4、make、man、mcopy、ncftp、 newaliases、nslookup passwd、quota、smb*、wget等。
+- /usr/sbin   放置一些用户安装的系统管理的必备程式例如:dhcpd、httpd、imap、in.*d、inetd、lpd、named、netconfig、nmbd、samba、sendmail、squid、swap、tcpd、tcpdump等。
+
+# 107.DoH查询域名ip
+>[文档](https://developers.cloudflare.com/1.1.1.1/dns-over-https/json-format)
+- ipv4
+```
+curl -s -H 'accept:application/dns-json' 'https://cloudflare-dns.com/dns-query?name='www.baidu.com'&type=A' | jq -r .Answer[0].data
+```
+
+- ipv6
+```
+curl -s -H 'accept:application/dns-json' 'https://cloudflare-dns.com/dns-query?name='www.baidu.com'&type=AAAA' | jq -r .Answer[0].data
+```
+
+# 108.iperf测试两台服务器间的带宽
+
+- 1.安装
+```
+* install iperf -y
+```
+
+- 2.测试
+```
+# 192.168.1.2
+iperf -s
+
+
+# 192.168.1.3
+iperf -c 192.168.1.2
+```
+
+- 3.结果
+```
+[root@server5 ~]# iperf -s
+------------------------------------------------------------
+Server listening on TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[  4] local 192.168.1.2 port 5001 connected with 192.168.1.3 port 54990
+[ ID] Interval       Transfer     Bandwidth
+[  4]  0.0-10.0 sec  1.10 GBytes   942 Mbits/sec
+```
+
+# 109.测速脚本
+```
+https://github.com/oooldking/script
+```
+
+# 110.按照指定格式分割字符并循环
+```
+str="1,2,3,4"
+while read -r line;do
+    echo ${line}
+done < <(echo ${str}|tr ',' '\n')
+```
+# 111.Linux 强制登录用户下线
+- 查看在线用户
+```
+w
+
+root     pts/1    192.168.1.200    14:18   21.00s  0.01s  0.01s -bash
+root     pts/2    192.168.1.200    14:21    0.00s  0.01s  0.00s w
+```
+
+- 踢人下线
+```
+pkill -kill -t pts/1
+```
+# 112.将中文客户端修改为英文
+```
+export LANG=en_US.UTF-8
+```
+
+# 113.获取随机数
+- 获取F范围【1-F】内的随机数
+```
+echo $((RANDOM%F+1))
+
+# 3-1
+echo $((RANDOM%3+1))
+```
+# 114.find
+- 常规
+```
+find path -name 'xxx'
+```
+- 查找符合条件的文件内容的文件[输出文件路径]
+```
+# type 类型 一般正规文件(f)、设备文件(b,c)、目录(d)、连接文件(l)、socket（s）及FIFO(p)等
+find . -type f|xargs grep -ls 1234
+```
+
+# 115.批量替换文件内容为空格(多文件)
+- -i原地替换 因为替换会直接替换源文件比较危险，为了规避需要为替换后的文件加一个后缀
+```
+# 替换后的文件加一个.bak后缀
+sed -i ".bak" "s/源码之家//g" $(find ./* -type f|xargs grep -ls 源码之家)
+
+# 如果"" 则不备份
+sed -i "" "s/源码之家//g" $(find ./* -type f|xargs grep -ls 源码之家)
+
+sed -i "" "s/更多模板//g" $(grep -rl 更多模板 ./*)
+
+sed -i "" "s/网页模板//g" $(find ./* -type f|xargs grep -ls 网页模板)
+
+# 批量替换文件内容
+find . -type f -exec sed -i 's/https:\/\/paas\.gotgo\.cc:30443/https:\/\/pass\.extrotec\.com:30443/g' {} +
+
+```
+# 116.记录命令操作日志
+```
+export HISTORY_FILE=/var/lg/`date '+%y-%m-%d'`.log
+export PROMPT_COMMAND='{ date "+%y-%m-%d %T ##### $(who am i |awk "{print \$1\" \"\$2\" \"\$5}") #### $(pwd) #### $(history 1 | { read x cmd; echo "$cmd"; })"; } >> $HISTORY_FILE'
+```
+# 117.恢复rm后的数据
+```
+https://cloud.tencent.com/developer/article/1684479
+http://www.bewindoweb.com/207.html
+https://blog.51cto.com/ixdba/1566856
+https://www.jianshu.com/p/662293f12a47
+# debian&ubuntu 
+apt install extundelete
+```
+
+# 118.计算
+## 1.使用$[]
+```
+x=1
+echo $[$x+=1]
+# 2
+```
+
+## 2.使用expr
+```
+x=1
+expr $4 + 4
+# 5
+```
+
+## 3.(())
+- 使用方法：((表达式1,表达式2，表达式3))
+
+- 相比上面的两种方法,(())这种方法略显强大，它的强大之处在于：
+- 1) 支持a++,a--操作（是不是找到C语言的感觉）
+- 2) 支持多个表达式运算，各个表达式之间用“，”分开
+- 3) 双括号可以进行逻辑运算，四则运算
+- 4) 双括号结构 扩展了for，while,if条件测试运算
+- 5) 在双括号结构中，所有变量可以不加入：“$”符号前缀
+
+```
+x=1
+((y = x + 1,z = y + x))
+# 3
+```
+## 4.let
+- 注意：let必须是完整的算术表达式，即有等号两边
+```
+var=1
+let "var+=1" 或者 let var+=1
+
+echo $var
+
+output:
+2
+```
+
+# 119.linux暴力优化(适合单客户端)
+```
+net.ipv4.tcp_fin_timeout = 2
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_keepalive_time = 600
+net.ipv4.ip_local_port_range = 2000 65000
+net.ipv4.tcp_max_syn_backlog = 16384
+net.ipv4.tcp_max_tw_buckets = 36000
+net.ipv4.route.gc_timeout = 100
+net.ipv4.tcp_syn_retries = 1
+net.ipv4.tcp_synack_retries = 1
+net.ipv4.tcp_max_orphans = 16384
+net.core.somaxconn = 16384
+net.core.netdev_max_backlog = 16384
+```
+
+# 120.修改时间
+```
+date -s  "Sat Sep 18 17:41:59 CST 2021"
+```
+
+# 121.查看端口占用(servers)
+```
+netstat -tlnp
+```
+
+# 122.#!/usr/bin/env bash和#!/usr/bin/bash、#!/bin/bash比较
+## #!/usr/bin/env bash 提供了更多的灵活性
+- 用户不需要去寻找程序在系统中的位置
+- 不同的系统命令或者程序存放的位置可能是不同的，只要程序在你的$PATH里面，就可以查找到
+
+## #!/bin/bash、#!/usr/bin/bash
+- 指定了程序路径~~
+
+
+# 123.$?使用方法
+- $? 是一个特殊变量，用来获取上一个命令的退出状态，或者上一个函数的返回值。
+- 正确返回0，执行错误返回1
+```
+ls 
+echo $? # 0
+
+ls /tmp/aaa #不存在的目录
+echo $? $1
+```
+
+# 124.bash打印执行过程
+```
+bash -x xx.sh
+```
+
+# 125.查看docker container
+- 安装
+```
+apt install python-pip
+pip install runlike
+```
+- 使用
+```
+runlike -p containerID/containerName
+```
+# 126.apt
+```
+*** nscd.conf (Y/I/N/O/D/Z) [default=N] ?
+
+忽略上述选择
+
+--force-confold: do not modify the current configuration file, the new version is installed with a .dpkg-dist suffix. With this option alone, even configuration files that you have not modified are left untouched. You need to combine it with --force-confdef to let dpkg overwrite configuration files that you have not modified.
+--force-confnew: always install the new version of the configuration file, the current version is kept in a file with the .dpkg-old suffix.
+--force-confdef: ask dpkg to decide alone when it can and prompt otherwise. This is the default behavior of dpkg and this option is mainly useful in combination with --force-confold.
+--force-confmiss: ask dpkg to install the configuration file if it’s currently missing (for example because you have removed the file by mistake).
+
+
+apt -o Dpkg::Options::="--force-confold" -y install xx
+```
+# 127.-bash: !": event not found错误
+```
+!有特殊含义转椅或者单引号
+```
+# 129.if条件判断
+- -d ：判断制定的是否为目录
+- -z：判断制定的变量是否存在值
+
+- -f：判断制定的是否为文件
+- -L:判断制定的是否为符号链接
+- -r：判断制定的是否可读
+- -w:判断制定的是否可写
+- -x：判断存在的对象是否可以执行
+- !：测试条件的否定符号
+
+# 128.无法ping通127
+- 如果多网卡请注意设置
+```
+sudo vim /etc/network/interfaces
+
+auto lo
+iface lo inet loopback
+auto eth0
+iface eth0 inet dhcp
+
+sudo ifconfig lo up
+
+```
+
+# 129.截取字符的后两位
+- 注意-2前面有空格
+```
+foo="abcd"
+${foo: -2} // cd 
+```
+# 130.修改时区
+- 1.查看时区
+```
+date
+
+# 输出的日期和时间格式应该是类似于以下格式,其中EDT是当前时区的缩写。
+
+Tue Mar 25 01:23:45 EDT 2023
+
+```
+- 2.备份当前的时区设置
+```
+sudo cp /etc/localtime /etc/localtime.bak
+```
+- 3.删除/etc/localtime软链接
+```
+sudo rm /etc/localtime
+```
+- 4.创建一个新软链接
+```
+sudo ln -s /usr/share/zoneinfo/UTC /etc/localtime
+```
+- 5.校验时区
+```
+date
+```
+>如有侵权行为，请[点击这里](https://github.com/cooper-q/blog_hexo/issues)联系我删除
+
+[如发现疑问或者错误点击反馈](https://github.com/cooper-q/blog_hexo/issues)

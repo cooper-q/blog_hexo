@@ -1,0 +1,111 @@
+-c 统计字节数。
+
+-l 统计行数。
+
+-m 统计字符数。这个标志不能与 -c 标志一起使用。
+
+-w 统计字数。一个字被定义为由空白、跳格或换行字符分隔的字符串。
+
+-L 打印最长行的长度。
+
+-help 显示帮助信息
+
+--version 显示版本信息
+```
+
+# 45.复制到粘贴板
+
+- Mac
+```
+echo 'pbcopy'|pbcopy
+```
+
+# 46./usr/bin /usr/local/bin区别
+- usr 指 Unix SystemResource，而不是User
+- /usr/bin下面的都是系统预装的可执行程序，会随着系统升级而改变
+- usr/local/bin目录是给用户放置自己的可执行程序的地方，推荐放在这里，不会被系统升级而覆盖同名文件。
+- 如果两个目录下有相同的可执行程序，谁优先执行受到PATH环境变量的影响
+
+# 47.You have new mail
+- 由于系统错误（cron的权限问题）引起
+- 系统会将检查的各种状态汇总，定期发送本机用户邮箱
+- 删除可解决
+
+## 1.查看
+```
+mail
+
+Mail version 8.1 6/6/93.  Type ? fMail version 8.1 6/6/93.": 29 messages 29 new
+>N  1 xx@xx.local     Fri Feb 23 10:39  21/954   "Cron <xx@xx> curl "http://localhost/t/cron.php" >>"
+...
+```
+## 2.删除
+- xxx对应上面看到的xxx的实际名称
+```
+sudo rm /var/mail/xxx
+sudo touch /var/mail/xxx
+```
+
+# 48.linux修改DNS服务
+```
+1.编辑/etc/resolv.conf
+2.添加  nameserver 8.8.8.8
+3.执行 service network restart 重启网络服务
+```
+
+# 49.增加、删除虚拟内存
+## 1.增加虚拟内存
+- 1.获取文件块（具体划分多少swap交换分区，根据你的物理内存具体应用情况磁盘情况而定一般是物理内存的1~2倍）
+```
+dd if=/dev/zero of=/var/swapfile bs=1M count=2048
+
+# block_size、number_of_block 大小可以自定义，比如 bs=1M count=1024 代表设置 1G 大小 SWAP 分区。
+```
+
+- 2.创建swap文件
+```
+/sbin/mkswap -f /var/swapfile
+```
+
+- 3.给予swapfile 600权限
+```
+chmod 600 /var/swapfile
+```
+
+- 4.挂起swap文件
+```
+/sbin/swapon /var/swapfile
+```
+
+- 5.检查swap是否正确
+```
+/sbin/swapon -s
+```
+
+- 6.加到fstab文件中让系统引导时自动启动（防止重启后swap分区变成0）
+```
+vi /etc/fstab
+// 末尾加入
+/var/swapfile swap swap defaults 0 0
+```
+
+- 6.重启系统
+```
+reboot
+```
+
+- 7.查看swap交换分区情况
+```
+free -m
+```
+
+## 2.删除虚拟内存
+- 1.停止swap分区
+```
+/sbin/swapoff /var/swapfile
+```
+
+- 2.删除swap分区文件
+```
+rm -rf /var/swapfile
+```

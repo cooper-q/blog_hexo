@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.idea
+nohup.out
+.deploy*/
+source/_posts/2019-03-04-Jetbrains.markdown
