@@ -871,3 +871,15 @@ git push --force --tags origin 'refs/heads/*'
 ```
 git tag -l | xargs -n 1 git push --delete origin
 ```
+
+# 23.清空history
+```
+git checkout --orphan last
+git add .
+git commit -m ''
+
+git branch -D master
+git branch -m master
+git push -f origin master
+git branch --set-upstream-to=origin/master
+```
