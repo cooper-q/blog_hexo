@@ -619,6 +619,10 @@ git show tag_name
 ```
 "mongoose-models":"git+ssh://git@gitlab.xxx.com:backend/mongoose-models.git#tag号",
 ```
+## 16.列出远程tag
+```
+git ls-remote --tags
+```
 
 # 10.pull、fetch
 ## 1.区别
