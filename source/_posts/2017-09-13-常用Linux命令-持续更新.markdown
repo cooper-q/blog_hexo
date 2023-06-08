@@ -1325,6 +1325,10 @@ source ~/.zshrc # 重新加载，使文件立马生效
 - 执行脚本时，其中的命令是在一个子shell中执行的。子shell继承了父shell的环境变量，但无法修改他们，或者说所做的修改仅对子shell有效。所以当shell脚本执行完后，到了回到shell命令行中，先前脚本中执行的source命令就没有效果了。
 
 # 20.grep
+- 匹配并统计
+```
+grep c "demo" < /tmp/a
+```
 
 - grep忽略错误[No such file or directory]
 ```
@@ -4442,6 +4446,7 @@ sudo ln -s /usr/share/zoneinfo/UTC /etc/localtime
 ```
 date
 ```
+
 >如有侵权行为，请[点击这里](https://github.com/cooper-q/blog_hexo/issues)联系我删除
 
 [如发现疑问或者错误点击反馈](https://github.com/cooper-q/blog_hexo/issues)
