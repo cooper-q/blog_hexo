@@ -542,6 +542,16 @@ git log --pretty=format:'%h %an %ad %s' // 展示短哈希、作者名称、修�
 --committer|	仅显示指定提交者相关的提交。
 --left-right|显示每个提交到底处于哪一侧的分支
 
+## 11.查看某个文件的log
+```
+git log fileName
+# 查看文件每次diff不同内容
+git log -p fileName
+# 只看某个文件的指定commitID的变动
+git show commit-id fileName
+
+```
+
 # 9.git tag(标签)
 - 相当于快照，在那个分支上打tag没有关系，也和分支没关系。
 
@@ -886,4 +896,13 @@ git branch -D master
 git branch -m master
 git push -f origin master
 git branch --set-upstream-to=origin/master
+```
+
+# 24.看到最后一次commmitID并判断是否包含某个文件的变动
+```
+lastCommitID=$(git rev-parse HEAD)
+if [[ -n $(git show "${lastCommitID}" package.json) ]]; then
+	echo "执行 npm install"
+	npm install
+fi
 ```
